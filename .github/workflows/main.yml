@@ -1,0 +1,163 @@
+name: Build and Publish
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+  deploy-storybook:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: npm install
+          build_command: npm run build-storybook
+          path: storybook-static
+          checkout: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    needs: build
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, 'Merge pull request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 전체 Git 기록 가져오기
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Commit uncommitted changes (if any)
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m "Auto-commit uncommitted changes" || echo "No changes to commit"
+
+      - name: Bump version & create tag
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null)
+          CLEAN_VERSION=$(echo $LATEST_TAG | sed 's/^v//')
+          NEW_VERSION=$(echo $CLEAN_VERSION | awk -F. -v OFS=. '{$NF += 1 ; print}')
+          npm version "$NEW_VERSION" --no-git-tag-version
+          git add package.json package-lock.json
+          git commit -m "🔖 Release $NEW_VERSION"
+          git tag "v$NEW_VERSION"
+          git push origin HEAD --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get latest tag
+        id: get_tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Extract latest release notes from CHANGELOG.md
+        run: |
+          echo "### Changelog" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          TAG="${{ env.tag }}"
+          VERSION=$(echo $TAG | sed 's/^v//')
+          awk -v version="$VERSION" '
+          BEGIN { found=0; nextIsContent=0; }
+          /^## \[[0-9]+\.[0-9]+\.[0-9]+\]/ {
+            if (found && nextIsContent) { nextIsContent=0; exit; }
+            if ($0 ~ "\\[" version "\\]") { 
+              found=1; 
+              nextIsContent=1;
+              print; 
+              next; 
+            }
+          }
+          found && nextIsContent { print }
+          ' CHANGELOG.md >> RELEASE_NOTES.md || echo "No changelog entries found for $TAG" >> RELEASE_NOTES.md
+          cat RELEASE_NOTES.md
+        shell: bash
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.tag }}
+          name: "Release ${{ env.tag }}"
+          body_path: "RELEASE_NOTES.md"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: release
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, 'Merge pull request')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Check package.json version before publishing
+        run: cat package.json | jq .version
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

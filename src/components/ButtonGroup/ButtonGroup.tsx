@@ -54,7 +54,7 @@ export interface ButtonGroupProps {
 }
 
 /**
- * Koast-ui ButtonGroup 컴포넌트
+ * @koast/ui ButtonGroup 컴포넌트
  * 여러 관련 버튼을 그룹화하는 컴포넌트입니다.
  *
  * @param {ButtonGroupProps} props - ButtonGroup 컴포넌트의 속성

@@ -2,7 +2,7 @@ import { ButtonProps } from './Button.types';
 import { getButtonStyles, getLoadingIndicator } from './Button.styles';
 
 /**
- * koast-ui 버튼 컴포넌트입니다.
+ * @koast/ui 버튼 컴포넌트입니다.
  *
  * @param {'outlined' | 'contained' | 'text'} [props.variant='outlined'] - 버튼 스타일 변형 : 'outlined' | 'contained' | 'text'
  * @param {'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'} [props.color='primary'] - 버튼 색상 : 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'

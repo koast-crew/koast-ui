@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { calculateIndex, changeSelectedGuideMessage, generateSteps, hideGuageHoverMessage, playStyleStatus, returnDate, showGuageHoverMessage, sizeToTWClassName, themeToTWColorClassName } from './TimeSlider.func';
 import { StepTimeSliderProps } from './TimeSlider.types';
 /**
- * koast-ui 타임슬라이더 컴포넌트입니다.
+ * @koast/ui 타임슬라이더 컴포넌트입니다.
  * @param {'Date'} [props.start] - 타임슬라이더 시작 시간. required
  * @param {'Date'} [props.end] - 타임슬라이더 종료 시간. required
  * @param {'number'} [props.stepValue] - 타임슬라이더 간격, stepUnit에 따라 계산에 사용됨. required

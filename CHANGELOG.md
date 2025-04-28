@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1] - 2025-04-28
+### Fixed
+- 설정 중 koast-ui 라이브러리 이름을 @koast/ui로 변경
+### Test
+- storybook github pages 배포 테스트
+
 ## [1.0.0] - 2025-04-28
 ### Added
 - 1.0.0 버전 Release

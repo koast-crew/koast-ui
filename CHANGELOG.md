@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 2025-04-28
+### Added
+- README github pages 주소 수정
+
 ## [1.0.2] - 2025-04-28
 ### Test
 - Publish 실패로 access: "public" 추가 후 배포 테스트

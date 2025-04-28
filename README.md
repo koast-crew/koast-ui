@@ -7,8 +7,7 @@
 (기존에는 [http://10.2.10.79:4873](http://10.2.10.79:4873)에 [Verdaccio](https://verdaccio.org/)를 구축하여 진행했습니다만, 그렇게 진행할 필요가 없어서 npmjs.org에 직접 배포하는 방식으로 변경하였습니다.)
 
 - NPM 배포 : [@koast/ui](https://www.npmjs.com/package/@koast/ui)
-- 문서 : [@koast/ui storybook](https://judahwon.github.io/@koast/ui/)
-  (`github pages`를 사용하기 위해 `judahwon` 계정에서 public repo로 배포하고 있습니다.)
+- 문서 : [@koast/ui storybook](https://koast-crew.github.io/koast-ui/)
 - `Publish` 권한이 필요한 경우, `judahwon`에게 요청해주시기 바랍니다.
 - 추가적으로, main branch에 push될 때마다 자동으로 배포되도록 설정하였습니다. 또한, PR merge될 때마다 NPM 배포도 자동으로 진행됩니다.
 

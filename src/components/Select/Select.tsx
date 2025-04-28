@@ -5,7 +5,7 @@ import { getSizeStyles, getVariantStyles, getErrorStyles, getWidthStyles } from 
 import clsx from 'clsx';
 
 /**
- * Koast-ui Select(Dropdown) 컴포넌트입니다.
+ * @koast/ui Select(Dropdown) 컴포넌트입니다.
  * Select 컴포넌트의 옵션으로 사용됩니다.
  *
  * @param {string | number | SelectObjectValue} props.value - 항목의 값입니다. 객체인 경우 반드시 name 속성이 필요합니다.

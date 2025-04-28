@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './node_modules/koast-ui/dist/style.css',
+    './node_modules/@koast/ui/dist/style.css',
 		'./index.html',
     './src/**/*.{js,ts,jsx,tsx}',
     './dev/**/*.{js,ts,jsx,tsx}',

@@ -34,7 +34,7 @@ export default defineConfig(({ command }) => ({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'KoastUI',
       formats: ['es', 'umd'],
-      fileName: (format) => `koast-ui.${format}.js`
+      fileName: (format) => `@koast/ui.${format}.js`
     },
     outDir: resolve(__dirname, 'dist'),
     rollupOptions: {

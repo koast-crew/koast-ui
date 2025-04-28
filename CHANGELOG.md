@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] - 2025-04-28
+### Test
+- Publish 실패로 access: "public" 추가 후 배포 테스트
+
 ## [1.0.1] - 2025-04-28
 ### Fixed
 - 설정 중 koast-ui 라이브러리 이름을 @koast/ui로 변경

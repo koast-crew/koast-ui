@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.6] - 2025-04-29
+### Test
+- production 빌드 테스트
+
 ## [1.0.5] - 2025-04-29
 ### Test
 - vite minify 설정 테스트

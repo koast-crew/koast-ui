@@ -38,17 +38,20 @@ export default defineConfig(({ command }) => ({
     },
     outDir: resolve(__dirname, 'dist'),
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'tailwindcss', 'clsx'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-        },
+          'tailwindcss': 'tailwindcss',
+          'clsx': 'clsx'
+        }
       },
     },
     sourcemap: false,
     emptyOutDir: true,
     cssCodeSplit: false,
+    minify: 'terser',
   },
   esbuild: {
     target: 'esnext',

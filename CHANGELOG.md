@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.4] - 2025-04-29
+### Test
+- 빌드 package, vite 설정 테스트
+
 ## [1.0.3] - 2025-04-28
 ### Added
 - README github pages 주소 수정

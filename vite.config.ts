@@ -29,30 +29,30 @@ export default defineConfig(({ command }) => ({
     },
   },
   root: command === 'serve' ? './dev' : undefined,
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production')
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'KoastUI',
       formats: ['es', 'umd'],
-      fileName: (format) => `ui.${format}.js`
+      fileName: (format) => `koast-ui.${format}.js`
     },
     outDir: resolve(__dirname, 'dist'),
     rollupOptions: {
-      external: ['react', 'react-dom', 'tailwindcss', 'clsx'],
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'tailwindcss': 'tailwindcss',
-          'clsx': 'clsx'
-        }
+        },
       },
     },
     sourcemap: false,
     emptyOutDir: true,
     cssCodeSplit: false,
-    minify: 'terser',
-  },
+  }, 
   esbuild: {
     target: 'esnext',
     format: 'esm',

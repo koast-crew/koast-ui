@@ -1,12 +1,14 @@
 # Changelog
 
-## [1.0.3] - 2025-04-28
+## [1.0.3] - 2025-04-29
 ### Added
-- README github pages 주소 수정
+- 빌드 시 불필요한 폴더 제거
 
 ## [1.0.2] - 2025-04-28
 ### Test
 - Publish 실패로 access: "public" 추가 후 배포 테스트
+### Added
+- README github pages 주소 수정
 
 ## [1.0.1] - 2025-04-28
 ### Fixed

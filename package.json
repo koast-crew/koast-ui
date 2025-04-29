@@ -1,6 +1,6 @@
 {
   "name": "@koast/ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "description": "Koast를 위한 React UI 라이브러리",
   "type": "module",

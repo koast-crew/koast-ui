@@ -4,16 +4,16 @@
   "private": false,
   "description": "Koast를 위한 React UI 라이브러리",
   "type": "module",
-  "main": "./dist/ui.umd.js",
-  "module": "./dist/ui.es.js",
+  "main": "./dist/koast-ui.umd.js",
+  "module": "./dist/koast-ui.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/ui.es.js",
-      "require": "./dist/ui.umd.js",
+      "import": "./dist/koast-ui.es.js",
+      "require": "./dist/koast-ui.umd.js",
       "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"

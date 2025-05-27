@@ -1,5 +1,6 @@
 import { ButtonProps } from './Button.types';
-import { getButtonStyles, getLoadingIndicator } from './Button.styles';
+import { getButtonStyles, getLoadingIndicator } from './Button.utils';
+import { iconContainer } from './Button.styles.css';
 
 /**
  * @koast/ui 버튼 컴포넌트입니다.
@@ -80,9 +81,9 @@ export const Button = (props: ButtonProps) => {
   // 버튼 내용
   const buttonContent = (
     <>
-      {startIcon && <span className={'inline-flex'}>{startIcon}</span>}
+      {startIcon && <span className={iconContainer}>{startIcon}</span>}
       <span>{children}</span>
-      {endIcon && <span className={'inline-flex'}>{endIcon}</span>}
+      {endIcon && <span className={iconContainer}>{endIcon}</span>}
       {loadingIndicator}
     </>
   );

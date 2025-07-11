@@ -1,5 +1,5 @@
 import { ButtonColor, ButtonSize, ButtonVariant } from './Button.types';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * 기본 버튼 스타일을 정의합니다.
@@ -41,7 +41,7 @@ export const getButtonStyles = (
   // 너비 스타일
   const widthStyle = fullWidth ? 'w-full' : '';
 
-  return clsx(
+  return twMerge(
     baseStyle,
     sizes[size],
     colorStyle,

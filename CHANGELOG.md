@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.10] - 2025-07-11
+### Fixed
+- 1.0.9 버전 롤백
+- add-tailwind-config.js 수정(tailwind.config.ts 에서도 동작)
+
+## [1.0.9] - 2025-07-11
+### Test
+- Tailwind prefix 추가 및 ClassName 충돌 테스트
+
 ## [1.0.8] - 2025-04-29
 ### Test
 - 빌드 테스트

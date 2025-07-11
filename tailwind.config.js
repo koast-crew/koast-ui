@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  prefix: 'koast-ui-',
   content: [
     './node_modules/@koast/ui/dist/style.css',
 		'./index.html',

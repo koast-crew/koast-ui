@@ -80,9 +80,9 @@ export const Button = (props: ButtonProps) => {
   // 버튼 내용
   const buttonContent = (
     <>
-      {startIcon && <span className={'koast-ui-inline-flex'}>{startIcon}</span>}
+      {startIcon && <span className={'inline-flex'}>{startIcon}</span>}
       <span>{children}</span>
-      {endIcon && <span className={'koast-ui-inline-flex'}>{endIcon}</span>}
+      {endIcon && <span className={'inline-flex'}>{endIcon}</span>}
       {loadingIndicator}
     </>
   );

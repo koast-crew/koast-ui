@@ -9,7 +9,6 @@ const ButtonExam = () => {
       onClick={() => alert('Primary clicked')}
       fullWidth={true}
       endIcon={<ChevronRight />}
-      className={''}
     >
       {'button\r'}
     </Button>

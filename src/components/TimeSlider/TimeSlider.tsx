@@ -1,5 +1,5 @@
 // import './TimeSlider.css';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { calculateIndex, changeSelectedGuideMessage, generateSteps, hideGuageHoverMessage, playStyleStatus, returnDate, showGuageHoverMessage, sizeToTWClassName, themeToTWColorClassName } from './TimeSlider.func';
 import { StepTimeSliderProps } from './TimeSlider.types';
@@ -160,8 +160,8 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
 
   const PrevButton = () => {
     return (
-      <button onClick={handlePrev} className={`flex items-center justify-center px-px ${ prevnextSizeAndRounded } bg-gray-100 shadow-[0_0_4px_0_#000]`}>
-        <svg viewBox={'0 0 16 16'} className={'size-4/5'}>
+      <button onClick={handlePrev} className={twMerge(`flex items-center justify-center px-px ${ prevnextSizeAndRounded } bg-gray-100 shadow-[0_0_4px_0_#000]`)}>
+        <svg viewBox={'0 0 16 16'} className={twMerge('size-4/5')}>
           <polyline points={'12,2 4,8 12,14'} fill={'none'} stroke={pnBtnColor} strokeWidth={'2'} />
         </svg>
       </button>
@@ -170,8 +170,8 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
 
   const NextButton = () => {
     return (
-      <button onClick={handleNext} className={`flex items-center justify-center pl-0.5 ${ prevnextSizeAndRounded } bg-gray-100 shadow-[0_0_4px_0_#000]`}>
-        <svg viewBox={'0 0 16 16'} className={'size-4/5'}>
+      <button onClick={handleNext} className={twMerge(`flex items-center justify-center pl-0.5 ${ prevnextSizeAndRounded } bg-gray-100 shadow-[0_0_4px_0_#000]`)}>
+        <svg viewBox={'0 0 16 16'} className={twMerge('size-4/5')}>
           <polyline points={'4,2 12,8 4,14'} fill={'none'} stroke={pnBtnColor} strokeWidth={'2'} />
         </svg>
       </button>
@@ -179,13 +179,13 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
   };
 
   return (
-    <section className={clsx(`flex ${ mainSize } w-full gap-1`)}>
-      <section className={clsx('timeslider-animation-box-wrapper flex h-full min-w-[40px] cursor-pointer flex-col items-center justify-center')}>
+    <section className={twMerge(`flex ${ mainSize } w-full gap-1`)}>
+      <section className={twMerge('timeslider-animation-box-wrapper flex h-full min-w-[40px] cursor-pointer flex-col items-center justify-center')}>
         <div
           onClick={() => {
             setIsRun(!isRun);
           }}
-          className={clsx(
+          className={twMerge(
             'relative',
             playSizeAndRounded,
             'bg-gray-100 shadow-[0_0_4px_0_#000]',
@@ -193,39 +193,39 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
             isRun ? stopBtnColor : playBtnColor,
           )}
         />
-        <div className={'mt-[3px] flex gap-1'}>
+        <div className={twMerge('mt-[3px] flex gap-1')}>
           <PrevButton />
           <NextButton />
         </div>
       </section>
 
-      <section className={'timeslider-wrapper flex-1'}>
+      <section className={twMerge('timeslider-wrapper flex-1')}>
         <section
           ref={gaugeRef}
           onClick={handleClick}
           onMouseMove={handleHover}
           onMouseOut={handleMouseOut}
-          className={'timeslider-guage-wrapper relative h-1/5 w-full cursor-pointer bg-clip-padding after:absolute after:inset-[-5px] after:z-[1] after:content-[""]'}
+          className={twMerge('timeslider-guage-wrapper relative h-1/5 w-full cursor-pointer bg-clip-padding after:absolute after:inset-[-5px] after:z-[1] after:content-[""]')}
         >
-          <div className={'relative size-full'}>
-            <div className={clsx('absolute size-full rounded-none rounded-t-md', sliderColor)} />
-            <div className={clsx('absolute h-full rounded-none rounded-tl-md', playColor)} style={{ width: `${ stepWidthPercentage * (currentIndex + 1) }%` }} />
+          <div className={twMerge('relative size-full')}>
+            <div className={twMerge('absolute size-full rounded-none rounded-t-md', sliderColor)} />
+            <div className={twMerge('absolute h-full rounded-none rounded-tl-md', playColor)} style={{ width: `${ stepWidthPercentage * (currentIndex + 1) }%` }} />
           </div>
-          <div ref={gaugeHoverGuideRef} className={'pointer-events-none absolute top-[-2.4em] box-border text-sm opacity-0'}>
-            <div ref={gaugeHoverGuideTextRef} className={clsx('relative box-border table-cell whitespace-nowrap rounded-[.5em] p-[0.2em] text-center align-middle shadow-none before:absolute before:left-[1.5em] before:top-full before:ml-[-0.5em] before:size-0 before:border-[0.5em] before:border-solid before:border-transparent before:content-[""]', hoverGuideColor)} />
+          <div ref={gaugeHoverGuideRef} className={twMerge('pointer-events-none absolute top-[-2.4em] box-border text-sm opacity-0')}>
+            <div ref={gaugeHoverGuideTextRef} className={twMerge('relative box-border table-cell whitespace-nowrap rounded-[.5em] p-[0.2em] text-center align-middle shadow-none before:absolute before:left-[1.5em] before:top-full before:ml-[-0.5em] before:size-0 before:border-[0.5em] before:border-solid before:border-transparent before:content-[""]', hoverGuideColor)} />
           </div>
-          <div ref={selectedGuideRef} className={'opacity-1 pointer-events-none absolute top-[-2.4em] box-border w-[100px] text-base'}>
-            <div ref={selectedGuideTextRef} className={clsx('relative box-border table-cell min-w-[100px] whitespace-nowrap rounded-[.5em] p-[0.2em] text-center align-middle shadow-[0_0_4px_0_#000] before:absolute before:left-[42px] before:top-full before:size-0 before:border-[0.5em] before:border-solid before:border-transparent before:content-[""]', selectedGuideColor)} />
+          <div ref={selectedGuideRef} className={twMerge('opacity-1 pointer-events-none absolute top-[-2.4em] box-border w-[100px] text-base')}>
+            <div ref={selectedGuideTextRef} className={twMerge('relative box-border table-cell min-w-[100px] whitespace-nowrap rounded-[.5em] p-[0.2em] text-center align-middle shadow-[0_0_4px_0_#000] before:absolute before:left-[42px] before:top-full before:size-0 before:border-[0.5em] before:border-solid before:border-transparent before:content-[""]', selectedGuideColor)} />
           </div>
         </section>
-        <section className={clsx('timeslider-ruler-wrapper relative flex h-4/5 w-full flex-col', bgColor)}>
-          <div className={'timeslider-graduations-wrapper flex size-full flex-row'}>
+        <section className={twMerge('timeslider-ruler-wrapper relative flex h-4/5 w-full flex-col', bgColor)}>
+          <div className={twMerge('timeslider-graduations-wrapper flex size-full flex-row')}>
             {
               calculatedSteps.map((date, index) => {
                 return (
                   <div
                     key={`${ index }-graduation2`}
-                    className={clsx(
+                    className={twMerge(
                       'relative flex h-full items-center justify-center text-gray-800',
                       calculatedStepsLength - 1 === index ? '' : 'before:absolute before:right-0 before:top-0 before:h-1/2 before:border-r-2 before:border-white before:content-[""]',
                     )}

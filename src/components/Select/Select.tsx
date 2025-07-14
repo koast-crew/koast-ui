@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SelectProps, SelectItemProps, SelectObjectValue } from './Select.types';
 import { getSizeStyles, getVariantStyles, getErrorStyles, getWidthStyles } from './Select.styles';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * @koast/ui Select(Dropdown) 컴포넌트입니다.
@@ -26,7 +26,7 @@ export const SelectItem = ({ value, children, disabled, className }: SelectItemP
   return (
     <div
       data-value={value}
-      className={clsx(
+      className={twMerge(
         'cursor-pointer px-4 py-2 hover:bg-gray-100',
         disabled ? 'cursor-not-allowed opacity-50' : '',
         className,
@@ -169,12 +169,12 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
   return (
     <div
       style={{ display: 'inline-block' }}
-      className={clsx(fullWidth && getWidthStyles(fullWidth), className)}
+      className={twMerge(fullWidth && getWidthStyles(fullWidth), className)}
       ref={selectRef}
     >
-      <div className={'relative'}>
+      <div className={twMerge('relative')}>
         <div
-          className={clsx(
+          className={twMerge(
             'flex cursor-pointer items-center justify-between rounded',
             getVariantStyles(variant),
             getSizeStyles(size),
@@ -192,17 +192,17 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
           id={id}
           data-name={name}
         >
-          <div className={clsx(
+          <div className={twMerge(
             'flex grow items-center justify-between truncate',
             !selectedValue && placeholder ? 'text-gray-400' : '',
           )}
           >
             {getDisplayValue() || placeholder}
-            {required && !selectedValue && <span className={'ml-1.5 text-xs text-red-500'}>{'필수*'}</span>}
+            {required && !selectedValue && <span className={twMerge('ml-1.5 text-xs text-red-500')}>{'필수*'}</span>}
           </div>
           <ChevronDown
             size={20}
-            className={clsx(
+            className={twMerge(
               'ml-2 transition-transform duration-200',
               isOpen ? 'rotate-180' : '',
             )}
@@ -210,7 +210,7 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
         </div>
 
         {isOpen && (
-          <div className={'absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded border border-gray-300 bg-white shadow-lg'}>
+          <div className={twMerge('absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded border border-gray-300 bg-white shadow-lg')}>
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return null;
 
@@ -219,7 +219,7 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
               return (
                 <div
                   onClick={() => !itemDisabled && handleSelect(itemValue)}
-                  className={clsx(
+                  className={twMerge(
                     selectedValue === itemValue ? 'bg-blue-50 text-blue-800' : '',
                     size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-lg' : 'text-base',
                   )}
@@ -233,7 +233,7 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
       </div>
 
       {error && errorText && (
-        <div className={'mt-1 text-sm text-red-500'}>
+        <div className={twMerge('mt-1 text-sm text-red-500')}>
           {errorText}
         </div>
       )}

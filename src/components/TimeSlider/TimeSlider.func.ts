@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { DateToStringFunc, TimeSliderSize, TimeSliderTheme, TimeUnit } from './TimeSlider.types';
 
 export const generateSteps = (
@@ -164,13 +164,13 @@ const currentPlaySizeClassName = (size: TimeSliderSize) => {
   }
 };
 
-const currentStopStyle = (size: TimeSliderSize) => clsx(
+const currentStopStyle = (size: TimeSliderSize) => twMerge(
   'before:absolute',
   currentStopSizeClassName(size),
   'before:border-y-transparent before:content-[""]',
 );
 
-const currentPlayStyle = (size: TimeSliderSize) => clsx(
+const currentPlayStyle = (size: TimeSliderSize) => twMerge(
   'before:absolute after:absolute',
   currentPlaySizeClassName(size),
 );
@@ -201,18 +201,14 @@ export const sizeToTWClassName = (size: TimeSliderSize) => {
       break;
     }
     case 'lg': {
-      mainSize = 'h-[72px]';
-      playSizeAndRounded = 'size-[45px] rounded-[45px]';
-      prevnextSizeAndRounded = 'size-[22.5px] rounded-[22.5px]';
+      mainSize = 'h-[60px]';
+      playSizeAndRounded = 'size-[37.5px] rounded-[37.5px]';
+      prevnextSizeAndRounded = 'size-[18.75px] rounded-[18.75px]';
       break;
     }
   }
 
-  return {
-    mainSize,
-    playSizeAndRounded,
-    prevnextSizeAndRounded,
-  };
+  return { mainSize, playSizeAndRounded, prevnextSizeAndRounded };
 };
 
 type ThemeColorSet = {
@@ -226,58 +222,60 @@ type ThemeColorSet = {
   selectedGuideColor: string;
   hoverGuideColor: string;
 };
+
 export const themeToTWColorClassName = (theme: TimeSliderTheme): ThemeColorSet => {
   switch (theme) {
     case 'light': {
       return {
-        bgColor: 'bg-gray-100',
-        sliderColor: 'bg-gray-300',
-        playColor: 'bg-green-600',
-        playBtnColor: 'before:border-l-gray-800',
-        stopBtnColor: 'before:bg-gray-800 after:bg-gray-800',
-        pnBtnColor: '#1f2937',
-        textColor: 'text-gray-900',
-        selectedGuideColor: 'bg-green-300 text-gray-900 before:border-t-green-300',
-        hoverGuideColor: 'bg-green-300 text-gray-900 before:border-t-green-300',
+        bgColor: 'bg-white',
+        sliderColor: 'bg-gray-200',
+        playColor: 'bg-blue-500',
+        playBtnColor: 'bg-blue-500',
+        stopBtnColor: 'bg-red-500',
+        pnBtnColor: '#3B82F6',
+        textColor: 'text-gray-800',
+        selectedGuideColor: 'bg-blue-500 text-white before:border-t-blue-500',
+        hoverGuideColor: 'bg-gray-200 text-gray-800 before:border-t-gray-200',
       };
     }
     case 'cool': {
       return {
-        bgColor: 'bg-blue-100',
-        sliderColor: 'bg-blue-300',
-        playColor: 'bg-blue-700',
-        playBtnColor: 'before:border-l-blue-800',
-        stopBtnColor: 'before:bg-blue-800 after:bg-blue-800',
-        pnBtnColor: '#1d4ed8',
-        textColor: 'text-blue-900',
-        selectedGuideColor: 'bg-blue-200 text-blue-900 before:border-t-blue-200',
-        hoverGuideColor: 'bg-blue-100 text-blue-900 before:border-t-blue-100',
+        bgColor: 'bg-blue-900',
+        sliderColor: 'bg-blue-700',
+        playColor: 'bg-blue-500',
+        playBtnColor: 'bg-blue-500',
+        stopBtnColor: 'bg-red-500',
+        pnBtnColor: '#3B82F6',
+        textColor: 'text-white',
+        selectedGuideColor: 'bg-blue-500 text-white before:border-t-blue-500',
+        hoverGuideColor: 'bg-blue-700 text-white before:border-t-blue-700',
       };
     }
     case 'warm': {
       return {
-        bgColor: 'bg-orange-100',
-        sliderColor: 'bg-orange-300',
-        playColor: 'bg-orange-600',
-        playBtnColor: 'before:border-l-orange-800',
-        stopBtnColor: 'before:bg-orange-800 after:bg-orange-800',
-        pnBtnColor: '#c2410c',
-        textColor: 'text-orange-900',
-        selectedGuideColor: 'bg-orange-200 text-orange-900 before:border-t-orange-200',
-        hoverGuideColor: 'bg-orange-100 text-orange-900 before:border-t-orange-100',
+        bgColor: 'bg-orange-900',
+        sliderColor: 'bg-orange-700',
+        playColor: 'bg-orange-500',
+        playBtnColor: 'bg-orange-500',
+        stopBtnColor: 'bg-red-500',
+        pnBtnColor: '#F97316',
+        textColor: 'text-white',
+        selectedGuideColor: 'bg-orange-500 text-white before:border-t-orange-500',
+        hoverGuideColor: 'bg-orange-700 text-white before:border-t-orange-700',
       };
     }
+    case 'dark':
     default: {
       return {
         bgColor: 'bg-gray-800',
         sliderColor: 'bg-gray-600',
-        playColor: 'bg-gray-300',
-        playBtnColor: 'before:border-l-red-700',
-        stopBtnColor: 'before:bg-red-700 after:bg-red-700',
-        pnBtnColor: '#9d0300',
+        playColor: 'bg-blue-500',
+        playBtnColor: 'bg-blue-500',
+        stopBtnColor: 'bg-red-500',
+        pnBtnColor: '#3B82F6',
         textColor: 'text-white',
-        selectedGuideColor: 'bg-orange-400 text-white before:border-t-orange-400',
-        hoverGuideColor: 'bg-gray-800 text-white before:border-t-gray-800',
+        selectedGuideColor: 'bg-blue-500 text-white before:border-t-blue-500',
+        hoverGuideColor: 'bg-gray-600 text-white before:border-t-gray-600',
       };
     }
   }

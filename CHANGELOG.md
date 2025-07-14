@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.12] - 2025-07-14
+### Fixed
+- 전체 컴포넌트 clsx -> tailwind-merge 변경
+- clsx 의존성 제거
+
 ## [1.0.11] - 2025-07-11
 ### Test
 - tailwind-merge 테스트(Button 컴포넌트)

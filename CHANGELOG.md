@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.13] - 2025-07-15
+### Added
+- Select 컴포넌트 bgClassName 추가
+
 ## [1.0.12] - 2025-07-14
 ### Fixed
 - 전체 컴포넌트 clsx -> tailwind-merge 변경

@@ -52,6 +52,7 @@ export const SelectItem = ({ value, children, disabled, className }: SelectItemP
  * @param {'outlined' | 'filled' | 'standard'} [props.variant='outlined'] - 컴포넌트 스타일 변형 : 'outlined' | 'filled' | 'standard'
  * @param {boolean} [props.error=false] - 오류 상태 : boolean
  * @param {string} [props.errorText] - 오류 메시지 : string
+ * @param {string} [props.bgClassName] - 배경 컴포넌트 클래스 : string
  * @param {string} [props.className] - 추가 CSS 클래스 : string
  * @param {React.ReactNode} props.children - SelectItem 컴포넌트들 : React.ReactNode
  * @param {string} [props.id] - 컴포넌트 ID : string
@@ -89,6 +90,7 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
     error = false,
     errorText,
     className,
+    bgClassName,
     children,
     id,
     name,
@@ -169,7 +171,7 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
   return (
     <div
       style={{ display: 'inline-block' }}
-      className={twMerge(fullWidth && getWidthStyles(fullWidth), className)}
+      className={twMerge(fullWidth && getWidthStyles(fullWidth), bgClassName)}
       ref={selectRef}
     >
       <div className={twMerge('relative')}>
@@ -181,6 +183,7 @@ export const Select = <T extends string | number | SelectObjectValue = string | 
             getErrorStyles(error),
             disabled ? 'cursor-not-allowed bg-gray-50 opacity-50' : 'hover:border-gray-400',
             'transition-colors duration-200',
+            className,
           )}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           tabIndex={disabled ? -1 : 0}

@@ -80,6 +80,11 @@ export interface SelectProps<T extends string | number | SelectObjectValue = str
   errorText?: React.ReactNode;
 
   /**
+   * Select의 배경 컴포넌트 클래스를 지정합니다.
+   */
+  bgClassName?: string;
+
+  /**
    * Select에 추가할 CSS 클래스명입니다.
    */
   className?: string;

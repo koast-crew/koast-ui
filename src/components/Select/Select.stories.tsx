@@ -63,6 +63,10 @@ const meta = {
       control: 'text',
       description: 'Select에 에러가 났을 때 하단에 표시할 텍스트입니다.',
     },
+    bgClassName: {
+      control: 'text',
+      description: 'Select의 배경 컴포넌트 클래스를 지정합니다.',
+    },
   },
 } satisfies Meta<typeof Select>;
 

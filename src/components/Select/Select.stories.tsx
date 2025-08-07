@@ -37,11 +37,6 @@ const meta = {
       description: 'Select의 필수 입력 여부를 지정합니다.',
       defaultValue: false,
     },
-    fullWidth: {
-      control: 'boolean',
-      description: 'Select의 전체 너비 사용 여부를 지정합니다.',
-      defaultValue: false,
-    },
     size: {
       control: 'radio',
       options: ['sm', 'md', 'lg'],
@@ -62,6 +57,10 @@ const meta = {
     errorText: {
       control: 'text',
       description: 'Select에 에러가 났을 때 하단에 표시할 텍스트입니다.',
+    },
+    selectedItemClassName: {
+      control: 'text',
+      description: '선택된 값 클래스를 지정합니다.',
     },
     bgClassName: {
       control: 'text',
@@ -98,18 +97,13 @@ export const Default: SelectStory = {
 
 /**
  * 제어 컴포넌트로 사용하는 Select 예시입니다.
- * 오브젝트 값은 반드시 name 속성을 포함해야 합니다.
  */
 export const Controlled: SelectStory = {
   render: () => {
-    interface Option {
-      id: number;
-      name: string;
-    }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [stringValue, setStringValue] = useState<string>('option2');
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [objectValue, setObjectValue] = useState<Option>({ id: 1, name: '옵션 1' });
+    const [numberValue, setNumberValue] = useState<number>(10);
 
     return (
       <div style={{ height: '280px' }}>
@@ -127,14 +121,14 @@ export const Controlled: SelectStory = {
           </div>
 
           <div>
-            <p>{'객체 값: '}{JSON.stringify(objectValue)}</p>
+            <p>{'숫자 값: '}{numberValue}</p>
             <Select
-              value={objectValue}
-              onChange={(newValue) => setObjectValue(newValue)}
+              value={numberValue}
+              onChange={(newValue) => setNumberValue(newValue as number)}
             >
-              <SelectItem value={{ id: 1, name: '옵션 1' }}>{'옵션 1'}</SelectItem>
-              <SelectItem value={{ id: 2, name: '옵션 2' }}>{'옵션 2'}</SelectItem>
-              <SelectItem value={{ id: 3, name: '옵션 3' }}>{'옵션 3'}</SelectItem>
+              <SelectItem value={10}>{'10'}</SelectItem>
+              <SelectItem value={20}>{'20'}</SelectItem>
+              <SelectItem value={30}>{'30'}</SelectItem>
             </Select>
           </div>
         </div>
@@ -253,23 +247,6 @@ export const Error: SelectStory = {
 };
 
 /**
- * 전체 너비(fullWidth) Select 예시입니다.
- */
-export const FullWidth: SelectStory = {
-  render: () => (
-    <div style={{ height: '180px' }}>
-      <div className={'w-[800px]'}>
-        <Select fullWidth placeholder={'전체 너비 Select'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-          <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
-        </Select>
-      </div>
-    </div>
-  ),
-};
-
-/**
  * 다양한 옵션을 가진 Select 예시입니다.
  */
 export const ManyOptions: SelectStory = {
@@ -341,6 +318,80 @@ export const CustomStyled: SelectStory = {
 };
 
 /**
+ * 선택된 아이템에 커스텀 스타일이 적용된 Select 예시입니다.
+ */
+export const CustomSelectedItem: SelectStory = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [value, setValue] = useState<string>('option1');
+
+    return (
+      <div style={{ height: '180px' }}>
+        <div className={'flex flex-col gap-4'}>
+          <p>{'선택된 값: '}{value}</p>
+          <Select
+            value={value}
+            onChange={(newValue) => setValue(newValue as string)}
+            placeholder={'선택하세요'}
+            selectedItemClassName={'bg-blue-100 text-blue-700 font-semibold'}
+          >
+            <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
+            <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
+            <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
+          </Select>
+        </div>
+      </div>
+    );
+  },
+};
+
+/**
+ * 다양한 선택된 아이템 스타일 예시입니다.
+ */
+export const SelectedItemStyles: SelectStory = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [value1, setValue1] = useState<string>('option1');
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [value2, setValue2] = useState<string>('option1');
+
+    return (
+      <div style={{ height: '280px' }}>
+        <div className={'flex flex-col gap-4'}>
+          <div>
+            <p className={'mb-2'}>{'파란색 배경 스타일'}</p>
+            <Select
+              value={value1}
+              onChange={(newValue) => setValue1(newValue as string)}
+              placeholder={'선택하세요'}
+              selectedItemClassName={'bg-blue-500 text-white'}
+            >
+              <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
+              <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
+              <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
+            </Select>
+          </div>
+
+          <div>
+            <p className={'mb-2'}>{'초록색 테두리 스타일'}</p>
+            <Select
+              value={value2}
+              onChange={(newValue) => setValue2(newValue as string)}
+              placeholder={'선택하세요'}
+              selectedItemClassName={'border-2 border-green-500 bg-green-50 text-green-700'}
+            >
+              <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
+              <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
+              <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
+            </Select>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+/**
  * SelectItem 컴포넌트의 기본 스토리입니다.
  */
 export const Item: SelectItemStory = {
@@ -390,34 +441,3 @@ export const CustomStyledItem: SelectItemStory = {
   },
 };
 
-/**
- * 객체 값을 가진 Select 예시입니다.
- */
-export const ObjectValues: SelectStory = {
-  render: () => {
-    interface Option {
-      id: number;
-      name: string;
-    }
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [value, setValue] = useState<Option>({ id: 2, name: '옵션 2' });
-
-    return (
-      <div style={{ height: '180px' }}>
-        <div className={'flex flex-col gap-4'}>
-          <p>{'선택된 값: '}{JSON.stringify(value)}</p>
-          <Select<Option>
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
-            placeholder={'옵션 선택'}
-          >
-            <SelectItem value={{ id: 1, name: '옵션 1' }}>{'옵션 1'}</SelectItem>
-            <SelectItem value={{ id: 2, name: '옵션 2' }}>{'옵션 2'}</SelectItem>
-            <SelectItem value={{ id: 3, name: '옵션 3' }}>{'옵션 3'}</SelectItem>
-          </Select>
-        </div>
-      </div>
-    );
-  },
-};

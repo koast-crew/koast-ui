@@ -36,10 +36,3 @@ export const getVariantStyles = (variant: SelectVariant): string => {
 export const getErrorStyles = (error: boolean): string => {
   return error ? '!border-red-500' : '';
 };
-
-/**
- * Select 너비에 따른 스타일을 반환합니다.
- */
-export const getWidthStyles = (fullWidth: boolean): string => {
-  return fullWidth ? 'w-full' : '';
-};

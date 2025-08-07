@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SelectProps, SelectItemProps } from './Select.types';
-import { getSizeStyles, getVariantStyles, getErrorStyles, getWidthStyles } from './Select.styles';
+import { getSizeStyles, getVariantStyles, getErrorStyles } from './Select.styles';
 import { twMerge } from 'tailwind-merge';
 
 /**
@@ -48,7 +48,6 @@ export const SelectItem = ({ value, children, disabled, className }: SelectItemP
  * @param {string} [props.placeholder] - 선택되지 않았을 때 표시되는 텍스트 : string
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {boolean} [props.required=false] - 필수 입력 여부 : boolean
- * @param {boolean} [props.fullWidth=false] - 전체 너비 사용 여부 : boolean
  * @param {'sm' | 'md' | 'lg'} [props.size='md'] - 컴포넌트 크기 : 'sm' | 'md' | 'lg'
  * @param {'outlined' | 'filled' | 'standard'} [props.variant='outlined'] - 컴포넌트 스타일 변형 : 'outlined' | 'filled' | 'standard'
  * @param {boolean} [props.error=false] - 오류 상태 : boolean
@@ -86,7 +85,6 @@ export const Select = <T extends string | number = string | number>(
     placeholder,
     disabled = false,
     required = false,
-    fullWidth = false,
     size = 'md',
     variant = 'outlined',
     error = false,
@@ -168,7 +166,7 @@ export const Select = <T extends string | number = string | number>(
   return (
     <div
       style={{ display: 'inline-block' }}
-      className={twMerge('koast-select', fullWidth && getWidthStyles(fullWidth), bgClassName)}
+      className={twMerge('koast-select', bgClassName)}
       ref={selectRef}
     >
       <div className={twMerge('koast-select__container', 'relative')}>

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.14] - 2025-08-07
+### Added
+- Select 컴포넌트 시멘틱 클래스명 추가
+### Fixed
+- Select 컴포넌트 fullWidth 속석 제거 및 selectedItemClassName 추가
+
 ## [1.0.13] - 2025-07-15
 ### Added
 - Select 컴포넌트 bgClassName 추가

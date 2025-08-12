@@ -27,7 +27,7 @@ export const SelectItem = ({ value, children, disabled, className }: SelectItemP
     <div
       data-value={value}
       className={twMerge(
-        'select-item',
+        'koast-select__item',
         'cursor-pointer px-4 py-2',
         disabled ? 'cursor-not-allowed opacity-50' : '',
         className,
@@ -211,7 +211,7 @@ export const Select = <T extends string | number = string | number>(
         </div>
 
         {isOpen && (
-          <div className={twMerge('select__dropdown', 'absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded shadow-lg bg-transparent')}>
+          <div className={twMerge('koast-select__dropdown', 'absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded shadow-lg bg-transparent')}>
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return null;
               const { value: itemValue, disabled: itemDisabled } = child.props as SelectItemProps;
@@ -220,9 +220,9 @@ export const Select = <T extends string | number = string | number>(
                 <div
                   onClick={() => !itemDisabled && handleSelect(itemValue)}
                   className={twMerge(
-                    'select__option',
+                    'koast-select__option',
                     'bg-transparent',
-                    selectedValue === itemValue ? selectedItemClassName : '',
+                    value === itemValue ? selectedItemClassName : '',
                     size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-lg' : 'text-base',
                   )}
                 >
@@ -235,7 +235,7 @@ export const Select = <T extends string | number = string | number>(
       </div>
 
       {error && errorText && (
-        <div className={twMerge('select__error', 'mt-1 text-sm text-red-500')}>
+        <div className={twMerge('koast-select__error', 'mt-1 text-sm text-red-500')}>
           {errorText}
         </div>
       )}

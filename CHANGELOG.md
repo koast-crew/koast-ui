@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.17] - 2026-02-10
+### Fixed
+- NPM Token 갱신
+- TimeSlider 초기 렌더링 시 선택된 툴팁 위치가 잘못 표시되는 버그 수정
+
 ## [1.0.16] - 2026-02-10
 ### Changed
 - TimeSlider 컴포넌트 레이아웃 개선 (Play 버튼 왼쪽, Prev/Next 버튼 오른쪽 배치)

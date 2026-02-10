@@ -16,6 +16,13 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
+  decorators: [
+    (Story) => (
+      <div style={{ minWidth: '700px', padding: '48px 24px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   argTypes: {
     start: {
@@ -157,7 +164,7 @@ export const Steps: TimeSliderStory = {
       renderSelectedGuideMessage: (date: Date) => {
         const format = (date: Date) => {
           const hour = date.getHours();
-          return `${ hour === 18 ? '오후' : hour === 6 ? '오전' : '' }`;
+          return `${ hour === 18 ? '오후' : hour === 6 ? '오전' : '전일' }`;
         };
         return format(date);
       },
@@ -205,6 +212,13 @@ export const RenderRulerLabel: TimeSliderStory = {
  * 슬라이더 색상 테마를 변경합니다.
  */
 export const Theme: TimeSliderStory = {
+  decorators: [
+    (Story) => (
+      <div style={{ minWidth: '700px', padding: '48px 24px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   render: () => {
     const args: StepTimeSliderProps = {
       start: new Date('2025-03-10 07:47'),
@@ -227,11 +241,23 @@ export const Theme: TimeSliderStory = {
       },
     };
     return (
-      <div className={'flex flex-col gap-20'}>
-        <TimeSlider {...args} theme={'dark'} />
-        <TimeSlider {...args} theme={'light'} />
-        <TimeSlider {...args} theme={'cool'} />
-        <TimeSlider {...args} theme={'warm'} />
+      <div className={'flex flex-col gap-12'}>
+        <div>
+          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Dark Theme'}</p>
+          <TimeSlider {...args} theme={'dark'} />
+        </div>
+        <div>
+          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Light Theme'}</p>
+          <TimeSlider {...args} theme={'light'} />
+        </div>
+        <div>
+          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Cool Theme'}</p>
+          <TimeSlider {...args} theme={'cool'} />
+        </div>
+        <div>
+          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Warm Theme'}</p>
+          <TimeSlider {...args} theme={'warm'} />
+        </div>
       </div>
     );
   },

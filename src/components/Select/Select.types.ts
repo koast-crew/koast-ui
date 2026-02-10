@@ -5,7 +5,7 @@ import React from 'react';
  * @template T - string 또는 number 타입
  */
 
-export interface SelectProps<T extends string | number = string | number> {
+export interface SelectProps<T extends string | number = string> {
   /**
    * Select의 값입니다.
    * string 또는 number 타입만 허용됩니다.

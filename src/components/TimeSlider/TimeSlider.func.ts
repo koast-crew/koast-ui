@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge';
 import { DateToStringFunc, TimeSliderSize, TimeSliderTheme, TimeUnit } from './TimeSlider.types';
 
 export const generateSteps = (
@@ -127,56 +126,16 @@ export const changeSelectedGuideMessage = ({ guageElem, selectedGuideElem, selec
   const { width:gaugeWidth } = getRectMetrics(guageElem);
   const { width:selectedGuideWidth } = getRectMetrics(selectedGuideElem);
 
-  const selectedGuideOffsetPercentage = (selectedGuideWidth / 2 / gaugeWidth) * 100;
-  const leftPercentage = (stepWidthPercentage * index) + (stepWidthPercentage / 2) - selectedGuideOffsetPercentage;
+  // 플레이바의 오른쪽 끝 (현재 진행된 위치)을 기준으로 툴팁 위치 계산
+  const playbarRightPercentage = stepWidthPercentage * (index + 1);
+  const selectedGuideOffsetPercentage = (selectedGuideWidth / gaugeWidth) * 100;
+  const leftPercentage = playbarRightPercentage - selectedGuideOffsetPercentage;
 
-  selectedGuideElem.style.left = `${ leftPercentage }%`;
+  selectedGuideElem.style.left = `${ Math.max(0, leftPercentage) }%`;
   selectedGuideTextElem.innerText = render ? render(date) : getDefaultMessage(date, stepUnit);
 };
 
 export const returnDate = (date: Date | number) => date instanceof Date ? date : new Date(date);
-
-const currentStopSizeClassName = (size: TimeSliderSize) => {
-  switch (size) {
-    case 'lg': {
-      return 'before:left-[17px] before:top-[7.5px] before:border-y-[15px] before:border-l-[15px]';
-    }
-    case 'sm': {
-      return 'before:left-[8.75px] before:top-[3.75px] before:border-y-[7.5px] before:border-l-[7.5px]';
-    }
-    case 'md': {
-      return 'before:left-[11.5px] before:top-[5px] before:border-y-[10px] before:border-l-[10px]';
-    }
-  }
-};
-
-const currentPlaySizeClassName = (size: TimeSliderSize) => {
-  switch (size) {
-    case 'lg': {
-      return 'before:top-[12px] before:left-[12px] before:w-[6px] before:h-[18px] after:top-[12px] after:right-[12px] after:w-[6px] after:h-[18px]';
-    }
-    case 'sm': {
-      return 'before:top-[6px] before:left-[6px] before:w-[3px] before:h-[9px] after:top-[6px] after:right-[6px] after:w-[3px] after:h-[9px]';
-    }
-    case 'md': {
-      return 'before:top-[8px] before:left-[8px] before:w-[4px] before:h-[12px] after:top-[8px] after:right-[8px] after:w-[4px] after:h-[12px]';
-    }
-  }
-};
-
-const currentStopStyle = (size: TimeSliderSize) => twMerge(
-  'before:absolute',
-  currentStopSizeClassName(size),
-  'before:border-y-transparent before:content-[""]',
-);
-
-const currentPlayStyle = (size: TimeSliderSize) => twMerge(
-  'before:absolute after:absolute',
-  currentPlaySizeClassName(size),
-);
-
-export const playStyleStatus = (run: boolean, size: TimeSliderSize) =>
-  !run ? currentStopStyle(size) : currentPlayStyle(size);
 
 export const sizeToTWClassName = (size: TimeSliderSize) => {
   let mainSize = 'h-[52px]';

@@ -1,7 +1,7 @@
 // import './TimeSlider.css';
 import { twMerge } from 'tailwind-merge';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { calculateIndex, changeSelectedGuideMessage, generateSteps, hideGuageHoverMessage, playStyleStatus, returnDate, showGuageHoverMessage, sizeToTWClassName, themeToTWColorClassName } from './TimeSlider.func';
+import { calculateIndex, changeSelectedGuideMessage, generateSteps, hideGuageHoverMessage, returnDate, showGuageHoverMessage, sizeToTWClassName, themeToTWColorClassName } from './TimeSlider.func';
 import { StepTimeSliderProps } from './TimeSlider.types';
 /**
  * @koast/ui 타임슬라이더 컴포넌트입니다.
@@ -140,7 +140,12 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
 
   const handleNext = () => {
     const nextIndex = currentIndex + 1;
-    if (nextIndex < calculatedStepsLength) setCurrentIndex(nextIndex);
+    if (nextIndex < calculatedStepsLength) {
+      setCurrentIndex(nextIndex);
+    } else {
+      // 마지막 스텝이면 처음으로 되돌아감
+      setCurrentIndex(0);
+    }
   };
 
   const handlePrev = () => {
@@ -198,17 +203,37 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
   return (
     <section className={twMerge(`flex items-center ${ mainSize } w-full gap-3`)}>
       {/* Play/Stop Button */}
-      <div
+      <button
         onClick={() => {
-          setIsRun(!isRun);
+          if (isRun) {
+            setIsRun(false);
+          } else {
+            // 마지막 스텝이면 처음으로 되돌리고 재생
+            if (currentIndex >= calculatedStepsLength - 1) {
+              setCurrentIndex(0);
+            }
+            setIsRun(true);
+          }
         }}
         className={twMerge(
-          'relative cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95',
+          'flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95',
           playSizeAndRounded,
-          playStyleStatus(isRun, size),
           isRun ? stopBtnColor : playBtnColor,
         )}
-      />
+      >
+        {isRun ? (
+          // Stop (Pause) Icon
+          <svg viewBox={'0 0 24 24'} className={'size-1/2'} fill={'white'}>
+            <rect x={'6'} y={'5'} width={'4'} height={'14'} rx={'1'} />
+            <rect x={'14'} y={'5'} width={'4'} height={'14'} rx={'1'} />
+          </svg>
+        ) : (
+          // Play Icon
+          <svg viewBox={'0 0 24 24'} className={'size-1/2'} fill={'white'}>
+            <path d={'M8 5.14v14.72a1 1 0 0 0 1.5.86l11-7.36a1 1 0 0 0 0-1.72l-11-7.36a1 1 0 0 0-1.5.86z'} />
+          </svg>
+        )}
+      </button>
 
       {/* Timeline Section */}
       <section className={twMerge('timeslider-wrapper flex-1 min-w-0')}>

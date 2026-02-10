@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.16] - 2026-02-10
+### Changed
+- TimeSlider 컴포넌트 레이아웃 개선 (Play 버튼 왼쪽, Prev/Next 버튼 오른쪽 배치)
+- TimeSlider Play/Stop 버튼을 SVG 아이콘으로 변경 및 중앙 정렬 수정
+- TimeSlider 버튼 크기 증가 및 hover/active 애니메이션 추가
+- TimeSlider 테마 색상 전면 리뉴얼 (그라데이션 및 shadow 효과 적용)
+- TimeSlider 선택된 툴팁 위치를 플레이바 오른쪽 끝 기준으로 변경
+### Added
+- TimeSlider 마지막 스텝에서 Next/Play 시 처음으로 되돌아가는 기능 추가
+### Fixed
+- TimeSlider Storybook에 min-width decorator 추가하여 레이아웃 깨짐 방지
+
 ## [1.0.15] - 2025-08-12
 ### Added
 - Select 컴포넌트 시멘틱 클래스명 추가

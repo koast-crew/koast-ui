@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge';
 import { DateToStringFunc, TimeSliderSize, TimeSliderTheme, TimeUnit } from './TimeSlider.types';
 
 export const generateSteps = (
@@ -127,83 +126,33 @@ export const changeSelectedGuideMessage = ({ guageElem, selectedGuideElem, selec
   const { width:gaugeWidth } = getRectMetrics(guageElem);
   const { width:selectedGuideWidth } = getRectMetrics(selectedGuideElem);
 
-  const selectedGuideOffsetPercentage = (selectedGuideWidth / 2 / gaugeWidth) * 100;
-  const leftPercentage = (stepWidthPercentage * index) + (stepWidthPercentage / 2) - selectedGuideOffsetPercentage;
+  // 플레이바의 오른쪽 끝 (현재 진행된 위치)을 기준으로 툴팁 위치 계산
+  const playbarRightPercentage = stepWidthPercentage * (index + 1);
+  const selectedGuideOffsetPercentage = (selectedGuideWidth / gaugeWidth) * 100;
+  const leftPercentage = playbarRightPercentage - selectedGuideOffsetPercentage;
 
-  selectedGuideElem.style.left = `${ leftPercentage }%`;
+  selectedGuideElem.style.left = `${ Math.max(0, leftPercentage) }%`;
   selectedGuideTextElem.innerText = render ? render(date) : getDefaultMessage(date, stepUnit);
 };
 
 export const returnDate = (date: Date | number) => date instanceof Date ? date : new Date(date);
 
-const currentStopSizeClassName = (size: TimeSliderSize) => {
-  switch (size) {
-    case 'lg': {
-      return 'before:left-[17px] before:top-[7.5px] before:border-y-[15px] before:border-l-[15px]';
-    }
-    case 'sm': {
-      return 'before:left-[8.75px] before:top-[3.75px] before:border-y-[7.5px] before:border-l-[7.5px]';
-    }
-    case 'md': {
-      return 'before:left-[11.5px] before:top-[5px] before:border-y-[10px] before:border-l-[10px]';
-    }
-  }
-};
-
-const currentPlaySizeClassName = (size: TimeSliderSize) => {
-  switch (size) {
-    case 'lg': {
-      return 'before:top-[12px] before:left-[12px] before:w-[6px] before:h-[18px] after:top-[12px] after:right-[12px] after:w-[6px] after:h-[18px]';
-    }
-    case 'sm': {
-      return 'before:top-[6px] before:left-[6px] before:w-[3px] before:h-[9px] after:top-[6px] after:right-[6px] after:w-[3px] after:h-[9px]';
-    }
-    case 'md': {
-      return 'before:top-[8px] before:left-[8px] before:w-[4px] before:h-[12px] after:top-[8px] after:right-[8px] after:w-[4px] after:h-[12px]';
-    }
-  }
-};
-
-const currentStopStyle = (size: TimeSliderSize) => twMerge(
-  'before:absolute',
-  currentStopSizeClassName(size),
-  'before:border-y-transparent before:content-[""]',
-);
-
-const currentPlayStyle = (size: TimeSliderSize) => twMerge(
-  'before:absolute after:absolute',
-  currentPlaySizeClassName(size),
-);
-
-export const playStyleStatus = (run: boolean, size: TimeSliderSize) =>
-  !run ? currentStopStyle(size) : currentPlayStyle(size);
-
-export const animationWidthPercent = 0.05;
-export const sliderWidthPercent = 0.90;
-export const playPercent = 0.75;
-export const prevnextPercent = 0.375;
 export const sizeToTWClassName = (size: TimeSliderSize) => {
-  /* const animationWidthPercent = 0.05;
-  const sliderWidthPercent = 0.90;
-  const playPercent = 0.75;
-  const prevnextPercent = 0.375;
-  const mainHeight = 48;
-   */
-  let mainSize = 'h-[48px]';
-  let playSizeAndRounded = 'size-[30px] rounded-[30px]';
-  let prevnextSizeAndRounded = 'size-[15px] rounded-[15px]';
+  let mainSize = 'h-[52px]';
+  let playSizeAndRounded = 'size-[36px] rounded-full';
+  let prevnextSizeAndRounded = 'size-[28px] rounded-full';
 
   switch (size) {
     case 'sm': {
-      mainSize = 'h-[36px]';
-      playSizeAndRounded = 'size-[22.5px] rounded-[22.5px]';
-      prevnextSizeAndRounded = 'size-[11.25px] rounded-[11.25px]';
+      mainSize = 'h-[40px]';
+      playSizeAndRounded = 'size-[28px] rounded-full';
+      prevnextSizeAndRounded = 'size-[22px] rounded-full';
       break;
     }
     case 'lg': {
-      mainSize = 'h-[60px]';
-      playSizeAndRounded = 'size-[37.5px] rounded-[37.5px]';
-      prevnextSizeAndRounded = 'size-[18.75px] rounded-[18.75px]';
+      mainSize = 'h-[64px]';
+      playSizeAndRounded = 'size-[44px] rounded-full';
+      prevnextSizeAndRounded = 'size-[34px] rounded-full';
       break;
     }
   }
@@ -218,64 +167,89 @@ type ThemeColorSet = {
   playBtnColor: string;
   stopBtnColor: string;
   pnBtnColor: string;
+  pnBtnBgColor: string;
   textColor: string;
   selectedGuideColor: string;
   hoverGuideColor: string;
+  dividerColor: string;
+  rulerHeight: string;
 };
 
-export const themeToTWColorClassName = (theme: TimeSliderTheme): ThemeColorSet => {
+const getRulerHeight = (size: TimeSliderSize): string => {
+  switch (size) {
+    case 'sm': return 'h-[32px]';
+    case 'lg': return 'h-[54px]';
+    default: return 'h-[42px]';
+  }
+};
+
+export const themeToTWColorClassName = (theme: TimeSliderTheme, size: TimeSliderSize = 'md'): ThemeColorSet => {
+  const rulerHeight = getRulerHeight(size);
+
   switch (theme) {
     case 'light': {
       return {
-        bgColor: 'bg-white',
-        sliderColor: 'bg-gray-200',
-        playColor: 'bg-blue-500',
-        playBtnColor: 'bg-blue-500',
-        stopBtnColor: 'bg-red-500',
-        pnBtnColor: '#3B82F6',
-        textColor: 'text-gray-800',
-        selectedGuideColor: 'bg-blue-500 text-white before:border-t-blue-500',
-        hoverGuideColor: 'bg-gray-200 text-gray-800 before:border-t-gray-200',
+        bgColor: 'bg-slate-50',
+        sliderColor: 'bg-slate-200',
+        playColor: 'bg-gradient-to-r from-violet-500 to-indigo-500',
+        playBtnColor: 'bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30',
+        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-lg shadow-rose-500/30',
+        pnBtnColor: '#ffffff',
+        pnBtnBgColor: 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md hover:shadow-lg',
+        textColor: 'text-slate-600',
+        selectedGuideColor: 'bg-gradient-to-r from-violet-500 to-indigo-500 text-white before:border-t-indigo-500',
+        hoverGuideColor: 'bg-slate-700 text-white before:border-t-slate-700',
+        dividerColor: 'before:border-slate-300',
+        rulerHeight,
       };
     }
     case 'cool': {
       return {
-        bgColor: 'bg-blue-900',
-        sliderColor: 'bg-blue-700',
-        playColor: 'bg-blue-500',
-        playBtnColor: 'bg-blue-500',
-        stopBtnColor: 'bg-red-500',
-        pnBtnColor: '#3B82F6',
-        textColor: 'text-white',
-        selectedGuideColor: 'bg-blue-500 text-white before:border-t-blue-500',
-        hoverGuideColor: 'bg-blue-700 text-white before:border-t-blue-700',
+        bgColor: 'bg-gradient-to-r from-cyan-900 to-blue-900',
+        sliderColor: 'bg-cyan-700/50',
+        playColor: 'bg-gradient-to-r from-cyan-400 to-teal-400',
+        playBtnColor: 'bg-gradient-to-br from-cyan-400 to-teal-500 shadow-lg shadow-cyan-500/40',
+        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-lg shadow-rose-500/30',
+        pnBtnColor: '#ffffff',
+        pnBtnBgColor: 'bg-gradient-to-br from-cyan-600 to-teal-600 shadow-md hover:shadow-lg',
+        textColor: 'text-cyan-100',
+        selectedGuideColor: 'bg-gradient-to-r from-cyan-400 to-teal-400 text-slate-900 font-semibold before:border-t-teal-400',
+        hoverGuideColor: 'bg-cyan-700 text-white before:border-t-cyan-700',
+        dividerColor: 'before:border-cyan-600/50',
+        rulerHeight,
       };
     }
     case 'warm': {
       return {
-        bgColor: 'bg-orange-900',
-        sliderColor: 'bg-orange-700',
-        playColor: 'bg-orange-500',
-        playBtnColor: 'bg-orange-500',
-        stopBtnColor: 'bg-red-500',
-        pnBtnColor: '#F97316',
-        textColor: 'text-white',
-        selectedGuideColor: 'bg-orange-500 text-white before:border-t-orange-500',
-        hoverGuideColor: 'bg-orange-700 text-white before:border-t-orange-700',
+        bgColor: 'bg-gradient-to-r from-amber-900 to-orange-900',
+        sliderColor: 'bg-amber-700/50',
+        playColor: 'bg-gradient-to-r from-amber-400 to-orange-500',
+        playBtnColor: 'bg-gradient-to-br from-amber-400 to-orange-500 shadow-lg shadow-amber-500/40',
+        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-red-600 shadow-lg shadow-rose-500/30',
+        pnBtnColor: '#ffffff',
+        pnBtnBgColor: 'bg-gradient-to-br from-amber-600 to-orange-600 shadow-md hover:shadow-lg',
+        textColor: 'text-amber-100',
+        selectedGuideColor: 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-semibold before:border-t-orange-500',
+        hoverGuideColor: 'bg-amber-700 text-white before:border-t-amber-700',
+        dividerColor: 'before:border-amber-600/50',
+        rulerHeight,
       };
     }
     case 'dark':
     default: {
       return {
-        bgColor: 'bg-gray-800',
-        sliderColor: 'bg-gray-600',
-        playColor: 'bg-blue-500',
-        playBtnColor: 'bg-blue-500',
-        stopBtnColor: 'bg-red-500',
-        pnBtnColor: '#3B82F6',
-        textColor: 'text-white',
-        selectedGuideColor: 'bg-blue-500 text-white before:border-t-blue-500',
-        hoverGuideColor: 'bg-gray-600 text-white before:border-t-gray-600',
+        bgColor: 'bg-gradient-to-r from-slate-800 to-slate-900',
+        sliderColor: 'bg-slate-600/50',
+        playColor: 'bg-gradient-to-r from-violet-500 to-purple-500',
+        playBtnColor: 'bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shadow-violet-500/40',
+        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-lg shadow-rose-500/30',
+        pnBtnColor: '#ffffff',
+        pnBtnBgColor: 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md hover:shadow-lg',
+        textColor: 'text-slate-200',
+        selectedGuideColor: 'bg-gradient-to-r from-violet-500 to-purple-500 text-white before:border-t-purple-500',
+        hoverGuideColor: 'bg-slate-600 text-white before:border-t-slate-600',
+        dividerColor: 'before:border-slate-600/50',
+        rulerHeight,
       };
     }
   }

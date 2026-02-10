@@ -75,7 +75,7 @@ export const SelectItem = ({ value, children, disabled, className }: SelectItemP
  * ```
  */
 
-export const Select = <T extends string | number = string | number>(
+export const Select = <T extends string | number = string>(
   props: SelectProps<T>,
 ) => {
   const {

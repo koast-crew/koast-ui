@@ -123,16 +123,22 @@ interface ChangeSelectedGuideMessageProps {
 
 export const changeSelectedGuideMessage = ({ guageElem, selectedGuideElem, selectedGuideTextElem, stepWidthPercentage, index, date, stepUnit, render }: ChangeSelectedGuideMessageProps) => {
   if (!guageElem || !selectedGuideElem || !selectedGuideTextElem) return;
-  const { width:gaugeWidth } = getRectMetrics(guageElem);
-  const { width:selectedGuideWidth } = getRectMetrics(selectedGuideElem);
 
-  // 플레이바의 오른쪽 끝 (현재 진행된 위치)을 기준으로 툴팁 위치 계산
-  const playbarRightPercentage = stepWidthPercentage * (index + 1);
-  const selectedGuideOffsetPercentage = (selectedGuideWidth / gaugeWidth) * 100;
-  const leftPercentage = playbarRightPercentage - selectedGuideOffsetPercentage;
-
-  selectedGuideElem.style.left = `${ Math.max(0, leftPercentage) }%`;
+  // 텍스트를 먼저 설정해야 width가 정확하게 계산됨
   selectedGuideTextElem.innerText = render ? render(date) : getDefaultMessage(date, stepUnit);
+
+  // requestAnimationFrame을 사용하여 다음 프레임에서 위치 계산 (텍스트 렌더링 후)
+  requestAnimationFrame(() => {
+    const { width: gaugeWidth } = getRectMetrics(guageElem);
+    const { width: selectedGuideWidth } = getRectMetrics(selectedGuideElem);
+
+    // 플레이바의 오른쪽 끝 (현재 진행된 위치)을 기준으로 툴팁 위치 계산
+    const playbarRightPercentage = stepWidthPercentage * (index + 1);
+    const selectedGuideOffsetPercentage = (selectedGuideWidth / gaugeWidth) * 100;
+    const leftPercentage = playbarRightPercentage - selectedGuideOffsetPercentage;
+
+    selectedGuideElem.style.left = `${ Math.max(0, leftPercentage) }%`;
+  });
 };
 
 export const returnDate = (date: Date | number) => date instanceof Date ? date : new Date(date);

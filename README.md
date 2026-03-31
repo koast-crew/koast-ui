@@ -4,7 +4,7 @@
 
 작은 단위의 ui부터 프로젝트에 꼭 필요한 Slider, Legend 등 제작할 예정입니다.
 
-(기존에는 [http://10.2.10.79:4873](http://10.2.10.79:4873)에 [Verdaccio](https://verdaccio.org/)를 구축하여 진행했습니다만, 그렇게 진행할 필요가 없어서 npmjs.org에 직접 배포하는 방식으로 변경하였습니다.)
+(기존에는 [Verdaccio](https://verdaccio.org/)를 구축하여 진행했습니다만, 그렇게 진행할 필요가 없어서 npmjs.org에 직접 배포하는 방식으로 변경하였습니다.)
 
 - NPM 배포 : [@koast/ui](https://www.npmjs.com/package/@koast/ui)
 - 문서 : [@koast/ui storybook](https://koast-crew.github.io/koast-ui/)

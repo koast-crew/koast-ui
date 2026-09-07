@@ -1,3 +1,10 @@
+/* 시맨틱 컬러 토큰 (CSS 변수). npm run tokens 로 생성됩니다. */
+@import './tokens.generated.css';
+
+/* preflight 를 대체하는 최소 리셋 */
+@import './base.css';
+
+/* preflight 는 꺼져 있어 --tw-* 기본값만 나옵니다. ring/shadow/transform 에 필요합니다. */
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;

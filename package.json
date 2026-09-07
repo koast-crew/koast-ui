@@ -16,7 +16,8 @@
       "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": "./dist/style.css",
+    "./styles.css": "./dist/style.css"
   },
   "bin": {
     "koast-ui": "./scripts/add-tailwind-config.js"

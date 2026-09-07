@@ -16,16 +16,16 @@
   --koast-brand-primary-700: 29 78 216;
   --koast-brand-primary-800: 30 64 175;
   --koast-brand-primary-900: 30 58 138;
-  --koast-brand-secondary-50: 239 246 255;
-  --koast-brand-secondary-100: 219 234 254;
-  --koast-brand-secondary-200: 191 219 254;
-  --koast-brand-secondary-300: 147 197 253;
-  --koast-brand-secondary-400: 96 165 250;
-  --koast-brand-secondary-500: 59 130 246;
-  --koast-brand-secondary-600: 37 99 235;
-  --koast-brand-secondary-700: 29 78 216;
-  --koast-brand-secondary-800: 30 64 175;
-  --koast-brand-secondary-900: 30 58 138;
+  --koast-brand-secondary-50: 250 250 250;
+  --koast-brand-secondary-100: 244 244 245;
+  --koast-brand-secondary-200: 228 228 231;
+  --koast-brand-secondary-300: 212 212 216;
+  --koast-brand-secondary-400: 161 161 170;
+  --koast-brand-secondary-500: 113 113 122;
+  --koast-brand-secondary-600: 82 82 91;
+  --koast-brand-secondary-700: 63 63 70;
+  --koast-brand-secondary-800: 39 39 42;
+  --koast-brand-secondary-900: 24 24 27;
 
   /* 시맨틱 토큰 — 라이브러리 고정 */
   --koast-content-primary: 24 24 27;
@@ -40,7 +40,7 @@
   --koast-content-warning-bold: 217 119 6;
   --koast-content-success-bold: 22 101 52;
   --koast-content-danger-bold: 153 27 27;
-  --koast-content-disabled: 161 161 170;
+  --koast-content-disabled: 113 113 122;
   --koast-content-interactive-primary: var(--koast-brand-primary-600);
   --koast-content-interactive-primary-hovered: var(--koast-brand-primary-700);
   --koast-content-interactive-primary-pressed: var(--koast-brand-primary-800);
@@ -200,7 +200,7 @@
   --koast-content-warning-bold: 217 119 6;
   --koast-content-success-bold: 22 101 52;
   --koast-content-danger-bold: 153 27 27;
-  --koast-content-disabled: 161 161 170;
+  --koast-content-disabled: 113 113 122;
   --koast-content-interactive-primary: var(--koast-brand-primary-600);
   --koast-content-interactive-primary-hovered: var(--koast-brand-primary-700);
   --koast-content-interactive-primary-pressed: var(--koast-brand-primary-800);

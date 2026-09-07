@@ -100,7 +100,7 @@ export const koastColorTokens: readonly KoastColorToken[] = [
     category: 'color/content',
     token: 'disabled',
     cssVar: '--koast-content-disabled',
-    light: '#a1a1aa',
+    light: '#71717a',
     dark: '#d4d4d8',
   },
   {

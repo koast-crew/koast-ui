@@ -2,7 +2,7 @@ import { Button } from '../../../src';
 import type { ButtonColor, ButtonVariant } from '../../../src';
 import { ChevronRight, Trash2 } from 'lucide-react';
 
-const COLORS: ButtonColor[] = ['primary', 'secondary', 'neutral', 'danger', 'info', 'warning', 'success'];
+const COLORS: ButtonColor[] = ['primary', 'secondary', 'danger'];
 const VARIANTS: ButtonVariant[] = ['contained', 'outlined', 'text'];
 
 const Matrix = () => (

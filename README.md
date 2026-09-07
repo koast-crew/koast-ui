@@ -175,11 +175,11 @@ const css = createBrandThemeCss({
 컴포넌트에서는 역할별 시맨틱 클래스만 사용합니다.
 
 ```
-text-koast-primary               content/primary
-text-koast-interactive-primary   content/interactive/primary
-bg-koast-danger-subtle           bg/danger-subtle
-border-koast-focus-ring          border/focusRing
-shadow-koast-cast                effect/shadow/cast
+koast-text-primary               content/primary
+koast-text-interactive-primary   content/interactive/primary
+koast-bg-danger-subtle           bg/danger-subtle
+koast-border-focus-ring          border/focusRing
+koast-shadow-cast                effect/shadow/cast
 ```
 
 역할별로 스케일이 분리되어 있어 배경 토큰을 텍스트 색으로 쓰는 식의 오용이 불가능합니다.

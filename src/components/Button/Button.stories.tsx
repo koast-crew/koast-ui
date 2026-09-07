@@ -76,7 +76,7 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <>
-      <div className={'flex gap-4'}>
+      <div className={'koast-flex koast-gap-4'}>
         <Button variant={'outlined'}>{'outlined'}</Button>
         <Button variant={'contained'}>{'contained'}</Button>
         <Button variant={'text'}>{'text'}</Button>
@@ -89,7 +89,7 @@ export const Variants: Story = {
 export const Colors: Story = {
   render: () => (
     <>
-      <div className={'flex flex-wrap gap-4'}>
+      <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
         <Button variant={'contained'} color={'primary'}>{'Primary'}</Button>
         <Button variant={'contained'} color={'secondary'}>{'Secondary'}</Button>
         <Button variant={'contained'} color={'neutral'}>{'Neutral'}</Button>
@@ -106,7 +106,7 @@ export const Colors: Story = {
 export const Sizes: Story = {
   render: () => (
     <>
-      <div className={'flex items-center gap-4'}>
+      <div className={'koast-flex koast-items-center koast-gap-4'}>
         <Button size={'xs'}>{'XS'}</Button>
         <Button size={'sm'}>{'SM'}</Button>
         <Button size={'md'}>{'MD'}</Button>
@@ -121,7 +121,7 @@ export const Sizes: Story = {
 export const WithIcons: Story = {
   render: () => (
     <>
-      <div className={'flex flex-wrap gap-4'}>
+      <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
         <Button variant={'contained'} startIcon={<Plus />}>{'추가하기'}</Button>
         <Button variant={'outlined'} endIcon={<ChevronRight />}>{'다음'}</Button>
         <Button variant={'contained'} startIcon={<Send />} endIcon={<ChevronRight />}>{'전송하기'}</Button>
@@ -135,7 +135,7 @@ export const WithIcons: Story = {
 export const Disabled: Story = {
   render: () => (
     <>
-      <div className={'flex gap-4'}>
+      <div className={'koast-flex koast-gap-4'}>
         <Button variant={'outlined'} disabled>{'outlined'}</Button>
         <Button variant={'contained'} disabled>{'contained'}</Button>
         <Button variant={'text'} disabled>{'text'}</Button>
@@ -148,7 +148,7 @@ export const Disabled: Story = {
 export const Loading: Story = {
   render: () => (
     <>
-      <div className={'flex gap-4'}>
+      <div className={'koast-flex koast-gap-4'}>
         <Button variant={'text'} loading>{'로딩 중'}</Button>
         <Button variant={'contained'} loading>{'로딩 중'}</Button>
         <Button variant={'outlined'} loading>{'전송 중'}</Button>
@@ -162,9 +162,9 @@ export const Loading: Story = {
 export const FullWidth: Story = {
   render: () => (
     <>
-      <div className={'w-80'}>
+      <div className={'koast-w-80'}>
         <Button variant={'contained'} fullWidth>{'전체 너비 버튼'}</Button>
-        <div className={'h-4'} />
+        <div className={'koast-h-4'} />
         <Button variant={'outlined'} fullWidth>{'전체 너비 버튼'}</Button>
       </div>
     </>
@@ -175,7 +175,7 @@ export const FullWidth: Story = {
 export const Shadow: Story = {
   render: () => (
     <>
-      <div className={'flex gap-4'}>
+      <div className={'koast-flex koast-gap-4'}>
         <Button variant={'contained'}>{'그림자 없음'}</Button>
         <Button variant={'contained'} shadow>{'그림자 있음'}</Button>
       </div>
@@ -187,11 +187,11 @@ export const Shadow: Story = {
 export const LayoutCustomization: Story = {
   render: () => (
     <>
-      <div className={'flex w-80 flex-col gap-2'}>
-        <Button variant={'contained'} className={'justify-between'}>
+      <div className={'koast-flex koast-w-80 koast-flex-col koast-gap-2'}>
+        <Button variant={'contained'} className={'koast-justify-between'}>
           {'좌우로 벌린 버튼'}
         </Button>
-        <Button variant={'outlined'} className={'ml-auto w-40'}>
+        <Button variant={'outlined'} className={'koast-ml-auto koast-w-40'}>
           {'우측 정렬 고정폭'}
         </Button>
       </div>
@@ -203,7 +203,7 @@ export const LayoutCustomization: Story = {
 export const AsLink: Story = {
   render: () => (
     <>
-      <div className={'flex flex-wrap gap-4'}>
+      <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
         <Button href={'https://github.com'}>
           {'github'}
         </Button>

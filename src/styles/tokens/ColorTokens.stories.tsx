@@ -37,15 +37,15 @@ const Swatch = ({ token }: { token: KoastColorToken }) => {
     : `rgb(var(${ token.cssVar }))`;
 
   return (
-    <div className={'flex items-center gap-3 rounded border border-koast-secondary p-2'}>
+    <div className={'koast-flex koast-items-center koast-gap-3 koast-rounded koast-border koast-border-secondary koast-p-2'}>
       <span
-        className={'size-10 shrink-0 rounded border border-koast-secondary'}
+        className={'koast-size-10 koast-shrink-0 koast-rounded koast-border koast-border-secondary'}
         style={{ background }}
       />
-      <span className={'min-w-0 flex-1'}>
-        <span className={'block truncate text-sm font-semibold text-koast-primary'}>{token.token}</span>
-        <span className={'block truncate font-mono text-xs text-koast-tertiary'}>{token.cssVar}</span>
-        <span className={'block truncate font-mono text-xs text-koast-subtle'}>
+      <span className={'koast-min-w-0 koast-flex-1'}>
+        <span className={'koast-block koast-truncate koast-text-sm koast-font-semibold koast-text-primary'}>{token.token}</span>
+        <span className={'koast-block koast-truncate koast-font-mono koast-text-xs koast-text-tertiary'}>{token.cssVar}</span>
+        <span className={'koast-block koast-truncate koast-font-mono koast-text-xs koast-text-subtle'}>
           {`${ token.light } / ${ token.dark }`}
         </span>
       </span>
@@ -58,12 +58,12 @@ const CategorySection = ({ category }: { category: string }) => {
   if (tokens.length === 0) return null;
 
   return (
-    <section className={'flex flex-col gap-2'}>
-      <h3 className={'text-base font-bold text-koast-primary'}>
+    <section className={'koast-flex koast-flex-col koast-gap-2'}>
+      <h3 className={'koast-text-base koast-font-bold koast-text-primary'}>
         {`${ CATEGORY_LABELS[category] ?? category } `}
-        <span className={'font-mono text-xs font-normal text-koast-tertiary'}>{category}</span>
+        <span className={'koast-font-mono koast-text-xs koast-font-normal koast-text-tertiary'}>{category}</span>
       </h3>
-      <div className={'grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3'}>
+      <div className={'koast-grid koast-grid-cols-1 koast-gap-2 sm:koast-grid-cols-2 lg:koast-grid-cols-3'}>
         {tokens.map((token) => <Swatch key={token.cssVar} token={token} />)}
       </div>
     </section>
@@ -73,7 +73,7 @@ const CategorySection = ({ category }: { category: string }) => {
 /** 전체 토큰 목록입니다. 값은 `라이트 / 다크` 순서로 표기됩니다. */
 export const AllTokens: Story = {
   render: () => (
-    <div className={'flex flex-col gap-8 bg-koast-primary p-6'}>
+    <div className={'koast-flex koast-flex-col koast-gap-8 koast-bg-primary koast-p-6'}>
       {Object.keys(CATEGORY_LABELS).map((category) => (
         <CategorySection key={category} category={category} />
       ))}
@@ -84,7 +84,7 @@ export const AllTokens: Story = {
 /** 다크 모드에서의 동일한 토큰 목록입니다. */
 export const DarkTheme: Story = {
   render: () => (
-    <div data-koast-theme={'dark'} className={'flex flex-col gap-8 bg-koast-primary p-6'}>
+    <div data-koast-theme={'dark'} className={'koast-flex koast-flex-col koast-gap-8 koast-bg-primary koast-p-6'}>
       {Object.keys(CATEGORY_LABELS).map((category) => (
         <CategorySection key={category} category={category} />
       ))}

@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
  * 범례 컨테이너의 기본 스타일을 반환합니다.
  */
 export const getLegendContainerStyles = (className: string = '') => {
-  const baseStyle = 'z-10 mb-9 flex h-auto w-auto flex-col justify-center rounded-lg px-3 py-2 shadow-lg';
+  const baseStyle = 'koast-z-10 koast-mb-9 koast-flex koast-h-auto koast-w-auto koast-flex-col koast-justify-center koast-rounded-lg koast-px-3 koast-py-2 koast-shadow-lg';
   return twMerge(baseStyle, className);
 };
 
@@ -13,8 +13,8 @@ export const getLegendContainerStyles = (className: string = '') => {
  */
 export const getLegendButtonStyles = (isSelected: boolean) => {
   return twMerge(
-    'flex items-center gap-1 rounded-full px-3 py-1',
-    isSelected ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700',
+    'koast-flex koast-items-center koast-gap-1 koast-rounded-full koast-px-3 koast-py-1',
+    isSelected ? 'koast-bg-orange-500 koast-text-white' : 'koast-bg-gray-200 koast-text-gray-700',
   );
 };
 
@@ -23,8 +23,8 @@ export const getLegendButtonStyles = (isSelected: boolean) => {
  */
 export const getLegendColorItemStyles = (isFirst: boolean, isLast: boolean) => {
   return twMerge(
-    'h-4 w-full',
-    isFirst && 'rounded-l-full',
-    isLast && 'rounded-r-full',
+    'koast-h-4 koast-w-full',
+    isFirst && 'koast-rounded-l-full',
+    isLast && 'koast-rounded-r-full',
   );
 };

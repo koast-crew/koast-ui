@@ -8,9 +8,9 @@ export default function SelectExam() {
     <div>
       <span />
       <Select required placeholder={'선택'} size={'sm'} className={'w-30'} value={age} onChange={(value) => setAge(value)}>
-        <SelectItem value={10} className={'text-xs'}>{'Ten'}</SelectItem>
-        <SelectItem value={20} className={'text-xs'}>{'Twenty'}</SelectItem>
-        <SelectItem value={30} className={'text-xs'}>{'Thirty'}</SelectItem>
+        <SelectItem value={10} className={'koast-text-xs'}>{'Ten'}</SelectItem>
+        <SelectItem value={20} className={'koast-text-xs'}>{'Twenty'}</SelectItem>
+        <SelectItem value={30} className={'koast-text-xs'}>{'Thirty'}</SelectItem>
       </Select>
     </div>
   );

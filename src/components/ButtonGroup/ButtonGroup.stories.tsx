@@ -67,7 +67,7 @@ export const Default: Story = {
     ],
   },
   render: (args) => (
-    <div className={'flex w-[800px] justify-center'}>
+    <div className={'koast-flex koast-w-[800px] koast-justify-center'}>
       <ButtonGroup {...args} />
     </div>
   ),
@@ -78,25 +78,25 @@ export const Default: Story = {
  */
 export const Variants: Story = {
   render: () => (
-    <div className={'flex flex-col gap-4'}>
-      <div className={'flex items-center gap-2'}>
-        <span className={'w-20 text-sm'}>{'Text:'}</span>
+    <div className={'koast-flex koast-flex-col koast-gap-4'}>
+      <div className={'koast-flex koast-items-center koast-gap-2'}>
+        <span className={'koast-w-20 koast-text-sm'}>{'Text:'}</span>
         <ButtonGroup variant={'text'}>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>
           <Button>{'Three'}</Button>
         </ButtonGroup>
       </div>
-      <div className={'flex items-center gap-2'}>
-        <span className={'w-20 text-sm'}>{'Contained:'}</span>
+      <div className={'koast-flex koast-items-center koast-gap-2'}>
+        <span className={'koast-w-20 koast-text-sm'}>{'Contained:'}</span>
         <ButtonGroup variant={'contained'}>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>
           <Button>{'Three'}</Button>
         </ButtonGroup>
       </div>
-      <div className={'flex items-center gap-2'}>
-        <span className={'w-20 text-sm'}>{'Outlined:'}</span>
+      <div className={'koast-flex koast-items-center koast-gap-2'}>
+        <span className={'koast-w-20 koast-text-sm'}>{'Outlined:'}</span>
         <ButtonGroup variant={'outlined'}>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>
@@ -112,43 +112,43 @@ export const Variants: Story = {
  */
 export const SizesAndColors: Story = {
   render: () => (
-    <div className={'flex flex-col gap-6'}>
-      <div className={'flex flex-col gap-4'}>
-        <h3 className={'text-sm font-medium'}>{'크기'}</h3>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'XS:'}</span>
+    <div className={'koast-flex koast-flex-col koast-gap-6'}>
+      <div className={'koast-flex koast-flex-col koast-gap-4'}>
+        <h3 className={'koast-text-sm koast-font-medium'}>{'크기'}</h3>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'XS:'}</span>
           <ButtonGroup size={'xs'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'SM:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'SM:'}</span>
           <ButtonGroup size={'sm'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'MD:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'MD:'}</span>
           <ButtonGroup size={'md'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'LG:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'LG:'}</span>
           <ButtonGroup size={'lg'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'XL:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'XL:'}</span>
           <ButtonGroup size={'xl'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
@@ -157,50 +157,50 @@ export const SizesAndColors: Story = {
         </div>
       </div>
 
-      <div className={'flex flex-col gap-4'}>
-        <h3 className={'text-sm font-medium'}>{'색상'}</h3>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'Primary:'}</span>
+      <div className={'koast-flex koast-flex-col koast-gap-4'}>
+        <h3 className={'koast-text-sm koast-font-medium'}>{'색상'}</h3>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'Primary:'}</span>
           <ButtonGroup color={'primary'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'Secondary:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'Secondary:'}</span>
           <ButtonGroup color={'secondary'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'Success:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'Success:'}</span>
           <ButtonGroup color={'success'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'Error:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'Error:'}</span>
           <ButtonGroup color={'error'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'Warning:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'Warning:'}</span>
           <ButtonGroup color={'warning'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
             <Button>{'Three'}</Button>
           </ButtonGroup>
         </div>
-        <div className={'flex items-center gap-2'}>
-          <span className={'w-20 text-sm'}>{'Info:'}</span>
+        <div className={'koast-flex koast-items-center koast-gap-2'}>
+          <span className={'koast-w-20 koast-text-sm'}>{'Info:'}</span>
           <ButtonGroup color={'info'}>
             <Button>{'One'}</Button>
             <Button>{'Two'}</Button>
@@ -217,9 +217,9 @@ export const SizesAndColors: Story = {
  */
 export const VerticalGroup: Story = {
   render: () => (
-    <div className={'flex gap-8'}>
-      <div className={'flex flex-col gap-2'}>
-        <h3 className={'text-sm font-medium'}>{'기본'}</h3>
+    <div className={'koast-flex koast-gap-8'}>
+      <div className={'koast-flex koast-flex-col koast-gap-2'}>
+        <h3 className={'koast-text-sm koast-font-medium'}>{'기본'}</h3>
         <ButtonGroup orientation={'vertical'}>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>
@@ -227,8 +227,8 @@ export const VerticalGroup: Story = {
         </ButtonGroup>
       </div>
 
-      <div className={'flex flex-col gap-2'}>
-        <h3 className={'text-sm font-medium'}>{'text'}</h3>
+      <div className={'koast-flex koast-flex-col koast-gap-2'}>
+        <h3 className={'koast-text-sm koast-font-medium'}>{'text'}</h3>
         <ButtonGroup variant={'text'} orientation={'vertical'}>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>
@@ -236,8 +236,8 @@ export const VerticalGroup: Story = {
         </ButtonGroup>
       </div>
 
-      <div className={'flex flex-col gap-2'}>
-        <h3 className={'text-sm font-medium'}>{'Contained'}</h3>
+      <div className={'koast-flex koast-flex-col koast-gap-2'}>
+        <h3 className={'koast-text-sm koast-font-medium'}>{'Contained'}</h3>
         <ButtonGroup orientation={'vertical'} variant={'contained'}>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>
@@ -245,8 +245,8 @@ export const VerticalGroup: Story = {
         </ButtonGroup>
       </div>
 
-      <div className={'flex flex-col gap-2'}>
-        <h3 className={'text-sm font-medium'}>{'아이콘 포함'}</h3>
+      <div className={'koast-flex koast-flex-col koast-gap-2'}>
+        <h3 className={'koast-text-sm koast-font-medium'}>{'아이콘 포함'}</h3>
         <ButtonGroup orientation={'vertical'} variant={'contained'} color={'primary'}>
           <Button startIcon={<ChevronLeft />}>{'이전'}</Button>
           <Button>{'현재'}</Button>
@@ -277,7 +277,7 @@ export const DisabledGroup: Story = {
 export const FullWidthGroup: Story = {
   render: () => (
     <>
-      <div className={'flex w-[500px] flex-col gap-4'}>
+      <div className={'koast-flex koast-w-[500px] koast-flex-col koast-gap-4'}>
         <ButtonGroup fullWidth>
           <Button>{'One'}</Button>
           <Button>{'Two'}</Button>

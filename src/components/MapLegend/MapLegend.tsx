@@ -13,7 +13,7 @@ import { twMerge } from 'tailwind-merge';
 const LegendBar = ({ legendData }: { legendData: BarLegendData }) => {
   return (
     <>
-      <div className={twMerge('flex w-full px-[18px]')}>
+      <div className={twMerge('koast-flex koast-w-full koast-px-[18px]')}>
         {legendData.colors.map((color, index) => (
           <span
             key={`${ color }-${ index }`}
@@ -25,9 +25,9 @@ const LegendBar = ({ legendData }: { legendData: BarLegendData }) => {
           />
         ))}
       </div>
-      <div className={twMerge('flex w-full justify-between')}>
+      <div className={twMerge('koast-flex koast-w-full koast-justify-between')}>
         {legendData.values.map((value, index) => (
-          <span key={`${ value }-${ index }`} className={twMerge('w-10 text-center text-[12px]')}>
+          <span key={`${ value }-${ index }`} className={twMerge('koast-w-10 koast-text-center koast-text-[12px]')}>
             {value}
           </span>
         ))}
@@ -41,17 +41,17 @@ const LegendBar = ({ legendData }: { legendData: BarLegendData }) => {
  */
 const LegendItems = ({ legendItems }: { legendItems: CircleLegendData[] }) => {
   return (
-    <div className={twMerge('flex items-center')}>
+    <div className={twMerge('koast-flex koast-items-center')}>
       {legendItems.map((item, index) => (
-        <div key={`${ item.color }-${ index }`} className={twMerge('flex flex-1 items-center gap-1')}>
+        <div key={`${ item.color }-${ index }`} className={twMerge('koast-flex koast-flex-1 koast-items-center koast-gap-1')}>
           <span
-            className={twMerge('size-5 rounded-full')}
+            className={twMerge('koast-size-5 koast-rounded-full')}
             style={{
               backgroundColor: item.color,
               opacity: item.opacity ?? 1,
             }}
           />
-          <span className={twMerge('shrink-0')}>{item.value}</span>
+          <span className={twMerge('koast-shrink-0')}>{item.value}</span>
         </div>
       ))}
     </div>
@@ -123,7 +123,7 @@ export const MapLegend = (props: MapLegendProps) => {
 
   return (
     <div className={getLegendContainerStyles(className)}>
-      <div className={twMerge('flex h-8 w-full items-center justify-between font-bold')}>
+      <div className={twMerge('koast-flex koast-h-8 koast-w-full koast-items-center koast-justify-between koast-font-bold')}>
         <span>{title}</span>
         {onClose && (
           <button
@@ -148,8 +148,8 @@ export const MapLegend = (props: MapLegendProps) => {
           </button>
         )}
       </div>
-      <div className={twMerge('flex flex-col gap-2 pt-2 text-sm')}>
-        <div className={twMerge('flex flex-wrap gap-2')}>
+      <div className={twMerge('koast-flex koast-flex-col koast-gap-2 koast-pt-2 koast-text-sm')}>
+        <div className={twMerge('koast-flex koast-flex-wrap koast-gap-2')}>
           {toolbarButtons
             .flat()
             .filter((btn) => !excludeSet.has(btn.id))
@@ -160,12 +160,12 @@ export const MapLegend = (props: MapLegendProps) => {
                 onClick={() => onLayerSelect?.(btn.id)}
                 aria-pressed={selectedLayerId === btn.id}
               >
-                {btn.icon && <span className={twMerge('inline-flex')}>{btn.icon}</span>}
+                {btn.icon && <span className={twMerge('koast-inline-flex')}>{btn.icon}</span>}
                 <span>{btn.label}</span>
               </button>
             ))}
         </div>
-        <div className={twMerge('mt-2 flex w-full flex-col gap-2')}>
+        <div className={twMerge('koast-mt-2 koast-flex koast-w-full koast-flex-col koast-gap-2')}>
           {renderLegend()}
         </div>
       </div>

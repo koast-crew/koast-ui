@@ -144,21 +144,21 @@ export const changeSelectedGuideMessage = ({ guageElem, selectedGuideElem, selec
 export const returnDate = (date: Date | number) => date instanceof Date ? date : new Date(date);
 
 export const sizeToTWClassName = (size: TimeSliderSize) => {
-  let mainSize = 'h-[52px]';
-  let playSizeAndRounded = 'size-[36px] rounded-full';
-  let prevnextSizeAndRounded = 'size-[28px] rounded-full';
+  let mainSize = 'koast-h-[52px]';
+  let playSizeAndRounded = 'koast-size-[36px] koast-rounded-full';
+  let prevnextSizeAndRounded = 'koast-size-[28px] koast-rounded-full';
 
   switch (size) {
     case 'sm': {
-      mainSize = 'h-[40px]';
-      playSizeAndRounded = 'size-[28px] rounded-full';
-      prevnextSizeAndRounded = 'size-[22px] rounded-full';
+      mainSize = 'koast-h-[40px]';
+      playSizeAndRounded = 'koast-size-[28px] koast-rounded-full';
+      prevnextSizeAndRounded = 'koast-size-[22px] koast-rounded-full';
       break;
     }
     case 'lg': {
-      mainSize = 'h-[64px]';
-      playSizeAndRounded = 'size-[44px] rounded-full';
-      prevnextSizeAndRounded = 'size-[34px] rounded-full';
+      mainSize = 'koast-h-[64px]';
+      playSizeAndRounded = 'koast-size-[44px] koast-rounded-full';
+      prevnextSizeAndRounded = 'koast-size-[34px] koast-rounded-full';
       break;
     }
   }
@@ -183,9 +183,9 @@ type ThemeColorSet = {
 
 const getRulerHeight = (size: TimeSliderSize): string => {
   switch (size) {
-    case 'sm': return 'h-[32px]';
-    case 'lg': return 'h-[54px]';
-    default: return 'h-[42px]';
+    case 'sm': return 'koast-h-[32px]';
+    case 'lg': return 'koast-h-[54px]';
+    default: return 'koast-h-[42px]';
   }
 };
 
@@ -195,66 +195,66 @@ export const themeToTWColorClassName = (theme: TimeSliderTheme, size: TimeSlider
   switch (theme) {
     case 'light': {
       return {
-        bgColor: 'bg-slate-50',
-        sliderColor: 'bg-slate-200',
-        playColor: 'bg-gradient-to-r from-violet-500 to-indigo-500',
-        playBtnColor: 'bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30',
-        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-lg shadow-rose-500/30',
+        bgColor: 'koast-bg-slate-50',
+        sliderColor: 'koast-bg-slate-200',
+        playColor: 'koast-bg-gradient-to-r koast-from-violet-500 koast-to-indigo-500',
+        playBtnColor: 'koast-bg-gradient-to-br koast-from-violet-500 koast-to-indigo-600 koast-shadow-lg koast-shadow-violet-500/30',
+        stopBtnColor: 'koast-bg-gradient-to-br koast-from-rose-500 koast-to-pink-600 koast-shadow-lg koast-shadow-rose-500/30',
         pnBtnColor: '#ffffff',
-        pnBtnBgColor: 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md hover:shadow-lg',
-        textColor: 'text-slate-600',
-        selectedGuideColor: 'bg-gradient-to-r from-violet-500 to-indigo-500 text-white before:border-t-indigo-500',
-        hoverGuideColor: 'bg-slate-700 text-white before:border-t-slate-700',
-        dividerColor: 'before:border-slate-300',
+        pnBtnBgColor: 'koast-bg-gradient-to-br koast-from-slate-600 koast-to-slate-700 koast-shadow-md hover:koast-shadow-lg',
+        textColor: 'koast-text-slate-600',
+        selectedGuideColor: 'koast-bg-gradient-to-r koast-from-violet-500 koast-to-indigo-500 koast-text-white before:koast-border-t-indigo-500',
+        hoverGuideColor: 'koast-bg-slate-700 koast-text-white before:koast-border-t-slate-700',
+        dividerColor: 'before:koast-border-slate-300',
         rulerHeight,
       };
     }
     case 'cool': {
       return {
-        bgColor: 'bg-gradient-to-r from-cyan-900 to-blue-900',
-        sliderColor: 'bg-cyan-700/50',
-        playColor: 'bg-gradient-to-r from-cyan-400 to-teal-400',
-        playBtnColor: 'bg-gradient-to-br from-cyan-400 to-teal-500 shadow-lg shadow-cyan-500/40',
-        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-lg shadow-rose-500/30',
+        bgColor: 'koast-bg-gradient-to-r koast-from-cyan-900 koast-to-blue-900',
+        sliderColor: 'koast-bg-cyan-700/50',
+        playColor: 'koast-bg-gradient-to-r koast-from-cyan-400 koast-to-teal-400',
+        playBtnColor: 'koast-bg-gradient-to-br koast-from-cyan-400 koast-to-teal-500 koast-shadow-lg koast-shadow-cyan-500/40',
+        stopBtnColor: 'koast-bg-gradient-to-br koast-from-rose-500 koast-to-pink-600 koast-shadow-lg koast-shadow-rose-500/30',
         pnBtnColor: '#ffffff',
-        pnBtnBgColor: 'bg-gradient-to-br from-cyan-600 to-teal-600 shadow-md hover:shadow-lg',
-        textColor: 'text-cyan-100',
-        selectedGuideColor: 'bg-gradient-to-r from-cyan-400 to-teal-400 text-slate-900 font-semibold before:border-t-teal-400',
-        hoverGuideColor: 'bg-cyan-700 text-white before:border-t-cyan-700',
-        dividerColor: 'before:border-cyan-600/50',
+        pnBtnBgColor: 'koast-bg-gradient-to-br koast-from-cyan-600 koast-to-teal-600 koast-shadow-md hover:koast-shadow-lg',
+        textColor: 'koast-text-cyan-100',
+        selectedGuideColor: 'koast-bg-gradient-to-r koast-from-cyan-400 koast-to-teal-400 koast-text-slate-900 koast-font-semibold before:koast-border-t-teal-400',
+        hoverGuideColor: 'koast-bg-cyan-700 koast-text-white before:koast-border-t-cyan-700',
+        dividerColor: 'before:koast-border-cyan-600/50',
         rulerHeight,
       };
     }
     case 'warm': {
       return {
-        bgColor: 'bg-gradient-to-r from-amber-900 to-orange-900',
-        sliderColor: 'bg-amber-700/50',
-        playColor: 'bg-gradient-to-r from-amber-400 to-orange-500',
-        playBtnColor: 'bg-gradient-to-br from-amber-400 to-orange-500 shadow-lg shadow-amber-500/40',
-        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-red-600 shadow-lg shadow-rose-500/30',
+        bgColor: 'koast-bg-gradient-to-r koast-from-amber-900 koast-to-orange-900',
+        sliderColor: 'koast-bg-amber-700/50',
+        playColor: 'koast-bg-gradient-to-r koast-from-amber-400 koast-to-orange-500',
+        playBtnColor: 'koast-bg-gradient-to-br koast-from-amber-400 koast-to-orange-500 koast-shadow-lg koast-shadow-amber-500/40',
+        stopBtnColor: 'koast-bg-gradient-to-br koast-from-rose-500 koast-to-red-600 koast-shadow-lg koast-shadow-rose-500/30',
         pnBtnColor: '#ffffff',
-        pnBtnBgColor: 'bg-gradient-to-br from-amber-600 to-orange-600 shadow-md hover:shadow-lg',
-        textColor: 'text-amber-100',
-        selectedGuideColor: 'bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 font-semibold before:border-t-orange-500',
-        hoverGuideColor: 'bg-amber-700 text-white before:border-t-amber-700',
-        dividerColor: 'before:border-amber-600/50',
+        pnBtnBgColor: 'koast-bg-gradient-to-br koast-from-amber-600 koast-to-orange-600 koast-shadow-md hover:koast-shadow-lg',
+        textColor: 'koast-text-amber-100',
+        selectedGuideColor: 'koast-bg-gradient-to-r koast-from-amber-400 koast-to-orange-500 koast-text-slate-900 koast-font-semibold before:koast-border-t-orange-500',
+        hoverGuideColor: 'koast-bg-amber-700 koast-text-white before:koast-border-t-amber-700',
+        dividerColor: 'before:koast-border-amber-600/50',
         rulerHeight,
       };
     }
     case 'dark':
     default: {
       return {
-        bgColor: 'bg-gradient-to-r from-slate-800 to-slate-900',
-        sliderColor: 'bg-slate-600/50',
-        playColor: 'bg-gradient-to-r from-violet-500 to-purple-500',
-        playBtnColor: 'bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shadow-violet-500/40',
-        stopBtnColor: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-lg shadow-rose-500/30',
+        bgColor: 'koast-bg-gradient-to-r koast-from-slate-800 koast-to-slate-900',
+        sliderColor: 'koast-bg-slate-600/50',
+        playColor: 'koast-bg-gradient-to-r koast-from-violet-500 koast-to-purple-500',
+        playBtnColor: 'koast-bg-gradient-to-br koast-from-violet-500 koast-to-purple-600 koast-shadow-lg koast-shadow-violet-500/40',
+        stopBtnColor: 'koast-bg-gradient-to-br koast-from-rose-500 koast-to-pink-600 koast-shadow-lg koast-shadow-rose-500/30',
         pnBtnColor: '#ffffff',
-        pnBtnBgColor: 'bg-gradient-to-br from-slate-600 to-slate-700 shadow-md hover:shadow-lg',
-        textColor: 'text-slate-200',
-        selectedGuideColor: 'bg-gradient-to-r from-violet-500 to-purple-500 text-white before:border-t-purple-500',
-        hoverGuideColor: 'bg-slate-600 text-white before:border-t-slate-600',
-        dividerColor: 'before:border-slate-600/50',
+        pnBtnBgColor: 'koast-bg-gradient-to-br koast-from-slate-600 koast-to-slate-700 koast-shadow-md hover:koast-shadow-lg',
+        textColor: 'koast-text-slate-200',
+        selectedGuideColor: 'koast-bg-gradient-to-r koast-from-violet-500 koast-to-purple-500 koast-text-white before:koast-border-t-purple-500',
+        hoverGuideColor: 'koast-bg-slate-600 koast-text-white before:koast-border-t-slate-600',
+        dividerColor: 'before:koast-border-slate-600/50',
         rulerHeight,
       };
     }

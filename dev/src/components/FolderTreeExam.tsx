@@ -54,8 +54,8 @@ export default function FolderTreeExam() {
   };
 
   return (
-    <div className={'w-[400px]'}>
-      <h2 className={'mb-4 text-xl font-bold'}>{'Folder Tree Example'}</h2>
+    <div className={'koast-w-[400px]'}>
+      <h2 className={'koast-mb-4 koast-text-xl koast-font-bold'}>{'Folder Tree Example'}</h2>
       <FolderTree
         data={treeData}
         onChange={handleChange}

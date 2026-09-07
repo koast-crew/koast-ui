@@ -6,7 +6,7 @@ export default function MapLegendExam() {
   const [selectedId, setSelectedId] = React.useState('fish');
 
   return (
-    <div className={'flex flex-col gap-4'}>
+    <div className={'koast-flex koast-flex-col koast-gap-4'}>
       <MapLegend
         visible={visible}
         onClose={() => setVisible(false)}

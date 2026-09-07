@@ -8,7 +8,7 @@ export { default as MapLegend } from './components/MapLegend';
 export { default as Select, SelectItem } from './components/Select';
 export { default as TimeSlider } from './components/TimeSlider';
 
-export type { ButtonProps } from './components/Button/Button.types';
+export type { ButtonProps, ButtonColor, ButtonColorProp, ButtonSize, ButtonVariant } from './components/Button/Button.types';
 export type { MapLegendProps } from './components/MapLegend/MapLegend.types';
 export type { SelectProps, SelectItemProps, SelectSize, SelectVariant } from './components/Select/Select.types';
 export type { DateToStringFunc, StepTimeSliderOnChangeProps, StepTimeSliderProps, TimeSliderSize, TimeSliderTheme, TimeUnit } from './components/TimeSlider';

@@ -2,10 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Plus, Send, Download, ChevronRight } from 'lucide-react';
 
-/**
- * Button 컴포넌트는 사용자 상호작용을 위한 기본적인 UI 요소입니다.
- * 다양한 크기, 색상, 변형을 지원하며 아이콘도 함께 사용할 수 있습니다.
- */
+/** 사용자 상호작용을 위한 기본 UI 요소입니다. 크기·색상·변형과 아이콘을 지원합니다. */
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
@@ -22,8 +19,8 @@ const meta: Meta<typeof Button> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'error', 'warning', 'info'],
-      description: '버튼의 색상을 지정합니다.',
+      options: ['primary', 'secondary', 'neutral', 'danger', 'info', 'warning', 'success'],
+      description: '버튼의 의미(intent)를 지정합니다. 디자인 시스템에 정의된 값만 사용할 수 있습니다.',
       defaultValue: 'primary',
     },
     size: {
@@ -64,9 +61,7 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-/**
- * 기본 버튼 예시입니다.
- */
+/** 기본 버튼 예시입니다. */
 export const Default: Story = {
   args: {
     children: '버튼',
@@ -77,9 +72,7 @@ export const Default: Story = {
   },
 };
 
-/**
- * 버튼 변형(variant) 예시입니다. (줄바꿈을 위해 Fragment를 추가했습니다.)
- */
+/** 버튼 변형(variant) 예시입니다. (줄바꿈을 위해 Fragment를 추가했습니다.) */
 export const Variants: Story = {
   render: () => (
     <>
@@ -92,28 +85,24 @@ export const Variants: Story = {
   ),
 };
 
-/**
- * 버튼 색상(color) 예시입니다.
- */
+/** 버튼 색상(color) 예시입니다. */
 export const Colors: Story = {
   render: () => (
     <>
       <div className={'flex flex-wrap gap-4'}>
         <Button variant={'contained'} color={'primary'}>{'Primary'}</Button>
         <Button variant={'contained'} color={'secondary'}>{'Secondary'}</Button>
-        <Button variant={'contained'} color={'success'}>{'Success'}</Button>
-        <Button variant={'contained'} color={'error'}>{'Error'}</Button>
-        <Button variant={'contained'} color={'warning'}>{'Warning'}</Button>
+        <Button variant={'contained'} color={'neutral'}>{'Neutral'}</Button>
+        <Button variant={'contained'} color={'danger'}>{'Danger'}</Button>
         <Button variant={'contained'} color={'info'}>{'Info'}</Button>
-        <Button variant={'contained'} color={'gray'}>{'Gray'}</Button>
+        <Button variant={'contained'} color={'warning'}>{'Warning'}</Button>
+        <Button variant={'contained'} color={'success'}>{'Success'}</Button>
       </div>
     </>
   ),
 };
 
-/**
- * 버튼 크기(size) 예시입니다.
- */
+/** 버튼 크기(size) 예시입니다. */
 export const Sizes: Story = {
   render: () => (
     <>
@@ -128,9 +117,7 @@ export const Sizes: Story = {
   ),
 };
 
-/**
- * 아이콘이 있는 버튼 예시입니다.
- */
+/** 아이콘이 있는 버튼 예시입니다. */
 export const WithIcons: Story = {
   render: () => (
     <>
@@ -138,15 +125,13 @@ export const WithIcons: Story = {
         <Button variant={'contained'} startIcon={<Plus />}>{'추가하기'}</Button>
         <Button variant={'outlined'} endIcon={<ChevronRight />}>{'다음'}</Button>
         <Button variant={'contained'} startIcon={<Send />} endIcon={<ChevronRight />}>{'전송하기'}</Button>
-        <Button variant={'contained'} color={'gray'} startIcon={<Download />}>{'다운로드'}</Button>
+        <Button variant={'contained'} color={'neutral'} startIcon={<Download />}>{'다운로드'}</Button>
       </div>
     </>
   ),
 };
 
-/**
- * 비활성화된 버튼 예시입니다.
- */
+/** 비활성화된 버튼 예시입니다. */
 export const Disabled: Story = {
   render: () => (
     <>
@@ -159,9 +144,7 @@ export const Disabled: Story = {
   ),
 };
 
-/**
- * 로딩 상태의 버튼 예시입니다.
- */
+/** 로딩 상태의 버튼 예시입니다. */
 export const Loading: Story = {
   render: () => (
     <>
@@ -175,9 +158,7 @@ export const Loading: Story = {
   ),
 };
 
-/**
- * 전체 너비(fullWidth) 버튼 예시입니다.
- */
+/** 전체 너비(fullWidth) 버튼 예시입니다. */
 export const FullWidth: Story = {
   render: () => (
     <>
@@ -190,9 +171,7 @@ export const FullWidth: Story = {
   ),
 };
 
-/**
- * 그림자 효과가 있는 버튼 예시입니다.
- */
+/** 그림자 효과가 있는 버튼 예시입니다. */
 export const Shadow: Story = {
   render: () => (
     <>
@@ -204,37 +183,23 @@ export const Shadow: Story = {
   ),
 };
 
-/**
- * 커스텀 스타일이 적용된 버튼 예시입니다.
- */
-export const CustomStyled: Story = {
+/** `className` 은 레이아웃 조정용입니다. 색상 클래스는 시맨틱 토큰을 덮어쓰므로 쓰지 마세요. */
+export const LayoutCustomization: Story = {
   render: () => (
     <>
-      <div className={'flex gap-4'}>
-        <Button
-          variant={'contained'}
-          customStyle={{
-            color: 'white',
-            borderRadius: '4px',
-            padding: '10px 20px',
-          }}
-          className={'bg-green-500 hover:bg-green-700'}
-        >
-          {'커스텀 스타일'}
+      <div className={'flex w-80 flex-col gap-2'}>
+        <Button variant={'contained'} className={'justify-between'}>
+          {'좌우로 벌린 버튼'}
         </Button>
-        <Button
-          className={'border-none bg-gradient-to-r from-purple-500 to-pink-500 text-white transition-all duration-300 hover:from-purple-600 hover:to-pink-600'}
-        >
-          {'Tailwind 클래스'}
+        <Button variant={'outlined'} className={'ml-auto w-40'}>
+          {'우측 정렬 고정폭'}
         </Button>
       </div>
     </>
   ),
 };
 
-/**
- * 링크 버튼 예시입니다.
- */
+/** 링크 버튼 예시입니다. */
 export const AsLink: Story = {
   render: () => (
     <>

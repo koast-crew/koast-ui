@@ -1,39 +1,22 @@
 #!/usr/bin/env node
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+/**
+ * @deprecated 1.1.0 부터 아무것도 수정하지 않고 안내만 출력합니다.
+ * 자체 완결형 CSS 를 배포하므로 소비자가 tailwind.config 를 손댈 이유가 없어졌습니다.
+ */
 
-// Windows에서도 __dirname을 사용할 수 있도록 설정
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+console.log(`
+ℹ️  이 명령은 더 이상 필요하지 않습니다.
 
-const jsConfigPath = path.join(process.cwd(), "tailwind.config.js");
-const tsConfigPath = path.join(process.cwd(), "tailwind.config.ts");
-const newContent = "'./node_modules/@koast/ui/dist/*.{js,jsx,ts,tsx}',";
+  @koast/ui 는 자체 완결형 CSS 를 배포하며, 스타일은 자동으로 딸려옵니다.
+  tailwind.config 설정도, 별도의 CSS import 도 필요 없습니다.
 
-// js 또는 ts 설정 파일 확인
-let configPath = null;
-if (fs.existsSync(jsConfigPath)) {
-  configPath = jsConfigPath;
-} else if (fs.existsSync(tsConfigPath)) {
-  configPath = tsConfigPath;
-}
+    import { Button } from '@koast/ui';   // 이것만으로 스타일까지 적용됩니다
 
-if (configPath) {
-  let configFile = fs.readFileSync(configPath, "utf8");
+  CSS 로딩 순서를 직접 잡아야 하거나 UMD 빌드를 쓰는 경우에만
+  '@koast/ui/styles.css' 를 직접 import 하세요.
 
-  if (!configFile.includes(newContent)) {
-    configFile = configFile.replace(
-      /content:\s*\[\s*/m,
-      `content: [\n    ${newContent}\n\t\t`
-    );
-
-    fs.writeFileSync(configPath, configFile, "utf8");
-    console.log(`✅ Tailwind content 설정이 ${path.basename(configPath)}에 자동으로 추가되었습니다!`);
-  } else {
-    console.log(`ℹ️ Tailwind content 설정이 ${path.basename(configPath)}에 이미 존재합니다.`);
-  }
-} else {
-  console.log("⚠️ tailwind.config.js 또는 tailwind.config.ts 파일이 존재하지 않습니다. 직접 './node_modules/@koast/ui/dist/*.{js,jsx,ts,tsx}' 를 content에 추가해주세요.");
-}
+  색상은 디자인 시스템의 시맨틱 토큰으로 고정되어 있습니다.
+  프로젝트 brand 색상을 주입하려면 createBrandThemeCss() 를 사용하세요.
+  자세한 내용: https://github.com/koast-crew/koast-ui#색상-시스템
+`);

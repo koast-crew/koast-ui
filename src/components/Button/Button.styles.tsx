@@ -93,7 +93,8 @@ export const getButtonStyles = (
     'koast-inline-flex koast-items-center koast-justify-center koast-font-semibold koast-transition-all koast-duration-200',
     SIZES[normalizeSize(size)],
     isInactive ? DISABLED[variant] : COLORS[normalizeColor(color)][variant],
-    isInactive ? 'koast-cursor-not-allowed koast-pointer-events-none' : FOCUS_RING,
+    // pointer-events-none 을 쓰면 커서가 적용되지 않습니다. 클릭 차단은 네이티브 disabled 가 합니다.
+    isInactive ? 'koast-cursor-not-allowed' : FOCUS_RING,
     loading ? 'koast-relative' : '',
     variant === 'contained' && shadow && !isInactive ? 'koast-shadow-lg koast-shadow-cast' : '',
     fullWidth ? 'koast-w-full' : '',

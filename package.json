@@ -4,6 +4,9 @@
   "private": false,
   "description": "Koast를 위한 React UI 라이브러리",
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",

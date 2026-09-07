@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.0.18] - 2026-09-07
+### Added
+- 디자인 시스템 시맨틱 컬러 토큰 74종 도입 (`semantic-color-tokens.csv` 가 단일 원본)
+- `npm run tokens` 로 CSV → CSS 변수 / Tailwind theme / 타입 메타데이터 생성 (`npm run build` 시 자동 실행)
+- 라이트/다크 테마 지원. `data-koast-theme` 속성으로 하위 트리 단위 지정 가능
+- 프로젝트별 brand 색상 주입 API `createBrandThemeCss()`, `createBrandThemeStyle()` (미지정 시 Tailwind blue)
+- Button `neutral` intent 추가, 포커스 링(`focus-visible`) 추가
+- Storybook `Design System / Color Tokens` 팔레트 문서 추가
+
+### Changed
+- **BREAKING** 스타일 적용 방식 변경. 소비 프로젝트의 tailwind.config 설정이 불필요해졌습니다. ESM 진입점이 CSS 를 side-effect 로 import 하므로 **별도의 스타일 import 도 필요 없습니다** — `import { Button } from '@koast/ui'` 만으로 스타일까지 적용됩니다. UMD 소비자와 CSS 로딩 순서를 직접 제어해야 하는 경우를 위해 `@koast/ui/styles.css` 통로는 유지됩니다
+- **BREAKING** Button `color` 가 시맨틱 intent 유니온으로 닫혔습니다. 임의의 색상 문자열은 타입 에러입니다 (`error` → `danger`, `gray` → `neutral` 별칭은 deprecated 상태로 유지)
+- **BREAKING** Button `customStyle` prop 제거. 색상은 `color` / `variant` 로만 지정합니다
+- Button 의 모든 색상이 raw 팔레트에서 시맨틱 토큰으로 교체되었습니다
+- 배포 CSS 에서 Tailwind preflight(전역 리셋)를 제거하고, 명시도 0 의 최소 리셋으로 대체했습니다
+- `npx @koast/ui add-tailwind-config` 는 더 이상 설정을 수정하지 않고 안내만 출력합니다
+
+### Fixed
+- 정의되지 않은 `color` 값을 넘기면 `colorMap[color][variant]` 에서 런타임 크래시가 나던 문제
+- Button 이 `<a>` 태그에 `disabled` 속성을 전달해 React 경고가 발생하던 문제
+- Button 이 `focus:outline-none` 으로 포커스 표시를 없애기만 하던 접근성 문제
+- 비활성 상태를 `opacity-50` 으로 뭉개던 것을 disabled 토큰으로 교체
+
 ## [1.0.17] - 2026-02-10
 ### Fixed
 - NPM Token 갱신

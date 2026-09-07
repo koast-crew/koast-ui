@@ -7,8 +7,9 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 import stylistic from '@stylistic/eslint-plugin';
 
 export default tseslint.config(
-  { 
-    ignores: ['**/dist/**']
+  {
+    // 생성 산출물은 린트하지 않습니다. 원본은 semantic-color-tokens.csv 입니다.
+    ignores: ['**/dist/**', '**/*.generated.*'],
   },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],

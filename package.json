@@ -30,7 +30,9 @@
     "test": "vitest",
     "prepublishOnly": "npm run build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tokens": "node scripts/generate-tokens.mjs",
+    "prebuild": "npm run tokens"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

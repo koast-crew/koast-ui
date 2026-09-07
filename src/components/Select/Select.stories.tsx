@@ -107,7 +107,7 @@ export const Controlled: SelectStory = {
 
     return (
       <div style={{ height: '280px' }}>
-        <div className={'flex flex-col gap-4'}>
+        <div className={'koast-flex koast-flex-col koast-gap-4'}>
           <div>
             <p>{'문자열 값: '}{stringValue}</p>
             <Select
@@ -143,7 +143,7 @@ export const Controlled: SelectStory = {
 export const Variants: SelectStory = {
   render: () => (
     <div style={{ height: '180px' }}>
-      <div className={'flex gap-4'}>
+      <div className={'koast-flex koast-gap-4'}>
         <Select variant={'outlined'} placeholder={'outlined'}>
           <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
           <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -167,7 +167,7 @@ export const Variants: SelectStory = {
 export const Sizes: SelectStory = {
   render: () => (
     <div style={{ height: '180px' }}>
-      <div className={'flex items-end gap-4'}>
+      <div className={'koast-flex koast-items-end koast-gap-4'}>
         <Select size={'sm'} placeholder={'Small'}>
           <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
           <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -191,7 +191,7 @@ export const Sizes: SelectStory = {
 export const Disabled: SelectStory = {
   render: () => (
     <div style={{ height: '220px' }}>
-      <div className={'flex flex-col gap-4'}>
+      <div className={'koast-flex koast-flex-col koast-gap-4'}>
         <Select disabled placeholder={'비활성화된 Select'}>
           <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
           <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -227,7 +227,7 @@ export const Required: SelectStory = {
 export const Error: SelectStory = {
   render: () => (
     <div style={{ height: '180px' }}>
-      <div className={'flex flex-col gap-4'}>
+      <div className={'koast-flex koast-flex-col koast-gap-4'}>
         <Select error placeholder={'에러 상태'}>
           <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
           <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -278,7 +278,7 @@ export const NumberValues: SelectStory = {
 
     return (
       <div style={{ height: '180px' }}>
-        <div className={'flex flex-col gap-4'}>
+        <div className={'koast-flex koast-flex-col koast-gap-4'}>
           <p>{'선택된 값: '}{value}</p>
           <Select<number>
             value={value}
@@ -303,13 +303,13 @@ export const CustomStyled: SelectStory = {
     <div style={{ height: '180px' }}>
       <Select
         variant={'text'}
-        className={'border-2 border-purple-500 bg-purple-50'}
+        className={'koast-border-2 koast-border-purple-500 koast-bg-purple-50'}
         placeholder={'커스텀 스타일 Select'}
       >
-        <SelectItem value={'option1'} className={'text-purple-700 hover:bg-purple-100'}>
+        <SelectItem value={'option1'} className={'koast-text-purple-700 hover:koast-bg-purple-100'}>
           {'커스텀 옵션 1'}
         </SelectItem>
-        <SelectItem value={'option2'} className={'text-purple-700 hover:bg-purple-100'}>
+        <SelectItem value={'option2'} className={'koast-text-purple-700 hover:koast-bg-purple-100'}>
           {'커스텀 옵션 2'}
         </SelectItem>
       </Select>
@@ -327,13 +327,13 @@ export const CustomSelectedItem: SelectStory = {
 
     return (
       <div style={{ height: '180px' }}>
-        <div className={'flex flex-col gap-4'}>
+        <div className={'koast-flex koast-flex-col koast-gap-4'}>
           <p>{'선택된 값: '}{value}</p>
           <Select
             value={value}
             onChange={(newValue) => setValue(newValue as string)}
             placeholder={'선택하세요'}
-            selectedItemClassName={'bg-blue-100 text-blue-700 font-semibold'}
+            selectedItemClassName={'koast-bg-blue-100 koast-text-blue-700 koast-font-semibold'}
           >
             <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
             <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -357,14 +357,14 @@ export const SelectedItemStyles: SelectStory = {
 
     return (
       <div style={{ height: '280px' }}>
-        <div className={'flex flex-col gap-4'}>
+        <div className={'koast-flex koast-flex-col koast-gap-4'}>
           <div>
-            <p className={'mb-2'}>{'파란색 배경 스타일'}</p>
+            <p className={'koast-mb-2'}>{'파란색 배경 스타일'}</p>
             <Select
               value={value1}
               onChange={(newValue) => setValue1(newValue as string)}
               placeholder={'선택하세요'}
-              selectedItemClassName={'bg-blue-500 text-white'}
+              selectedItemClassName={'koast-bg-blue-500 koast-text-white'}
             >
               <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
               <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -373,12 +373,12 @@ export const SelectedItemStyles: SelectStory = {
           </div>
 
           <div>
-            <p className={'mb-2'}>{'초록색 테두리 스타일'}</p>
+            <p className={'koast-mb-2'}>{'초록색 테두리 스타일'}</p>
             <Select
               value={value2}
               onChange={(newValue) => setValue2(newValue as string)}
               placeholder={'선택하세요'}
-              selectedItemClassName={'border-2 border-green-500 bg-green-50 text-green-700'}
+              selectedItemClassName={'koast-border-2 koast-border-green-500 koast-bg-green-50 koast-text-green-700'}
             >
               <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
               <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
@@ -397,7 +397,7 @@ export const SelectedItemStyles: SelectStory = {
 export const Item: SelectItemStory = {
   name: 'SelectItem(Children)',
   render: (args) => (
-    <div className={'w-48 bg-gray-50'}>
+    <div className={'koast-w-48 koast-bg-gray-50'}>
       <SelectItem {...args} />
     </div>
   ),
@@ -413,7 +413,7 @@ export const Item: SelectItemStory = {
 export const DisabledItem: SelectItemStory = {
   name: 'Disabled SelectItem(Children)',
   render: (args) => (
-    <div className={'w-48 bg-gray-50'}>
+    <div className={'koast-w-48 koast-bg-gray-50'}>
       <SelectItem {...args} />
     </div>
   ),
@@ -430,14 +430,14 @@ export const DisabledItem: SelectItemStory = {
 export const CustomStyledItem: SelectItemStory = {
   name: 'Custom Styled SelectItem(Children)',
   render: (args) => (
-    <div className={'w-48 bg-gray-50'}>
+    <div className={'koast-w-48 koast-bg-gray-50'}>
       <SelectItem {...args} />
     </div>
   ),
   args: {
     value: 'option1',
     children: '커스텀 스타일 옵션',
-    className: 'text-purple-600 font-semibold hover:bg-purple-50',
+    className: 'koast-text-purple-600 koast-font-semibold hover:koast-bg-purple-50',
   },
 };
 

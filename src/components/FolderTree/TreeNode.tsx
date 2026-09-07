@@ -90,10 +90,10 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
   };
 
   return (
-    <div className={'relative h-full'}>
+    <div className={'koast-relative koast-h-full'}>
       {node.type === 'folder' && node.isOpen && (
         <div
-          className={'absolute w-px bg-gray-200'}
+          className={'koast-absolute koast-w-px koast-bg-gray-200'}
           style={{
             left: `${ level === 0 ? indentPixels : (indentPixels * 2) + (indentPixels / 2) }px`,
             top: '36px',
@@ -102,14 +102,14 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
         />
       )}
       <div
-        className={'py-1'}
+        className={'koast-py-1'}
         style={{
           marginLeft: level === 0 ? 0 : `${ (indentPixels / 2) + (node.type === 'file' ? ((indentPixels * 3) + 2) : indentPixels) }px`,
         }}
       >
         <div
-          className={`group flex cursor-pointer items-center gap-0.5 rounded p-1 hover:bg-gray-100 ${
-            selectedPath === currentPath ? 'bg-blue-100' : ''
+          className={`koast-group koast-flex koast-cursor-pointer koast-items-center koast-gap-0.5 koast-rounded koast-p-1 hover:koast-bg-gray-100 ${
+            selectedPath === currentPath ? 'koast-bg-blue-100' : ''
           }`}
           onClick={handleNodeClick}
           draggable={!readOnly}
@@ -123,7 +123,7 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
                 e.stopPropagation();
                 actions.toggleOpen(path);
               }}
-              className={'cursor-pointer'}
+              className={'koast-cursor-pointer'}
             >
               {node.isOpen ? <ChevronDown /> : <ChevronRight />}
             </button>
@@ -139,7 +139,7 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
                 setIsEditing(false);
               }}
               autoFocus
-              className={'rounded border px-2 py-1'}
+              className={'koast-rounded koast-border koast-px-2 koast-py-1'}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
@@ -150,28 +150,28 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
                   setIsEditing(true);
                 }
               }}
-              className={'flex cursor-pointer items-center gap-1'}
+              className={'koast-flex koast-cursor-pointer koast-items-center koast-gap-1'}
             >
-              {node.type === 'file' ? <File className={'size-5'} /> : node.isOpen ? <FolderOpen className={'size-5'} /> : <Folder className={'size-5'} />}
-              <span className={'max-w-[200px] truncate text-sm'}>{node.name}</span>
+              {node.type === 'file' ? <File className={'koast-size-5'} /> : node.isOpen ? <FolderOpen className={'koast-size-5'} /> : <Folder className={'koast-size-5'} />}
+              <span className={'koast-max-w-[200px] koast-truncate koast-text-sm'}>{node.name}</span>
               {node.type === 'folder' && (!node.children || node.children.length === 0) && (
-                <span className={'text-sm text-gray-400'}>{'(비어있음)'}</span>
+                <span className={'koast-text-sm koast-text-gray-400'}>{'(비어있음)'}</span>
               )}
             </span>
           )}
 
           {!readOnly && (
-            <div className={'invisible ml-auto flex items-center gap-2.5 group-hover:visible'}>
+            <div className={'koast-invisible koast-ml-auto koast-flex koast-items-center koast-gap-2.5 group-hover:koast-visible'}>
               {node.type === 'folder' && (
                 <>
                   <button onClick={(e) => handleAddNode(e, 'file')}>
                     <FilePlus2
-                      className={'size-4 text-gray-400 hover:text-blue-500'}
+                      className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
                     />
                   </button>
                   <button onClick={(e) => handleAddNode(e, 'folder')}>
                     <FolderPlus
-                      className={'size-4 text-gray-400 hover:text-blue-500'}
+                      className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
                     />
                   </button>
                 </>
@@ -180,14 +180,14 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
                 onClick={() => setIsEditing(true)}
               >
                 <PencilLine
-                  className={'size-4 text-gray-400 hover:text-blue-500'}
+                  className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
                 />
               </button>
               <button
                 onClick={() => actions.deleteNode(path)}
               >
                 <Trash2
-                  className={'size-4 text-gray-400 hover:text-blue-500'}
+                  className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
                 />
               </button>
             </div>

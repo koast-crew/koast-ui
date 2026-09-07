@@ -68,9 +68,9 @@ export const Button = (props: ButtonProps) => {
 
   const buttonContent = (
     <>
-      {startIcon && <span className={'inline-flex'}>{startIcon}</span>}
+      {startIcon && <span className={'koast-inline-flex'}>{startIcon}</span>}
       <span>{children}</span>
-      {endIcon && <span className={'inline-flex'}>{endIcon}</span>}
+      {endIcon && <span className={'koast-inline-flex'}>{endIcon}</span>}
       {getLoadingIndicator(loading)}
     </>
   );

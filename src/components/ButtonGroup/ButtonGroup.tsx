@@ -93,14 +93,14 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
   return (
     <div
       className={twMerge(
-        'inline-flex',
-        isVertical ? 'flex-col' : 'flex-row',
-        fullWidth ? 'w-full' : '',
+        'koast-inline-flex',
+        isVertical ? 'koast-flex-col' : 'koast-flex-row',
+        fullWidth ? 'koast-w-full' : '',
         className,
       )}
     >
       {buttons.map((button, index) => (
-        <div key={index} className={twMerge(isVertical ? 'relative w-full' : 'flex items-center', fullWidth ? 'w-full' : '')}>
+        <div key={index} className={twMerge(isVertical ? 'koast-relative koast-w-full' : 'koast-flex koast-items-center', fullWidth ? 'koast-w-full' : '')}>
           {React.cloneElement(button, {
             variant,
             color,
@@ -109,15 +109,15 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
             fullWidth: fullWidth || button.props.fullWidth || isVertical,
             className: twMerge(
               // vertical 모드의 클래스네임
-              (isVertical && index !== buttons.length - 1) ? 'border-b-0' : '',
-              (isVertical && index === 0) ? 'rounded-b-none' : '',
-              (isVertical && index === buttons.length - 1) ? 'rounded-t-none' : '',
-              (isVertical && index > 0 && index < buttons.length - 1) ? 'rounded-none' : '',
+              (isVertical && index !== buttons.length - 1) ? 'koast-border-b-0' : '',
+              (isVertical && index === 0) ? 'koast-rounded-b-none' : '',
+              (isVertical && index === buttons.length - 1) ? 'koast-rounded-t-none' : '',
+              (isVertical && index > 0 && index < buttons.length - 1) ? 'koast-rounded-none' : '',
               // horizontal 모드의 클래스네임
-              (!isVertical && index !== buttons.length - 1) ? 'border-r-0' : '',
-              (!isVertical && index === 0) ? 'rounded-r-none' : '',
-              (!isVertical && index === buttons.length - 1) ? 'rounded-l-none' : '',
-              (!isVertical && index > 0 && index < buttons.length - 1) ? 'rounded-none' : '',
+              (!isVertical && index !== buttons.length - 1) ? 'koast-border-r-0' : '',
+              (!isVertical && index === 0) ? 'koast-rounded-r-none' : '',
+              (!isVertical && index === buttons.length - 1) ? 'koast-rounded-l-none' : '',
+              (!isVertical && index > 0 && index < buttons.length - 1) ? 'koast-rounded-none' : '',
               button.props.className || '',
             ),
           })}
@@ -125,8 +125,8 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
             <div
               className={twMerge(
                 isVertical
-                  ? 'h-px w-full bg-gray-300'
-                  : 'h-2/3 w-px bg-gray-300',
+                  ? 'koast-h-px koast-w-full koast-bg-gray-300'
+                  : 'koast-h-2/3 koast-w-px koast-bg-gray-300',
               )}
             />
           )}

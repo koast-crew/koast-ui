@@ -28,8 +28,8 @@ export const SelectItem = ({ value, children, disabled, className }: SelectItemP
       data-value={value}
       className={twMerge(
         'koast-select__item',
-        'cursor-pointer px-4 py-2',
-        disabled ? 'cursor-not-allowed opacity-50' : '',
+        'koast-cursor-pointer koast-px-4 koast-py-2',
+        disabled ? 'koast-cursor-not-allowed koast-opacity-50' : '',
         className,
       )}
     >
@@ -169,16 +169,16 @@ export const Select = <T extends string | number = string>(
       className={twMerge('koast-select', bgClassName)}
       ref={selectRef}
     >
-      <div className={twMerge('koast-select__container', 'relative')}>
+      <div className={twMerge('koast-select__container', 'koast-relative')}>
         <div
           className={twMerge(
             'koast-select__trigger',
-            'flex cursor-pointer items-center justify-between rounded',
+            'koast-flex koast-cursor-pointer koast-items-center koast-justify-between koast-rounded',
             getVariantStyles(variant),
             getSizeStyles(size),
             getErrorStyles(error),
-            disabled ? 'cursor-not-allowed bg-gray-50 opacity-50' : 'hover:border-gray-400',
-            'transition-colors duration-200',
+            disabled ? 'koast-cursor-not-allowed koast-bg-gray-50 koast-opacity-50' : 'hover:koast-border-gray-400',
+            'koast-transition-colors koast-duration-200',
             className,
           )}
           onClick={() => !disabled && setIsOpen(!isOpen)}
@@ -193,25 +193,25 @@ export const Select = <T extends string | number = string>(
         >
           <div className={twMerge(
             'koast-select__value',
-            'flex grow items-center justify-between truncate',
-            !selectedValue && placeholder ? 'text-gray-400' : '',
+            'koast-flex koast-grow koast-items-center koast-justify-between koast-truncate',
+            !selectedValue && placeholder ? 'koast-text-gray-400' : '',
           )}
           >
             {getDisplayValue() || placeholder}
-            {required && !selectedValue && <span className={twMerge('koast-select__required', 'ml-1.5 text-xs text-red-500')}>{'필수*'}</span>}
+            {required && !selectedValue && <span className={twMerge('koast-select__required', 'koast-ml-1.5 koast-text-xs koast-text-red-500')}>{'필수*'}</span>}
           </div>
           <ChevronDown
             size={20}
             className={twMerge(
               'koast-select__icon',
-              'ml-2 transition-transform duration-200',
-              isOpen ? 'rotate-180' : '',
+              'koast-ml-2 koast-transition-transform koast-duration-200',
+              isOpen ? 'koast-rotate-180' : '',
             )}
           />
         </div>
 
         {isOpen && (
-          <div className={twMerge('koast-select__dropdown', 'absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded shadow-lg bg-transparent')}>
+          <div className={twMerge('koast-select__dropdown', 'koast-absolute koast-z-10 koast-mt-1 koast-max-h-60 koast-w-full koast-overflow-y-auto koast-rounded koast-shadow-lg koast-bg-transparent')}>
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return null;
               const { value: itemValue, disabled: itemDisabled } = child.props as SelectItemProps;
@@ -221,9 +221,9 @@ export const Select = <T extends string | number = string>(
                   onClick={() => !itemDisabled && handleSelect(itemValue)}
                   className={twMerge(
                     'koast-select__option',
-                    'bg-transparent',
+                    'koast-bg-transparent',
                     value === itemValue ? selectedItemClassName : '',
-                    size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-lg' : 'text-base',
+                    size === 'sm' ? 'koast-text-sm' : size === 'lg' ? 'koast-text-lg' : 'koast-text-base',
                   )}
                 >
                   {child}
@@ -235,7 +235,7 @@ export const Select = <T extends string | number = string>(
       </div>
 
       {error && errorText && (
-        <div className={twMerge('koast-select__error', 'mt-1 text-sm text-red-500')}>
+        <div className={twMerge('koast-select__error', 'koast-mt-1 koast-text-sm koast-text-red-500')}>
           {errorText}
         </div>
       )}

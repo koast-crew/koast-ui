@@ -184,7 +184,7 @@ export const CircleLegend: Story = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [visible, setVisible] = useState(true);
     return (
-      <div className={'flex flex-col gap-4'}>
+      <div className={'koast-flex koast-flex-col koast-gap-4'}>
         <MapLegend
           legendType={'circle'}
           visible={visible}
@@ -210,11 +210,11 @@ export const Interactive: Story = {
     const [visible, setVisible] = useState(true);
 
     return (
-      <div className={'flex w-[400px] flex-col gap-4'}>
-        <div className={'flex justify-center gap-2'}>
+      <div className={'koast-flex koast-w-[400px] koast-flex-col koast-gap-4'}>
+        <div className={'koast-flex koast-justify-center koast-gap-2'}>
           <button
             onClick={() => setVisible(!visible)}
-            className={'rounded bg-blue-500 px-4 py-2 text-white'}
+            className={'koast-rounded koast-bg-blue-500 koast-px-4 koast-py-2 koast-text-white'}
           >
             {visible ? '범례 숨김' : '범례 표시'}
           </button>
@@ -243,7 +243,7 @@ export const CustomStyled: Story = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [visible, setVisible] = useState(true);
     return (
-      <div className={'flex flex-col gap-4'}>
+      <div className={'koast-flex koast-flex-col koast-gap-4'}>
         <MapLegend
           visible={visible}
           onClose={() => setVisible(false)}
@@ -252,7 +252,7 @@ export const CustomStyled: Story = {
           toolbarButtons={sampleToolbarButtons}
           legendData={sampleLegendData}
           excludeButtonIds={['grid', 'current']}
-          className={'w-[900px] border border-gray-300 bg-gray-700 text-white'}
+          className={'koast-w-[900px] koast-border koast-border-gray-300 koast-bg-gray-700 koast-text-white'}
         />
       </div>
     );

@@ -25,11 +25,11 @@ export const normalizeColor = (color: ButtonColorProp): ButtonColor => {
 };
 
 const SIZES: Record<ButtonSize, string> = {
-  xs: 'text-xs px-2 py-1 gap-1',
-  sm: 'text-sm px-3 py-1.5 gap-1.5',
-  md: 'text-base px-4 py-2 gap-2',
-  lg: 'text-lg px-5 py-2.5 gap-2',
-  xl: 'text-xl px-6 py-3 gap-2.5',
+  xs: 'koast-text-xs koast-px-2 koast-py-1 koast-gap-1',
+  sm: 'koast-text-sm koast-px-3 koast-py-1.5 koast-gap-1.5',
+  md: 'koast-text-base koast-px-4 koast-py-2 koast-gap-2',
+  lg: 'koast-text-lg koast-px-5 koast-py-2.5 koast-gap-2',
+  xl: 'koast-text-xl koast-px-6 koast-py-3 koast-gap-2.5',
 };
 
 /**
@@ -40,39 +40,39 @@ const SIZES: Record<ButtonSize, string> = {
  */
 const COLORS: Record<ButtonColor, Record<ButtonVariant, string>> = {
   primary: {
-    contained: 'bg-koast-interactive-primary text-koast-interactive-inverse hover:bg-koast-interactive-primary-hovered active:bg-koast-interactive-primary-pressed',
-    outlined: 'border border-koast-interactive-primary text-koast-interactive-primary hover:bg-koast-interactive-selected hover:border-koast-interactive-primary-hovered hover:text-koast-interactive-primary-hovered active:bg-koast-interactive-selected-pressed',
-    text: 'text-koast-interactive-primary hover:bg-koast-interactive-selected hover:text-koast-interactive-primary-hovered active:bg-koast-interactive-selected-pressed',
+    contained: 'koast-bg-interactive-primary koast-text-interactive-inverse hover:koast-bg-interactive-primary-hovered active:koast-bg-interactive-primary-pressed',
+    outlined: 'koast-border koast-border-interactive-primary koast-text-interactive-primary hover:koast-bg-interactive-selected hover:koast-border-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed',
+    text: 'koast-text-interactive-primary hover:koast-bg-interactive-selected hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed',
   },
   secondary: {
-    contained: 'bg-koast-interactive-secondary text-koast-interactive-secondary hover:bg-koast-interactive-secondary-hovered active:bg-koast-interactive-secondary-pressed',
-    outlined: 'border border-koast-interactive-secondary text-koast-interactive-secondary hover:bg-koast-interactive-secondary hover:border-koast-interactive-secondary-hovered hover:text-koast-interactive-secondary-hovered active:bg-koast-interactive-secondary-hovered',
-    text: 'text-koast-interactive-secondary hover:bg-koast-interactive-secondary hover:text-koast-interactive-secondary-hovered active:bg-koast-interactive-secondary-hovered',
+    contained: 'koast-bg-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed',
+    outlined: 'koast-border koast-border-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary hover:koast-border-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-hovered',
+    text: 'koast-text-interactive-secondary hover:koast-bg-interactive-secondary hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-hovered',
   },
   neutral: {
-    contained: 'bg-koast-inverse-bold text-koast-interactive-inverse hover:bg-koast-inverse-bolder active:opacity-90',
-    outlined: 'border border-koast-primary text-koast-secondary hover:bg-koast-tertiary active:bg-koast-tertiary active:opacity-90',
-    text: 'text-koast-secondary hover:bg-koast-tertiary active:bg-koast-tertiary active:opacity-90',
+    contained: 'koast-bg-inverse-bold koast-text-interactive-inverse hover:koast-bg-inverse-bolder active:koast-opacity-90',
+    outlined: 'koast-border koast-border-primary koast-text-secondary hover:koast-bg-tertiary active:koast-bg-tertiary active:koast-opacity-90',
+    text: 'koast-text-secondary hover:koast-bg-tertiary active:koast-bg-tertiary active:koast-opacity-90',
   },
   danger: {
-    contained: 'bg-koast-interactive-danger text-koast-on-dark hover:bg-koast-interactive-danger-hovered active:bg-koast-interactive-danger-pressed',
-    outlined: 'border border-koast-danger text-koast-danger hover:bg-koast-danger-subtle hover:border-koast-interactive-danger-hovered hover:text-koast-danger-bold active:bg-koast-danger-subtle active:opacity-90',
-    text: 'text-koast-danger hover:bg-koast-danger-subtle hover:text-koast-danger-bold active:bg-koast-danger-subtle active:opacity-90',
+    contained: 'koast-bg-interactive-danger koast-text-on-dark hover:koast-bg-interactive-danger-hovered active:koast-bg-interactive-danger-pressed',
+    outlined: 'koast-border koast-border-danger koast-text-danger hover:koast-bg-danger-subtle hover:koast-border-interactive-danger-hovered hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-opacity-90',
+    text: 'koast-text-danger hover:koast-bg-danger-subtle hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-opacity-90',
   },
   info: {
-    contained: 'bg-koast-info-bold text-koast-interactive-inverse hover:opacity-90 active:opacity-80',
-    outlined: 'border border-koast-info text-koast-info hover:bg-koast-info-subtle hover:text-koast-info-bold active:opacity-90',
-    text: 'text-koast-info hover:bg-koast-info-subtle hover:text-koast-info-bold active:opacity-90',
+    contained: 'koast-bg-info-bold koast-text-interactive-inverse hover:koast-opacity-90 active:koast-opacity-80',
+    outlined: 'koast-border koast-border-info koast-text-info hover:koast-bg-info-subtle hover:koast-text-info-bold active:koast-opacity-90',
+    text: 'koast-text-info hover:koast-bg-info-subtle hover:koast-text-info-bold active:koast-opacity-90',
   },
   warning: {
-    contained: 'bg-koast-warning-bold text-koast-on-light hover:opacity-90 active:opacity-80',
-    outlined: 'border border-koast-warning text-koast-warning hover:bg-koast-warning-subtle hover:text-koast-warning-bold active:opacity-90',
-    text: 'text-koast-warning hover:bg-koast-warning-subtle hover:text-koast-warning-bold active:opacity-90',
+    contained: 'koast-bg-warning-bold koast-text-on-light hover:koast-opacity-90 active:koast-opacity-80',
+    outlined: 'koast-border koast-border-warning koast-text-warning hover:koast-bg-warning-subtle hover:koast-text-warning-bold active:koast-opacity-90',
+    text: 'koast-text-warning hover:koast-bg-warning-subtle hover:koast-text-warning-bold active:koast-opacity-90',
   },
   success: {
-    contained: 'bg-koast-success-bold text-koast-on-light hover:opacity-90 active:opacity-80',
-    outlined: 'border border-koast-success text-koast-success hover:bg-koast-success-subtle hover:text-koast-success-bold active:opacity-90',
-    text: 'text-koast-success hover:bg-koast-success-subtle hover:text-koast-success-bold active:opacity-90',
+    contained: 'koast-bg-success-bold koast-text-on-light hover:koast-opacity-90 active:koast-opacity-80',
+    outlined: 'koast-border koast-border-success koast-text-success hover:koast-bg-success-subtle hover:koast-text-success-bold active:koast-opacity-90',
+    text: 'koast-text-success hover:koast-bg-success-subtle hover:koast-text-success-bold active:koast-opacity-90',
   },
 };
 
@@ -81,13 +81,13 @@ const COLORS: Record<ButtonColor, Record<ButtonVariant, string>> = {
  * 예전처럼 `opacity-50` 으로 뭉개지 않습니다.
  */
 const DISABLED: Record<ButtonVariant, string> = {
-  contained: 'bg-koast-disabled text-koast-disabled',
-  outlined: 'border border-koast-disabled text-koast-disabled bg-transparent',
-  text: 'text-koast-disabled bg-transparent',
+  contained: 'koast-bg-disabled koast-text-disabled',
+  outlined: 'koast-border koast-border-disabled koast-text-disabled koast-bg-transparent',
+  text: 'koast-text-disabled koast-bg-transparent',
 };
 
 /** 포커스 링. 이전 구현은 `focus:outline-none` 만 있고 대체 표시가 없었습니다. */
-const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-koast-focus-ring focus-visible:ring-offset-2';
+const FOCUS_RING = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring focus-visible:koast-ring-offset-2';
 
 /**
  * 버튼의 최종 클래스명을 계산합니다.
@@ -105,13 +105,13 @@ export const getButtonStyles = (
   const isInactive = disabled || loading;
 
   return twMerge(
-    'inline-flex items-center justify-center rounded font-semibold transition-all duration-200',
+    'koast-inline-flex koast-items-center koast-justify-center koast-rounded koast-font-semibold koast-transition-all koast-duration-200',
     SIZES[size],
     isInactive ? DISABLED[variant] : COLORS[normalizeColor(color)][variant],
-    isInactive ? 'cursor-not-allowed pointer-events-none' : FOCUS_RING,
-    loading ? 'relative' : '',
-    variant === 'contained' && shadow && !isInactive ? 'shadow-lg shadow-koast-cast' : '',
-    fullWidth ? 'w-full' : '',
+    isInactive ? 'koast-cursor-not-allowed koast-pointer-events-none' : FOCUS_RING,
+    loading ? 'koast-relative' : '',
+    variant === 'contained' && shadow && !isInactive ? 'koast-shadow-lg koast-shadow-cast' : '',
+    fullWidth ? 'koast-w-full' : '',
     className,
   );
 };
@@ -123,10 +123,10 @@ export const getLoadingIndicator = (loading: boolean) => {
   if (!loading) return null;
 
   return (
-    <span className={'absolute inset-0 flex items-center justify-center'}>
-      <svg className={'size-5 animate-spin'} viewBox={'0 0 24 24'}>
+    <span className={'koast-absolute koast-inset-0 koast-flex koast-items-center koast-justify-center'}>
+      <svg className={'koast-size-5 koast-animate-spin'} viewBox={'0 0 24 24'}>
         <circle
-          className={'opacity-25'}
+          className={'koast-opacity-25'}
           cx={'12'}
           cy={'12'}
           r={'10'}
@@ -135,7 +135,7 @@ export const getLoadingIndicator = (loading: boolean) => {
           fill={'transparent'}
         />
         <path
-          className={'opacity-75'}
+          className={'koast-opacity-75'}
           fill={'currentColor'}
           d={'M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'}
         />

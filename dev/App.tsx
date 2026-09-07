@@ -28,21 +28,21 @@ const MainView = () => {
   const SelectedComponent = selected ? components[selected] : null;
 
   return (
-    <div className={'flex flex-col gap-2 p-2'}>
+    <div className={'koast-flex koast-flex-col koast-gap-2 koast-p-2'}>
       <h1>{'Koast UI Components'}</h1>
-      <section className={'mt-2'}>
-        <div className={'mb-4 flex gap-2'}>
+      <section className={'koast-mt-2'}>
+        <div className={'koast-mb-4 koast-flex koast-gap-2'}>
           {Object.keys(components).map((key) => (
             <button
               key={key}
               onClick={() => setSelected(key as ComponentType)}
-              className={`rounded border px-4 py-2 hover:bg-gray-100 ${ selected === key ? 'bg-gray-100' : '' }`}
+              className={`koast-rounded koast-border koast-px-4 koast-py-2 hover:koast-bg-gray-100 ${ selected === key ? 'koast-bg-gray-100' : '' }`}
             >
               {`${ key.charAt(0).toUpperCase() + key.slice(1) } Docs`}
             </button>
           ))}
         </div>
-        <div className={'mt-2'}>
+        <div className={'koast-mt-2'}>
           {SelectedComponent && <SelectedComponent />}
         </div>
       </section>

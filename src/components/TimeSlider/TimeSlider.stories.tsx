@@ -241,21 +241,21 @@ export const Theme: TimeSliderStory = {
       },
     };
     return (
-      <div className={'flex flex-col gap-12'}>
+      <div className={'koast-flex koast-flex-col koast-gap-12'}>
         <div>
-          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Dark Theme'}</p>
+          <p className={'koast-mb-2 koast-text-sm koast-font-medium koast-text-slate-400'}>{'Dark Theme'}</p>
           <TimeSlider {...args} theme={'dark'} />
         </div>
         <div>
-          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Light Theme'}</p>
+          <p className={'koast-mb-2 koast-text-sm koast-font-medium koast-text-slate-400'}>{'Light Theme'}</p>
           <TimeSlider {...args} theme={'light'} />
         </div>
         <div>
-          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Cool Theme'}</p>
+          <p className={'koast-mb-2 koast-text-sm koast-font-medium koast-text-slate-400'}>{'Cool Theme'}</p>
           <TimeSlider {...args} theme={'cool'} />
         </div>
         <div>
-          <p className={'mb-2 text-sm font-medium text-slate-400'}>{'Warm Theme'}</p>
+          <p className={'koast-mb-2 koast-text-sm koast-font-medium koast-text-slate-400'}>{'Warm Theme'}</p>
           <TimeSlider {...args} theme={'warm'} />
         </div>
       </div>

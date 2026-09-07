@@ -19,7 +19,7 @@ export function FolderTree(props: FolderTreeProps) {
   }, [treeData, onChange]);
 
   return (
-    <div className={'max-h-[800px] overflow-y-auto overflow-x-hidden'}>
+    <div className={'koast-max-h-[800px] koast-overflow-y-auto koast-overflow-x-hidden'}>
       <TreeNode
         node={treeData}
         path={[]}

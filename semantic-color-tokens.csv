@@ -11,7 +11,7 @@ color/content,info-bold,{Color/blue/800},{Color/blue/300}
 color/content,warning-bold,{Color/amber/600},{Color/amber/300}
 color/content,success-bold,{Color/green/800},{Color/green/200}
 color/content,danger-bold,{Color/red/800},{Color/red/600}
-color/content,disabled,{Color/zinc/400},{Color/zinc/300}
+color/content,disabled,{Color/zinc/500},{Color/zinc/300}
 color/content/interactive,primary,{color/brand/primary/600},{color/brand/primary/400}
 color/content/interactive,primary-hovered,{color/brand/primary/700},{color/brand/primary/300}
 color/content/interactive,primary-pressed,{color/brand/primary/800},{color/brand/primary/200}

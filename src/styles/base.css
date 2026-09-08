@@ -22,10 +22,6 @@
   cursor: pointer;
 }
 
-:where(button):disabled {
-  cursor: default;
-}
-
 /* 아이콘이 텍스트 baseline 때문에 아래로 밀리는 문제를 막습니다. */
 :where(svg) {
   display: block;

@@ -19,13 +19,13 @@ const meta: Meta<typeof Button> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'neutral', 'danger', 'info', 'warning', 'success'],
+      options: ['primary', 'secondary', 'danger'],
       description: '버튼의 의미(intent)를 지정합니다. 디자인 시스템에 정의된 값만 사용할 수 있습니다.',
       defaultValue: 'primary',
     },
     size: {
       control: 'radio',
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      options: ['xs', 'sm', 'md'],
       description: '버튼의 크기를 지정합니다.',
       defaultValue: 'md',
     },
@@ -92,11 +92,7 @@ export const Colors: Story = {
       <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
         <Button variant={'contained'} color={'primary'}>{'Primary'}</Button>
         <Button variant={'contained'} color={'secondary'}>{'Secondary'}</Button>
-        <Button variant={'contained'} color={'neutral'}>{'Neutral'}</Button>
         <Button variant={'contained'} color={'danger'}>{'Danger'}</Button>
-        <Button variant={'contained'} color={'info'}>{'Info'}</Button>
-        <Button variant={'contained'} color={'warning'}>{'Warning'}</Button>
-        <Button variant={'contained'} color={'success'}>{'Success'}</Button>
       </div>
     </>
   ),
@@ -110,8 +106,6 @@ export const Sizes: Story = {
         <Button size={'xs'}>{'XS'}</Button>
         <Button size={'sm'}>{'SM'}</Button>
         <Button size={'md'}>{'MD'}</Button>
-        <Button size={'lg'}>{'LG'}</Button>
-        <Button size={'xl'}>{'XL'}</Button>
       </div>
     </>
   ),
@@ -125,7 +119,7 @@ export const WithIcons: Story = {
         <Button variant={'contained'} startIcon={<Plus />}>{'추가하기'}</Button>
         <Button variant={'outlined'} endIcon={<ChevronRight />}>{'다음'}</Button>
         <Button variant={'contained'} startIcon={<Send />} endIcon={<ChevronRight />}>{'전송하기'}</Button>
-        <Button variant={'contained'} color={'neutral'} startIcon={<Download />}>{'다운로드'}</Button>
+        <Button variant={'contained'} color={'secondary'} startIcon={<Download />}>{'다운로드'}</Button>
       </div>
     </>
   ),
@@ -218,7 +212,7 @@ export const AsLink: Story = {
         <Button
           href={'https://google.com'}
           variant={'text'}
-          color={'info'}
+          color={'secondary'}
         >
           {'Google로 이동'}
         </Button>

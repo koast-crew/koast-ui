@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 
+import { Button } from '../src';
 import ButtonExam from './src/components/ButtonExam';
-// import CesiumExam from './src/components/CesiumExam';
 import ButtonGroupExam from './src/components/ButtonGroupExam';
 import FolderTreeExam from './src/components/FolderTreeExam';
 import SelectExam from './src/components/SelectExam';
 import TimeSliderExam from './src/components/TimeSliderExam';
 import MapLegendExam from './src/components/MapLegendExam';
 
-// 컴포넌트 매핑 객체
 const components = {
   button: ButtonExam,
-  // cesium: CesiumExam,
   folderTree: FolderTreeExam,
   select: SelectExam,
   buttonGroup: ButtonGroupExam,
@@ -21,30 +19,50 @@ const components = {
 
 type ComponentType = keyof typeof components | null;
 
+const label = (key: string) => `${ key.charAt(0).toUpperCase() + key.slice(1) } Docs`;
+
 const MainView = () => {
   const [selected, setSelected] = useState<ComponentType>('select');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  // 동적으로 선택된 컴포넌트 렌더링
   const SelectedComponent = selected ? components[selected] : null;
 
   return (
-    <div className={'koast-flex koast-flex-col koast-gap-2 koast-p-2'}>
-      <h1>{'Koast UI Components'}</h1>
-      <section className={'koast-mt-2'}>
-        <div className={'koast-mb-4 koast-flex koast-gap-2'}>
-          {Object.keys(components).map((key) => (
-            <button
+    <div
+      data-koast-theme={theme}
+      className={'koast-min-h-screen koast-bg-primary koast-p-6 koast-text-primary'}
+    >
+      <header className={'koast-mb-6 koast-flex koast-items-center koast-justify-between koast-gap-4'}>
+        <h1 className={'koast-text-xl koast-font-bold'}>{'Koast UI Components'}</h1>
+        <Button
+          size={'sm'}
+          variant={'outlined'}
+          color={'secondary'}
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        >
+          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+        </Button>
+      </header>
+
+      <nav className={'koast-mb-6 koast-flex koast-flex-wrap koast-gap-2'}>
+        {Object.keys(components).map((key) => {
+          const isSelected = selected === key;
+          return (
+            <Button
               key={key}
+              size={'sm'}
+              variant={isSelected ? 'contained' : 'outlined'}
+              color={isSelected ? 'primary' : 'secondary'}
               onClick={() => setSelected(key as ComponentType)}
-              className={`koast-rounded koast-border koast-px-4 koast-py-2 hover:koast-bg-gray-100 ${ selected === key ? 'koast-bg-gray-100' : '' }`}
             >
-              {`${ key.charAt(0).toUpperCase() + key.slice(1) } Docs`}
-            </button>
-          ))}
-        </div>
-        <div className={'koast-mt-2'}>
-          {SelectedComponent && <SelectedComponent />}
-        </div>
+              {label(key)}
+            </Button>
+          );
+        })}
+      </nav>
+
+      <section className={'koast-rounded-lg koast-border koast-border-secondary koast-bg-secondary koast-p-4'}>
+        {SelectedComponent && <SelectedComponent />}
       </section>
     </div>
   );

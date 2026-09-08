@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.20] - 2026-09-07
+
+### Changed
+
+- Button 컴포넌트를 디자인 시스템 스펙에 맞춤 (color/size 축소, 치수 변경)
+- brand secondary 램프를 zinc 로, 비활성 텍스트를 zinc-500 으로 변경
+
+### Fixed
+
+- 비활성 버튼 금지 커서 표시 수정
+
 ## [1.0.19] - 2026-09-07
 
 ### Changed

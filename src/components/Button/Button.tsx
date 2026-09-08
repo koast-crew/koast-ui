@@ -8,8 +8,8 @@ import { getButtonStyles, getLoadingIndicator } from './Button.styles';
  * `color` 는 정해진 intent 값만 받고, 임의의 색상 문자열이나 인라인 스타일은 받지 않습니다.
  *
  * @param {'outlined' | 'contained' | 'text'} [props.variant='outlined'] - 버튼 스타일 변형
- * @param {'primary' | 'secondary' | 'neutral' | 'danger' | 'info' | 'warning' | 'success'} [props.color='primary'] - 버튼 intent
- * @param {'xs' | 'sm' | 'md' | 'lg' | 'xl'} [props.size='md'] - 버튼 크기
+ * @param {'primary' | 'secondary' | 'danger'} [props.color='primary'] - 버튼 intent
+ * @param {'xs' | 'sm' | 'md'} [props.size='md'] - 버튼 크기
  * @param {'button' | 'submit' | 'reset'} [props.type='button'] - 버튼 타입
  * @param {string} [props.className=''] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가)
  * @param {Function} [props.onClick] - 클릭 이벤트 핸들러

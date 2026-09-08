@@ -24,8 +24,11 @@ const CATEGORIES = {
   'color/effect/shadow': { prefix: 'shadow', scale: 'boxShadowColor', group: 'root' },
 };
 
-/** 프로젝트별로 주입받는 brand 램프의 기본값입니다. 미지정 시 Tailwind blue 로 동작합니다. */
-const BRAND_FALLBACK = { primary: palette.blue, secondary: palette.blue };
+/**
+ * 프로젝트별로 주입받는 brand 램프의 기본값입니다.
+ * secondary 는 중립(zinc)입니다. 피그마의 Secondary 버튼이 zinc 계열입니다.
+ */
+const BRAND_FALLBACK = { primary: palette.blue, secondary: palette.zinc };
 const BRAND_STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 const BRAND_TONES = ['primary', 'secondary'];
 

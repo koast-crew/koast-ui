@@ -1,0 +1,47 @@
+/* Storybook 전용 스타일입니다. 라이브러리 배포물에 포함되지 않습니다. */
+
+.story-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.story-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.story-label {
+  width: 7rem;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: rgb(var(--koast-content-tertiary));
+}
+.story-note {
+  font-size: 0.75rem;
+  color: rgb(var(--koast-content-tertiary));
+}
+
+/* ── 소비자가 자기 Tailwind 로 쓰게 되는 클래스 ── */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.w-80 {
+  width: 20rem;
+}
+.w-40 {
+  width: 10rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.justify-between {
+  justify-content: space-between;
+}

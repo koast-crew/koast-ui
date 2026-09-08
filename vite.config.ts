@@ -13,26 +13,26 @@ const __dirname = dirname(__filename);
  * Vite 라이브러리 모드가 CSS 추출 후 제거해버린 `import './style.css'` 를 되심습니다.
  * 소비자가 스타일을 직접 import 하지 않아도 되게 합니다. UMD 는 import 구문을 못 써서 제외합니다.
  */
-const injectCssImport = (): Plugin => ({
-  name: 'koast-inject-css-import',
-  apply: 'build',
-  generateBundle(options, bundle) {
-    if (options.format !== 'es') return;
+const injectCssImport = (): Plugin => {
+  // Storybook 이 이 설정을 상속하므로 라이브러리 빌드에서만 주입해야 합니다.
+  let isLibBuild = false;
 
-    const entries = Object.values(bundle).filter(
-      (chunk) => chunk.type === 'chunk' && chunk.isEntry,
-    );
-    if (entries.length === 0) {
-      this.warn('진입 청크를 찾지 못해 CSS import 를 심지 못했습니다.');
-      return;
-    }
+  return {
+    name: 'koast-inject-css-import',
+    apply: 'build',
+    configResolved(config) {
+      isLibBuild = Boolean(config.build.lib);
+    },
+    generateBundle(options, bundle) {
+      if (!isLibBuild || options.format !== 'es') return;
 
-    entries.forEach((chunk) => {
-      if (chunk.type !== 'chunk') return;
-      chunk.code = `import './style.css';\n${chunk.code}`;
-    });
-  },
-});
+      Object.values(bundle).forEach((chunk) => {
+        if (chunk.type !== 'chunk' || !chunk.isEntry) return;
+        chunk.code = `import './style.css';\n${chunk.code}`;
+      });
+    },
+  };
+};
 
 export default defineConfig(({ command }) => ({
   publicDir: 'public',

@@ -1,0 +1,3 @@
+# 포맷은 ESLint(@stylistic)가 담당합니다. Prettier 에는 `${ x }` 옵션이 없어
+# template-curly-spacing 과 영구히 충돌하므로 전체를 제외합니다.
+*

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.21] - 2026-09-08
+
+### Changed
+
+- Button 스토리를 디자인 시스템의 변형 축(Type/Style/State/Size)으로 재구성
+- eslint 설정을 @stylistic 공식 프리셋으로 정리하고 Prettier 를 배제
+
+### Fixed
+
+- Storybook 에 토큰 변수가 주입되지 않아 버튼이 흑백으로 보이던 문제 수정
+- koast- 접두사 클래스의 twMerge 충돌 해소가 동작하지 않던 문제 수정
+
 ## [1.0.20] - 2026-09-07
 
 ### Changed

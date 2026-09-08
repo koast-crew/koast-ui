@@ -1,222 +1,266 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 import { Plus, Send, Download, ChevronRight } from 'lucide-react';
-
-/** 사용자 상호작용을 위한 기본 UI 요소입니다. 크기·색상·변형과 아이콘을 지원합니다. */
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
+  args: {
+    children: '버튼',
+    variant: 'contained',
+    color: 'primary',
+    size: 'md',
+  },
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['text', 'contained', 'outlined'],
-      description: '버튼의 변형을 지정합니다.',
-      defaultValue: 'outlined',
-    },
     color: {
       control: 'select',
       options: ['primary', 'secondary', 'danger'],
-      description: '버튼의 의미(intent)를 지정합니다. 디자인 시스템에 정의된 값만 사용할 수 있습니다.',
-      defaultValue: 'primary',
+      description: 'Figma 의 **Type** 축입니다.',
+    },
+    variant: {
+      control: 'select',
+      options: ['contained', 'outlined', 'text'],
+      description:
+        'Figma 의 **Style** 축입니다. contained=Filled, outlined=Outlined, text=Transparent.',
     },
     size: {
       control: 'radio',
       options: ['xs', 'sm', 'md'],
-      description: '버튼의 크기를 지정합니다.',
-      defaultValue: 'md',
+      description:
+        'Figma 의 **Size** 축입니다. 높이 28 / 40 / 48px 에 대응합니다.',
     },
-    type: {
-      control: 'radio',
-      options: ['button', 'submit', 'reset'],
-      description: '버튼의 HTML type 속성을 지정합니다.',
-      defaultValue: 'button',
-    },
-    disabled: {
-      control: 'boolean',
-      description: '버튼의 비활성화 상태를 지정합니다.',
-      defaultValue: false,
-    },
-    loading: {
-      control: 'boolean',
-      description: '로딩 상태를 표시합니다.',
-      defaultValue: false,
-    },
+    disabled: { control: 'boolean', description: 'Figma State=Disabled.' },
+    loading: { control: 'boolean', description: 'Figma State=Loading.' },
     fullWidth: {
       control: 'boolean',
-      description: '버튼의 너비를 부모 요소의 100%로 설정합니다.',
-      defaultValue: false,
+      description: '너비를 부모의 100%로 설정합니다.',
     },
     shadow: {
       control: 'boolean',
-      description: '버튼에 그림자 효과를 추가합니다. (contained 변형에만 적용)',
-      defaultValue: false,
+      description: '그림자입니다. contained 에만 적용됩니다.',
     },
+    type: { control: 'radio', options: ['button', 'submit', 'reset'] },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-/** 기본 버튼 예시입니다. */
-export const Default: Story = {
-  args: {
-    children: '버튼',
-    variant: 'outlined',
-    color: 'primary',
-    size: 'md',
-    type: 'button',
-  },
-};
+const TYPES = [
+  ['primary', 'Primary'],
+  ['secondary', 'Secondary'],
+  ['danger', 'Destructive'],
+] as const;
 
-/** 버튼 변형(variant) 예시입니다. (줄바꿈을 위해 Fragment를 추가했습니다.) */
-export const Variants: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-gap-4'}>
-        <Button variant={'outlined'}>{'outlined'}</Button>
-        <Button variant={'contained'}>{'contained'}</Button>
-        <Button variant={'text'}>{'text'}</Button>
-      </div>
-    </>
+const STYLES = [
+  ['contained', 'Filled'],
+  ['outlined', 'Outlined'],
+  ['text', 'Transparent'],
+] as const;
+
+/** 기본값입니다. Figma 의 `Type=Primary, Style=Filled, State=Default` 에 해당합니다. */
+export const Default: Story = {};
+
+/** **Type** 축입니다. Figma 의 Primary / Secondary / Destructive 에 대응합니다. */
+export const Types: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      {STYLES.map(([variant, styleName]) => (
+        <div key={variant} className={'story-row'}>
+          <span className={'story-label'}>{styleName}</span>
+          {TYPES.map(([color, typeName]) => (
+            <Button key={color} {...args} variant={variant} color={color}>
+              {typeName}
+            </Button>
+          ))}
+        </div>
+      ))}
+    </div>
   ),
 };
 
-/** 버튼 색상(color) 예시입니다. */
-export const Colors: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
-        <Button variant={'contained'} color={'primary'}>{'Primary'}</Button>
-        <Button variant={'contained'} color={'secondary'}>{'Secondary'}</Button>
-        <Button variant={'contained'} color={'danger'}>{'Danger'}</Button>
-      </div>
-    </>
+/** **Style** 축입니다. Figma 의 Filled / Outlined / Transparent 에 대응합니다. */
+export const Styles: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      {TYPES.map(([color, typeName]) => (
+        <div key={color} className={'story-row'}>
+          <span className={'story-label'}>{typeName}</span>
+          {STYLES.map(([variant, styleName]) => (
+            <Button key={variant} {...args} variant={variant} color={color}>
+              {styleName}
+            </Button>
+          ))}
+        </div>
+      ))}
+    </div>
   ),
 };
 
-/** 버튼 크기(size) 예시입니다. */
+/** **State** 축입니다. Hovered / Pressed / Focused 는 직접 상호작용해야 나타납니다. */
+export const States: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      <div className={'story-row'}>
+        <span className={'story-label'}>{'Default'}</span>
+        <Button {...args}>{'Default'}</Button>
+      </div>
+      <div className={'story-row'}>
+        <span className={'story-label'}>{'Hovered'}</span>
+        <Button {...args}>{'마우스를 올려보세요'}</Button>
+      </div>
+      <div className={'story-row'}>
+        <span className={'story-label'}>{'Pressed'}</span>
+        <Button {...args}>{'눌러보세요'}</Button>
+      </div>
+      <div className={'story-row'}>
+        <span className={'story-label'}>{'Focused'}</span>
+        <Button {...args}>{'Tab 으로 포커스'}</Button>
+      </div>
+      <div className={'story-row'}>
+        <span className={'story-label'}>{'Disabled'}</span>
+        <Button {...args} disabled>
+          {'Disabled'}
+        </Button>
+      </div>
+      <div className={'story-row'}>
+        <span className={'story-label'}>{'Loading'}</span>
+        <Button {...args} loading>
+          {'Loading'}
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+/** **Size** 축입니다. 높이는 디자인 시스템이 28 / 40 / 48px 로 고정합니다. */
 export const Sizes: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-items-center koast-gap-4'}>
-        <Button size={'xs'}>{'XS'}</Button>
-        <Button size={'sm'}>{'SM'}</Button>
-        <Button size={'md'}>{'MD'}</Button>
-      </div>
-    </>
+  render: (args) => (
+    <div className={'story-stack'}>
+      {(
+        [
+          ['xs', 'XSmall · 28px'],
+          ['sm', 'Small · 40px'],
+          ['md', 'Medium · 48px'],
+        ] as const
+      ).map(([size, name]) => (
+        <div key={size} className={'story-row'}>
+          <span className={'story-label'}>{name}</span>
+          <Button {...args} size={size}>
+            {'버튼'}
+          </Button>
+          <Button {...args} size={size} variant={'outlined'}>
+            {'버튼'}
+          </Button>
+          <Button {...args} size={size} startIcon={<Plus />}>
+            {'아이콘'}
+          </Button>
+        </div>
+      ))}
+    </div>
   ),
 };
 
-/** 아이콘이 있는 버튼 예시입니다. */
+/** Type × Style 전체 매트릭스입니다. 디자인 검토용입니다. */
+export const Matrix: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      {TYPES.map(([color, typeName]) => (
+        <div key={color} className={'story-row'}>
+          <span className={'story-label'}>{typeName}</span>
+          {STYLES.map(([variant]) => (
+            <Button key={variant} {...args} color={color} variant={variant}>
+              {'버튼'}
+            </Button>
+          ))}
+          <Button {...args} color={color} disabled>
+            {'비활성'}
+          </Button>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+/** 아이콘 크기는 `size` 를 따라갑니다 (16 / 16 / 24px). 직접 지정하지 않아도 됩니다. */
 export const WithIcons: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
-        <Button variant={'contained'} startIcon={<Plus />}>{'추가하기'}</Button>
-        <Button variant={'outlined'} endIcon={<ChevronRight />}>{'다음'}</Button>
-        <Button variant={'contained'} startIcon={<Send />} endIcon={<ChevronRight />}>{'전송하기'}</Button>
-        <Button variant={'contained'} color={'secondary'} startIcon={<Download />}>{'다운로드'}</Button>
-      </div>
-    </>
+  render: (args) => (
+    <div className={'story-row'}>
+      <Button {...args} startIcon={<Plus />}>
+        {'추가하기'}
+      </Button>
+      <Button {...args} variant={'outlined'} endIcon={<ChevronRight />}>
+        {'다음'}
+      </Button>
+      <Button {...args} startIcon={<Send />} endIcon={<ChevronRight />}>
+        {'전송하기'}
+      </Button>
+      <Button {...args} color={'secondary'} startIcon={<Download />}>
+        {'다운로드'}
+      </Button>
+    </div>
   ),
 };
 
-/** 비활성화된 버튼 예시입니다. */
-export const Disabled: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-gap-4'}>
-        <Button variant={'outlined'} disabled>{'outlined'}</Button>
-        <Button variant={'contained'} disabled>{'contained'}</Button>
-        <Button variant={'text'} disabled>{'text'}</Button>
-      </div>
-    </>
-  ),
-};
-
-/** 로딩 상태의 버튼 예시입니다. */
-export const Loading: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-gap-4'}>
-        <Button variant={'text'} loading>{'로딩 중'}</Button>
-        <Button variant={'contained'} loading>{'로딩 중'}</Button>
-        <Button variant={'outlined'} loading>{'전송 중'}</Button>
-        <Button variant={'contained'} loading startIcon={<Send size={16} />}>{'아이콘 포함'}</Button>
-      </div>
-    </>
-  ),
-};
-
-/** 전체 너비(fullWidth) 버튼 예시입니다. */
+/** `fullWidth` 는 부모 너비를 채웁니다. */
 export const FullWidth: Story = {
-  render: () => (
-    <>
-      <div className={'koast-w-80'}>
-        <Button variant={'contained'} fullWidth>{'전체 너비 버튼'}</Button>
-        <div className={'koast-h-4'} />
-        <Button variant={'outlined'} fullWidth>{'전체 너비 버튼'}</Button>
+  args: { fullWidth: true },
+  decorators: [
+    (Story) => (
+      <div className={'w-80'}>
+        <Story />
       </div>
-    </>
-  ),
+    ),
+  ],
 };
 
-/** 그림자 효과가 있는 버튼 예시입니다. */
+/** `shadow` 는 contained 에만 적용됩니다. */
 export const Shadow: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-gap-4'}>
-        <Button variant={'contained'}>{'그림자 없음'}</Button>
-        <Button variant={'contained'} shadow>{'그림자 있음'}</Button>
-      </div>
-    </>
+  render: (args) => (
+    <div className={'story-row'}>
+      <Button {...args} shadow>
+        {'그림자'}
+      </Button>
+      <Button {...args} variant={'outlined'} shadow>
+        {'적용 안 됨'}
+      </Button>
+    </div>
   ),
 };
 
-/** `className` 은 레이아웃 조정용입니다. 색상 클래스는 시맨틱 토큰을 덮어쓰므로 쓰지 마세요. */
+/** `className` 은 레이아웃 조정용이며 **소비 프로젝트의** Tailwind 클래스를 씁니다. 색상은 바꿀 수 없습니다. */
 export const LayoutCustomization: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-w-80 koast-flex-col koast-gap-2'}>
-        <Button variant={'contained'} className={'koast-justify-between'}>
-          {'좌우로 벌린 버튼'}
-        </Button>
-        <Button variant={'outlined'} className={'koast-ml-auto koast-w-40'}>
-          {'우측 정렬 고정폭'}
-        </Button>
-      </div>
-    </>
+  render: (args) => (
+    <div className={'flex flex-col w-80 gap-2'}>
+      <Button {...args} className={'justify-between'}>
+        {'좌우로 벌린 버튼'}
+      </Button>
+      <Button {...args} variant={'outlined'} className={'ml-auto w-40'}>
+        {'우측 정렬 고정폭'}
+      </Button>
+    </div>
   ),
 };
 
-/** 링크 버튼 예시입니다. */
+/** `href` 가 있으면 `<a>` 로 렌더링됩니다. 비활성 상태에서는 `<button>` 으로 떨어집니다. */
 export const AsLink: Story = {
-  render: () => (
-    <>
-      <div className={'koast-flex koast-flex-wrap koast-gap-4'}>
-        <Button href={'https://github.com'}>
-          {'github'}
-        </Button>
-        <Button
-          href={'https://naver.com'}
-          variant={'contained'}
-          color={'primary'}
-          endIcon={<ChevronRight size={16} />}
-        >
-          {'Naver로 이동'}
-        </Button>
-        <Button
-          href={'https://google.com'}
-          variant={'text'}
-          color={'secondary'}
-        >
-          {'Google로 이동'}
-        </Button>
-      </div>
-    </>
+  render: (args) => (
+    <div className={'story-row'}>
+      <Button {...args} variant={'outlined'} href={'https://github.com'}>
+        {'github'}
+      </Button>
+      <Button {...args} href={'https://naver.com'} endIcon={<ChevronRight />}>
+        {'Naver 로 이동'}
+      </Button>
+      <Button
+        {...args}
+        variant={'text'}
+        color={'secondary'}
+        href={'https://google.com'}
+      >
+        {'Google 로 이동'}
+      </Button>
+    </div>
   ),
 };

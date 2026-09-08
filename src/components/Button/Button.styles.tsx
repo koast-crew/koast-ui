@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from '../../utils/twMerge';
 import type {
   ButtonColor,
   ButtonColorProp,
@@ -18,14 +18,16 @@ const KNOWN_COLORS: readonly ButtonColor[] = ['primary', 'secondary', 'danger'];
 
 export const normalizeColor = (color: ButtonColorProp): ButtonColor => {
   const aliased = COLOR_ALIASES[color] ?? color;
-  return KNOWN_COLORS.includes(aliased as ButtonColor) ? aliased as ButtonColor : 'primary';
+  return KNOWN_COLORS.includes(aliased as ButtonColor)
+    ? (aliased as ButtonColor)
+    : 'primary';
 };
 
 const KNOWN_SIZES: readonly ButtonSize[] = ['xs', 'sm', 'md'];
 
 /** 디자인 시스템에 없는 lg / xl 은 md 로 떨어집니다. */
 export const normalizeSize = (size: ButtonSizeProp): ButtonSize =>
-  (KNOWN_SIZES.includes(size as ButtonSize) ? size as ButtonSize : 'md');
+  KNOWN_SIZES.includes(size as ButtonSize) ? (size as ButtonSize) : 'md';
 
 /**
  * 높이는 디자인 시스템이 고정값으로 정의합니다(28 / 40 / 48).
@@ -44,18 +46,24 @@ const SIZES: Record<ButtonSize, string> = {
  */
 const COLORS: Record<ButtonColor, Record<ButtonVariant, string>> = {
   primary: {
-    contained: 'koast-bg-interactive-primary koast-text-interactive-inverse hover:koast-bg-interactive-primary-hovered active:koast-bg-interactive-primary-pressed',
-    outlined: 'koast-border-2 koast-border-interactive-primary koast-text-interactive-primary hover:koast-bg-interactive-selected-hovered hover:koast-border-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-border-interactive-primary-pressed active:koast-text-interactive-primary-pressed',
+    contained:
+      'koast-bg-interactive-primary koast-text-interactive-inverse hover:koast-bg-interactive-primary-hovered active:koast-bg-interactive-primary-pressed',
+    outlined:
+      'koast-border-2 koast-border-interactive-primary koast-text-interactive-primary hover:koast-bg-interactive-selected-hovered hover:koast-border-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-border-interactive-primary-pressed active:koast-text-interactive-primary-pressed',
     text: 'koast-text-interactive-primary hover:koast-bg-interactive-selected-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-text-interactive-primary-pressed',
   },
   secondary: {
-    contained: 'koast-bg-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed',
-    outlined: 'koast-border-2 koast-border-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered hover:koast-border-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-border-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
+    contained:
+      'koast-bg-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed',
+    outlined:
+      'koast-border-2 koast-border-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered hover:koast-border-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-border-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
     text: 'koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
   },
   danger: {
-    contained: 'koast-bg-interactive-danger koast-text-interactive-inverse hover:koast-bg-interactive-danger-hovered active:koast-bg-interactive-danger-pressed',
-    outlined: 'koast-border-2 koast-border-interactive-danger koast-text-danger hover:koast-bg-danger-subtle hover:koast-border-interactive-danger-hovered hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-border-interactive-danger-pressed active:koast-text-danger-bold',
+    contained:
+      'koast-bg-interactive-danger koast-text-interactive-inverse hover:koast-bg-interactive-danger-hovered active:koast-bg-interactive-danger-pressed',
+    outlined:
+      'koast-border-2 koast-border-interactive-danger koast-text-danger hover:koast-bg-danger-subtle hover:koast-border-interactive-danger-hovered hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-border-interactive-danger-pressed active:koast-text-danger-bold',
     text: 'koast-text-danger hover:koast-bg-danger-subtle hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-text-danger-bold',
   },
 };
@@ -66,7 +74,8 @@ const COLORS: Record<ButtonColor, Record<ButtonVariant, string>> = {
  */
 const DISABLED: Record<ButtonVariant, string> = {
   contained: 'koast-bg-disabled koast-text-disabled',
-  outlined: 'koast-border-2 koast-border-disabled koast-bg-disabled koast-text-disabled',
+  outlined:
+    'koast-border-2 koast-border-disabled koast-bg-disabled koast-text-disabled',
   text: 'koast-bg-disabled koast-text-disabled',
 };
 
@@ -74,7 +83,8 @@ const DISABLED: Record<ButtonVariant, string> = {
  * 포커스 링입니다. 디자인 시스템의 Focused 변형에는 시각 표현이 없어,
  * 접근성을 위해 focusRing 토큰으로 라이브러리가 정의합니다.
  */
-const FOCUS_RING = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring focus-visible:koast-ring-offset-2';
+const FOCUS_RING
+  = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring focus-visible:koast-ring-offset-2';
 
 /** 버튼의 최종 클래스명을 계산합니다. */
 export const getButtonStyles = (
@@ -96,7 +106,9 @@ export const getButtonStyles = (
     // pointer-events-none 을 쓰면 커서가 적용되지 않습니다. 클릭 차단은 네이티브 disabled 가 합니다.
     isInactive ? 'koast-cursor-not-allowed' : FOCUS_RING,
     loading ? 'koast-relative' : '',
-    variant === 'contained' && shadow && !isInactive ? 'koast-shadow-lg koast-shadow-cast' : '',
+    variant === 'contained' && shadow && !isInactive
+      ? 'koast-shadow-lg koast-shadow-cast'
+      : '',
     fullWidth ? 'koast-w-full' : '',
     className,
   );
@@ -110,7 +122,11 @@ export const getLoadingIndicator = (loading: boolean) => {
   if (!loading) return null;
 
   return (
-    <span className={'koast-absolute koast-inset-0 koast-flex koast-items-center koast-justify-center'}>
+    <span
+      className={
+        'koast-absolute koast-inset-0 koast-flex koast-items-center koast-justify-center'
+      }
+    >
       <svg className={'koast-animate-spin'} viewBox={'0 0 24 24'}>
         <circle
           className={'koast-opacity-25'}
@@ -124,7 +140,9 @@ export const getLoadingIndicator = (loading: boolean) => {
         <path
           className={'koast-opacity-75'}
           fill={'currentColor'}
-          d={'M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'}
+          d={
+            'M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+          }
         />
       </svg>
     </span>

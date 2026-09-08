@@ -54,7 +54,7 @@ export interface ButtonProps {
   children?: React.ReactNode;
 
   /** 클릭 시 실행될 함수입니다. */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>)=> void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 
   /** 버튼 왼쪽에 표시될 아이콘입니다. 크기는 버튼 size 에 따라 자동으로 맞춰집니다. */
   startIcon?: React.ReactNode;

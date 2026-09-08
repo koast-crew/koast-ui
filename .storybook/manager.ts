@@ -6,4 +6,4 @@ addons.setConfig({
   sidebar: {
     showRoots: true,
   },
-}); 
+});

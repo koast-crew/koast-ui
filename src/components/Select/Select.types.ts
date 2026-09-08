@@ -22,7 +22,7 @@ export interface SelectProps<T extends string | number = string> {
    * 값이 변경될 때 호출되는 함수입니다.
    * @param value - 선택된 새로운 값
    */
-  onChange?: (value: T)=> void;
+  onChange?: (value: T) => void;
 
   /**
    * Select의 placeholder입니다.

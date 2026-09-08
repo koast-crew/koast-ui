@@ -4,7 +4,7 @@ import { TreeNode, TreeAction } from './types';
 const updateNodeAtPath = (
   tree: TreeNode,
   path: number[],
-  updater: (node: TreeNode)=> TreeNode,
+  updater: (node: TreeNode) => TreeNode,
 ): TreeNode => {
   if (path.length === 0) return updater(tree);
 

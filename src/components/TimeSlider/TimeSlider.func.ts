@@ -79,13 +79,13 @@ export const calculateIndex = (elem: HTMLDivElement, clientX: number, dataLength
 };
 
 interface ShowGuageHoverMessageProps {
-  e: React.MouseEvent<HTMLDivElement>,
-  guageElem: HTMLDivElement | null,
-  gaugeHoverGuideElem: HTMLDivElement | null,
-  gaugeHoverGuideTextElem: HTMLDivElement | null,
-  steps: Date[],
-  stepUnit: TimeUnit,
-  render?: DateToStringFunc
+  e: React.MouseEvent<HTMLDivElement>;
+  guageElem: HTMLDivElement | null;
+  gaugeHoverGuideElem: HTMLDivElement | null;
+  gaugeHoverGuideTextElem: HTMLDivElement | null;
+  steps: Date[];
+  stepUnit: TimeUnit;
+  render?: DateToStringFunc;
 }
 
 export const showGuageHoverMessage = ({ e, guageElem, gaugeHoverGuideElem, gaugeHoverGuideTextElem, steps, stepUnit, render }: ShowGuageHoverMessageProps) => {
@@ -96,7 +96,7 @@ export const showGuageHoverMessage = ({ e, guageElem, gaugeHoverGuideElem, gauge
 
   if (pixel < 0 || pixel > width) return;
 
-  const { width:guideWidth } = getRectMetrics(gaugeHoverGuideElem);
+  const { width: guideWidth } = getRectMetrics(gaugeHoverGuideElem);
   gaugeHoverGuideElem.style.left = `${ pixel - (guideWidth / 2) }px`;
   gaugeHoverGuideElem.style.opacity = '1';
 
@@ -106,19 +106,19 @@ export const showGuageHoverMessage = ({ e, guageElem, gaugeHoverGuideElem, gauge
 };
 
 export const hideGuageHoverMessage = (elem: HTMLDivElement | null) => {
-  if (!elem ) return;
+  if (!elem) return;
   elem.style.opacity = '0';
 };
 
 interface ChangeSelectedGuideMessageProps {
-  guageElem: HTMLDivElement | null,
-  selectedGuideElem: HTMLDivElement | null,
-  selectedGuideTextElem: HTMLDivElement | null,
-  stepWidthPercentage: number,
-  index: number,
-  date: Date,
-  stepUnit: TimeUnit,
-  render?: DateToStringFunc
+  guageElem: HTMLDivElement | null;
+  selectedGuideElem: HTMLDivElement | null;
+  selectedGuideTextElem: HTMLDivElement | null;
+  stepWidthPercentage: number;
+  index: number;
+  date: Date;
+  stepUnit: TimeUnit;
+  render?: DateToStringFunc;
 }
 
 export const changeSelectedGuideMessage = ({ guageElem, selectedGuideElem, selectedGuideTextElem, stepWidthPercentage, index, date, stepUnit, render }: ChangeSelectedGuideMessageProps) => {

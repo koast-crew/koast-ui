@@ -19,9 +19,9 @@ export interface TreeAction {
 
 export interface FolderTreeProps {
   data: TreeNode;
-  onChange?: (data: TreeNode)=> void;
+  onChange?: (data: TreeNode) => void;
   initOpenStatus?: 'open' | 'closed';
   indentPixels?: number;
-  onNodeClick?: (node: TreeNode, path: number[])=> void;
+  onNodeClick?: (node: TreeNode, path: number[]) => void;
   readOnly?: boolean;
 }

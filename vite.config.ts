@@ -29,13 +29,13 @@ const injectCssImport = (): Plugin => ({
 
     entries.forEach((chunk) => {
       if (chunk.type !== 'chunk') return;
-      chunk.code = `import './style.css';\n${ chunk.code }`;
+      chunk.code = `import './style.css';\n${chunk.code}`;
     });
   },
 });
 
 export default defineConfig(({ command }) => ({
-  publicDir: "public",
+  publicDir: 'public',
   plugins: [
     react(),
     dts({
@@ -44,8 +44,8 @@ export default defineConfig(({ command }) => ({
       exclude: ['**/*.stories.{ts,tsx}', '**/*.test.{ts,tsx}', '**/tests/**'],
       rollupTypes: true,
       compilerOptions: {
-        declarationMap: false
-      }
+        declarationMap: false,
+      },
     }),
     injectCssImport(),
   ],
@@ -60,19 +60,19 @@ export default defineConfig(({ command }) => ({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'KoastUI',
       formats: ['es', 'umd'],
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format}.js`,
     },
     outDir: resolve(__dirname, 'dist'),
     rollupOptions: {
       external: [
-        'react', 
+        'react',
         'react-dom',
         'react/jsx-runtime',
         'react/jsx-dev-runtime',
       ],
       output: {
         globals: {
-          react: 'React',
+          'react': 'React',
           'react-dom': 'ReactDOM',
         },
       },
@@ -83,5 +83,5 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     host: true,
-  }
+  },
 }));

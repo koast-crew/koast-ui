@@ -179,9 +179,9 @@ export const CircleLegend: Story = {
         { color: '#BABABF', value: '매우높음', opacity: 0.8 },
       ],
     };
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [selectedId, setSelectedId] = useState('fish');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [visible, setVisible] = useState(true);
     return (
       <div className={'koast-flex koast-flex-col koast-gap-4'}>
@@ -204,9 +204,8 @@ export const CircleLegend: Story = {
  */
 export const Interactive: Story = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [selectedId, setSelectedId] = useState('fish');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [visible, setVisible] = useState(true);
 
     return (
@@ -238,9 +237,8 @@ export const Interactive: Story = {
  */
 export const CustomStyled: Story = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [selectedId, setSelectedId] = useState('fish');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [visible, setVisible] = useState(true);
     return (
       <div className={'koast-flex koast-flex-col koast-gap-4'}>

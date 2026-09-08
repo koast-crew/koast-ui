@@ -4,7 +4,7 @@ import { TimeSlider, StepTimeSliderProps } from '../../../src';
 const TimeSliderExam = () => {
   const props: StepTimeSliderProps = {
     start: new Date('2025-03-10 07:47'),
-    end:  new Date('2025-03-10 09:47'),
+    end: new Date('2025-03-10 09:47'),
     initialDate: new Date('2025-03-10 08:17'),
     stepValue: 30,
     stepUnit: 'minute',

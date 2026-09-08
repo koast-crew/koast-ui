@@ -46,7 +46,7 @@ const meta = {
       options: ['year', 'month', 'day', 'hour', 'minute', 'second'],
       description: 'TimeSlider 스텝의 단위. 기본값은 minute, steps가 배열인자로 들어올 경우 무시됨.',
       table: {
-        defaultValue: { summary:'minute' },
+        defaultValue: { summary: 'minute' },
       },
     },
     size: {
@@ -54,7 +54,7 @@ const meta = {
       options: ['sm', 'md', 'lg'],
       description: 'TimeSlider 크기. 기본값은 md',
       table: {
-        defaultValue: { summary:'md' },
+        defaultValue: { summary: 'md' },
       },
     },
     theme: {
@@ -66,7 +66,7 @@ const meta = {
       },
     },
     steps: {
-      control:  { disable: true },
+      control: { disable: true },
       description: '타임슬라이더에 사용할 시간 목록 혹은 시작,종료,스텝간격, 스텝단위를 이용하여 시간 목록을 만드는 함수. 불규칙적인 경우 사용 (ex.해양기상정보포털). 입력 시 가장 우선적으로 적용.',
     },
     animationSpeed: {
@@ -78,11 +78,11 @@ const meta = {
       description: '타임슬라이더에 사용할 시간 목록 혹은 시작,종료,스텝간격, 스텝단위를 이용하여 시간 목록을 만드는 함수. 불규칙적인 경우 사용 (ex.해양기상정보포털). 입력 시 가장 우선적으로 적용.',
     },
     renderGuideMessage: {
-      control:  { disable: true },
+      control: { disable: true },
       description: '타임슬라이더 마우스 오버 시 표출되는 텍스트 처리 함수',
     },
     renderSelectedGuideMessage: {
-      control:  { disable: true },
+      control: { disable: true },
       description: '타임슬라이더 선택된 스텝에 대한 정보 표출 용 텍스트 처리 함수.',
     },
   },
@@ -101,7 +101,7 @@ export const Default: TimeSliderStory = {
   ),
   args: {
     start: new Date('2025-03-10 07:47'),
-    end:  new Date('2025-03-10 09:47'),
+    end: new Date('2025-03-10 09:47'),
     initialDate: new Date('2025-03-10 08:17'),
     stepValue: 30,
     stepUnit: 'minute',

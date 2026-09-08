@@ -6,9 +6,9 @@ export type KoastBrandRamp = Record<KoastBrandStep, string>;
 /** 라이트/다크 각각에 적용할 brand 램프입니다. */
 export interface KoastBrandTheme {
   /** 라이트 모드 램프입니다. `primary` 는 필수입니다. */
-  light: { primary: KoastBrandRamp, secondary?: KoastBrandRamp };
+  light: { primary: KoastBrandRamp; secondary?: KoastBrandRamp };
   /** 다크 모드 램프입니다. 생략하면 라이트 값을 씁니다. 램프가 같아도 참조 단계가 달라 결과 색은 다릅니다. */
-  dark?: { primary?: KoastBrandRamp, secondary?: KoastBrandRamp };
+  dark?: { primary?: KoastBrandRamp; secondary?: KoastBrandRamp };
 }
 
 const HEX_PATTERN = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
@@ -35,7 +35,7 @@ const rampToDeclarations = (tone: KoastBrandTone, ramp: KoastBrandRamp): string[
 };
 
 const collectDeclarations = (
-  ramps: { primary?: KoastBrandRamp, secondary?: KoastBrandRamp },
+  ramps: { primary?: KoastBrandRamp; secondary?: KoastBrandRamp },
 ): string[] => {
   const declarations: string[] = [];
   if (ramps.primary) declarations.push(...rampToDeclarations('primary', ramps.primary));
@@ -70,7 +70,7 @@ export const createBrandThemeCss = (theme: KoastBrandTheme): string => {
 
 /** brand 램프를 인라인 `style` 객체로 만듭니다. 특정 하위 트리에만 적용할 때 씁니다. */
 export const createBrandThemeStyle = (
-  ramps: { primary?: KoastBrandRamp, secondary?: KoastBrandRamp },
+  ramps: { primary?: KoastBrandRamp; secondary?: KoastBrandRamp },
 ): Record<string, string> => {
   const style: Record<string, string> = {};
   collectDeclarations(ramps).forEach((declaration) => {

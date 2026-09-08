@@ -100,9 +100,8 @@ export const Default: SelectStory = {
  */
 export const Controlled: SelectStory = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [stringValue, setStringValue] = useState<string>('option2');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [numberValue, setNumberValue] = useState<number>(10);
 
     return (
@@ -273,7 +272,6 @@ export const ManyOptions: SelectStory = {
  */
 export const NumberValues: SelectStory = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState<number>(20);
 
     return (
@@ -322,7 +320,6 @@ export const CustomStyled: SelectStory = {
  */
 export const CustomSelectedItem: SelectStory = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState<string>('option1');
 
     return (
@@ -350,9 +347,8 @@ export const CustomSelectedItem: SelectStory = {
  */
 export const SelectedItemStyles: SelectStory = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value1, setValue1] = useState<string>('option1');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [value2, setValue2] = useState<string>('option1');
 
     return (
@@ -440,4 +436,3 @@ export const CustomStyledItem: SelectItemStory = {
     className: 'koast-text-purple-600 koast-font-semibold hover:koast-bg-purple-50',
   },
 };
-

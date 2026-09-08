@@ -80,7 +80,7 @@ export interface MapLegendProps {
   /**
    * 범례 닫기 버튼 클릭 시 호출될 함수입니다.
    */
-  onClose?: ()=> void;
+  onClose?: () => void;
 
   /**
    * 현재 선택된 레이어 ID입니다.
@@ -90,7 +90,7 @@ export interface MapLegendProps {
   /**
    * 레이어 선택 시 호출될 함수입니다.
    */
-  onLayerSelect?: (id: string)=> void;
+  onLayerSelect?: (id: string) => void;
 
   /**
    * 툴바 버튼 배열의 배열입니다.

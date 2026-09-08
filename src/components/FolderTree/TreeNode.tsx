@@ -7,17 +7,17 @@ interface TreeNodeProps {
   path: number[];
   level: number;
   actions: {
-    addNode: (path: number[], type: 'file' | 'folder', name?: string)=> void;
-    deleteNode: (path: number[])=> void;
-    renameNode: (path: number[], name: string)=> void;
-    toggleOpen: (path: number[])=> void;
-    moveNode: (path: number[], targetPath: number[])=> void;
+    addNode: (path: number[], type: 'file' | 'folder', name?: string) => void;
+    deleteNode: (path: number[]) => void;
+    renameNode: (path: number[], name: string) => void;
+    toggleOpen: (path: number[]) => void;
+    moveNode: (path: number[], targetPath: number[]) => void;
   };
   indentPixels: number;
   readOnly: boolean;
   selectedPath?: string;
-  onNodeClick?: (node: TreeNode, path: number[])=> void;
-  onSelect?: (path: string)=> void;
+  onNodeClick?: (node: TreeNode, path: number[]) => void;
+  onSelect?: (path: string) => void;
 }
 
 const TreeNodeComponent = (props: TreeNodeProps) => {

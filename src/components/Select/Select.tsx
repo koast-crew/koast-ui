@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SelectProps, SelectItemProps } from './Select.types';
-import { getSizeStyles, getVariantStyles, getErrorStyles } from './Select.styles';
-import { twMerge } from 'tailwind-merge';
+import {
+  getSizeStyles,
+  getVariantStyles,
+  getErrorStyles,
+} from './Select.styles';
+import { twMerge } from '../../utils/twMerge';
 
 /**
  * @koast/ui Select(Dropdown) 컴포넌트입니다.
@@ -22,7 +26,12 @@ import { twMerge } from 'tailwind-merge';
  * <SelectItem value={10}>10</SelectItem>
  * ```
  */
-export const SelectItem = ({ value, children, disabled, className }: SelectItemProps) => {
+export const SelectItem = ({
+  value,
+  children,
+  disabled,
+  className,
+}: SelectItemProps) => {
   return (
     <div
       data-value={value}
@@ -99,15 +108,18 @@ export const Select = <T extends string | number = string>(
 
   // 내부 상태 관리
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string | number | undefined>(
-    value !== undefined ? value : defaultValue,
-  );
+  const [selectedValue, setSelectedValue] = useState<
+    string | number | undefined
+  >(value !== undefined ? value : defaultValue);
   const selectRef = useRef<HTMLDivElement>(null);
 
   // 외부 클릭 감지를 위한 이벤트 리스너
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current
+        && !selectRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -129,7 +141,10 @@ export const Select = <T extends string | number = string>(
   useEffect(() => {
     if (selectedValue !== undefined) {
       React.Children.forEach(children, (child) => {
-        if (React.isValidElement(child) && (child.props as SelectItemProps).value === selectedValue) {
+        if (
+          React.isValidElement(child)
+          && (child.props as SelectItemProps).value === selectedValue
+        ) {
           setSelectedValue(selectedValue);
         }
       });
@@ -151,7 +166,9 @@ export const Select = <T extends string | number = string>(
     if (!selectedValue) return '';
 
     // children을 배열로 변환
-    const childrenArray = React.Children.toArray(children) as React.ReactElement<SelectItemProps>[];
+    const childrenArray = React.Children.toArray(
+      children,
+    ) as React.ReactElement<SelectItemProps>[];
 
     // 현재 선택된 값과 일치하는 SelectItem을 찾음
     const selectedItem = childrenArray.find((child) => {
@@ -177,7 +194,9 @@ export const Select = <T extends string | number = string>(
             getVariantStyles(variant),
             getSizeStyles(size),
             getErrorStyles(error),
-            disabled ? 'koast-cursor-not-allowed koast-bg-gray-50 koast-opacity-50' : 'hover:koast-border-gray-400',
+            disabled
+              ? 'koast-cursor-not-allowed koast-bg-gray-50 koast-opacity-50'
+              : 'hover:koast-border-gray-400',
             'koast-transition-colors koast-duration-200',
             className,
           )}
@@ -191,14 +210,24 @@ export const Select = <T extends string | number = string>(
           id={id}
           data-name={name}
         >
-          <div className={twMerge(
-            'koast-select__value',
-            'koast-flex koast-grow koast-items-center koast-justify-between koast-truncate',
-            !selectedValue && placeholder ? 'koast-text-gray-400' : '',
-          )}
+          <div
+            className={twMerge(
+              'koast-select__value',
+              'koast-flex koast-grow koast-items-center koast-justify-between koast-truncate',
+              !selectedValue && placeholder ? 'koast-text-gray-400' : '',
+            )}
           >
             {getDisplayValue() || placeholder}
-            {required && !selectedValue && <span className={twMerge('koast-select__required', 'koast-ml-1.5 koast-text-xs koast-text-red-500')}>{'필수*'}</span>}
+            {required && !selectedValue && (
+              <span
+                className={twMerge(
+                  'koast-select__required',
+                  'koast-ml-1.5 koast-text-xs koast-text-red-500',
+                )}
+              >
+                {'필수*'}
+              </span>
+            )}
           </div>
           <ChevronDown
             size={20}
@@ -211,10 +240,16 @@ export const Select = <T extends string | number = string>(
         </div>
 
         {isOpen && (
-          <div className={twMerge('koast-select__dropdown', 'koast-absolute koast-z-10 koast-mt-1 koast-max-h-60 koast-w-full koast-overflow-y-auto koast-rounded koast-shadow-lg koast-bg-transparent')}>
+          <div
+            className={twMerge(
+              'koast-select__dropdown',
+              'koast-absolute koast-z-10 koast-mt-1 koast-max-h-60 koast-w-full koast-overflow-y-auto koast-rounded koast-shadow-lg koast-bg-transparent',
+            )}
+          >
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return null;
-              const { value: itemValue, disabled: itemDisabled } = child.props as SelectItemProps;
+              const { value: itemValue, disabled: itemDisabled }
+                = child.props as SelectItemProps;
 
               return (
                 <div
@@ -223,7 +258,11 @@ export const Select = <T extends string | number = string>(
                     'koast-select__option',
                     'koast-bg-transparent',
                     value === itemValue ? selectedItemClassName : '',
-                    size === 'sm' ? 'koast-text-sm' : size === 'lg' ? 'koast-text-lg' : 'koast-text-base',
+                    size === 'sm'
+                      ? 'koast-text-sm'
+                      : size === 'lg'
+                        ? 'koast-text-lg'
+                        : 'koast-text-base',
                   )}
                 >
                   {child}
@@ -235,7 +274,12 @@ export const Select = <T extends string | number = string>(
       </div>
 
       {error && errorText && (
-        <div className={twMerge('koast-select__error', 'koast-mt-1 koast-text-sm koast-text-red-500')}>
+        <div
+          className={twMerge(
+            'koast-select__error',
+            'koast-mt-1 koast-text-sm koast-text-red-500',
+          )}
+        >
           {errorText}
         </div>
       )}

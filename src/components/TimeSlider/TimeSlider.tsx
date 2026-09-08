@@ -1,7 +1,16 @@
 // import './TimeSlider.css';
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from '../../utils/twMerge';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { calculateIndex, changeSelectedGuideMessage, generateSteps, hideGuageHoverMessage, returnDate, showGuageHoverMessage, sizeToTWClassName, themeToTWColorClassName } from './TimeSlider.func';
+import {
+  calculateIndex,
+  changeSelectedGuideMessage,
+  generateSteps,
+  hideGuageHoverMessage,
+  returnDate,
+  showGuageHoverMessage,
+  sizeToTWClassName,
+  themeToTWColorClassName,
+} from './TimeSlider.func';
 import { StepTimeSliderProps } from './TimeSlider.types';
 /**
  * @koast/ui 타임슬라이더 컴포넌트입니다.
@@ -21,7 +30,21 @@ import { StepTimeSliderProps } from './TimeSlider.types';
  *
  */
 export const TimeSlider = (props: StepTimeSliderProps) => {
-  const { start, end, stepValue, initialDate, stepUnit = 'minute', size = 'md', theme = 'dark', steps, animationSpeed = 1000, onChange, renderGuideMessage, renderSelectedGuideMessage, renderRulerLabel } = props;
+  const {
+    start,
+    end,
+    stepValue,
+    initialDate,
+    stepUnit = 'minute',
+    size = 'md',
+    theme = 'dark',
+    steps,
+    animationSpeed = 1000,
+    onChange,
+    renderGuideMessage,
+    renderSelectedGuideMessage,
+    renderRulerLabel,
+  } = props;
 
   const startDate = returnDate(start);
   const endDate = returnDate(end);
@@ -44,11 +67,8 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
     return generateSteps(startDate, endDate, stepValue, stepUnit);
   }, [startDate, endDate, stepValue, stepUnit, steps]);
 
-  const {
-    mainSize,
-    playSizeAndRounded,
-    prevnextSizeAndRounded,
-  } = sizeToTWClassName(size);
+  const { mainSize, playSizeAndRounded, prevnextSizeAndRounded }
+    = sizeToTWClassName(size);
 
   const {
     bgColor,
@@ -68,7 +88,13 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
   const calculatedStepsLength = calculatedSteps.length;
   const stepWidthPercentage = 100 / calculatedStepsLength;
 
-  const initialTimestamp = (initialDate && calculatedSteps.map((step) => step.getTime()).includes(initialDate.getTime())) ? initialDate.getTime() : startDate.getTime();
+  const initialTimestamp
+    = initialDate
+      && calculatedSteps
+        .map((step) => step.getTime())
+        .includes(initialDate.getTime())
+      ? initialDate.getTime()
+      : startDate.getTime();
   const initialStepIndex = useMemo(() => {
     return calculatedSteps.reduce((prevIndex, step, idx) => {
       return Math.abs(step.getTime() - initialTimestamp)
@@ -92,7 +118,8 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
       render: renderSelectedGuideMessage,
     });
 
-    if (onChange) onChange({ step: currentIndex, date: calculatedSteps[currentIndex] });
+    if (onChange)
+      onChange({ step: currentIndex, date: calculatedSteps[currentIndex] });
   }, [
     currentIndex,
     calculatedSteps,
@@ -133,7 +160,11 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!gaugeRef.current) return;
-    const newIndex = calculateIndex(gaugeRef.current, e.clientX, calculatedStepsLength);
+    const newIndex = calculateIndex(
+      gaugeRef.current,
+      e.clientX,
+      calculatedStepsLength,
+    );
     if (currentIndex === newIndex) return;
     setCurrentIndex(newIndex);
   };
@@ -153,18 +184,19 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
     setCurrentIndex(currentIndex - 1);
   };
 
-  const handleHover = (e: React.MouseEvent<HTMLDivElement>) => showGuageHoverMessage(
-    { e,
+  const handleHover = (e: React.MouseEvent<HTMLDivElement>) =>
+    showGuageHoverMessage({
+      e,
       guageElem: gaugeRef.current,
       gaugeHoverGuideElem: gaugeHoverGuideRef.current,
       gaugeHoverGuideTextElem: gaugeHoverGuideTextRef.current,
       steps: calculatedSteps,
       stepUnit: stepUnit,
       render: renderGuideMessage,
-    },
-  );
+    });
 
-  const handleMouseOut = () => hideGuageHoverMessage(gaugeHoverGuideRef.current);
+  const handleMouseOut = () =>
+    hideGuageHoverMessage(gaugeHoverGuideRef.current);
 
   const PrevButton = () => {
     return (
@@ -177,7 +209,14 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
         )}
       >
         <svg viewBox={'0 0 16 16'} className={twMerge('koast-size-3/5')}>
-          <polyline points={'10,3 5,8 10,13'} fill={'none'} stroke={pnBtnColor} strokeWidth={'2.5'} strokeLinecap={'round'} strokeLinejoin={'round'} />
+          <polyline
+            points={'10,3 5,8 10,13'}
+            fill={'none'}
+            stroke={pnBtnColor}
+            strokeWidth={'2.5'}
+            strokeLinecap={'round'}
+            strokeLinejoin={'round'}
+          />
         </svg>
       </button>
     );
@@ -194,14 +233,25 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
         )}
       >
         <svg viewBox={'0 0 16 16'} className={twMerge('koast-size-3/5')}>
-          <polyline points={'6,3 11,8 6,13'} fill={'none'} stroke={pnBtnColor} strokeWidth={'2.5'} strokeLinecap={'round'} strokeLinejoin={'round'} />
+          <polyline
+            points={'6,3 11,8 6,13'}
+            fill={'none'}
+            stroke={pnBtnColor}
+            strokeWidth={'2.5'}
+            strokeLinecap={'round'}
+            strokeLinejoin={'round'}
+          />
         </svg>
       </button>
     );
   };
 
   return (
-    <section className={twMerge(`koast-flex koast-items-center ${ mainSize } koast-w-full koast-gap-3`)}>
+    <section
+      className={twMerge(
+        `koast-flex koast-items-center ${ mainSize } koast-w-full koast-gap-3`,
+      )}
+    >
       {/* Play/Stop Button */}
       <button
         onClick={() => {
@@ -223,60 +273,125 @@ export const TimeSlider = (props: StepTimeSliderProps) => {
       >
         {isRun ? (
           // Stop (Pause) Icon
-          <svg viewBox={'0 0 24 24'} className={'koast-size-1/2'} fill={'white'}>
+          <svg
+            viewBox={'0 0 24 24'}
+            className={'koast-size-1/2'}
+            fill={'white'}
+          >
             <rect x={'6'} y={'5'} width={'4'} height={'14'} rx={'1'} />
             <rect x={'14'} y={'5'} width={'4'} height={'14'} rx={'1'} />
           </svg>
         ) : (
           // Play Icon
-          <svg viewBox={'0 0 24 24'} className={'koast-size-1/2'} fill={'white'}>
-            <path d={'M8 5.14v14.72a1 1 0 0 0 1.5.86l11-7.36a1 1 0 0 0 0-1.72l-11-7.36a1 1 0 0 0-1.5.86z'} />
+          <svg
+            viewBox={'0 0 24 24'}
+            className={'koast-size-1/2'}
+            fill={'white'}
+          >
+            <path
+              d={
+                'M8 5.14v14.72a1 1 0 0 0 1.5.86l11-7.36a1 1 0 0 0 0-1.72l-11-7.36a1 1 0 0 0-1.5.86z'
+              }
+            />
           </svg>
         )}
       </button>
 
       {/* Timeline Section */}
-      <section className={twMerge('timeslider-wrapper koast-flex-1 koast-min-w-0')}>
+      <section
+        className={twMerge('timeslider-wrapper koast-flex-1 koast-min-w-0')}
+      >
         <section
           ref={gaugeRef}
           onClick={handleClick}
           onMouseMove={handleHover}
           onMouseOut={handleMouseOut}
-          className={twMerge('timeslider-guage-wrapper koast-relative koast-h-2 koast-w-full koast-cursor-pointer koast-rounded-t-md after:koast-absolute after:koast-inset-[-5px] after:koast-z-[1] after:koast-content-[""]')}
+          className={twMerge(
+            'timeslider-guage-wrapper koast-relative koast-h-2 koast-w-full koast-cursor-pointer koast-rounded-t-md after:koast-absolute after:koast-inset-[-5px] after:koast-z-[1] after:koast-content-[""]',
+          )}
         >
-          <div className={twMerge('koast-relative koast-size-full koast-overflow-hidden koast-rounded-t-md')}>
-            <div className={twMerge('koast-absolute koast-size-full', sliderColor)} />
-            <div className={twMerge('koast-absolute koast-h-full koast-transition-all koast-duration-150 koast-ease-out', playColor)} style={{ width: `${ stepWidthPercentage * (currentIndex + 1) }%` }} />
+          <div
+            className={twMerge(
+              'koast-relative koast-size-full koast-overflow-hidden koast-rounded-t-md',
+            )}
+          >
+            <div
+              className={twMerge('koast-absolute koast-size-full', sliderColor)}
+            />
+            <div
+              className={twMerge(
+                'koast-absolute koast-h-full koast-transition-all koast-duration-150 koast-ease-out',
+                playColor,
+              )}
+              style={{ width: `${ stepWidthPercentage * (currentIndex + 1) }%` }}
+            />
           </div>
-          <div ref={gaugeHoverGuideRef} className={twMerge('koast-pointer-events-none koast-absolute koast-top-[-2.4em] koast-box-border koast-text-sm koast-opacity-0 koast-transition-opacity koast-duration-150')}>
-            <div ref={gaugeHoverGuideTextRef} className={twMerge('koast-relative koast-box-border koast-table-cell koast-whitespace-nowrap koast-rounded-md koast-px-2 koast-py-1 koast-text-center koast-align-middle koast-text-xs koast-font-medium before:koast-absolute before:koast-left-1/2 before:koast-top-full before:-koast-translate-x-1/2 before:koast-size-0 before:koast-border-[0.4em] before:koast-border-solid before:koast-border-transparent before:koast-content-[""]', hoverGuideColor)} />
+          <div
+            ref={gaugeHoverGuideRef}
+            className={twMerge(
+              'koast-pointer-events-none koast-absolute koast-top-[-2.4em] koast-box-border koast-text-sm koast-opacity-0 koast-transition-opacity koast-duration-150',
+            )}
+          >
+            <div
+              ref={gaugeHoverGuideTextRef}
+              className={twMerge(
+                'koast-relative koast-box-border koast-table-cell koast-whitespace-nowrap koast-rounded-md koast-px-2 koast-py-1 koast-text-center koast-align-middle koast-text-xs koast-font-medium before:koast-absolute before:koast-left-1/2 before:koast-top-full before:-koast-translate-x-1/2 before:koast-size-0 before:koast-border-[0.4em] before:koast-border-solid before:koast-border-transparent before:koast-content-[""]',
+                hoverGuideColor,
+              )}
+            />
           </div>
-          <div ref={selectedGuideRef} className={twMerge('opacity-1 koast-pointer-events-none koast-absolute koast-top-[-2.6em] koast-box-border koast-text-sm koast-transition-all koast-duration-150')}>
-            <div ref={selectedGuideTextRef} className={twMerge('koast-relative koast-box-border koast-table-cell koast-whitespace-nowrap koast-rounded-md koast-px-3 koast-py-1.5 koast-text-center koast-align-middle koast-font-semibold koast-shadow-lg before:koast-absolute before:koast-left-1/2 before:koast-top-full before:-koast-translate-x-1/2 before:koast-size-0 before:koast-border-[0.4em] before:koast-border-solid before:koast-border-transparent before:koast-content-[""]', selectedGuideColor)} />
+          <div
+            ref={selectedGuideRef}
+            className={twMerge(
+              'opacity-1 koast-pointer-events-none koast-absolute koast-top-[-2.6em] koast-box-border koast-text-sm koast-transition-all koast-duration-150',
+            )}
+          >
+            <div
+              ref={selectedGuideTextRef}
+              className={twMerge(
+                'koast-relative koast-box-border koast-table-cell koast-whitespace-nowrap koast-rounded-md koast-px-3 koast-py-1.5 koast-text-center koast-align-middle koast-font-semibold koast-shadow-lg before:koast-absolute before:koast-left-1/2 before:koast-top-full before:-koast-translate-x-1/2 before:koast-size-0 before:koast-border-[0.4em] before:koast-border-solid before:koast-border-transparent before:koast-content-[""]',
+                selectedGuideColor,
+              )}
+            />
           </div>
         </section>
-        <section className={twMerge('timeslider-ruler-wrapper koast-relative koast-flex koast-w-full koast-rounded-b-md', rulerHeight, bgColor)}>
-          <div className={twMerge('timeslider-graduations-wrapper koast-flex koast-size-full koast-flex-row')}>
-            {
-              calculatedSteps.map((date, index) => {
-                return (
-                  <div
-                    key={`${ index }-graduation2`}
-                    className={twMerge(
-                      'koast-relative koast-flex koast-h-full koast-items-center koast-justify-center koast-overflow-hidden',
-                      calculatedStepsLength - 1 === index ? '' : `before:koast-absolute before:koast-right-0 before:koast-top-0 before:koast-h-1/2 before:koast-border-r before:koast-content-[""] ${ dividerColor }`,
-                    )}
-                    style={{ width: `${ stepWidthPercentage }%` }}
-                  >
-                    {
-                      renderRulerLabel
-                        ? <span className={twMerge('koast-truncate koast-px-0.5 koast-text-xs', textColor)}>{renderRulerLabel(date)}</span>
-                        : null
-                    }
-                  </div>
-                );
-              })
-            }
+        <section
+          className={twMerge(
+            'timeslider-ruler-wrapper koast-relative koast-flex koast-w-full koast-rounded-b-md',
+            rulerHeight,
+            bgColor,
+          )}
+        >
+          <div
+            className={twMerge(
+              'timeslider-graduations-wrapper koast-flex koast-size-full koast-flex-row',
+            )}
+          >
+            {calculatedSteps.map((date, index) => {
+              return (
+                <div
+                  key={`${ index }-graduation2`}
+                  className={twMerge(
+                    'koast-relative koast-flex koast-h-full koast-items-center koast-justify-center koast-overflow-hidden',
+                    calculatedStepsLength - 1 === index
+                      ? ''
+                      : `before:koast-absolute before:koast-right-0 before:koast-top-0 before:koast-h-1/2 before:koast-border-r before:koast-content-[""] ${ dividerColor }`,
+                  )}
+                  style={{ width: `${ stepWidthPercentage }%` }}
+                >
+                  {renderRulerLabel ? (
+                    <span
+                      className={twMerge(
+                        'koast-truncate koast-px-0.5 koast-text-xs',
+                        textColor,
+                      )}
+                    >
+                      {renderRulerLabel(date)}
+                    </span>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </section>
       </section>

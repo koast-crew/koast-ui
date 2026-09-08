@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonProps } from '../Button/Button.types';
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from '../../utils/twMerge';
 
 /**
  * ButtonGroup 컴포넌트의 속성을 정의합니다.
@@ -86,7 +86,9 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
     children,
   } = props;
   // 버튼들을 배열로 변환
-  const buttons = React.Children.toArray(children) as React.ReactElement<ButtonProps>[];
+  const buttons = React.Children.toArray(
+    children,
+  ) as React.ReactElement<ButtonProps>[];
 
   const isVertical = orientation === 'vertical';
 
@@ -100,7 +102,15 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
       )}
     >
       {buttons.map((button, index) => (
-        <div key={index} className={twMerge(isVertical ? 'koast-relative koast-w-full' : 'koast-flex koast-items-center', fullWidth ? 'koast-w-full' : '')}>
+        <div
+          key={index}
+          className={twMerge(
+            isVertical
+              ? 'koast-relative koast-w-full'
+              : 'koast-flex koast-items-center',
+            fullWidth ? 'koast-w-full' : '',
+          )}
+        >
           {React.cloneElement(button, {
             variant,
             color,
@@ -109,15 +119,27 @@ export const ButtonGroup = (props: ButtonGroupProps) => {
             fullWidth: fullWidth || button.props.fullWidth || isVertical,
             className: twMerge(
               // vertical 모드의 클래스네임
-              (isVertical && index !== buttons.length - 1) ? 'koast-border-b-0' : '',
-              (isVertical && index === 0) ? 'koast-rounded-b-none' : '',
-              (isVertical && index === buttons.length - 1) ? 'koast-rounded-t-none' : '',
-              (isVertical && index > 0 && index < buttons.length - 1) ? 'koast-rounded-none' : '',
+              isVertical && index !== buttons.length - 1
+                ? 'koast-border-b-0'
+                : '',
+              isVertical && index === 0 ? 'koast-rounded-b-none' : '',
+              isVertical && index === buttons.length - 1
+                ? 'koast-rounded-t-none'
+                : '',
+              isVertical && index > 0 && index < buttons.length - 1
+                ? 'koast-rounded-none'
+                : '',
               // horizontal 모드의 클래스네임
-              (!isVertical && index !== buttons.length - 1) ? 'koast-border-r-0' : '',
-              (!isVertical && index === 0) ? 'koast-rounded-r-none' : '',
-              (!isVertical && index === buttons.length - 1) ? 'koast-rounded-l-none' : '',
-              (!isVertical && index > 0 && index < buttons.length - 1) ? 'koast-rounded-none' : '',
+              !isVertical && index !== buttons.length - 1
+                ? 'koast-border-r-0'
+                : '',
+              !isVertical && index === 0 ? 'koast-rounded-r-none' : '',
+              !isVertical && index === buttons.length - 1
+                ? 'koast-rounded-l-none'
+                : '',
+              !isVertical && index > 0 && index < buttons.length - 1
+                ? 'koast-rounded-none'
+                : '',
               button.props.className || '',
             ),
           })}

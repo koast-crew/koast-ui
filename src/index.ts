@@ -10,7 +10,7 @@ export { default as TimeSlider } from './components/TimeSlider';
 
 export type { ButtonProps, ButtonColor, ButtonColorProp, ButtonSize, ButtonSizeProp, ButtonVariant } from './components/Button/Button.types';
 export type { MapLegendProps } from './components/MapLegend/MapLegend.types';
-export type { SelectProps, SelectItemProps, SelectSize, SelectVariant } from './components/Select/Select.types';
+export type { SelectProps, SelectItemProps, SelectSize, SelectVisibleOptions } from './components/Select/Select.types';
 export type { DateToStringFunc, StepTimeSliderOnChangeProps, StepTimeSliderProps, TimeSliderSize, TimeSliderTheme, TimeUnit } from './components/TimeSlider';
 
 // 디자인 토큰 / 테마

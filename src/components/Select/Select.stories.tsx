@@ -1,438 +1,140 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Select, SelectItem } from './Select';
-import { useState } from 'react';
 
-/**
- * Select 컴포넌트는 사용자가 여러 옵션 중 하나를 선택할 수 있는 드롭다운 메뉴를 제공합니다.
- * 다양한 크기, 변형, 상태를 지원합니다.
- */
-const meta = {
+const meta: Meta<typeof Select> = {
   title: 'Components/Select',
   component: Select,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: { layout: 'centered' },
   tags: ['autodocs'],
+  args: {
+    label: 'Label',
+    placeholder: '선택',
+    helpText: 'Help message',
+    size: 'md',
+    visibleOptions: 8,
+  },
   argTypes: {
-    value: {
-      control: 'text',
-      description: 'Select의 값입니다.',
-    },
-    defaultValue: {
-      control: 'text',
-      description: '기본 값입니다. (비제어 컴포넌트로 사용할 때)',
-    },
-    placeholder: {
-      control: 'text',
-      description: 'Select의 placeholder입니다.',
-      defaultValue: '선택하세요',
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Select의 비활성화 상태를 지정합니다.',
-      defaultValue: false,
-    },
-    required: {
-      control: 'boolean',
-      description: 'Select의 필수 입력 여부를 지정합니다.',
-      defaultValue: false,
-    },
     size: {
       control: 'radio',
-      options: ['sm', 'md', 'lg'],
-      description: 'Select의 크기를 지정합니다.',
-      defaultValue: 'md',
+      options: ['sm', 'md'],
+      description: 'Figma 의 **Size** 축입니다. 트리거 높이 40 / 48px 에 대응합니다.',
     },
-    error: {
-      control: 'boolean',
-      description: 'Select의 에러 상태를 지정합니다.',
-      defaultValue: false,
-    },
-    variant: {
+    visibleOptions: {
       control: 'radio',
-      options: ['outlined', 'underlined', 'text'],
-      description: 'Select의 변형을 지정합니다.',
-      defaultValue: 'outlined',
+      options: [4, 6, 8],
+      description: 'Figma 의 Option group **Number** 축입니다. 드롭다운 최대 높이를 정합니다.',
     },
-    errorText: {
-      control: 'text',
-      description: 'Select에 에러가 났을 때 하단에 표시할 텍스트입니다.',
-    },
-    selectedItemClassName: {
-      control: 'text',
-      description: '선택된 값 클래스를 지정합니다.',
-    },
-    bgClassName: {
-      control: 'text',
-      description: 'Select의 배경 컴포넌트 클래스를 지정합니다.',
-    },
+    error: { control: 'boolean', description: 'Figma State=Error.' },
+    disabled: { control: 'boolean', description: 'Figma State=Disabled.' },
+    required: { control: 'boolean', description: '라벨 뒤에 * 가 붙습니다.' },
+    label: { control: 'text' },
+    placeholder: { control: 'text' },
+    helpText: { control: 'text' },
   },
-} satisfies Meta<typeof Select>;
+  decorators: [
+    (Story) => (
+      <div style={{ width: 320 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
 
 export default meta;
+type Story = StoryObj<typeof Select>;
 
-// Select 스토리 타입
-type SelectStory = StoryObj<typeof Select>;
-// SelectItem 스토리 타입
-type SelectItemStory = StoryObj<typeof SelectItem>;
+const OPTIONS = [
+  'Option 01', 'Option 02', 'Option 03', 'Option 04',
+  'Option 05', 'Option 06', 'Option 07', 'Option 08',
+];
 
-/**
- * 기본 Select 예시입니다.
- */
-export const Default: SelectStory = {
-  name: 'Select',
-  render: (args) => (
-    <div style={{ height: '180px' }}>
-      <Select {...args}>
-        <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-        <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-      </Select>
-    </div>
-  ),
-  args: {
-    children: null,
-    placeholder: '선택하세요',
-  },
+const renderOptions = () =>
+  OPTIONS.map((option) => (
+    <SelectItem key={option} value={option}>{option}</SelectItem>
+  ));
+
+/** 기본값입니다. Figma 의 `State=Default, Size=Medium` 에 해당합니다. */
+export const Default: Story = {
+  render: (args) => <Select {...args}>{renderOptions()}</Select>,
 };
 
-/**
- * 제어 컴포넌트로 사용하는 Select 예시입니다.
- */
-export const Controlled: SelectStory = {
-  render: () => {
-    const [stringValue, setStringValue] = useState<string>('option2');
-
-    const [numberValue, setNumberValue] = useState<number>(10);
-
-    return (
-      <div style={{ height: '280px' }}>
-        <div className={'koast-flex koast-flex-col koast-gap-4'}>
-          <div>
-            <p>{'문자열 값: '}{stringValue}</p>
-            <Select
-              value={stringValue}
-              onChange={(newValue) => setStringValue(newValue as string)}
-            >
-              <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-              <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-              <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
-            </Select>
-          </div>
-
-          <div>
-            <p>{'숫자 값: '}{numberValue}</p>
-            <Select
-              value={numberValue}
-              onChange={(newValue) => setNumberValue(newValue as number)}
-            >
-              <SelectItem value={10}>{'10'}</SelectItem>
-              <SelectItem value={20}>{'20'}</SelectItem>
-              <SelectItem value={30}>{'30'}</SelectItem>
-            </Select>
-          </div>
+/** **Size** 축입니다. 트리거 높이만 달라지고 글자·아이콘 크기는 같습니다. */
+export const Sizes: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      {([['md', 'Medium · 48px'], ['sm', 'Small · 40px']] as const).map(([size, name]) => (
+        <div key={size}>
+          <span className={'story-label'}>{name}</span>
+          <Select {...args} size={size} label={name}>{renderOptions()}</Select>
         </div>
+      ))}
+    </div>
+  ),
+};
+
+/** **State** 축입니다. Hovered / Pressed / Focused 는 직접 상호작용해야 나타납니다. */
+export const States: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      <Select {...args} label={'Default'}>{renderOptions()}</Select>
+      <Select {...args} label={'Filled'} defaultValue={'Option 02'}>{renderOptions()}</Select>
+      <Select {...args} label={'Error'} error helpText={'필수 항목입니다'}>{renderOptions()}</Select>
+      <Select {...args} label={'Disabled'} disabled>{renderOptions()}</Select>
+    </div>
+  ),
+};
+
+/** Option group 의 **Number** 축입니다. 옵션 8개를 넣고 보이는 개수만 바꿉니다. */
+export const VisibleOptions: Story = {
+  render: (args) => (
+    <div className={'story-stack'}>
+      {([4, 6, 8] as const).map((count) => (
+        <Select key={count} {...args} visibleOptions={count} label={`Number = ${ count }`}>
+          {renderOptions()}
+        </Select>
+      ))}
+    </div>
+  ),
+};
+
+/** 라벨과 보조 문구는 생략할 수 있습니다. */
+export const WithoutLabel: Story = {
+  args: { label: undefined, helpText: undefined },
+  render: (args) => <Select {...args}>{renderOptions()}</Select>,
+};
+
+/** 비활성 옵션은 키보드 이동에서도 건너뜁니다. */
+export const DisabledOption: Story = {
+  render: (args) => (
+    <Select {...args}>
+      <SelectItem value={'a'}>{'선택 가능'}</SelectItem>
+      <SelectItem value={'b'} disabled>{'선택 불가'}</SelectItem>
+      <SelectItem value={'c'}>{'선택 가능'}</SelectItem>
+    </Select>
+  ),
+};
+
+/** 숫자 값도 그대로 쓸 수 있습니다. `0` 도 정상 표시됩니다. */
+export const NumberValues: Story = {
+  render: (args) => (
+    <Select {...args} defaultValue={0}>
+      <SelectItem value={0}>{'0 — 없음'}</SelectItem>
+      <SelectItem value={10}>{'10'}</SelectItem>
+      <SelectItem value={20}>{'20'}</SelectItem>
+    </Select>
+  ),
+};
+
+/** `value` 를 넘기면 제어 컴포넌트로 동작합니다. */
+export const Controlled: Story = {
+  render: (args) => {
+    const [value, setValue] = useState<string | number>('Option 01');
+    return (
+      <div className={'story-stack'}>
+        <Select {...args} value={value} onChange={setValue}>{renderOptions()}</Select>
+        <span className={'story-note'}>{`선택된 값: ${ value }`}</span>
       </div>
     );
-  },
-};
-
-/**
- * Select 변형(variant) 예시입니다.
- */
-export const Variants: SelectStory = {
-  render: () => (
-    <div style={{ height: '180px' }}>
-      <div className={'koast-flex koast-gap-4'}>
-        <Select variant={'outlined'} placeholder={'outlined'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-        <Select variant={'underlined'} placeholder={'underlined'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-        <Select variant={'text'} placeholder={'text'}>
-          <SelectItem value={'option1'}>{'옵션1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션2'}</SelectItem>
-        </Select>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * Select 크기(size) 예시입니다.
- */
-export const Sizes: SelectStory = {
-  render: () => (
-    <div style={{ height: '180px' }}>
-      <div className={'koast-flex koast-items-end koast-gap-4'}>
-        <Select size={'sm'} placeholder={'Small'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-        <Select size={'md'} placeholder={'Medium'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-        <Select size={'lg'} placeholder={'Large'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 비활성화된 Select 예시입니다.
- */
-export const Disabled: SelectStory = {
-  render: () => (
-    <div style={{ height: '220px' }}>
-      <div className={'koast-flex koast-flex-col koast-gap-4'}>
-        <Select disabled placeholder={'비활성화된 Select'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-
-        <Select placeholder={'비활성화된 옵션이 있는 Select'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'} disabled>{'옵션 2 (비활성화)'}</SelectItem>
-          <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
-        </Select>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 필수 입력 Select 예시입니다.
- */
-export const Required: SelectStory = {
-  render: () => (
-    <div style={{ height: '180px' }}>
-      <Select required placeholder={'필수 입력 항목'}>
-        <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-        <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-      </Select>
-    </div>
-  ),
-};
-
-/**
- * 에러 상태의 Select 예시입니다.
- */
-export const Error: SelectStory = {
-  render: () => (
-    <div style={{ height: '180px' }}>
-      <div className={'koast-flex koast-flex-col koast-gap-4'}>
-        <Select error placeholder={'에러 상태'}>
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-
-        <Select
-          error
-          errorText={'필수 항목을 선택해주세요'}
-          placeholder={'에러 메시지 포함'}
-        >
-          <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-          <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-        </Select>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * 다양한 옵션을 가진 Select 예시입니다.
- */
-export const ManyOptions: SelectStory = {
-  render: () => (
-    <div style={{ height: '300px' }}>
-      <Select placeholder={'국가 선택'}>
-        <SelectItem value={'kr'}>{'대한민국'}</SelectItem>
-        <SelectItem value={'us'}>{'미국'}</SelectItem>
-        <SelectItem value={'jp'}>{'일본'}</SelectItem>
-        <SelectItem value={'cn'}>{'중국'}</SelectItem>
-        <SelectItem value={'gb'}>{'영국'}</SelectItem>
-        <SelectItem value={'fr'}>{'프랑스'}</SelectItem>
-        <SelectItem value={'de'}>{'독일'}</SelectItem>
-        <SelectItem value={'it'}>{'이탈리아'}</SelectItem>
-        <SelectItem value={'es'}>{'스페인'}</SelectItem>
-        <SelectItem value={'ca'}>{'캐나다'}</SelectItem>
-      </Select>
-    </div>
-  ),
-};
-
-/**
- * 숫자 값을 가진 Select 예시입니다.
- */
-export const NumberValues: SelectStory = {
-  render: () => {
-    const [value, setValue] = useState<number>(20);
-
-    return (
-      <div style={{ height: '180px' }}>
-        <div className={'koast-flex koast-flex-col koast-gap-4'}>
-          <p>{'선택된 값: '}{value}</p>
-          <Select<number>
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
-            placeholder={'나이 선택'}
-          >
-            <SelectItem value={10}>{'10세'}</SelectItem>
-            <SelectItem value={20}>{'20세'}</SelectItem>
-            <SelectItem value={30}>{'30세'}</SelectItem>
-          </Select>
-        </div>
-      </div>
-    );
-  },
-};
-
-/**
- * 커스텀 스타일이 적용된 Select 예시입니다.
- */
-export const CustomStyled: SelectStory = {
-  render: () => (
-    <div style={{ height: '180px' }}>
-      <Select
-        variant={'text'}
-        className={'koast-border-2 koast-border-purple-500 koast-bg-purple-50'}
-        placeholder={'커스텀 스타일 Select'}
-      >
-        <SelectItem value={'option1'} className={'koast-text-purple-700 hover:koast-bg-purple-100'}>
-          {'커스텀 옵션 1'}
-        </SelectItem>
-        <SelectItem value={'option2'} className={'koast-text-purple-700 hover:koast-bg-purple-100'}>
-          {'커스텀 옵션 2'}
-        </SelectItem>
-      </Select>
-    </div>
-  ),
-};
-
-/**
- * 선택된 아이템에 커스텀 스타일이 적용된 Select 예시입니다.
- */
-export const CustomSelectedItem: SelectStory = {
-  render: () => {
-    const [value, setValue] = useState<string>('option1');
-
-    return (
-      <div style={{ height: '180px' }}>
-        <div className={'koast-flex koast-flex-col koast-gap-4'}>
-          <p>{'선택된 값: '}{value}</p>
-          <Select
-            value={value}
-            onChange={(newValue) => setValue(newValue as string)}
-            placeholder={'선택하세요'}
-            selectedItemClassName={'koast-bg-blue-100 koast-text-blue-700 koast-font-semibold'}
-          >
-            <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-            <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-            <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
-          </Select>
-        </div>
-      </div>
-    );
-  },
-};
-
-/**
- * 다양한 선택된 아이템 스타일 예시입니다.
- */
-export const SelectedItemStyles: SelectStory = {
-  render: () => {
-    const [value1, setValue1] = useState<string>('option1');
-
-    const [value2, setValue2] = useState<string>('option1');
-
-    return (
-      <div style={{ height: '280px' }}>
-        <div className={'koast-flex koast-flex-col koast-gap-4'}>
-          <div>
-            <p className={'koast-mb-2'}>{'파란색 배경 스타일'}</p>
-            <Select
-              value={value1}
-              onChange={(newValue) => setValue1(newValue as string)}
-              placeholder={'선택하세요'}
-              selectedItemClassName={'koast-bg-blue-500 koast-text-white'}
-            >
-              <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-              <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-              <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
-            </Select>
-          </div>
-
-          <div>
-            <p className={'koast-mb-2'}>{'초록색 테두리 스타일'}</p>
-            <Select
-              value={value2}
-              onChange={(newValue) => setValue2(newValue as string)}
-              placeholder={'선택하세요'}
-              selectedItemClassName={'koast-border-2 koast-border-green-500 koast-bg-green-50 koast-text-green-700'}
-            >
-              <SelectItem value={'option1'}>{'옵션 1'}</SelectItem>
-              <SelectItem value={'option2'}>{'옵션 2'}</SelectItem>
-              <SelectItem value={'option3'}>{'옵션 3'}</SelectItem>
-            </Select>
-          </div>
-        </div>
-      </div>
-    );
-  },
-};
-
-/**
- * SelectItem 컴포넌트의 기본 스토리입니다.
- */
-export const Item: SelectItemStory = {
-  name: 'SelectItem(Children)',
-  render: (args) => (
-    <div className={'koast-w-48 koast-bg-gray-50'}>
-      <SelectItem {...args} />
-    </div>
-  ),
-  args: {
-    value: 'option1',
-    children: '옵션 1',
-  },
-};
-
-/**
- * SelectItem의 비활성화 상태 스토리입니다.
- */
-export const DisabledItem: SelectItemStory = {
-  name: 'Disabled SelectItem(Children)',
-  render: (args) => (
-    <div className={'koast-w-48 koast-bg-gray-50'}>
-      <SelectItem {...args} />
-    </div>
-  ),
-  args: {
-    value: 'option1',
-    children: '비활성화된 옵션',
-    disabled: true,
-  },
-};
-
-/**
- * SelectItem의 커스텀 스타일 스토리입니다.
- */
-export const CustomStyledItem: SelectItemStory = {
-  name: 'Custom Styled SelectItem(Children)',
-  render: (args) => (
-    <div className={'koast-w-48 koast-bg-gray-50'}>
-      <SelectItem {...args} />
-    </div>
-  ),
-  args: {
-    value: 'option1',
-    children: '커스텀 스타일 옵션',
-    className: 'koast-text-purple-600 koast-font-semibold hover:koast-bg-purple-50',
   },
 };

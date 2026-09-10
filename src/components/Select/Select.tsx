@@ -1,89 +1,108 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Check, ChevronDown, ChevronUp, CircleX } from 'lucide-react';
 import { SelectProps, SelectItemProps } from './Select.types';
 import {
-  getSizeStyles,
-  getVariantStyles,
-  getErrorStyles,
+  getHelpTextStyles,
+  getMenuStyles,
+  getOptionStyles,
+  getTriggerStyles,
+  getTriggerTextStyles,
 } from './Select.styles';
 import { twMerge } from '../../utils/twMerge';
 
+type ItemValue = string | number;
+
+interface SelectContextValue {
+  selectedValue?: ItemValue;
+  activeValue?: ItemValue;
+  optionId: (value: ItemValue) => string;
+  onSelect: (value: ItemValue) => void;
+  registerOption: (value: ItemValue, node: HTMLLIElement | null) => void;
+}
+
+const SelectContext = createContext<SelectContextValue | null>(null);
+
 /**
- * @koast/ui Select(Dropdown) 컴포넌트입니다.
- * Select 컴포넌트의 옵션으로 사용됩니다.
+ * @koast/ui Select(Dropdown) 컴포넌트의 옵션입니다.
  *
  * @param {string | number} props.value - 항목의 값입니다.
  * @param {React.ReactNode} props.children - 항목에 표시될 내용 : React.ReactNode
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
- * @param {string} [props.className] - 추가 CSS 클래스 : string
+ * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  *
  * @example
  * ```tsx
- * // 문자열 값 사용
  * <SelectItem value="option1">옵션 1</SelectItem>
- *
- * // 숫자 값 사용
  * <SelectItem value={10}>10</SelectItem>
  * ```
  */
 export const SelectItem = ({
   value,
   children,
-  disabled,
-  className,
+  disabled = false,
+  className = '',
 }: SelectItemProps) => {
+  const ctx = useContext(SelectContext);
+  const selected = ctx?.selectedValue === value;
+  const active = ctx?.activeValue === value;
+
   return (
-    <div
-      data-value={value}
-      className={twMerge(
-        'koast-select__item',
-        'koast-cursor-pointer koast-px-4 koast-py-2',
-        disabled ? 'koast-cursor-not-allowed koast-opacity-50' : '',
-        className,
-      )}
+    <li
+      ref={(node) => ctx?.registerOption(value, node)}
+      id={ctx?.optionId(value)}
+      role={'option'}
+      aria-selected={selected}
+      aria-disabled={disabled || undefined}
+      onClick={() => !disabled && ctx?.onSelect(value)}
+      className={getOptionStyles(selected, disabled, active, className)}
     >
-      {children}
-    </div>
+      <span className={'koast-flex koast-size-4 koast-shrink-0 koast-items-center koast-justify-center'}>
+        {selected && <Check className={'koast-size-4'} aria-hidden />}
+      </span>
+      <span className={'koast-truncate'}>{children}</span>
+    </li>
   );
 };
 
 /**
- * Koast/ui Select 컴포넌트입니다.
- * 사용자가 여러 옵션 중 하나를 선택할 수 있는 드롭다운 메뉴를 제공합니다.
+ * @koast/ui Select(Dropdown) 컴포넌트입니다.
+ * 여러 옵션 중 하나를 선택하는 입력 요소로, 라벨·보조 문구·오류 상태를 함께 표시합니다.
  *
- * @param {string | number} [props.value] - 선택된 값입니다.
- * @param {string | number} [props.defaultValue] - 기본 선택 값입니다.
- * @param {Function} [props.onChange] - 값 변경 시 호출되는 콜백 함수 : Function
- * @param {string} [props.placeholder] - 선택되지 않았을 때 표시되는 텍스트 : string
+ * @param {string | number} [props.value] - 선택된 값. 지정하면 제어 컴포넌트로 동작합니다 : string | number
+ * @param {string | number} [props.defaultValue] - 비제어로 쓸 때의 초기 값 : string | number
+ * @param {Function} [props.onChange] - 값 변경 시 호출되는 콜백 : Function
+ * @param {React.ReactNode} [props.label] - 트리거 위에 표시되는 라벨 : React.ReactNode
+ * @param {string} [props.placeholder] - 값이 없을 때 표시되는 문구 : string
+ * @param {React.ReactNode} [props.helpText] - 트리거 아래 보조 문구. error 면 빨간색 : React.ReactNode
+ * @param {boolean} [props.error=false] - 오류 상태 : boolean
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {boolean} [props.required=false] - 필수 입력 여부 : boolean
- * @param {'sm' | 'md' | 'lg'} [props.size='md'] - 컴포넌트 크기 : 'sm' | 'md' | 'lg'
- * @param {'outlined' | 'filled' | 'standard'} [props.variant='outlined'] - 컴포넌트 스타일 변형 : 'outlined' | 'filled' | 'standard'
- * @param {boolean} [props.error=false] - 오류 상태 : boolean
- * @param {string} [props.errorText] - 오류 메시지 : string
- * @param {string} [props.bgClassName] - 배경 컴포넌트 클래스 : string
- * @param {string} [props.className] - 추가 CSS 클래스 : string
- * @param {string} [props.selectedItemClassName] - 선택된 값 클래스 : string
+ * @param {'sm' | 'md'} [props.size='md'] - 트리거 높이 (40 / 48px) : 'sm' | 'md'
+ * @param {4 | 6 | 8} [props.visibleOptions=8] - 드롭다운에 한 번에 보이는 옵션 수 : 4 | 6 | 8
+ * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  * @param {React.ReactNode} props.children - SelectItem 컴포넌트들 : React.ReactNode
- * @param {string} [props.id] - 컴포넌트 ID : string
- * @param {string} [props.name] - 폼 제출 시 사용되는 이름 : string
  *
  * @example
  * ```tsx
- * // 문자열 값 사용
- * <Select value="option1" onChange={(value) => setValue(value)}>
- *   <SelectItem value="option1">옵션 1</SelectItem>
- *   <SelectItem value="option2">옵션 2</SelectItem>
+ * <Select label="국가" placeholder="선택하세요" value={country} onChange={setCountry}>
+ *   <SelectItem value="kr">대한민국</SelectItem>
+ *   <SelectItem value="jp">일본</SelectItem>
  * </Select>
  *
- * // 객체 값 사용 (반드시 name 속성 필요)
- * <Select value={{ name: "옵션 1", id: 1 }} onChange={(value) => setValue(value)}>
- *   <SelectItem value={{ name: "옵션 1", id: 1 }}>옵션 1</SelectItem>
- *   <SelectItem value={{ name: "옵션 2", id: 2 }}>옵션 2</SelectItem>
+ * <Select error helpText="필수 항목입니다" size="sm" visibleOptions={4}>
+ *   <SelectItem value={10}>10</SelectItem>
  * </Select>
  * ```
  */
-
 export const Select = <T extends string | number = string>(
   props: SelectProps<T>,
 ) => {
@@ -91,197 +110,201 @@ export const Select = <T extends string | number = string>(
     value,
     defaultValue,
     onChange,
+    label,
     placeholder,
+    helpText,
+    error = false,
     disabled = false,
     required = false,
     size = 'md',
-    variant = 'outlined',
-    error = false,
-    errorText,
-    className,
-    bgClassName,
-    selectedItemClassName,
+    visibleOptions = 8,
+    className = '',
     children,
     id,
     name,
   } = props;
 
-  // 내부 상태 관리
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<
-    string | number | undefined
-  >(value !== undefined ? value : defaultValue);
-  const selectRef = useRef<HTMLDivElement>(null);
+  const isControlled = value !== undefined;
+  const [innerValue, setInnerValue] = useState<ItemValue | undefined>(defaultValue);
+  const selectedValue = isControlled ? value : innerValue;
 
-  // 외부 클릭 감지를 위한 이벤트 리스너
+  const [open, setOpen] = useState(false);
+  const [activeValue, setActiveValue] = useState<ItemValue | undefined>();
+
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef(new Map<ItemValue, HTMLLIElement>());
+
+  const reactId = useId();
+  const baseId = id ?? `koast-select-${ reactId }`;
+  const listboxId = `${ baseId }-listbox`;
+  const helpId = `${ baseId }-help`;
+  const optionId = useCallback(
+    (v: ItemValue) => `${ baseId }-option-${ String(v) }`,
+    [baseId],
+  );
+
+  const items = useMemo(() => {
+    const out: { value: ItemValue; disabled: boolean; label: React.ReactNode }[] = [];
+    React.Children.forEach(children, (child) => {
+      if (!React.isValidElement<SelectItemProps>(child)) return;
+      out.push({
+        value: child.props.value,
+        disabled: child.props.disabled ?? false,
+        label: child.props.children,
+      });
+    });
+    return out;
+  }, [children]);
+
+  const selectedItem = items.find((item) => item.value === selectedValue);
+
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectRef.current
-        && !selectRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
+    if (!open) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
     };
+    document.addEventListener('mousedown', onPointerDown);
+    return () => document.removeEventListener('mousedown', onPointerDown);
+  }, [open]);
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+  useEffect(() => {
+    if (open && activeValue !== undefined) {
+      optionRefs.current.get(activeValue)?.scrollIntoView({ block: 'nearest' });
+    }
+  }, [open, activeValue]);
+
+  const registerOption = useCallback((v: ItemValue, node: HTMLLIElement | null) => {
+    if (node) optionRefs.current.set(v, node);
+    else optionRefs.current.delete(v);
   }, []);
 
-  // 값이 변경될 때 선택된 라벨 업데이트
-  useEffect(() => {
-    if (value !== undefined) {
-      setSelectedValue(value);
-    }
-  }, [value]);
+  const commit = (next: ItemValue) => {
+    if (!isControlled) setInnerValue(next);
+    onChange?.(next as T);
+    setOpen(false);
+    triggerRef.current?.focus();
+  };
 
-  // 초기 선택된 라벨 설정
-  useEffect(() => {
-    if (selectedValue !== undefined) {
-      React.Children.forEach(children, (child) => {
-        if (
-          React.isValidElement(child)
-          && (child.props as SelectItemProps).value === selectedValue
-        ) {
-          setSelectedValue(selectedValue);
+  const openMenu = () => {
+    setActiveValue(selectedValue ?? items.find((item) => !item.disabled)?.value);
+    setOpen(true);
+  };
+
+  const step = (delta: number) => {
+    const selectable = items.filter((item) => !item.disabled);
+    if (!selectable.length) return;
+    const current = selectable.findIndex((item) => item.value === activeValue);
+    const nextIndex = current < 0
+      ? (delta > 0 ? 0 : selectable.length - 1)
+      : (current + delta + selectable.length) % selectable.length;
+    setActiveValue(selectable[nextIndex].value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (disabled) return;
+
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowUp':
+        event.preventDefault();
+        if (!open) openMenu();
+        else step(event.key === 'ArrowDown' ? 1 : -1);
+        break;
+      case 'Home':
+      case 'End': {
+        if (!open) break;
+        event.preventDefault();
+        const selectable = items.filter((item) => !item.disabled);
+        if (selectable.length) {
+          setActiveValue(selectable[event.key === 'Home' ? 0 : selectable.length - 1].value);
         }
-      });
-    }
-  }, [selectedValue, children]);
-
-  // 옵션 선택 핸들러 수정
-  const handleSelect = (value: string | number) => {
-    setSelectedValue(value);
-    setIsOpen(false);
-
-    if (onChange) {
-      onChange(value as T);
+        break;
+      }
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        if (!open) openMenu();
+        else if (activeValue !== undefined) commit(activeValue);
+        break;
+      case 'Escape':
+        if (open) {
+          event.preventDefault();
+          setOpen(false);
+        }
+        break;
+      case 'Tab':
+        setOpen(false);
+        break;
     }
   };
 
-  // 선택된 값을 표시하는 함수
-  const getDisplayValue = () => {
-    if (!selectedValue) return '';
-
-    // children을 배열로 변환
-    const childrenArray = React.Children.toArray(
-      children,
-    ) as React.ReactElement<SelectItemProps>[];
-
-    // 현재 선택된 값과 일치하는 SelectItem을 찾음
-    const selectedItem = childrenArray.find((child) => {
-      return child.props.value === selectedValue;
-    });
-
-    // 해당 SelectItem의 children(표시될 텍스트)을 반환
-    return selectedItem ? selectedItem.props.children : '';
+  const context: SelectContextValue = {
+    selectedValue,
+    activeValue,
+    optionId,
+    onSelect: commit,
+    registerOption,
   };
 
-  // 렌더링
+  const Chevron = open ? ChevronUp : ChevronDown;
+
   return (
-    <div
-      style={{ display: 'inline-block' }}
-      className={twMerge('koast-select', bgClassName)}
-      ref={selectRef}
-    >
-      <div className={twMerge('koast-select__container', 'koast-relative')}>
-        <div
-          className={twMerge(
-            'koast-select__trigger',
-            'koast-flex koast-cursor-pointer koast-items-center koast-justify-between koast-rounded',
-            getVariantStyles(variant),
-            getSizeStyles(size),
-            getErrorStyles(error),
-            disabled
-              ? 'koast-cursor-not-allowed koast-bg-gray-50 koast-opacity-50'
-              : 'hover:koast-border-gray-400',
-            'koast-transition-colors koast-duration-200',
-            className,
-          )}
-          onClick={() => !disabled && setIsOpen(!isOpen)}
-          tabIndex={disabled ? -1 : 0}
-          role={'combobox'}
-          aria-expanded={isOpen}
-          aria-haspopup={'listbox'}
-          aria-labelledby={id}
-          aria-required={required}
-          id={id}
-          data-name={name}
+    <div ref={rootRef} className={twMerge('koast-w-full', className)}>
+      {label && (
+        <label
+          htmlFor={baseId}
+          className={'koast-mb-3 koast-block koast-text-base koast-font-medium koast-leading-5 koast-text-primary'}
         >
-          <div
-            className={twMerge(
-              'koast-select__value',
-              'koast-flex koast-grow koast-items-center koast-justify-between koast-truncate',
-              !selectedValue && placeholder ? 'koast-text-gray-400' : '',
-            )}
-          >
-            {getDisplayValue() || placeholder}
-            {required && !selectedValue && (
-              <span
-                className={twMerge(
-                  'koast-select__required',
-                  'koast-ml-1.5 koast-text-xs koast-text-red-500',
-                )}
-              >
-                {'필수*'}
-              </span>
-            )}
-          </div>
-          <ChevronDown
-            size={20}
-            className={twMerge(
-              'koast-select__icon',
-              'koast-ml-2 koast-transition-transform koast-duration-200',
-              isOpen ? 'koast-rotate-180' : '',
-            )}
-          />
-        </div>
+          {label}
+          {required && <span className={'koast-ml-0.5 koast-text-danger'}>{'*'}</span>}
+        </label>
+      )}
 
-        {isOpen && (
-          <div
-            className={twMerge(
-              'koast-select__dropdown',
-              'koast-absolute koast-z-10 koast-mt-1 koast-max-h-60 koast-w-full koast-overflow-y-auto koast-rounded koast-shadow-lg koast-bg-transparent',
-            )}
-          >
-            {React.Children.map(children, (child) => {
-              if (!React.isValidElement(child)) return null;
-              const { value: itemValue, disabled: itemDisabled }
-                = child.props as SelectItemProps;
+      <div className={'koast-relative'}>
+        <button
+          ref={triggerRef}
+          type={'button'}
+          id={baseId}
+          name={name}
+          disabled={disabled}
+          role={'combobox'}
+          aria-haspopup={'listbox'}
+          aria-expanded={open}
+          aria-controls={open ? listboxId : undefined}
+          aria-activedescendant={open && activeValue !== undefined ? optionId(activeValue) : undefined}
+          aria-required={required || undefined}
+          aria-invalid={error || undefined}
+          aria-describedby={helpText ? helpId : undefined}
+          onClick={() => (open ? setOpen(false) : openMenu())}
+          onKeyDown={handleKeyDown}
+          className={getTriggerStyles(size, disabled, error, open, '')}
+        >
+          <span className={getTriggerTextStyles(disabled, selectedItem !== undefined)}>
+            {selectedItem ? selectedItem.label : placeholder}
+          </span>
+          <Chevron className={'koast-size-6 koast-shrink-0'} aria-hidden />
+        </button>
 
-              return (
-                <div
-                  onClick={() => !itemDisabled && handleSelect(itemValue)}
-                  className={twMerge(
-                    'koast-select__option',
-                    'koast-bg-transparent',
-                    value === itemValue ? selectedItemClassName : '',
-                    size === 'sm'
-                      ? 'koast-text-sm'
-                      : size === 'lg'
-                        ? 'koast-text-lg'
-                        : 'koast-text-base',
-                  )}
-                >
-                  {child}
-                </div>
-              );
-            })}
-          </div>
+        {open && (
+          <ul
+            id={listboxId}
+            role={'listbox'}
+            aria-labelledby={baseId}
+            className={getMenuStyles(visibleOptions)}
+          >
+            <SelectContext.Provider value={context}>
+              {children}
+            </SelectContext.Provider>
+          </ul>
         )}
       </div>
 
-      {error && errorText && (
-        <div
-          className={twMerge(
-            'koast-select__error',
-            'koast-mt-1 koast-text-sm koast-text-red-500',
-          )}
-        >
-          {errorText}
-        </div>
+      {helpText && (
+        <p id={helpId} className={getHelpTextStyles(error)}>
+          {error && <CircleX className={'koast-size-6 koast-shrink-0'} aria-hidden />}
+          {helpText}
+        </p>
       )}
     </div>
   );

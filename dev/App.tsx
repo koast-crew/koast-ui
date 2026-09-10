@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { Button } from '../src';
 import ButtonExam from './src/components/ButtonExam';
-import ButtonGroupExam from './src/components/ButtonGroupExam';
 import FolderTreeExam from './src/components/FolderTreeExam';
 import SelectExam from './src/components/SelectExam';
 import TimeSliderExam from './src/components/TimeSliderExam';
@@ -12,7 +11,6 @@ const components = {
   button: ButtonExam,
   folderTree: FolderTreeExam,
   select: SelectExam,
-  buttonGroup: ButtonGroupExam,
   timeSlider: TimeSliderExam,
   mapLegend: MapLegendExam,
 } as const;

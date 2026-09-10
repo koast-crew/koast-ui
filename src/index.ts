@@ -2,7 +2,6 @@ import './styles/tailwind.css';
 
 export { default as Button } from './components/Button';
 // export { default as CesiumMap, type CesiumMapProps } from './components/CesiumMap';
-export { default as ButtonGroup } from './components/ButtonGroup';
 export { default as FolderTree, type TreeNode } from './components/FolderTree';
 export { default as MapLegend } from './components/MapLegend';
 export { default as Select, SelectItem } from './components/Select';

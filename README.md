@@ -193,7 +193,6 @@ koast-shadow-cast                effect/shadow/cast
 | 제작여부 |  컴포넌트   |      설명       |
 | :------: | :---------: | :-------------: |
 |    ✅    |   Button    |      버튼       |
-|    ✅    | ButtonGroup |    버튼 그룹    |
 |    ✅    |   Select    | 셀렉트 드롭다운 |
 |    ✅      | TimeSlider  |  시간 슬라이더  |
 |    ✅      |  MapLegend  |    지도 범례    |

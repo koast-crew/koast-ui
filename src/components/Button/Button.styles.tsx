@@ -41,30 +41,69 @@ const SIZES: Record<ButtonSize, string> = {
 };
 
 /**
- * intent × variant 색상 표입니다. 모든 값이 시맨틱 토큰 클래스로만 이루어져 있습니다.
+ * outlined 의 테두리 두께입니다. xs 만 1px 입니다.
+ * 28px 높이에서 2px 테두리는 상하 4px 여백의 절반을 잠식하므로 디자인 시스템이 한 단계 얇게 정의합니다.
+ *
+ * preflight 를 껐고 base.css 가 button 에 `border: 0` 을 걸어 border-style 이 none 이므로,
+ * border-width 만으로는 선이 그려지지 않습니다. border-solid 를 함께 붙여야 합니다.
+ */
+const BORDER_WIDTHS: Record<ButtonSize, string> = {
+  xs: 'koast-border koast-border-solid',
+  sm: 'koast-border-2 koast-border-solid',
+  md: 'koast-border-2 koast-border-solid',
+};
+
+/**
+ * intent × variant 의 기본 면 색입니다. hover / active 가 없는 정지 상태이며,
+ * 디자인 시스템의 Loading 도 이 색을 그대로 씁니다.
  * danger 의 outlined / text 는 디자인 시스템에 없어 primary 패턴을 따라 파생했습니다.
  */
-const COLORS: Record<ButtonColor, Record<ButtonVariant, string>> = {
+const COLOR_BASE: Record<ButtonColor, Record<ButtonVariant, string>> = {
   primary: {
-    contained:
-      'koast-bg-interactive-primary koast-text-interactive-inverse hover:koast-bg-interactive-primary-hovered active:koast-bg-interactive-primary-pressed',
+    contained: 'koast-bg-interactive-primary koast-text-interactive-inverse',
     outlined:
-      'koast-border-2 koast-border-interactive-primary koast-text-interactive-primary hover:koast-bg-interactive-selected-hovered hover:koast-border-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-border-interactive-primary-pressed active:koast-text-interactive-primary-pressed',
-    text: 'koast-text-interactive-primary hover:koast-bg-interactive-selected-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-text-interactive-primary-pressed',
+      'koast-border-interactive-primary koast-text-interactive-primary',
+    text: 'koast-text-interactive-primary',
   },
   secondary: {
     contained:
-      'koast-bg-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed',
+      'koast-bg-interactive-secondary koast-text-interactive-secondary',
     outlined:
-      'koast-border-2 koast-border-interactive-secondary koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered hover:koast-border-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-border-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
-    text: 'koast-text-interactive-secondary hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
+      'koast-border-interactive-secondary koast-text-interactive-secondary',
+    text: 'koast-text-interactive-secondary',
+  },
+  danger: {
+    contained: 'koast-bg-interactive-danger koast-text-interactive-inverse',
+    outlined: 'koast-border-interactive-danger koast-text-danger',
+    text: 'koast-text-danger',
+  },
+};
+
+/**
+ * 포인터 상호작용 색입니다. Loading 중에는 붙이지 않습니다.
+ * 세 variant 모두 hover / active 에서 라벨이 한 단계씩 진해집니다.
+ */
+const COLOR_INTERACTION: Record<ButtonColor, Record<ButtonVariant, string>> = {
+  primary: {
+    contained:
+      'hover:koast-bg-interactive-primary-hovered active:koast-bg-interactive-primary-pressed',
+    outlined:
+      'hover:koast-bg-interactive-selected-hovered hover:koast-border-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-border-interactive-primary-pressed active:koast-text-interactive-primary-pressed',
+    text: 'hover:koast-bg-interactive-selected-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-text-interactive-primary-pressed',
+  },
+  secondary: {
+    contained:
+      'hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
+    outlined:
+      'hover:koast-bg-interactive-secondary-hovered hover:koast-border-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-border-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
+    text: 'hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
   },
   danger: {
     contained:
-      'koast-bg-interactive-danger koast-text-interactive-inverse hover:koast-bg-interactive-danger-hovered active:koast-bg-interactive-danger-pressed',
+      'hover:koast-bg-interactive-danger-hovered active:koast-bg-interactive-danger-pressed',
     outlined:
-      'koast-border-2 koast-border-interactive-danger koast-text-danger hover:koast-bg-danger-subtle hover:koast-border-interactive-danger-hovered hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-border-interactive-danger-pressed active:koast-text-danger-bold',
-    text: 'koast-text-danger hover:koast-bg-danger-subtle hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-text-danger-bold',
+      'hover:koast-bg-danger-subtle hover:koast-border-interactive-danger-hovered hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-border-interactive-danger-pressed active:koast-text-danger-bold',
+    text: 'hover:koast-bg-danger-subtle hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-text-danger-bold',
   },
 };
 
@@ -74,17 +113,28 @@ const COLORS: Record<ButtonColor, Record<ButtonVariant, string>> = {
  */
 const DISABLED: Record<ButtonVariant, string> = {
   contained: 'koast-bg-disabled koast-text-disabled',
-  outlined:
-    'koast-border-2 koast-border-disabled koast-bg-disabled koast-text-disabled',
+  outlined: 'koast-border-disabled koast-bg-disabled koast-text-disabled',
   text: 'koast-bg-disabled koast-text-disabled',
 };
 
 /**
- * 포커스 링입니다. 디자인 시스템의 Focused 변형에는 시각 표현이 없어,
- * 접근성을 위해 focusRing 토큰으로 라이브러리가 정의합니다.
+ * 포커스 링입니다. 디자인 시스템의 Focused 변형은 버튼 밖 2px 지점에 2px 링을 그리므로
+ * ring-2 + ring-offset-2 로 대응합니다. 링 색은 intent 를 따라 danger 만 빨간색입니다.
  */
 const FOCUS_RING
-  = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring focus-visible:koast-ring-offset-2';
+  = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-offset-2';
+
+const FOCUS_RING_COLORS: Record<ButtonColor, string> = {
+  primary: 'focus-visible:koast-ring-focus-ring',
+  secondary: 'focus-visible:koast-ring-focus-ring',
+  danger: 'focus-visible:koast-ring-interactive-danger',
+};
+
+/**
+ * 스피너는 아이콘이 아니라서 size 별 아이콘 규칙(md 는 24px)을 따르지 않고 항상 16px 입니다.
+ * `[&_svg]` 보다 명시도가 높아야 md 에서 덮어쓸 수 있어 속성 선택자를 씁니다.
+ */
+const SPINNER_SIZE = '[&_[data-koast-spinner]]:koast-size-4';
 
 /** 버튼의 최종 클래스명을 계산합니다. */
 export const getButtonStyles = (
@@ -97,16 +147,22 @@ export const getButtonStyles = (
   shadow: boolean,
   className: string,
 ) => {
-  const isInactive = disabled || loading;
+  const normalizedColor = normalizeColor(color);
+  const normalizedSize = normalizeSize(size);
 
   return twMerge(
     'koast-inline-flex koast-items-center koast-justify-center koast-font-semibold koast-transition-all koast-duration-200',
-    SIZES[normalizeSize(size)],
-    isInactive ? DISABLED[variant] : COLORS[normalizeColor(color)][variant],
+    SPINNER_SIZE,
+    SIZES[normalizedSize],
+    variant === 'outlined' ? BORDER_WIDTHS[normalizedSize] : '',
+    disabled ? DISABLED[variant] : COLOR_BASE[normalizedColor][variant],
+    // Loading 은 면 색을 유지합니다. 포인터가 올라가도 Default 그대로여야 하므로 hover/active 를 붙이지 않습니다.
+    disabled || loading ? '' : COLOR_INTERACTION[normalizedColor][variant],
     // pointer-events-none 을 쓰면 커서가 적용되지 않습니다. 클릭 차단은 네이티브 disabled 가 합니다.
-    isInactive ? 'koast-cursor-not-allowed' : FOCUS_RING,
-    loading ? 'koast-relative' : '',
-    variant === 'contained' && shadow && !isInactive
+    disabled ? 'koast-cursor-not-allowed' : '',
+    loading && !disabled ? 'koast-cursor-wait' : '',
+    disabled ? '' : `${ FOCUS_RING } ${ FOCUS_RING_COLORS[normalizedColor] }`,
+    variant === 'contained' && shadow && !disabled && !loading
       ? 'koast-shadow-lg koast-shadow-cast'
       : '',
     fullWidth ? 'koast-w-full' : '',
@@ -115,36 +171,31 @@ export const getButtonStyles = (
 };
 
 /**
- * 로딩 인디케이터입니다. 색은 버튼의 현재 텍스트 색을 따르고,
- * 크기는 SIZES 의 `[&_svg]` 규칙을 그대로 상속합니다.
+ * 로딩 인디케이터입니다. 디자인 시스템에서 스피너는 리딩 아이콘 자리를 대신 차지하고
+ * 라벨은 그대로 옆에 남습니다. 색은 버튼의 현재 텍스트 색을 따릅니다.
  */
-export const getLoadingIndicator = (loading: boolean) => {
-  if (!loading) return null;
-
-  return (
-    <span
-      className={
-        'koast-absolute koast-inset-0 koast-flex koast-items-center koast-justify-center'
+export const getLoadingIndicator = () => (
+  <svg
+    data-koast-spinner={''}
+    className={'koast-shrink-0 koast-animate-spin'}
+    viewBox={'0 0 24 24'}
+    aria-hidden={'true'}
+  >
+    <circle
+      className={'koast-opacity-25'}
+      cx={'12'}
+      cy={'12'}
+      r={'10'}
+      stroke={'currentColor'}
+      strokeWidth={'4'}
+      fill={'transparent'}
+    />
+    <path
+      className={'koast-opacity-75'}
+      fill={'currentColor'}
+      d={
+        'M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
       }
-    >
-      <svg className={'koast-animate-spin'} viewBox={'0 0 24 24'}>
-        <circle
-          className={'koast-opacity-25'}
-          cx={'12'}
-          cy={'12'}
-          r={'10'}
-          stroke={'currentColor'}
-          strokeWidth={'4'}
-          fill={'transparent'}
-        />
-        <path
-          className={'koast-opacity-75'}
-          fill={'currentColor'}
-          d={
-            'M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-          }
-        />
-      </svg>
-    </span>
-  );
-};
+    />
+  </svg>
+);

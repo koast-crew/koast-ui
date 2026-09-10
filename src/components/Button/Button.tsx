@@ -66,12 +66,16 @@ export const Button = (props: ButtonProps) => {
     className,
   );
 
+  // 로딩 중에는 스피너가 리딩 아이콘 자리를 대신하고 트레일링 아이콘은 표시하지 않습니다.
   const buttonContent = (
     <>
-      {startIcon && <span className={'koast-inline-flex'}>{startIcon}</span>}
+      {loading
+        ? getLoadingIndicator()
+        : startIcon && <span className={'koast-inline-flex'}>{startIcon}</span>}
       <span>{children}</span>
-      {endIcon && <span className={'koast-inline-flex'}>{endIcon}</span>}
-      {getLoadingIndicator(loading)}
+      {!loading && endIcon && (
+        <span className={'koast-inline-flex'}>{endIcon}</span>
+      )}
     </>
   );
 

@@ -42,7 +42,7 @@ const States = () => (
 const Panel = ({ theme }: { theme: 'light' | 'dark' }) => (
   <div
     data-koast-theme={theme}
-    className={'koast-flex koast-flex-col koast-gap-5 koast-rounded-lg koast-border koast-border-secondary koast-bg-primary koast-p-4'}
+    className={'koast-flex koast-flex-col koast-gap-5 koast-rounded-lg koast-border koast-border-solid koast-border-secondary koast-bg-primary koast-p-4'}
   >
     <h2 className={'koast-text-sm koast-font-bold koast-text-primary'}>
       {theme === 'light' ? '라이트' : '다크'}

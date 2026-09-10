@@ -194,7 +194,7 @@ koast-shadow-cast                effect/shadow/cast
 | :------: | :---------: | :-------------: |
 |    ✅    |   Button    |      버튼       |
 |    ✅    |   Select    | 셀렉트 드롭다운 |
-|    ✅      | TimeSlider  |  시간 슬라이더  |
+|    ✅      |  TimeLine   |     타임라인    |
 |    ✅      |  MapLegend  |    지도 범례    |
 
 ### 베타 기능 이후 제작 예정

@@ -47,7 +47,7 @@ const SIZES: Record<ButtonSize, string> = {
  * preflight 를 껐고 base.css 가 button 에 `border: 0` 을 걸어 border-style 이 none 이므로,
  * border-width 만으로는 선이 그려지지 않습니다. border-solid 를 함께 붙여야 합니다.
  */
-const BORDER_WIDTHS: Record<ButtonSize, string> = {
+export const BORDER_WIDTHS: Record<ButtonSize, string> = {
   xs: 'koast-border koast-border-solid',
   sm: 'koast-border-2 koast-border-solid',
   md: 'koast-border-2 koast-border-solid',

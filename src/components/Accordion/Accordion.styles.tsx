@@ -63,21 +63,43 @@ export const getAccordionTitleStyles = (size: AccordionSize, disabled: boolean) 
     disabled ? 'koast-text-disabled' : 'koast-text-primary',
   );
 
-/** 아이콘만 펼침 상태에서 hover / active 색이 바뀝니다. 제목 색은 그대로입니다. */
+/**
+ * 아이콘만 펼침 상태에서 hover / active 색이 바뀝니다. 제목 색은 그대로입니다.
+ * 펼침 화살표는 아이콘을 갈아 끼우지 않고 180도 돌립니다 — lucide chevron 은 상하 대칭이라 결과가 같고, 회전만 전환할 수 있습니다.
+ */
 export const getAccordionIconStyles = (expanded: boolean, disabled: boolean) =>
   twMerge(
-    'koast-size-6 koast-shrink-0 koast-transition-colors koast-duration-200',
+    'koast-size-6 koast-shrink-0 koast-transition-[color,transform] koast-duration-200 koast-ease-out motion-reduce:koast-transition-none',
+    expanded ? 'koast-rotate-180' : 'koast-rotate-0',
     disabled ? 'koast-text-disabled' : 'koast-text-primary',
     !disabled && expanded
       ? 'group-hover:koast-text-interactive-primary-hovered group-active:koast-text-interactive-primary-pressed'
       : '',
   );
 
-export const getAccordionPanelStyles = (className: string) =>
+/**
+ * 펼침 높이는 grid-template-rows 를 0fr ↔ 1fr 로 전환해 만듭니다. 내용 높이를 재지 않아도 되고 max-height 처럼 이징이 깨지지 않습니다.
+ */
+export const getAccordionPanelStyles = (expanded: boolean) =>
   twMerge(
-    'koast-px-4 koast-pb-4 koast-pt-2 koast-text-base koast-font-medium koast-leading-5 koast-text-tertiary',
-    className,
+    'koast-grid koast-transition-[grid-template-rows] koast-duration-200 koast-ease-out motion-reduce:koast-transition-none',
+    expanded ? 'koast-grid-rows-[1fr]' : 'koast-grid-rows-[0fr]',
   );
+
+/**
+ * 0fr 행에서 실제로 높이가 0 이 되려면 그리드 아이템의 min-height:auto 를 눌러야 합니다.
+ * visibility 는 접힐 때만 높이 전환이 끝난 뒤 바뀌도록 미뤄, 접히는 동안은 내용이 보이면서도 접힌 뒤에는 포커스·낭독 대상에서 빠집니다.
+ * 전환 대상이 visibility 뿐이라 여기 걸린 delay 는 높이에 영향을 주지 않습니다.
+ */
+export const getAccordionPanelClipStyles = (expanded: boolean) =>
+  twMerge(
+    'koast-min-h-0 koast-overflow-hidden koast-transition-[visibility] koast-duration-0 motion-reduce:koast-delay-0',
+    expanded ? 'koast-visible koast-delay-0' : 'koast-invisible koast-delay-200',
+  );
+
+/** 패딩은 잘리는 상자 안쪽에 둡니다. 바깥에 두면 접힘 상태에서도 패딩 높이가 남습니다. */
+export const ACCORDION_PANEL_CONTENT
+  = 'koast-px-4 koast-pb-4 koast-pt-2 koast-text-base koast-font-medium koast-leading-5 koast-text-tertiary';
 
 /** preflight 가 꺼져 있어 제목 태그의 브라우저 기본 여백을 직접 지웁니다. */
 export const ACCORDION_HEADING_RESET = 'koast-m-0 koast-text-base koast-font-normal';

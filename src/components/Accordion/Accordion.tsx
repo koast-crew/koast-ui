@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import type {
   AccordionHeadingLevel,
   AccordionItemProps,
@@ -16,9 +16,11 @@ import type {
 } from './Accordion.types';
 import {
   ACCORDION_HEADING_RESET,
+  ACCORDION_PANEL_CONTENT,
   getAccordionHeaderStyles,
   getAccordionIconStyles,
   getAccordionItemStyles,
+  getAccordionPanelClipStyles,
   getAccordionPanelStyles,
   getAccordionRootStyles,
   getAccordionTitleStyles,
@@ -77,7 +79,6 @@ export const AccordionItem = ({
   const headerId = `${ ctx.baseId }-header-${ value }`;
   const panelId = `${ ctx.baseId }-panel-${ value }`;
   const Heading = HEADINGS[ctx.headingLevel];
-  const Chevron = expanded ? ChevronUp : ChevronDown;
 
   return (
     <div className={getAccordionItemStyles(className)}>
@@ -93,7 +94,7 @@ export const AccordionItem = ({
           className={getAccordionHeaderStyles(ctx.size, expanded, disabled)}
         >
           <span className={getAccordionTitleStyles(ctx.size, disabled)}>{title}</span>
-          <Chevron className={getAccordionIconStyles(expanded, disabled)} aria-hidden />
+          <ChevronDown className={getAccordionIconStyles(expanded, disabled)} aria-hidden />
         </button>
       </Heading>
 
@@ -101,10 +102,11 @@ export const AccordionItem = ({
         id={panelId}
         role={'region'}
         aria-labelledby={headerId}
-        hidden={!expanded}
-        className={getAccordionPanelStyles('')}
+        className={getAccordionPanelStyles(expanded)}
       >
-        {children}
+        <div className={getAccordionPanelClipStyles(expanded)}>
+          <div className={ACCORDION_PANEL_CONTENT}>{children}</div>
+        </div>
       </div>
     </div>
   );
@@ -115,6 +117,7 @@ export const AccordionItem = ({
  * 여러 항목을 세로로 쌓아 제목만 보여주다가, 헤더를 누르면 해당 내용을 펼칩니다.
  * 기본은 한 번에 하나만 펼쳐지며 `multiple` 로 다중 펼침으로 바꿉니다.
  * 헤더 사이는 위/아래 방향키와 Home / End 로 이동하고, Enter / Space 로 펼치고 접습니다.
+ * 펼침·접힘은 200ms 높이 전환으로 이어집니다. 운영체제에서 동작 줄이기를 켜면 즉시 전환됩니다.
  *
  * @param {'sm' | 'md'} [props.size='md'] - 헤더 높이 (40 / 48px) : 'sm' | 'md'
  * @param {boolean} [props.multiple=false] - 여러 항목을 동시에 펼칠 수 있게 합니다 : boolean

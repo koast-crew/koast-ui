@@ -11,6 +11,7 @@ import React, {
 import { Check, ChevronDown, ChevronUp, CircleX } from 'lucide-react';
 import { SelectProps, SelectItemProps } from './Select.types';
 import {
+  NATIVE_SELECT,
   getHelpTextStyles,
   getMenuStyles,
   getOptionStyles,
@@ -134,6 +135,7 @@ export const Select = <T extends string | number = string>(
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const optionRefs = useRef(new Map<ItemValue, HTMLLIElement>());
+  const nativeRef = useRef<HTMLSelectElement>(null);
 
   const reactId = useId();
   const baseId = id ?? `koast-select-${ reactId }`;
@@ -168,6 +170,15 @@ export const Select = <T extends string | number = string>(
     return () => document.removeEventListener('mousedown', onPointerDown);
   }, [open]);
 
+  // 폼이 초기화되면 비제어 값도 초기값으로 되돌립니다.
+  useEffect(() => {
+    const form = nativeRef.current?.form;
+    if (!form || isControlled) return;
+    const onReset = () => setInnerValue(defaultValue);
+    form.addEventListener('reset', onReset);
+    return () => form.removeEventListener('reset', onReset);
+  }, [isControlled, defaultValue]);
+
   useEffect(() => {
     if (open && activeValue !== undefined) {
       optionRefs.current.get(activeValue)?.scrollIntoView({ block: 'nearest' });
@@ -180,6 +191,11 @@ export const Select = <T extends string | number = string>(
   }, []);
 
   const commit = (next: ItemValue) => {
+    // 목록에 없거나 비활성인 값은 확정하지 않습니다.
+    // 선택된 항목이 나중에 disabled 로 바뀐 뒤 Enter 를 눌러도 그대로 통과하던 문제를 막습니다.
+    const target = items.find((item) => item.value === next);
+    if (!target || target.disabled) return;
+
     if (!isControlled) setInnerValue(next);
     onChange?.(next as T);
     setOpen(false);
@@ -266,7 +282,6 @@ export const Select = <T extends string | number = string>(
           ref={triggerRef}
           type={'button'}
           id={baseId}
-          name={name}
           disabled={disabled}
           role={'combobox'}
           aria-haspopup={'listbox'}
@@ -285,6 +300,31 @@ export const Select = <T extends string | number = string>(
           </span>
           <Chevron className={'koast-size-6 koast-shrink-0'} aria-hidden />
         </button>
+
+        {/* 폼 제출·required 검증·초기화는 네이티브 select 에 맡깁니다. */}
+        <select
+          ref={nativeRef}
+          name={name}
+          required={required}
+          disabled={disabled}
+          value={selectedItem ? String(selectedValue) : ''}
+          onChange={(event) => {
+            const picked = items.find((item) => String(item.value) === event.target.value);
+            if (picked) commit(picked.value);
+          }}
+          tabIndex={-1}
+          aria-hidden={'true'}
+          className={NATIVE_SELECT}
+        >
+          <option value={''} />
+          {items.map((item) => (
+            <option
+              key={String(item.value)}
+              value={String(item.value)}
+              disabled={item.disabled}
+            />
+          ))}
+        </select>
 
         {open && (
           <ul

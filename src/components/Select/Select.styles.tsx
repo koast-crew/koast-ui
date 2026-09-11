@@ -94,3 +94,10 @@ export const getHelpTextStyles = (error: boolean) =>
     'koast-mb-0 koast-mt-2 koast-flex koast-items-center koast-gap-1 koast-text-base koast-font-medium koast-leading-5',
     error ? 'koast-text-danger' : 'koast-text-tertiary',
   );
+
+/**
+ * 폼 연동용 네이티브 select 입니다. 화면에서는 안 보이지만 포커스는 받을 수 있어야
+ * required 검증 말풍선이 이 자리에 뜹니다. display:none / visibility:hidden 은 검증에서 제외됩니다.
+ */
+export const NATIVE_SELECT
+  = 'koast-pointer-events-none koast-absolute koast-inset-0 koast-size-full koast-opacity-0';

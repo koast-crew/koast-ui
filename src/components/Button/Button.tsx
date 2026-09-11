@@ -1,4 +1,9 @@
-import { ButtonProps } from './Button.types';
+import React, { forwardRef } from 'react';
+import type {
+  ButtonAsAnchorProps,
+  ButtonAsButtonProps,
+  ButtonProps,
+} from './Button.types';
 import { getButtonStyles, getLoadingIndicator } from './Button.styles';
 
 /**
@@ -22,6 +27,9 @@ import { getButtonStyles, getLoadingIndicator } from './Button.styles';
  * @param {boolean} [props.shadow=false] - 그림자 효과 적용 여부 (contained 변형에만 적용)
  * @param {string} [props.href] - 링크 URL (제공 시 a 태그로 렌더링)
  *
+ * `aria-label`, `aria-describedby`, `id`, `title`, `data-*` 같은 네이티브 속성과 `ref` 를 그대로 전달합니다.
+ * 색을 지정하는 `style` / `color` 속성만 막혀 있습니다.
+ *
  * @example
  * ```tsx
  * <Button variant="contained" color="primary" onClick={handleClick}>
@@ -37,14 +45,13 @@ import { getButtonStyles, getLoadingIndicator } from './Button.styles';
  * </Button>
  * ```
  */
-export const Button = (props: ButtonProps) => {
+const ButtonImpl = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
   const {
     variant = 'outlined',
     color = 'primary',
     size = 'md',
     type = 'button',
     className = '',
-    onClick,
     disabled = false,
     children,
     startIcon,
@@ -53,7 +60,9 @@ export const Button = (props: ButtonProps) => {
     fullWidth = false,
     shadow = false,
     href,
-  } = props;
+    ...rest
+    // 두 형태의 href 타입이 배타적이라 교집합을 만들 수 없습니다. 구현 안에서만 합쳐 봅니다.
+  } = props as Omit<ButtonAsButtonProps, 'href'> & { href?: string };
 
   const buttonClassName = getButtonStyles(
     variant,
@@ -66,23 +75,44 @@ export const Button = (props: ButtonProps) => {
     className,
   );
 
+  // 로딩 중에는 스피너가 리딩 아이콘 자리를 대신하고 트레일링 아이콘은 표시하지 않습니다.
   const buttonContent = (
     <>
-      {startIcon && <span className={'koast-inline-flex'}>{startIcon}</span>}
+      {loading
+        ? getLoadingIndicator()
+        : startIcon && <span className={'koast-inline-flex'}>{startIcon}</span>}
       <span>{children}</span>
-      {endIcon && <span className={'koast-inline-flex'}>{endIcon}</span>}
-      {getLoadingIndicator(loading)}
+      {!loading && endIcon && (
+        <span className={'koast-inline-flex'}>{endIcon}</span>
+      )}
     </>
   );
 
   // href가 있고 활성 상태이면 <a> 태그로 렌더링합니다.
   // disabled 는 <a> 의 유효한 속성이 아니므로 전달하지 않습니다.
   if (href && !disabled && !loading) {
+    // button 전용 속성은 a 에서 무효라 걸러냅니다.
+    const {
+      form: _form,
+      formAction: _formAction,
+      formEncType: _formEncType,
+      formMethod: _formMethod,
+      formNoValidate: _formNoValidate,
+      formTarget: _formTarget,
+      name: _name,
+      value: _value,
+      ...anchorRest
+    } = rest;
+
+    // 이벤트 핸들러 타입만 HTMLButtonElement 로 묶여 있어 앵커용으로 다시 붙입니다. 런타임 형태는 같습니다.
+    const anchorProps = anchorRest as React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
     return (
       <a
+        {...anchorProps}
+        ref={ref as React.Ref<HTMLAnchorElement>}
         href={href}
         className={buttonClassName}
-        onClick={onClick}
       >
         {buttonContent}
       </a>
@@ -91,15 +121,28 @@ export const Button = (props: ButtonProps) => {
 
   return (
     <button
+      {...rest}
+      ref={ref as React.Ref<HTMLButtonElement>}
       type={type}
       className={buttonClassName}
-      onClick={onClick}
       disabled={disabled || loading}
-      aria-busy={loading || undefined}
+      aria-busy={loading || rest['aria-busy']}
     >
       {buttonContent}
     </button>
   );
+});
+
+ButtonImpl.displayName = 'Button';
+
+/**
+ * `href` 유무에 따라 `<button>` / `<a>` 로 갈리고 `ref` 타입도 함께 좁혀집니다.
+ * forwardRef 는 판별 유니온의 ref 를 좁히지 못해 호출 시그니처를 직접 붙입니다.
+ */
+export const Button = ButtonImpl as {
+  (props: ButtonAsButtonProps & React.RefAttributes<HTMLButtonElement>): React.ReactElement | null;
+  (props: ButtonAsAnchorProps & React.RefAttributes<HTMLAnchorElement>): React.ReactElement | null;
+  displayName?: string;
 };
 
 export default Button;

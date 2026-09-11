@@ -31,7 +31,8 @@ export type ButtonSizeProp = ButtonSize | DeprecatedButtonSize;
 /** 디자인 시스템의 Style 축입니다. Filled / Outlined / Transparent 에 대응합니다. */
 export type ButtonVariant = 'contained' | 'outlined' | 'text';
 
-export interface ButtonProps {
+/** 두 렌더 형태가 공유하는 디자인 시스템 축입니다. */
+interface ButtonSharedProps {
   /** 버튼의 변형입니다. @default 'outlined' */
   variant?: ButtonVariant;
 
@@ -41,9 +42,6 @@ export interface ButtonProps {
   /** 버튼의 크기입니다. @default 'md' */
   size?: ButtonSizeProp;
 
-  /** 버튼의 HTML type 속성입니다. @default 'button' */
-  type?: 'button' | 'submit' | 'reset';
-
   /** 여백·정렬·너비 같은 레이아웃 조정용입니다. 색상은 `color` / `variant` 로만 지정할 수 있습니다. */
   className?: string;
 
@@ -52,9 +50,6 @@ export interface ButtonProps {
 
   /** 버튼 내부에 표시될 콘텐츠입니다. */
   children?: React.ReactNode;
-
-  /** 클릭 시 실행될 함수입니다. */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 
   /** 버튼 왼쪽에 표시될 아이콘입니다. 크기는 버튼 size 에 따라 자동으로 맞춰집니다. */
   startIcon?: React.ReactNode;
@@ -70,7 +65,35 @@ export interface ButtonProps {
 
   /** 그림자 효과입니다. contained 변형에만 적용됩니다. @default false */
   shadow?: boolean;
-
-  /** 링크 URL 입니다. 이 속성이 있으면 <a> 태그로 렌더링됩니다. */
-  href?: string;
 }
+
+/**
+ * 색을 지정할 통로(`style`, `color`)는 의도적으로 막혀 있습니다.
+ * 그 외 `aria-*`, `data-*`, `id`, `title`, `form`, 포커스·마우스 이벤트는 전부 그대로 전달됩니다.
+ */
+type NativeOmit = 'color' | 'style' | 'className' | 'disabled' | 'children';
+
+/** `href` 없이 쓰는 기본 형태입니다. `<button>` 으로 렌더링됩니다. */
+export interface ButtonAsButtonProps
+  extends ButtonSharedProps,
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, NativeOmit | 'type'> {
+  /** 버튼의 HTML type 속성입니다. @default 'button' */
+  type?: 'button' | 'submit' | 'reset';
+
+  href?: undefined;
+}
+
+/** `href` 를 주면 `<a>` 로 렌더링됩니다. */
+export interface ButtonAsAnchorProps
+  extends ButtonSharedProps,
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, NativeOmit | 'href'> {
+  /** 링크 URL 입니다. 이 속성이 있으면 `<a>` 태그로 렌더링됩니다. */
+  href: string;
+}
+
+/**
+ * `href` 유무로 갈리는 판별 유니온입니다.
+ * `ref` 도 각 형태에 맞는 엘리먼트 타입으로 좁혀지므로
+ * `useRef<HTMLButtonElement>(null)` 을 그대로 넘길 수 있습니다.
+ */
+export type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;

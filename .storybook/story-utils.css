@@ -1,5 +1,15 @@
 /* Storybook 전용 스타일입니다. 라이브러리 배포물에 포함되지 않습니다. */
 
+body {
+  background-color: rgb(var(--koast-bg-primary));
+  color: rgb(var(--koast-content-primary));
+}
+
+.docs-story {
+  background-color: rgb(var(--koast-bg-primary));
+  color: rgb(var(--koast-content-primary));
+}
+
 .story-stack {
   display: flex;
   flex-direction: column;

@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 
 import { Button } from '../src';
 import ButtonExam from './src/components/ButtonExam';
-import ButtonGroupExam from './src/components/ButtonGroupExam';
 import FolderTreeExam from './src/components/FolderTreeExam';
 import SelectExam from './src/components/SelectExam';
-import TimeSliderExam from './src/components/TimeSliderExam';
+import TimeLineExam from './src/components/TimeLineExam';
 import MapLegendExam from './src/components/MapLegendExam';
 
 const components = {
   button: ButtonExam,
   folderTree: FolderTreeExam,
   select: SelectExam,
-  buttonGroup: ButtonGroupExam,
-  timeSlider: TimeSliderExam,
+  timeLine: TimeLineExam,
   mapLegend: MapLegendExam,
 } as const;
 
@@ -61,7 +59,7 @@ const MainView = () => {
         })}
       </nav>
 
-      <section className={'koast-rounded-lg koast-border koast-border-secondary koast-bg-secondary koast-p-4'}>
+      <section className={'koast-rounded-lg koast-border koast-border-solid koast-border-secondary koast-bg-secondary koast-p-4'}>
         {SelectedComponent && <SelectedComponent />}
       </section>
     </div>

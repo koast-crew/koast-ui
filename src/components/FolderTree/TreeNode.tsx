@@ -49,12 +49,60 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
 
   const handleNodeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    selectNode();
+  };
+
+  const selectNode = () => {
     onSelect?.(currentPath);
 
     if (node.type === 'folder') {
       actions.toggleOpen(path);
     }
     onNodeClick?.(node, path);
+  };
+
+  /** 트리 행의 키보드 조작입니다. WAI-ARIA tree 패턴을 따릅니다. */
+  const handleRowKeyDown = (e: React.KeyboardEvent) => {
+    if (isEditing) return;
+    // 작업 버튼·입력란에서 올라온 키는 그쪽이 처리합니다. 행이 직접 포커스일 때만 반응합니다.
+    if (e.target !== e.currentTarget) return;
+
+    switch (e.key) {
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        e.stopPropagation();
+        selectNode();
+        break;
+      case 'ArrowRight':
+        if (node.type === 'folder' && !node.isOpen) {
+          e.preventDefault();
+          e.stopPropagation();
+          actions.toggleOpen(path);
+        }
+        break;
+      case 'ArrowLeft':
+        if (node.type === 'folder' && node.isOpen) {
+          e.preventDefault();
+          e.stopPropagation();
+          actions.toggleOpen(path);
+        }
+        break;
+      case 'F2':
+        if (!readOnly) {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsEditing(true);
+        }
+        break;
+      case 'Delete':
+        if (!readOnly && path.length > 0) {
+          e.preventDefault();
+          e.stopPropagation();
+          actions.deleteNode(path);
+        }
+        break;
+    }
   };
 
   const handleAddNode = (e: React.MouseEvent, type: 'file' | 'folder') => {
@@ -93,7 +141,7 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
     <div className={'koast-relative koast-h-full'}>
       {node.type === 'folder' && node.isOpen && (
         <div
-          className={'koast-absolute koast-w-px koast-bg-gray-200'}
+          className={'koast-absolute koast-w-px koast-bg-tertiary'}
           style={{
             left: `${ level === 0 ? indentPixels : (indentPixels * 2) + (indentPixels / 2) }px`,
             top: '36px',
@@ -108,8 +156,15 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
         }}
       >
         <div
-          className={`koast-group koast-flex koast-cursor-pointer koast-items-center koast-gap-0.5 koast-rounded koast-p-1 hover:koast-bg-gray-100 ${
-            selectedPath === currentPath ? 'koast-bg-blue-100' : ''
+          role={'treeitem'}
+          tabIndex={0}
+          aria-label={node.name}
+          aria-level={level + 1}
+          aria-selected={selectedPath === currentPath}
+          aria-expanded={node.type === 'folder' ? Boolean(node.isOpen) : undefined}
+          onKeyDown={handleRowKeyDown}
+          className={`koast-group koast-flex koast-cursor-pointer koast-items-center koast-gap-0.5 koast-rounded koast-p-1 hover:koast-bg-interactive-secondary-hovered focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring ${
+            selectedPath === currentPath ? 'koast-bg-interactive-selected' : ''
           }`}
           onClick={handleNodeClick}
           draggable={!readOnly}
@@ -119,6 +174,9 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
         >
           {node.type === 'folder' && (
             <button
+              type={'button'}
+              tabIndex={-1}
+              aria-label={`${ node.name } ${ node.isOpen ? '접기' : '펼치기' }`}
               onClick={(e) => {
                 e.stopPropagation();
                 actions.toggleOpen(path);
@@ -133,13 +191,17 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
             <input
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
-              onKeyDown={handleKeyDown}
+              onKeyDown={(e) => {
+                e.stopPropagation();
+                handleKeyDown(e);
+              }}
               onBlur={() => {
                 actions.renameNode(path, editName);
                 setIsEditing(false);
               }}
               autoFocus
-              className={'koast-rounded koast-border koast-px-2 koast-py-1'}
+              aria-label={`${ node.name } 이름`}
+              className={'koast-rounded koast-border koast-border-solid koast-border-interactive-secondary koast-bg-primary koast-px-2 koast-py-1 koast-text-sm koast-text-primary focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring'}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
@@ -150,64 +212,86 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
                   setIsEditing(true);
                 }
               }}
-              className={'koast-flex koast-cursor-pointer koast-items-center koast-gap-1'}
+              className={'koast-flex koast-cursor-pointer koast-items-center koast-gap-1 koast-text-primary'}
             >
               {node.type === 'file' ? <File className={'koast-size-5'} /> : node.isOpen ? <FolderOpen className={'koast-size-5'} /> : <Folder className={'koast-size-5'} />}
               <span className={'koast-max-w-[200px] koast-truncate koast-text-sm'}>{node.name}</span>
               {node.type === 'folder' && (!node.children || node.children.length === 0) && (
-                <span className={'koast-text-sm koast-text-gray-400'}>{'(비어있음)'}</span>
+                <span className={'koast-text-sm koast-text-tertiary'}>{'(비어있음)'}</span>
               )}
             </span>
           )}
 
           {!readOnly && (
-            <div className={'koast-invisible koast-ml-auto koast-flex koast-items-center koast-gap-2.5 group-hover:koast-visible'}>
+            <div className={'koast-invisible koast-ml-auto koast-flex koast-items-center koast-gap-2.5 group-focus-within:koast-visible group-hover:koast-visible'}>
               {node.type === 'folder' && (
                 <>
-                  <button onClick={(e) => handleAddNode(e, 'file')}>
+                  <button
+                    type={'button'}
+                    aria-label={`${ node.name } 안에 새 파일 만들기`}
+                    onClick={(e) => handleAddNode(e, 'file')}
+                  >
                     <FilePlus2
-                      className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
+                      className={'koast-size-4 koast-text-tertiary hover:koast-text-interactive-primary'}
                     />
                   </button>
-                  <button onClick={(e) => handleAddNode(e, 'folder')}>
+                  <button
+                    type={'button'}
+                    aria-label={`${ node.name } 안에 새 폴더 만들기`}
+                    onClick={(e) => handleAddNode(e, 'folder')}
+                  >
                     <FolderPlus
-                      className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
+                      className={'koast-size-4 koast-text-tertiary hover:koast-text-interactive-primary'}
                     />
                   </button>
                 </>
               )}
               <button
-                onClick={() => setIsEditing(true)}
+                type={'button'}
+                aria-label={`${ node.name } 이름 바꾸기`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsEditing(true);
+                }}
               >
                 <PencilLine
-                  className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
+                  className={'koast-size-4 koast-text-tertiary hover:koast-text-interactive-primary'}
                 />
               </button>
               <button
-                onClick={() => actions.deleteNode(path)}
+                type={'button'}
+                aria-label={`${ node.name } 삭제`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  actions.deleteNode(path);
+                }}
               >
                 <Trash2
-                  className={'koast-size-4 koast-text-gray-400 hover:koast-text-blue-500'}
+                  className={'koast-size-4 koast-text-tertiary hover:koast-text-interactive-primary'}
                 />
               </button>
             </div>
           )}
         </div>
 
-        {node.type === 'folder' && node.isOpen && node.children?.map((child, index) => (
-          <TreeNodeComponent
-            key={child.id}
-            node={child}
-            path={[...path, index]}
-            level={level + 1}
-            actions={actions}
-            indentPixels={indentPixels}
-            onNodeClick={onNodeClick}
-            readOnly={readOnly}
-            selectedPath={selectedPath}
-            onSelect={onSelect}
-          />
-        ))}
+        {node.type === 'folder' && node.isOpen && node.children?.length ? (
+          <div role={'group'}>
+            {node.children.map((child, index) => (
+              <TreeNodeComponent
+                key={child.id}
+                node={child}
+                path={[...path, index]}
+                level={level + 1}
+                actions={actions}
+                indentPixels={indentPixels}
+                onNodeClick={onNodeClick}
+                readOnly={readOnly}
+                selectedPath={selectedPath}
+                onSelect={onSelect}
+              />
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   );

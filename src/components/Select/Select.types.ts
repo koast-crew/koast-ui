@@ -1,126 +1,65 @@
 import React from 'react';
 
-/**
- * Select 컴포넌트의 속성을 정의하는 인터페이스
- * @template T - string 또는 number 타입
- */
+/** 디자인 시스템의 Size 축입니다. sm=40px, md=48px 트리거 높이에 대응합니다. */
+export type SelectSize = 'sm' | 'md';
+
+/** 드롭다운에 한 번에 보이는 옵션 수입니다. 이 값이 최대 높이를 정합니다. */
+export type SelectVisibleOptions = 4 | 6 | 8;
 
 export interface SelectProps<T extends string | number = string> {
-  /**
-   * Select의 값입니다.
-   * string 또는 number 타입만 허용됩니다.
-   */
+  /** 선택된 값입니다. 지정하면 제어 컴포넌트로 동작합니다. */
   value?: T;
 
-  /**
-   * 기본 값입니다. (비제어 컴포넌트로 사용할 때)
-   * string 또는 number 타입만 허용됩니다.
-   */
+  /** 비제어로 쓸 때의 초기 값입니다. */
   defaultValue?: T;
 
-  /**
-   * 값이 변경될 때 호출되는 함수입니다.
-   * @param value - 선택된 새로운 값
-   */
+  /** 값이 바뀔 때 호출됩니다. */
   onChange?: (value: T) => void;
 
-  /**
-   * Select의 placeholder입니다.
-   */
+  /** 트리거 위에 표시되는 라벨입니다. */
+  label?: React.ReactNode;
+
+  /** 값이 없을 때 트리거에 표시되는 문구입니다. */
   placeholder?: string;
 
-  /**
-   * Select의 비활성화 상태를 지정합니다.
-   * @default false
-   */
-  disabled?: boolean;
+  /** 트리거 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. */
+  helpText?: React.ReactNode;
 
-  /**
-   * Select의 필수 입력 여부를 지정합니다.
-   * @default false
-  */
-  required?: boolean;
-
-  /**
-   * Select의 크기를 지정합니다.
-   * @default 'md'
-  */
-  size?: 'sm' | 'md' | 'lg';
-
-  /**
-   * Select의 에러 상태를 지정합니다.
-   * @default false
-   */
+  /** 오류 상태입니다. @default false */
   error?: boolean;
 
-  /**
-   * Select의 변형을 지정합니다.
-   * @default 'outlined'
-   */
-  variant?: 'outlined' | 'underlined' | 'text';
+  /** 비활성화 상태입니다. @default false */
+  disabled?: boolean;
 
-  /**
-   * Select에 에러가 났을 때 하단에 표시할 텍스트입니다.
-   */
-  errorText?: React.ReactNode;
+  /** 필수 입력 여부입니다. 라벨 뒤에 `*` 가 붙습니다. @default false */
+  required?: boolean;
 
-  /**
-   * Select의 배경 컴포넌트 클래스를 지정합니다.
-   */
-  bgClassName?: string;
+  /** 트리거 높이입니다. @default 'md' */
+  size?: SelectSize;
 
-  /**
-   * Select에 추가할 CSS 클래스명입니다.
-   */
+  /** 드롭다운에 한 번에 보이는 옵션 수입니다. @default 8 */
+  visibleOptions?: SelectVisibleOptions;
+
+  /** 너비·여백 같은 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. */
   className?: string;
 
-  /**
-   * 선택된 값 클래스를 지정합니다.
-   */
-  selectedItemClassName?: string;
-
-  /**
-   * Select의 자식 요소입니다. (SelectItem 컴포넌트들)
-   */
+  /** 옵션 목록입니다. `SelectItem` 만 넣습니다. */
   children: React.ReactNode;
 
-  /**
-   * Select의 ID입니다.
-   */
   id?: string;
-
-  /**
-   * Select의 이름입니다.
-   */
   name?: string;
 }
 
-/**
- * SelectItem 컴포넌트의 속성을 정의하는 인터페이스
- */
 export interface SelectItemProps {
-  /**
-   * SelectItem의 값입니다.
-   * string 또는 number 타입만 허용됩니다.
-   */
+  /** 항목의 값입니다. */
   value: string | number;
 
-  /**
-   * SelectItem의 자식 요소입니다.
-   */
+  /** 항목에 표시될 내용입니다. */
   children: React.ReactNode;
 
-  /**
-   * SelectItem의 비활성화 상태를 지정합니다.
-   * @default false
-   */
+  /** 비활성화 상태입니다. @default false */
   disabled?: boolean;
 
-  /**
-   * SelectItem에 추가할 CSS 클래스명입니다.
-   */
+  /** 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. */
   className?: string;
 }
-
-export type SelectSize = 'sm' | 'md' | 'lg';
-export type SelectVariant = 'outlined' | 'underlined' | 'text';

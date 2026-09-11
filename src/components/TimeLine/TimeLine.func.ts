@@ -3,15 +3,26 @@ import type { TimeLineLayout, TimeUnit } from './TimeLine.types';
 export const returnDate = (date: Date | number) =>
   date instanceof Date ? date : new Date(date);
 
+/**
+ * 한 번에 만들 수 있는 스텝 수 상한입니다.
+ * 잘못된 범위·단위 조합(예: 10년 구간을 1초 단위로)이 브라우저를 멈추는 것을 막습니다.
+ */
+export const MAX_STEPS = 10000;
+
 export const generateSteps = (
   start: Date,
   end: Date,
   stepValue: number,
   stepUnit: TimeUnit = 'minute',
 ): Date[] => {
+  // stepValue 가 0 이거나 음수면 current 가 전진하지 않아 while 이 끝나지 않습니다.
+  if (!Number.isFinite(stepValue) || stepValue <= 0) return [];
+  if (!(start instanceof Date) || Number.isNaN(start.getTime())) return [];
+  if (!(end instanceof Date) || Number.isNaN(end.getTime())) return [];
+
   const steps: Date[] = [];
   const current = new Date(start);
-  while (current <= end) {
+  while (current <= end && steps.length < MAX_STEPS) {
     steps.push(new Date(current));
     switch (stepUnit) {
       case 'year':

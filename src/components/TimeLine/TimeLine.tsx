@@ -169,6 +169,10 @@ export const TimeLine = (props: TimeLineProps) => {
   }, []);
 
   useEffect(() => {
+    if (playing && stepCount === 0) setPlaying(false);
+  }, [playing, stepCount]);
+
+  useEffect(() => {
     if (!playing || inactive) return;
     const timer = window.setInterval(() => {
       setCurrentIndex((prev) => {
@@ -182,10 +186,17 @@ export const TimeLine = (props: TimeLineProps) => {
     return () => window.clearInterval(timer);
   }, [playing, inactive, lastIndex, animationSpeed, currentSpeed]);
 
+  // steps 가 줄면 currentIndex 가 범위를 벗어나 onChange 로 undefined 날짜가 나갑니다.
+  // 렌더 중에 보정해 잘못된 값이 한 번도 밖으로 나가지 않게 합니다.
+  if (stepCount > 0 && currentIndex > lastIndex) {
+    setCurrentIndex(lastIndex);
+  }
+
   useEffect(() => {
-    if (stepCount === 0) return;
-    onChangeRef.current?.({ step: currentIndex, date: calculatedSteps[currentIndex] });
-  }, [currentIndex, calculatedSteps, stepCount]);
+    const date = calculatedSteps[currentIndex];
+    if (!date) return;
+    onChangeRef.current?.({ step: currentIndex, date });
+  }, [currentIndex, calculatedSteps]);
 
   useEffect(() => {
     if (!speedOpen) return;

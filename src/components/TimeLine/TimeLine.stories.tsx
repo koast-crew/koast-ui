@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { TimeLine } from './TimeLine';
 
 const START = new Date('2026-08-31T00:00:00');
@@ -17,6 +18,9 @@ const meta: Meta<typeof TimeLine> = {
     end: END,
     stepValue: 3,
     stepUnit: 'hour',
+    // TimeLine 도 마운트 직후 effect 에서 onChange 를 부릅니다.
+    onChange: fn(),
+    onSpeedChange: fn(),
   },
   argTypes: {
     type: {

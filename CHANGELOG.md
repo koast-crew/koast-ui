@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.0.23] - 2026-09-11
+
+> ⚠️ **Breaking change 가 포함된 patch 릴리스입니다.**
+> `ButtonGroup` 과 `TimeSlider` 의 export 가 사라졌고, `Select` · `TimeLine` 의 일부 prop 이 제거됐습니다.
+> `^1.0.22` 로 받고 있던 소비자는 이 업데이트에서 빌드가 깨질 수 있습니다. 아래 `Removed` 절을 먼저 확인하세요.
+> `TimeSlider` → `TimeLine`, `ButtonGroup` → `Button` 직접 배치로 교체해야 합니다.
+
+### Added
+
+- 신규 컴포넌트 22종 추가 (Figma `KOAST Design System (new)` 실측 기준)
+  - 폼 컨트롤: Checkbox, Radio, Switch, ControlGroup
+  - 텍스트 입력: TextField, TextArea (라벨·보조 문구·오류 표시 크롬을 Select 와 공유)
+  - 값 조절: Slider (단일 / 범위, sm·md·lg)
+  - 표시: Accordion, Badge, StatusChip, Tooltip
+  - 피드백: Alert, Toast, Progressbar, Spinner, Skeleton, Modal
+  - 입력·내비게이션: IconButton, Link, Breadcrumbs, Tabs, Pagination
+- Accordion 펼침/접힘에 높이 전환 애니메이션 추가 (200ms, 화살표 회전 포함). `prefers-reduced-motion: reduce` 에서는 즉시 전환
+- Select 에 `label` / `helpText` / `visibleOptions` prop 추가
+- TimeLine 에 `type` / `interval` / `loading` / `disabled` 와 재생 속도 제어(`speed`, `speeds`, `onSpeedChange`) 추가
+- Storybook 사이드바 정렬과 Light / Dark 테마 토글 설정
+
+### Changed
+
+- **TimeSlider 를 TimeLine 으로 이름 변경** 하고 디자인 시스템 스펙에 맞춤
+- Select 를 디자인 시스템 스펙에 맞춰 재작성
+- Button 치수와 상태 색을 디자인 시스템 실측에 맞춤
+
+### Removed
+
+- **ButtonGroup 컴포넌트 제거**
+- **TimeSlider export 제거** (TimeLine 으로 대체)
+- Select 의 `bgClassName` / `selectedItemClassName` / `variant` / `errorText` prop 제거 (색 지정 통로를 닫고 보조 문구는 `helpText` + `error` 로 통합)
+- TimeLine 의 `size` / `theme` prop 제거
+
+### Fixed
+
+- Button 이 네이티브 속성과 ref 를 전달하지 않던 문제 수정
+- Select 의 폼 연동과 비활성 옵션 검증 누락 수정
+- TimeLine 의 입력값 검증과 인덱스 보정 누락 수정
+- FolderTree 의 노드 이동 오류와 접근성 문제 수정
+- tsconfig 가 `.storybook` 폴더를 포함하지 않던 문제 수정
+
 ## [1.0.22] - 2026-09-08
 
 ### Fixed

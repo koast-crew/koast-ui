@@ -34,6 +34,10 @@ const preview: Preview = {
     },
   ],
   parameters: {
+    options: {
+      // 사이드바를 알파벳순으로 정렬합니다.
+      storySort: { method: 'alphabetical' },
+    },
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {

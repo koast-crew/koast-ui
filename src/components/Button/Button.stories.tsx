@@ -62,7 +62,7 @@ const STYLES = [
 /** 기본값입니다. Figma 의 `Type=Primary, Style=Filled, State=Default` 에 해당합니다. */
 export const Default: Story = {};
 
-/** **Type** 축입니다. Figma 의 Primary / Secondary / Destructive 에 대응합니다. */
+/** **Type** 축입니다. Destructive 는 Style 과 무관하게 Filled 로 떨어집니다. */
 export const Types: Story = {
   render: (args) => (
     <div className={'story-stack'}>
@@ -80,7 +80,7 @@ export const Types: Story = {
   ),
 };
 
-/** **Style** 축입니다. Figma 의 Filled / Outlined / Transparent 에 대응합니다. */
+/** **Style** 축입니다. Destructive 는 Filled 만 있어 세 칸이 같게 보입니다. */
 export const Styles: Story = {
   render: (args) => (
     <div className={'story-stack'}>

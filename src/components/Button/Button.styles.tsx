@@ -23,6 +23,12 @@ export const normalizeColor = (color: ButtonColorProp): ButtonColor => {
     : 'primary';
 };
 
+/** danger 는 디자인 시스템에 filled 만 있어, outlined / text 로 들어와도 contained 로 떨어집니다. */
+export const normalizeVariant = (
+  variant: ButtonVariant,
+  color: ButtonColor,
+): ButtonVariant => (color === 'danger' ? 'contained' : variant);
+
 const KNOWN_SIZES: readonly ButtonSize[] = ['xs', 'sm', 'md'];
 
 /** 디자인 시스템에 없는 lg / xl 은 md 로 떨어집니다. */
@@ -41,41 +47,35 @@ const SIZES: Record<ButtonSize, string> = {
 };
 
 /**
- * outlined 의 테두리 두께입니다. xs 만 1px 입니다.
- * 28px 높이에서 2px 테두리는 상하 4px 여백의 절반을 잠식하므로 디자인 시스템이 한 단계 얇게 정의합니다.
- *
- * preflight 를 껐고 base.css 가 button 에 `border: 0` 을 걸어 border-style 이 none 이므로,
- * border-width 만으로는 선이 그려지지 않습니다. border-solid 를 함께 붙여야 합니다.
+ * outlined 의 테두리입니다. xs 만 1px 이고, 색은 `koast-shadow-*` 가 정합니다.
+ * border 대신 inset box-shadow 라 contained 와 바깥 너비가 같습니다(ring 은 포커스 링이 씁니다).
  */
-export const BORDER_WIDTHS: Record<ButtonSize, string> = {
-  xs: 'koast-border koast-border-solid',
-  sm: 'koast-border-2 koast-border-solid',
-  md: 'koast-border-2 koast-border-solid',
+export const OUTLINE_WIDTHS: Record<ButtonSize, string> = {
+  xs: 'koast-shadow-[inset_0_0_0_1px]',
+  sm: 'koast-shadow-[inset_0_0_0_2px]',
+  md: 'koast-shadow-[inset_0_0_0_2px]',
 };
 
 /**
  * intent × variant 의 기본 면 색입니다. hover / active 가 없는 정지 상태이며,
  * 디자인 시스템의 Loading 도 이 색을 그대로 씁니다.
- * danger 의 outlined / text 는 디자인 시스템에 없어 primary 패턴을 따라 파생했습니다.
  */
-const COLOR_BASE: Record<ButtonColor, Record<ButtonVariant, string>> = {
+const COLOR_BASE: Record<ButtonColor, Partial<Record<ButtonVariant, string>>> = {
   primary: {
     contained: 'koast-bg-interactive-primary koast-text-interactive-inverse',
     outlined:
-      'koast-border-interactive-primary koast-text-interactive-primary',
+      'koast-shadow-interactive-primary koast-text-interactive-primary',
     text: 'koast-text-interactive-primary',
   },
   secondary: {
     contained:
       'koast-bg-interactive-secondary koast-text-interactive-secondary',
     outlined:
-      'koast-border-interactive-secondary koast-text-interactive-secondary',
+      'koast-shadow-interactive-secondary koast-text-interactive-secondary',
     text: 'koast-text-interactive-secondary',
   },
   danger: {
     contained: 'koast-bg-interactive-danger koast-text-interactive-inverse',
-    outlined: 'koast-border-interactive-danger koast-text-danger',
-    text: 'koast-text-danger',
   },
 };
 
@@ -83,27 +83,24 @@ const COLOR_BASE: Record<ButtonColor, Record<ButtonVariant, string>> = {
  * 포인터 상호작용 색입니다. Loading 중에는 붙이지 않습니다.
  * 세 variant 모두 hover / active 에서 라벨이 한 단계씩 진해집니다.
  */
-const COLOR_INTERACTION: Record<ButtonColor, Record<ButtonVariant, string>> = {
+const COLOR_INTERACTION: Record<ButtonColor, Partial<Record<ButtonVariant, string>>> = {
   primary: {
     contained:
       'hover:koast-bg-interactive-primary-hovered active:koast-bg-interactive-primary-pressed',
     outlined:
-      'hover:koast-bg-interactive-selected-hovered hover:koast-border-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-border-interactive-primary-pressed active:koast-text-interactive-primary-pressed',
+      'hover:koast-bg-interactive-selected-hovered hover:koast-shadow-interactive-primary-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-shadow-interactive-primary-pressed active:koast-text-interactive-primary-pressed',
     text: 'hover:koast-bg-interactive-selected-hovered hover:koast-text-interactive-primary-hovered active:koast-bg-interactive-selected-pressed active:koast-text-interactive-primary-pressed',
   },
   secondary: {
     contained:
       'hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
     outlined:
-      'hover:koast-bg-interactive-secondary-hovered hover:koast-border-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-border-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
+      'hover:koast-bg-interactive-secondary-hovered hover:koast-shadow-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-shadow-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
     text: 'hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed',
   },
   danger: {
     contained:
       'hover:koast-bg-interactive-danger-hovered active:koast-bg-interactive-danger-pressed',
-    outlined:
-      'hover:koast-bg-danger-subtle hover:koast-border-interactive-danger-hovered hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-border-interactive-danger-pressed active:koast-text-danger-bold',
-    text: 'hover:koast-bg-danger-subtle hover:koast-text-danger-bold active:koast-bg-danger-subtle active:koast-text-danger-bold',
   },
 };
 
@@ -113,7 +110,7 @@ const COLOR_INTERACTION: Record<ButtonColor, Record<ButtonVariant, string>> = {
  */
 const DISABLED: Record<ButtonVariant, string> = {
   contained: 'koast-bg-disabled koast-text-disabled',
-  outlined: 'koast-border-disabled koast-bg-disabled koast-text-disabled',
+  outlined: 'koast-shadow-disabled koast-bg-disabled koast-text-disabled',
   text: 'koast-bg-disabled koast-text-disabled',
 };
 
@@ -122,12 +119,12 @@ const DISABLED: Record<ButtonVariant, string> = {
  * ring-2 + ring-offset-2 로 대응합니다. 링 색은 intent 를 따라 danger 만 빨간색입니다.
  */
 const FOCUS_RING
-  = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-offset-2';
+  = 'focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 const FOCUS_RING_COLORS: Record<ButtonColor, string> = {
-  primary: 'focus-visible:koast-ring-focus-ring',
-  secondary: 'focus-visible:koast-ring-focus-ring',
-  danger: 'focus-visible:koast-ring-interactive-danger',
+  primary: 'focus-visible:koast-outline-focus-ring',
+  secondary: 'focus-visible:koast-outline-focus-ring',
+  danger: 'focus-visible:koast-outline-interactive-danger',
 };
 
 /**
@@ -149,20 +146,25 @@ export const getButtonStyles = (
 ) => {
   const normalizedColor = normalizeColor(color);
   const normalizedSize = normalizeSize(size);
+  const normalizedVariant = normalizeVariant(variant, normalizedColor);
 
   return twMerge(
-    'koast-inline-flex koast-items-center koast-justify-center koast-font-semibold koast-transition-all koast-duration-200',
+    'koast-inline-flex koast-items-center koast-justify-center koast-font-semibold koast-transition-[color,background-color,box-shadow] koast-duration-200',
     SPINNER_SIZE,
     SIZES[normalizedSize],
-    variant === 'outlined' ? BORDER_WIDTHS[normalizedSize] : '',
-    disabled ? DISABLED[variant] : COLOR_BASE[normalizedColor][variant],
+    normalizedVariant === 'outlined' ? OUTLINE_WIDTHS[normalizedSize] : '',
+    disabled
+      ? DISABLED[normalizedVariant]
+      : COLOR_BASE[normalizedColor][normalizedVariant] ?? '',
     // Loading 은 면 색을 유지합니다. 포인터가 올라가도 Default 그대로여야 하므로 hover/active 를 붙이지 않습니다.
-    disabled || loading ? '' : COLOR_INTERACTION[normalizedColor][variant],
+    disabled || loading
+      ? ''
+      : COLOR_INTERACTION[normalizedColor][normalizedVariant] ?? '',
     // pointer-events-none 을 쓰면 커서가 적용되지 않습니다. 클릭 차단은 네이티브 disabled 가 합니다.
     disabled ? 'koast-cursor-not-allowed' : '',
     loading && !disabled ? 'koast-cursor-wait' : '',
     disabled ? '' : `${ FOCUS_RING } ${ FOCUS_RING_COLORS[normalizedColor] }`,
-    variant === 'contained' && shadow && !disabled && !loading
+    normalizedVariant === 'contained' && shadow && !disabled && !loading
       ? 'koast-shadow-lg koast-shadow-cast'
       : '',
     fullWidth ? 'koast-w-full' : '',

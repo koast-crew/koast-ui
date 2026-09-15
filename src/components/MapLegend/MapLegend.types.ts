@@ -93,8 +93,7 @@ export interface MapLegendProps {
   onLayerSelect?: (id: string) => void;
 
   /**
-   * 툴바 버튼 배열의 배열입니다.
-   * 중첩 배열을 사용하여 버튼 그룹을 구성할 수 있습니다.
+   * 툴바에 놓일 버튼 배열입니다. 배열 순서가 그대로 표시 순서입니다.
    */
   toolbarButtons: ToolbarButton[];
 

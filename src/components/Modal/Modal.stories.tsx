@@ -12,10 +12,10 @@ const meta: Meta<typeof Modal> = {
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
-    title: 'Title',
-    description: 'Description',
-    cancelLabel: 'Button Label',
-    confirmLabel: 'Button Label',
+    title: '제목',
+    description: '설명 문구가 들어가는 자리입니다.',
+    cancelLabel: '취소',
+    confirmLabel: '확인',
     confirmColor: 'primary',
     footerAlign: 'end',
     showCloseButton: true,
@@ -81,10 +81,10 @@ export const Default: Story = {
  */
 export const CreateAccessGroup: Story = {
   args: {
-    title: 'Create Access Group',
-    description: 'Enter an access group name and description to create a new group.',
-    cancelLabel: 'Cancel',
-    confirmLabel: 'Create group',
+    title: '접근 그룹 만들기',
+    description: '그룹 이름과 설명을 입력해 새 접근 그룹을 만듭니다.',
+    cancelLabel: '취소',
+    confirmLabel: '그룹 만들기',
   },
   render: (args) => {
     const [open, setOpen] = useState(false);
@@ -93,9 +93,9 @@ export const CreateAccessGroup: Story = {
       <>
         <Button variant={'contained'} onClick={() => setOpen(true)}>{'그룹 만들기'}</Button>
         <Modal {...args} open={open} onClose={() => setOpen(false)} onConfirm={() => setOpen(false)}>
-          <TextField label={'Group name'} placeholder={'Enter a group name'} />
-          <TextArea label={'Description'} placeholder={'Enter a description'} />
-          <Checkbox label={'Set as default group'} />
+          <TextField label={'그룹 이름'} placeholder={'그룹 이름을 입력하세요'} />
+          <TextArea label={'설명'} placeholder={'그룹 설명을 입력하세요'} />
+          <Checkbox label={'기본 그룹으로 설정'} />
         </Modal>
       </>
     );
@@ -108,10 +108,10 @@ export const CreateAccessGroup: Story = {
  */
 export const RemoveAccessGroup: Story = {
   args: {
-    title: 'Remove Access Group',
-    description: 'Are you sure you want to remove this access group? This action cannot be undone.',
-    cancelLabel: 'Cancel',
-    confirmLabel: 'Remove',
+    title: '접근 그룹 삭제',
+    description: '이 접근 그룹을 삭제할까요? 삭제하면 되돌릴 수 없습니다.',
+    cancelLabel: '취소',
+    confirmLabel: '삭제',
     confirmColor: 'danger',
   },
   render: (args) => {
@@ -159,7 +159,10 @@ export const ComposedFooter: Story = {
   },
 };
 
-/** 본문이 길면 헤더·푸터는 남고 본문만 스크롤됩니다. 뒤 배경은 열려 있는 동안 잠깁니다. */
+/**
+ * 본문이 길면 헤더·푸터는 남고 본문만 스크롤됩니다.
+ * 배경 스크롤 잠금은 캔버스를 단독 탭으로 열어 페이지를 스크롤해 보면 확인됩니다.
+ */
 export const ScrollableBody: Story = {
   args: {
     title: '이용 약관',
@@ -170,7 +173,7 @@ export const ScrollableBody: Story = {
   render: (args) => {
     const [open, setOpen] = useState(false);
     return (
-      <div style={{ height: '200vh', paddingTop: '2rem' }}>
+      <>
         <Button variant={'contained'} onClick={() => setOpen(true)}>{'약관 보기'}</Button>
         <Modal {...args} open={open} onClose={() => setOpen(false)} onConfirm={() => setOpen(false)}>
           {Array.from({ length: 12 }, (_, index) => (
@@ -179,7 +182,7 @@ export const ScrollableBody: Story = {
             </p>
           ))}
         </Modal>
-      </div>
+      </>
     );
   },
 };
@@ -205,7 +208,10 @@ export const NoDismiss: Story = {
   },
 };
 
-/** 모달이 겹쳐 열려도 배경 스크롤 잠금이 카운트되어, 안쪽 모달만 닫아도 잠금이 풀리지 않습니다. */
+/**
+ * 모달이 겹쳐 열려도 배경 스크롤 잠금이 카운트되어, 안쪽 모달만 닫아도 잠금이 풀리지 않습니다.
+ * 잠금 자체는 캔버스를 단독 탭으로 열어 페이지를 스크롤해 보면 확인됩니다.
+ */
 export const Stacked: Story = {
   args: {
     title: '첫 번째 모달',
@@ -216,7 +222,7 @@ export const Stacked: Story = {
     const [second, setSecond] = useState(false);
 
     return (
-      <div style={{ height: '200vh', paddingTop: '2rem' }}>
+      <>
         <Button variant={'contained'} onClick={() => setFirst(true)}>{'모달 열기'}</Button>
         <Modal
           {...args}
@@ -235,7 +241,7 @@ export const Stacked: Story = {
           confirmLabel={'닫기'}
           onConfirm={() => setSecond(false)}
         />
-      </div>
+      </>
     );
   },
 };

@@ -4,12 +4,12 @@ import type { BadgeStatus, BadgeType, BadgeVariant } from './Badge.types';
 /**
  * 형태별 치수입니다. 디자인 시스템이 높이를 고정값으로 정의합니다(dot 4, number 20, text 24).
  * number 는 pill(radius 무한), text 는 radius 4px 입니다.
- * number 의 min-w-5 는 한 자리 수에서도 원형을 유지하기 위한 파생값입니다.
+ * number 의 min-w-5 는 내용이 좁을 때 높이보다 납작해지지 않게 잡아 주는 하한입니다.
  */
 const TYPES: Record<BadgeType, string> = {
   dot: 'koast-inline-block koast-size-1 koast-shrink-0 koast-rounded-full',
   number:
-    'koast-inline-flex koast-h-5 koast-min-w-5 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-full koast-px-1 koast-py-0.5 koast-text-xs koast-font-medium koast-leading-4',
+    'koast-inline-flex koast-h-5 koast-min-w-5 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-full koast-px-2 koast-py-0.5 koast-text-xs koast-font-medium koast-leading-4',
   text: 'koast-inline-flex koast-h-6 koast-shrink-0 koast-items-center koast-justify-center koast-rounded koast-px-2 koast-py-1 koast-text-sm koast-font-medium koast-leading-4',
 };
 
@@ -22,21 +22,18 @@ const PRIMARY: Record<BadgeStatus, string> = {
   error: 'koast-bg-danger-bold koast-text-on-dark',
 };
 
-/**
- * 연한 면 + 1px 테두리입니다.
- * preflight 를 껐고 border-style 기본값이 none 이라 두께 클래스와 border-solid 가 같은 문자열에 있어야 합니다.
- */
+/** 연한 면 + 1px 선입니다. inset ring 이라 primary 와 바깥 너비가 같습니다. */
 const SECONDARY: Record<BadgeStatus, string> = {
   neutral:
-    'koast-border koast-border-solid koast-bg-tertiary koast-border-primary koast-text-secondary',
+    'koast-bg-tertiary koast-text-secondary koast-ring-1 koast-ring-inset koast-ring-primary',
   information:
-    'koast-border koast-border-solid koast-bg-info-subtle koast-border-info koast-text-info-bold',
+    'koast-bg-info-subtle koast-text-info-bold koast-ring-1 koast-ring-inset koast-ring-info',
   success:
-    'koast-border koast-border-solid koast-bg-success-subtle koast-border-success koast-text-success-bold',
+    'koast-bg-success-subtle koast-text-success-bold koast-ring-1 koast-ring-inset koast-ring-success',
   warning:
-    'koast-border koast-border-solid koast-bg-warning-subtle koast-border-warning koast-text-warning-bold',
+    'koast-bg-warning-subtle koast-text-warning-bold koast-ring-1 koast-ring-inset koast-ring-warning',
   error:
-    'koast-border koast-border-solid koast-bg-danger-subtle koast-border-danger koast-text-danger-bold',
+    'koast-bg-danger-subtle koast-text-danger-bold koast-ring-1 koast-ring-inset koast-ring-danger',
 };
 
 /** dot 은 Figma 에 Secondary 변형이 없어 variant 와 무관하게 채운 면 색만 씁니다. */

@@ -366,7 +366,7 @@ export const TimeLine = (props: TimeLineProps) => {
                       stepBy(1);
                     }
                   }}
-                  className={'koast-relative koast-flex koast-h-5 koast-cursor-pointer koast-items-center focus-visible:koast-outline-none'}
+                  className={'koast-relative koast-flex koast-h-5 koast-cursor-pointer koast-items-center koast-rounded focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring'}
                 >
                   <span className={TRACK_BG} />
                   <span className={getProgressStyles(inactive)} style={{ width: `${ progressRatio * 100 }%` }} />

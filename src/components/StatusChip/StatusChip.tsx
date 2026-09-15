@@ -52,7 +52,7 @@ export const StatusChip = ({
       className={getStatusChipStyles(variant, status, shape, size, hasIcon, className)}
     >
       {hasIcon && resolvedIcon}
-      <span className={'koast-truncate'}>{children}</span>
+      <span className={'koast-truncate koast-leading-6'}>{children}</span>
     </span>
   );
 };

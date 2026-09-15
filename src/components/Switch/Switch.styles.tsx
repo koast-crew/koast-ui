@@ -8,9 +8,9 @@ import { twMerge } from '../../utils/twMerge';
 const TRACK_BASE
   = 'koast-flex koast-h-6 koast-w-10 koast-shrink-0 koast-items-center koast-rounded-full koast-border koast-border-solid koast-p-[3px] koast-text-interactive-inverse koast-transition-colors koast-duration-200';
 
-/** Figma 의 Focus ring 은 트랙 바깥 2px 지점(44x28)에 그려집니다. offset 없는 ring-2 가 그 위치입니다. */
+/** Figma 는 트랙에 붙은 44x28 이지만, Button 과 맞춰 2px 띄웁니다. */
 const FOCUS_RING
-  = 'peer-focus-visible:koast-ring-2 peer-focus-visible:koast-ring-focus-ring';
+  = 'peer-focus-visible:koast-outline peer-focus-visible:koast-outline-2 peer-focus-visible:koast-outline-offset-2 peer-focus-visible:koast-outline-focus-ring';
 
 const CHECKED = {
   base: 'koast-border-transparent koast-bg-interactive-primary',

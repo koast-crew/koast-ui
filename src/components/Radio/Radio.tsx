@@ -18,10 +18,10 @@ import { Label } from '../Label/Label';
  *
  * @param {boolean} [props.checked] - 선택 상태. 지정하면 제어 컴포넌트로 동작합니다 : boolean
  * @param {boolean} [props.defaultChecked=false] - 비제어로 쓸 때의 초기 상태 : boolean
- * @param {Function} [props.onChange] - 선택될 때 호출되는 콜백 : Function
+ * @param {Function} [props.onChange] - 선택 상태가 바뀔 때 호출됩니다. 형제에게 선택을 뺏기면 `false` 로도 호출됩니다 : Function
  * @param {React.ReactNode} [props.label] - 라디오 오른쪽에 표시되는 라벨 : React.ReactNode
  * @param {string | number} [props.value] - ControlGroup 안에서 이 항목을 구분하는 값 : string | number
- * @param {string} [props.name] - 같은 그룹으로 묶을 name : string
+ * @param {string} [props.name] - 같은 그룹으로 묶을 name. 없으면 배타 선택이 되지 않습니다 : string
  * @param {boolean} [props.required=false] - 필수 입력 여부. 라벨 뒤에 `*` 가 붙습니다 : boolean
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {string} [props.className] - 여백 조정용 CSS 클래스 (색상 지정 불가) : string
@@ -76,16 +76,35 @@ export const Radio = (props: RadioProps) => {
   /** 그룹이 값을 관리하지도, 제어 컴포넌트도 아니면 배타 선택은 DOM 이 맡습니다. */
   const domOwned = !managed && !isControlled;
   const inputRef = useRef<HTMLInputElement>(null);
+  const lastCheckedRef = useRef(defaultChecked);
+
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
+  /** name 도 ControlGroup 도 없으면 브라우저가 묶어주지 않아 배타 선택이 성립하지 않습니다. */
+  useEffect(() => {
+    if (groupName || managed || isControlled) return;
+    console.warn(
+      '[@koast/ui] Radio 에 name 이 없어 다른 Radio 와 배타 선택되지 않습니다. '
+      + '같은 name 을 주거나 ControlGroup type="radio" 로 감싸세요.',
+    );
+  }, [groupName, managed, isControlled]);
 
   /**
    * 네이티브 라디오는 같은 name 의 형제를 DOM 에서 직접 해제하지만 그 형제에게 change 를 보내지 않습니다.
-   * 그래서 형제가 제 상태를 모른 채 checked 를 유지해 체크박스처럼 보입니다.
-   * 그룹의 change 를 구독해 표시를 DOM 의 실제 값으로 되맞춥니다.
+   * 그룹의 change 를 구독해 표시와 onChange 를 DOM 의 실제 값에 맞춥니다.
    */
   useEffect(() => {
     if (!domOwned || !groupName) return;
 
-    const sync = () => setInnerChecked(Boolean(inputRef.current?.checked));
+    const sync = () => {
+      const next = Boolean(inputRef.current?.checked);
+      if (lastCheckedRef.current === next) return;
+      lastCheckedRef.current = next;
+      setInnerChecked(next);
+      // 선택을 얻은 쪽은 handleChange 가 이미 알렸으므로 잃은 쪽만 통보합니다.
+      if (!next) onChangeRef.current?.(false);
+    };
     sync();
 
     const onGroupChange = (event: Event) => {
@@ -100,6 +119,7 @@ export const Radio = (props: RadioProps) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const next = event.target.checked;
+    lastCheckedRef.current = next;
     if (managed) group.select(value, next);
     else if (!isControlled) setInnerChecked(next);
     onChange?.(next);

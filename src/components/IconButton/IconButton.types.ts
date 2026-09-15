@@ -50,7 +50,7 @@ export interface IconButtonProps
    */
   'aria-label': string;
 
-  /** 버튼의 변형입니다. @default 'outlined' */
+  /** 버튼의 변형입니다. `color='danger'` 는 filled 만 있어 항상 contained 로 동작합니다. @default 'outlined' */
   'variant'?: IconButtonVariant;
 
   /** 버튼의 의미(intent)입니다. 디자인 시스템에 정의된 값만 사용할 수 있습니다. @default 'primary' */

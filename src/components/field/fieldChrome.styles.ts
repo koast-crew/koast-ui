@@ -1,4 +1,5 @@
 import { twMerge } from '../../utils/twMerge';
+import { SCROLLBAR } from '../../utils/scrollbar';
 
 /** Figma 의 필드 타이포입니다. 라벨·입력값·보조 문구가 모두 w500 16/20 을 씁니다. */
 export const FIELD_TEXT = 'koast-text-base koast-font-medium koast-leading-5';
@@ -11,12 +12,7 @@ export const FIELD_BOX
 export const FIELD_CONTROL_RESET
   = 'koast-m-0 koast-w-full koast-min-w-0 koast-border-none koast-bg-transparent koast-p-0 koast-outline-none';
 
-/**
- * Select 의 드롭다운과 같은 스크롤바 처리입니다. 트랙 8px, 썸은 pill 입니다.
- * scrollbar-width 를 함께 쓰면 Chrome 이 ::-webkit-scrollbar 를 무시하므로 쓰지 않습니다.
- */
-export const FIELD_SCROLLBAR
-  = '[&::-webkit-scrollbar]:koast-w-2 [&::-webkit-scrollbar-button]:koast-hidden [&::-webkit-scrollbar-track]:koast-rounded-full [&::-webkit-scrollbar-track]:koast-bg-tertiary [&::-webkit-scrollbar-thumb]:koast-rounded-full [&::-webkit-scrollbar-thumb]:koast-bg-[rgb(var(--koast-content-secondary))]';
+export const FIELD_SCROLLBAR = SCROLLBAR;
 
 /**
  * 포커스 링입니다. Button·Accordion 과 같은 ring-2 + offset-2 이며 링 색만 intent 를 따릅니다.

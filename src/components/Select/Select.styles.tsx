@@ -1,4 +1,5 @@
 import { twMerge } from '../../utils/twMerge';
+import { SCROLLBAR } from '../../utils/scrollbar';
 import type { SelectSize, SelectVisibleOptions } from './Select.types';
 
 /** 트리거 높이는 디자인 시스템이 고정값으로 정의합니다(40 / 48). 글자·아이콘 크기는 size 와 무관합니다. */
@@ -15,7 +16,7 @@ const MENU_MAX_HEIGHTS: Record<SelectVisibleOptions, string> = {
 };
 
 const TRIGGER_BASE
-  = 'koast-flex koast-w-full koast-items-center koast-justify-between koast-gap-2.5 koast-rounded-lg koast-border-[1.5px] koast-border-solid koast-px-4 koast-text-base koast-font-medium koast-leading-5 koast-transition-colors koast-duration-200 focus-visible:koast-outline-none';
+  = 'koast-flex koast-w-full koast-items-center koast-justify-between koast-gap-2.5 koast-rounded-lg koast-border-[1.5px] koast-border-solid koast-px-4 koast-text-base koast-font-medium koast-leading-5 koast-transition-colors koast-duration-200 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 export const getTriggerStyles = (
   size: SelectSize,
@@ -43,21 +44,13 @@ export const getTriggerStyles = (
 /** 값이 있으면 본문 색, placeholder 면 한 단계 연한 색입니다. */
 export const getTriggerTextStyles = (disabled: boolean, filled: boolean) =>
   twMerge(
-    'koast-truncate',
+    'koast-truncate koast-leading-6',
     disabled
       ? 'koast-text-disabled'
       : filled
         ? 'koast-text-primary'
         : 'koast-text-tertiary',
   );
-
-/**
- * 트랙 8px, 썸은 pill 입니다. 색은 토큰을 참조해 다크 모드까지 따라갑니다.
- * scrollbar-width / scrollbar-color 를 함께 쓰면 Chrome 이 ::-webkit-scrollbar 를 무시하므로 쓰지 않습니다.
- * Firefox 는 이 규칙이 안 먹어 기본 스크롤바가 나옵니다.
- */
-const SCROLLBAR
-  = '[&::-webkit-scrollbar]:koast-w-2 [&::-webkit-scrollbar-button]:koast-hidden [&::-webkit-scrollbar-track]:koast-rounded-full [&::-webkit-scrollbar-track]:koast-bg-tertiary [&::-webkit-scrollbar-thumb]:koast-rounded-full [&::-webkit-scrollbar-thumb]:koast-bg-[rgb(var(--koast-content-secondary))]';
 
 export const getMenuStyles = (visibleOptions: SelectVisibleOptions) =>
   twMerge(
@@ -77,14 +70,18 @@ export const getOptionStyles = (
   const surface = disabled
     ? 'koast-cursor-not-allowed koast-bg-disabled koast-text-disabled'
     : selected
-      ? 'koast-cursor-pointer koast-bg-interactive-selected koast-text-primary hover:koast-bg-interactive-selected-hovered active:koast-bg-interactive-selected-pressed'
+      ? 'koast-cursor-pointer koast-bg-interactive-selected koast-font-semibold koast-text-interactive-selected hover:koast-bg-interactive-selected-hovered active:koast-bg-interactive-selected-pressed'
       : 'koast-cursor-pointer koast-text-primary hover:koast-bg-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed';
+
+  // 키보드 커서는 테두리 대신 hover 와 같은 면으로 표시합니다. 선택 항목에 선이 겹쳐 보이지 않습니다.
+  const cursor = active && !disabled
+    ? (selected ? 'koast-bg-interactive-selected-hovered' : 'koast-bg-interactive-secondary-hovered')
+    : '';
 
   return twMerge(
     'koast-flex koast-h-9 koast-items-center koast-gap-2 koast-px-2 koast-text-base koast-font-medium koast-leading-5',
     surface,
-    // 링을 바깥에 그리면 위아래 항목을 2px 씩 덮습니다.
-    active ? 'koast-ring-2 koast-ring-inset koast-ring-focus-ring' : '',
+    cursor,
     className,
   );
 };

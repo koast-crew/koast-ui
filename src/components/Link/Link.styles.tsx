@@ -1,3 +1,4 @@
+import type React from 'react';
 import { twMerge } from '../../utils/twMerge';
 import type { LinkColor, LinkVariant } from './Link.types';
 
@@ -7,7 +8,7 @@ import type { LinkColor, LinkVariant } from './Link.types';
  * standalone 에서는 `no-underline` 으로 직접 지웁니다.
  */
 const LINK_BASE
-  = 'koast-inline-flex koast-h-[26px] koast-items-center koast-gap-2 koast-rounded koast-px-1 koast-py-0.5 koast-text-base koast-font-medium koast-leading-5 koast-transition-all koast-duration-200';
+  = 'koast-inline-flex koast-h-[26px] koast-items-center koast-gap-2 koast-rounded koast-px-1 koast-py-0.5 koast-text-base koast-font-medium koast-leading-5 koast-transition-colors koast-duration-200';
 
 /** Figma 의 Style 축입니다. Underline 은 밑줄이 라벨에 붙습니다. */
 const VARIANTS: Record<LinkVariant, string> = {
@@ -40,7 +41,7 @@ const DISABLED
 
 /** Figma 의 Focused 변형은 링크 밖 2px 지점에 2px 링을 그립니다. Button 과 같은 처리입니다. */
 const FOCUS_RING
-  = 'focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-offset-2 focus-visible:koast-ring-focus-ring';
+  = 'focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 /** 라벨 왼쪽 아이콘은 16px, 오른쪽 아이콘은 24px 입니다. */
 export const LINK_LEADING_ICON
@@ -48,6 +49,18 @@ export const LINK_LEADING_ICON
 
 export const LINK_TRAILING_ICON
   = 'koast-inline-flex koast-shrink-0 [&_svg]:koast-size-6';
+
+/** 좌우 여백은 임의 px 이라 Tailwind 클래스로 못 만들고 인라인 스타일로 넘깁니다. */
+export const getLinkPaddingStyle = (
+  paddingLeft?: number,
+  paddingRight?: number,
+): React.CSSProperties | undefined => {
+  if (paddingLeft === undefined && paddingRight === undefined) return undefined;
+  return {
+    ...(paddingLeft === undefined ? {} : { paddingLeft }),
+    ...(paddingRight === undefined ? {} : { paddingRight }),
+  };
+};
 
 /** 링크의 최종 클래스명을 계산합니다. */
 export const getLinkStyles = (

@@ -20,7 +20,7 @@ const TEXT = 'koast-text-base koast-font-medium koast-leading-5';
 export const VALUE
   = `koast-shrink-0 koast-whitespace-nowrap ${ TEXT } koast-text-tertiary`;
 
-export const LABEL = 'koast-min-w-0 koast-truncate';
+export const LABEL = 'koast-min-w-0 koast-truncate koast-leading-6';
 
 /**
  * 트랙입니다. 높이 8 · r99999 · #f4f4f5 로 Slider 의 lg 트랙과 같은 표현입니다.

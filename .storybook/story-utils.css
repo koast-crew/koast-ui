@@ -10,16 +10,19 @@ body {
   color: rgb(var(--koast-content-primary));
 }
 
-.story-stack {
+/* :where() 로 명시도 0. 이 파일이 tailwind 뒤에 실려서, 없으면 스토리의 koast-* override 를 이깁니다. */
+:where(.story-stack) {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  align-items: center;
+  gap: 0.5rem;
 }
-.story-row {
+:where(.story-row) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.5rem;
 }
 .story-label {
   width: 7rem;

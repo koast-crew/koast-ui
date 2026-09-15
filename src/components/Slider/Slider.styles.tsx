@@ -94,7 +94,7 @@ export const getLabelStyles = (
   error: boolean,
 ) =>
   twMerge(
-    'koast-min-w-0 koast-truncate',
+    'koast-min-w-0 koast-truncate koast-leading-6',
     LABEL_FONTS[size],
     disabled ? TEXT_TONES.disabled : error ? TEXT_TONES.error : TEXT_TONES.normal,
   );
@@ -173,11 +173,11 @@ const THUMB_SHADOW
  * 썸이 pointer-events 를 받지 않아 히트 영역의 focus-visible 을 group 으로 전달받습니다.
  */
 const THUMB_FOCUS_RING
-  = 'group-focus-visible:koast-ring-2 group-focus-visible:koast-ring-offset-2 group-focus-visible:koast-ring-focus-ring';
+  = 'group-focus-visible:koast-outline group-focus-visible:koast-outline-2 group-focus-visible:koast-outline-offset-2 group-focus-visible:koast-outline-focus-ring';
 
 export const getThumbStyles = (size: SliderSize, state: SliderThumbState) =>
   twMerge(
-    'koast-pointer-events-none koast-rounded-full koast-border-2 koast-border-solid koast-transition-all koast-duration-150',
+    'koast-pointer-events-none koast-rounded-full koast-border-2 koast-border-solid koast-transition-[width,height,border-color,background-color,box-shadow] koast-duration-150',
     state === 'hover' ? THUMB_HOVER_SIZES[size] : THUMB_SIZES[size],
     THUMB_BORDERS[state],
     state === 'focus' || state === 'active' ? THUMB_SHADOW : '',
@@ -199,7 +199,7 @@ export const getRangeLabelStyles = (
   align: 'left' | 'center' | 'right',
 ) =>
   twMerge(
-    'koast-min-w-0 koast-flex-1 koast-truncate',
+    'koast-min-w-0 koast-flex-1 koast-truncate koast-leading-6',
     RANGE_LABEL_FONTS[size],
     align === 'left'
       ? 'koast-text-left'

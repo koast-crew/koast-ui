@@ -60,7 +60,7 @@ const TYPES: ToastType[] = ['text', 'action', 'longAction'];
 export const Default: Story = {
   render: (args) => (
     <div className={'koast-w-[360px]'}>
-      <Toast {...args} />
+      <Toast {...args} onClose={() => {}} />
     </div>
   ),
 };
@@ -71,7 +71,7 @@ export const Statuses: Story = {
     <div className={'story-stack'}>
       {STATUSES.map((status) => (
         <div key={status} className={'koast-w-[360px]'}>
-          <Toast {...args} status={status} title={status} />
+          <Toast {...args} status={status} title={status} onClose={() => {}} />
         </div>
       ))}
     </div>

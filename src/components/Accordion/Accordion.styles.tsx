@@ -17,7 +17,7 @@ const TITLE_SIZES: Record<AccordionSize, string> = {
 };
 
 const HEADER_BASE
-  = 'koast-group koast-flex koast-w-full koast-items-center koast-justify-between koast-gap-2.5 koast-text-left koast-transition-colors koast-duration-200 focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-offset-2 focus-visible:koast-ring-focus-ring';
+  = 'koast-group koast-flex koast-w-full koast-items-center koast-justify-between koast-gap-2.5 koast-text-left koast-transition-colors koast-duration-200 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 /**
  * 헤더의 포인터 상호작용 색입니다. 접힘은 회색 계열, 펼침은 선택(파랑) 계열로 갈립니다.

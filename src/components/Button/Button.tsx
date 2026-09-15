@@ -36,7 +36,7 @@ import { getButtonStyles, getLoadingIndicator } from './Button.styles';
  *   확인
  * </Button>
  *
- * <Button variant="outlined" color="danger" startIcon={<TrashIcon />}>
+ * <Button color="danger" startIcon={<TrashIcon />}>
  *   삭제
  * </Button>
  *

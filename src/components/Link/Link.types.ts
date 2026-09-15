@@ -50,4 +50,10 @@ export interface LinkProps
 
   /** 여백·정렬 같은 레이아웃 조정용입니다. 색상은 `color` / `variant` 로만 지정할 수 있습니다. */
   className?: string;
+
+  /** 좌측 안쪽 여백(px)입니다. 지정하지 않으면 디자인 시스템 기본값 4px 입니다. */
+  paddingLeft?: number;
+
+  /** 우측 안쪽 여백(px)입니다. 지정하지 않으면 디자인 시스템 기본값 4px 입니다. */
+  paddingRight?: number;
 }

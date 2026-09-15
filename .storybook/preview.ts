@@ -34,11 +34,11 @@ const preview: Preview = {
     },
   ],
   parameters: {
+    // on* prop 에 액션 스파이를 주입하면 `onCancel ?? onClose` 같은 폴백이 스파이를 집어 동작이 죽습니다.
     options: {
       // 사이드바를 알파벳순으로 정렬합니다.
       storySort: { method: 'alphabetical' },
     },
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,

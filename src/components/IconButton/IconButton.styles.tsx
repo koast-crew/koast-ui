@@ -1,6 +1,6 @@
 import { twMerge } from '../../utils/twMerge';
 import {
-  BORDER_WIDTHS,
+  OUTLINE_WIDTHS,
   getButtonStyles,
   normalizeColor,
   normalizeSize,
@@ -32,19 +32,13 @@ const SIZES: Record<IconButtonSize, string> = {
  */
 const SELECTED: Record<IconButtonColor, string> = {
   primary: 'koast-bg-interactive-selected koast-text-interactive-selected',
-  secondary: 'koast-border-interactive-secondary',
+  secondary: 'koast-shadow-interactive-secondary',
   danger: 'koast-bg-danger-subtle koast-text-danger',
 };
 
-/**
- * Figma 의 Focus ring 은 버튼보다 4px 큰 사각형이므로(40→44, 32→36) 간격 없이 2px 링입니다.
- * Button 은 offset 2 를 쓰지만 Modal / Alert / Toast 의 닫기 버튼도 offset 없이 그리므로 그쪽에 맞춥니다.
- */
-const FOCUS_RING_OFFSET = 'focus-visible:koast-ring-offset-0';
-
 const getSelectedStyles = (color: IconButtonColor, size: IconButtonSize) =>
   color === 'secondary'
-    ? `${ BORDER_WIDTHS[size] } ${ SELECTED[color] }`
+    ? `${ OUTLINE_WIDTHS[size] } ${ SELECTED[color] }`
     : SELECTED[color];
 
 /**
@@ -66,7 +60,6 @@ export const getIconButtonStyles = (
   return twMerge(
     getButtonStyles(variant, color, size, disabled, loading, false, false, ''),
     SIZES[normalizedSize],
-    disabled ? '' : FOCUS_RING_OFFSET,
     selected && !disabled
       ? getSelectedStyles(normalizedColor, normalizedSize)
       : '',

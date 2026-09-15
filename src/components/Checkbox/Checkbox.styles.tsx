@@ -8,9 +8,9 @@ import type { CheckboxChecked } from './Checkbox.types';
 const BOX_BASE
   = 'koast-flex koast-size-4 koast-shrink-0 koast-items-center koast-justify-center koast-rounded koast-border koast-border-solid koast-transition-colors koast-duration-200';
 
-/** Figma 의 Focus ring 은 16px 상자 바깥 2px 지점(20x20)에 그려집니다. offset 없는 ring-2 가 그 위치입니다. */
+/** Figma 는 상자에 붙은 20x20 이지만, Button 과 맞춰 2px 띄웁니다(24x24). */
 const FOCUS_RING
-  = 'peer-focus-visible:koast-ring-2 peer-focus-visible:koast-ring-focus-ring';
+  = 'peer-focus-visible:koast-outline peer-focus-visible:koast-outline-2 peer-focus-visible:koast-outline-offset-2 peer-focus-visible:koast-outline-focus-ring';
 
 /** Checked / Partial 은 면이 채워지고 테두리가 사라집니다. 투명 테두리로 16px 상자 크기를 유지합니다. */
 const CHECKED = {

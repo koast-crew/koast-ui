@@ -14,6 +14,7 @@ const meta: Meta<typeof Alert> = {
     variant: 'filled',
   },
   argTypes: {
+    closable: { control: 'boolean', description: '닫기 버튼 표시 여부입니다. 기본 true.' },
     status: {
       control: 'radio',
       options: ['brand', 'neutral', 'info', 'success', 'warning', 'error'],
@@ -56,7 +57,7 @@ export const Default: Story = {
 /** **Status** × **Style** 18개 조합 전부입니다. Figma 컴포넌트 셋과 같은 순서입니다. */
 export const Statuses: Story = {
   render: (args) => (
-    <div className={'story-stack'}>
+    <div className={'story-stack koast-gap-6'}>
       {VARIANTS.map((variant) => (
         <div key={variant} className={'story-stack'}>
           <span className={'story-label'}>{variant}</span>
@@ -71,23 +72,28 @@ export const Statuses: Story = {
   ),
 };
 
-/** 닫기 버튼입니다. `onClose` 를 넘겼을 때만 렌더링됩니다. */
+/** 닫기 버튼은 기본으로 켜져 있고, `closable={false}` 로 끕니다. 누르면 알림이 스스로 사라집니다. */
 export const Closable: Story = {
   render: (args) => (
-    <div className={'story-stack'}>
-      {VARIANTS.map((variant) => (
-        <div key={variant} className={'koast-w-80'}>
-          <Alert
-            {...args}
-            variant={variant}
-            status={'info'}
-            title={'Title'}
-            onClose={() => {}}
-          />
-        </div>
-      ))}
-      <span className={'story-note'}>
-        {'Figma 의 Transparent 변형에는 닫기 버튼이 없지만, 구현에서는 Style 과 무관하게 onClose 로 켭니다.'}
+    <div className={'story-stack koast-gap-6'}>
+      <div className={'story-stack'}>
+        <span className={'story-label'}>{'기본 (closable)'}</span>
+        {VARIANTS.map((variant) => (
+          <div key={variant} className={'koast-w-80'}>
+            <Alert {...args} variant={variant} status={'info'} title={'Title'} />
+          </div>
+        ))}
+      </div>
+      <div className={'story-stack'}>
+        <span className={'story-label'}>{'closable={false}'}</span>
+        {VARIANTS.map((variant) => (
+          <div key={variant} className={'koast-w-80'}>
+            <Alert {...args} variant={variant} status={'info'} title={'Title'} closable={false} />
+          </div>
+        ))}
+      </div>
+      <span className={'story-note koast-w-80'}>
+        {'Figma 의 Transparent 변형에는 닫기 버튼이 없지만, 구현에서는 Style 과 무관하게 closable 로 켭니다.'}
       </span>
     </div>
   ),
@@ -104,7 +110,6 @@ export const TitleOnly: Story = {
             variant={'outlined'}
             status={status}
             title={status}
-            onClose={() => {}}
           >
             {null}
           </Alert>
@@ -114,19 +119,24 @@ export const TitleOnly: Story = {
   ),
 };
 
-/** 아이콘 축입니다. brand · neutral 은 Figma 에 기본 아이콘이 없어 아이콘 없이 렌더링됩니다. */
+/** 아이콘 축입니다. `icon` 을 넘기지 않으면 status 별 기본 아이콘이, `false` 면 아이콘이 빠집니다. */
 export const WithoutIcon: Story = {
   render: (args) => (
-    <div className={'story-stack'}>
-      <div className={'koast-w-80'}>
-        <Alert {...args} status={'error'} title={'기본 아이콘'} />
-      </div>
-      <div className={'koast-w-80'}>
-        <Alert {...args} status={'error'} title={'icon={false}'} icon={false} />
-      </div>
-      <div className={'koast-w-80'}>
-        <Alert {...args} status={'brand'} title={'brand — 기본 아이콘 없음'} />
-      </div>
+    <div className={'story-stack koast-gap-6'}>
+      {STATUSES.map((status) => (
+        <div key={status} className={'story-stack'}>
+          <span className={'story-label'}>{status}</span>
+          <div className={'koast-w-80'}>
+            <Alert {...args} status={status} title={'기본 아이콘'} />
+          </div>
+          <div className={'koast-w-80'}>
+            <Alert {...args} status={status} title={'icon 없음'} icon={false} />
+          </div>
+        </div>
+      ))}
+      <span className={'story-note koast-w-80'}>
+        {'Figma 가 brand · neutral 자리에 Icon placeholder 만 둬서, 구현에서는 중립적인 Astroid 를 기본값으로 씁니다.'}
+      </span>
     </div>
   ),
 };
@@ -135,7 +145,7 @@ export const WithoutIcon: Story = {
 export const LongDescription: Story = {
   render: (args) => (
     <div className={'koast-w-80'}>
-      <Alert {...args} status={'warning'} variant={'outlined'} onClose={() => {}} title={'저장하지 않은 변경 사항이 있습니다'}>
+      <Alert {...args} status={'warning'} variant={'outlined'} title={'저장하지 않은 변경 사항이 있습니다'}>
         {'페이지를 벗어나면 지금까지 입력한 내용이 사라집니다. 계속하기 전에 저장 버튼을 눌러 주세요.'}
       </Alert>
     </div>

@@ -142,6 +142,7 @@ export const BarLegend: Story = {
     legendData: sampleLegendData,
     excludeButtonIds: [''],
     legendType: 'bar',
+    onClose: () => {},
   },
 };
 

@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.25] - 2026-09-15
+
+### Added
+
+- Claude Code 스킬을 패키지에 동봉함. 컴포넌트별 props · 예제와 색 토큰 규칙이 담겨 있음
+- `npx @koast/ui init-skills` — `.claude/skills/koast-ui` 를 패키지 안 스킬로 심링크함.
+  `npm update` 하면 스킬도 함께 갱신됨. 심링크를 못 만들면 복사로 대체함
+- `npm run skill-docs` — `src/components` 의 JSDoc 을 파싱해 레퍼런스를 생성함 (기여자용)
+
+### Changed
+
+- `bin` 이 가리키던 `add-tailwind-config.js` 를 `cli.mjs` 로 교체함.
+  기존 안내 문구는 인자 없이 실행하면 그대로 나옴
+- `postinstall` 이 스킬 설치 안내를 출력함. 파일은 건드리지 않음
+
+### Fixed
+
+- `files` 가 `dist` 만 담고 있어 `bin` 이 배포본에 포함되지 않던 문제 수정.
+  `npx @koast/ui` 가 파일을 찾지 못하고 실패했음
+
 ## [1.0.24] - 2026-09-15
 
 > ⚠️ 화면이 달라지는 patch 릴리스임. `Alert` 에 닫기 버튼이 기본으로 생기고

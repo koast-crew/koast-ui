@@ -138,6 +138,25 @@ const css = createBrandThemeCss({
 
 <br>
 
+## Claude Code 스킬
+
+이 패키지에는 [Claude Code](https://claude.com/claude-code) 용 스킬이 들어 있습니다.
+컴포넌트별 props · 예제와 색 토큰 규칙이 담겨 있어, 라이브러리를 잘 몰라도
+Claude 가 알아서 맞는 prop 을 씁니다.
+
+```bash
+npx @koast/ui init-skills
+```
+
+`.claude/skills/koast-ui` 를 `node_modules/@koast/ui/skills/koast-ui` 로 심링크합니다.
+`npm update @koast/ui` 하면 스킬 내용도 함께 갱신됩니다.
+
+> Claude Code 는 `node_modules` 를 탐색하지 않아 `npm install` 만으로는 스킬이 잡히지 않습니다.
+> 심링크를 만들 수 없는 환경에서는 자동으로 복사로 대체되며, 이때는 라이브러리를 올릴 때마다
+> 명령을 다시 실행하면 됩니다. 팀 전체에 공유하려면 `.claude/skills/` 를 커밋하세요.
+
+<br>
+
 ## 폰트
 
 라이브러리는 `font-family` 를 지정하지 않고 앱의 폰트를 그대로 물려받습니다.
@@ -221,6 +240,17 @@ koast-shadow-cast                effect/shadow/cast
 ```
 
 역할별로 스케일이 분리돼 있어 배경 토큰을 텍스트 색으로 쓰는 식의 오용이 타입·클래스 수준에서 막힙니다.
+
+### Claude Code 스킬 갱신
+
+컴포넌트의 props 나 JSDoc 을 고쳤다면 스킬 레퍼런스를 다시 생성하세요.
+
+```bash
+npm run skill-docs
+```
+
+`src/components/*/*.types.ts` 의 JSDoc 을 파싱해 `skills/koast-ui/references/` 를 만듭니다.
+손으로 고치지 마세요.
 
 ### 배포
 

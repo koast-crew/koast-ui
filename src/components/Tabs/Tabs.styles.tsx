@@ -4,15 +4,15 @@ type TabState = 'selected' | 'unselected';
 
 /**
  * 탭 높이 48px 은 디자인 시스템 고정값이고 폭은 라벨 + 좌우 32px 패딩으로 정해집니다.
- * 선택 탭에만 1px 테두리가 생기면 폭이 2px 흔들리므로 비선택 탭도 같은 두께의 투명 테두리를 둡니다.
+ * 모든 탭이 아래 2px 선을 갖고 색만 달라집니다(선택 파랑 / 비선택 회색). 그래서 폭이 흔들리지 않습니다.
  */
 const TAB_BASE
-  = 'koast-inline-flex koast-h-12 koast-shrink-0 koast-items-center koast-justify-center koast-gap-2 koast-whitespace-nowrap koast-border koast-border-solid koast-px-8 koast-text-base koast-font-medium koast-leading-5 koast-transition-colors koast-duration-200 [&_svg]:koast-size-6 focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-offset-2 focus-visible:koast-ring-focus-ring';
+  = 'koast-inline-flex koast-h-12 koast-shrink-0 koast-items-center koast-justify-center koast-gap-2 koast-whitespace-nowrap koast-border-0 koast-border-b-2 koast-border-solid koast-px-8 koast-text-base koast-font-medium koast-leading-5 koast-transition-colors koast-duration-200 [&_svg]:koast-size-6 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 const TAB_SURFACE: Record<TabState, string> = {
   selected:
     'koast-border-interactive-primary koast-bg-primary koast-text-interactive-selected',
-  unselected: 'koast-border-transparent koast-bg-primary koast-text-secondary',
+  unselected: 'koast-border-secondary koast-bg-primary koast-text-secondary',
 };
 
 /**
@@ -30,15 +30,14 @@ const TAB_DISABLED: Record<TabState, string> = {
   selected:
     'koast-cursor-not-allowed koast-border-disabled koast-bg-disabled koast-text-disabled',
   unselected:
-    'koast-cursor-not-allowed koast-border-transparent koast-bg-primary koast-text-disabled',
+    'koast-cursor-not-allowed koast-border-secondary koast-bg-primary koast-text-disabled',
 };
 
 export const getTabsRootStyles = (className: string) =>
-  twMerge('koast-flex koast-w-full koast-flex-col', className);
+  twMerge('koast-flex koast-w-full koast-flex-col koast-items-start', className);
 
-/** 탭 줄 아래에 1px 구분선이 깔립니다. 다른 변까지 그려지지 않도록 두께를 0 으로 눌러둡니다. */
-export const getTabListStyles = () =>
-  'koast-flex koast-w-full koast-items-center koast-border-0 koast-border-b koast-border-solid koast-border-secondary';
+/** 선은 탭마다 직접 그립니다. 탭 배경이 테두리 영역까지 칠해져 줄의 선을 덮기 때문입니다. */
+export const getTabListStyles = () => 'koast-flex koast-w-fit koast-items-center';
 
 export const getTabStyles = (selected: boolean, disabled: boolean) => {
   const state: TabState = selected ? 'selected' : 'unselected';
@@ -54,6 +53,6 @@ export const getTabStyles = (selected: boolean, disabled: boolean) => {
 /** Figma 에 패널 실측이 없어 Accordion 패널의 타이포그래피 규칙을 따랐습니다. */
 export const getTabPanelStyles = (className: string) =>
   twMerge(
-    'koast-pt-4 koast-text-base koast-font-medium koast-leading-5 koast-text-primary focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring',
+    'koast-pt-4 koast-text-base koast-font-medium koast-leading-5 koast-text-primary focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring',
     className,
   );

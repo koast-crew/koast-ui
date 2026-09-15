@@ -163,7 +163,7 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
           aria-selected={selectedPath === currentPath}
           aria-expanded={node.type === 'folder' ? Boolean(node.isOpen) : undefined}
           onKeyDown={handleRowKeyDown}
-          className={`koast-group koast-flex koast-cursor-pointer koast-items-center koast-gap-0.5 koast-rounded koast-p-1 hover:koast-bg-interactive-secondary-hovered focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring ${
+          className={`koast-group koast-flex koast-cursor-pointer koast-items-center koast-gap-0.5 koast-rounded koast-p-1 hover:koast-bg-interactive-secondary-hovered focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring ${
             selectedPath === currentPath ? 'koast-bg-interactive-selected' : ''
           }`}
           onClick={handleNodeClick}
@@ -201,7 +201,7 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
               }}
               autoFocus
               aria-label={`${ node.name } 이름`}
-              className={'koast-rounded koast-border koast-border-solid koast-border-interactive-secondary koast-bg-primary koast-px-2 koast-py-1 koast-text-sm koast-text-primary focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring'}
+              className={'koast-rounded koast-border koast-border-solid koast-border-interactive-secondary koast-bg-primary koast-px-2 koast-py-1 koast-text-sm koast-text-primary focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring'}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
@@ -215,7 +215,7 @@ const TreeNodeComponent = (props: TreeNodeProps) => {
               className={'koast-flex koast-cursor-pointer koast-items-center koast-gap-1 koast-text-primary'}
             >
               {node.type === 'file' ? <File className={'koast-size-5'} /> : node.isOpen ? <FolderOpen className={'koast-size-5'} /> : <Folder className={'koast-size-5'} />}
-              <span className={'koast-max-w-[200px] koast-truncate koast-text-sm'}>{node.name}</span>
+              <span className={'koast-max-w-[200px] koast-truncate koast-text-sm koast-leading-6'}>{node.name}</span>
               {node.type === 'folder' && (!node.children || node.children.length === 0) && (
                 <span className={'koast-text-sm koast-text-tertiary'}>{'(비어있음)'}</span>
               )}

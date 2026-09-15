@@ -11,7 +11,10 @@
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills",
+    "scripts/cli.mjs",
+    "scripts/postinstall.mjs"
   ],
   "exports": {
     ".": {
@@ -23,7 +26,7 @@
     "./styles.css": "./dist/style.css"
   },
   "bin": {
-    "koast-ui": "./scripts/add-tailwind-config.js"
+    "koast-ui": "./scripts/cli.mjs"
   },
   "scripts": {
     "dev": "vite",
@@ -37,7 +40,8 @@
     "build-storybook": "storybook build",
     "tokens": "node scripts/generate-tokens.mjs",
     "prebuild": "npm run tokens",
-    "skill-docs": "node scripts/generate-skill-docs.mjs"
+    "skill-docs": "node scripts/generate-skill-docs.mjs",
+    "postinstall": "node scripts/postinstall.mjs"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

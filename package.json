@@ -43,9 +43,23 @@
     "skill-docs": "node scripts/generate-skill-docs.mjs",
     "postinstall": "node scripts/postinstall.mjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koast-crew/koast-ui.git"
+  },
+  "homepage": "https://koast-crew.github.io/koast-ui/",
+  "bugs": {
+    "url": "https://github.com/koast-crew/koast-ui/issues"
+  },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "lucide-react": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "lucide-react": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

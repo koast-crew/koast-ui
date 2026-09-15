@@ -4,10 +4,12 @@ import type { PaginationItem, PaginationProps } from './Pagination.types';
 import {
   getPaginationControlStyles,
   getPaginationEllipsisStyles,
+  PAGINATION_ITEM,
   getPaginationListStyles,
   getPaginationPageStyles,
   getPaginationRootStyles,
 } from './Pagination.styles';
+import { TEXT_BOX_TRIM } from '../../utils/opticalText';
 
 const range = (start: number, end: number) =>
   Array.from({ length: Math.max(end - start + 1, 0) }, (_, index) => start + index);
@@ -115,7 +117,7 @@ export const Pagination = ({
     const controlDisabled = disabled || (isPrevious ? atFirst : atLast);
 
     return (
-      <li>
+      <li className={PAGINATION_ITEM}>
         <button
           type={'button'}
           disabled={controlDisabled}
@@ -144,7 +146,7 @@ export const Pagination = ({
           if (item === 'ellipsis') {
             return (
               // 생략 표시는 누를 수 없는 장식이라 보조 기술에서 감춥니다.
-              <li key={`ellipsis-${ index }`} aria-hidden>
+              <li key={`ellipsis-${ index }`} className={PAGINATION_ITEM} aria-hidden>
                 <span className={getPaginationEllipsisStyles(disabled)}>
                   <MoreHorizontal />
                 </span>
@@ -154,7 +156,7 @@ export const Pagination = ({
 
           const selected = item === currentPage;
           return (
-            <li key={item}>
+            <li key={item} className={PAGINATION_ITEM}>
               <button
                 type={'button'}
                 disabled={disabled}
@@ -163,7 +165,7 @@ export const Pagination = ({
                 onClick={() => commit(() => item)}
                 className={getPaginationPageStyles(selected, disabled)}
               >
-                {item}
+                <span className={TEXT_BOX_TRIM}>{item}</span>
               </button>
             </li>
           );

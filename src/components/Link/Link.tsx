@@ -3,8 +3,10 @@ import type { LinkProps } from './Link.types';
 import {
   LINK_LEADING_ICON,
   LINK_TRAILING_ICON,
+  getLinkPaddingStyle,
   getLinkStyles,
 } from './Link.styles';
+import { TEXT_BOX_TRIM } from '../../utils/opticalText';
 
 /** 새 창으로 열리는 링크는 그 사실이 접근 가능한 이름에 포함되어야 합니다. */
 const NEW_WINDOW_HINT = ' (새 창에서 열림)';
@@ -24,6 +26,8 @@ const NEW_WINDOW_HINT = ' (새 창에서 열림)';
  * @param {boolean} [props.disabled=false] - 비활성화 상태. `href` 가 제거되고 포커스를 받지 않습니다
  * @param {boolean} [props.visited=false] - 방문 색 강제 적용 (지정하지 않아도 브라우저 `:visited` 를 따릅니다)
  * @param {string} [props.className=''] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가)
+ * @param {number} [props.paddingLeft] - 좌측 안쪽 여백(px). 생략하면 기본 4px : number
+ * @param {number} [props.paddingRight] - 우측 안쪽 여백(px). 생략하면 기본 4px : number
  *
  * `target="_blank"` 를 주면 `rel="noopener noreferrer"` 가 자동으로 붙고,
  * 접근 가능한 이름 끝에 "(새 창에서 열림)" 이 화면에는 보이지 않는 형태로 추가됩니다.
@@ -55,6 +59,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
     disabled = false,
     visited = false,
     className = '',
+    paddingLeft,
+    paddingRight,
     target,
     rel,
     onClick,
@@ -84,9 +90,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
       tabIndex={disabled ? -1 : rest.tabIndex}
       onClick={handleClick}
       className={getLinkStyles(variant, color, disabled, visited, className)}
+      style={getLinkPaddingStyle(paddingLeft, paddingRight)}
     >
       {startIcon && <span className={LINK_LEADING_ICON}>{startIcon}</span>}
-      <span>{children}</span>
+      <span className={TEXT_BOX_TRIM}>{children}</span>
       {opensNewWindow && (
         <span className={'koast-sr-only'}>{NEW_WINDOW_HINT}</span>
       )}

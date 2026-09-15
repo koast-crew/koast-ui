@@ -16,7 +16,7 @@ export const getRootStyles = (layout: TimeLineLayout, className: string) =>
 export const CONTROLS = 'koast-flex koast-shrink-0 koast-items-center koast-gap-0.5';
 
 const CONTROL_BASE
-  = 'koast-flex koast-items-center koast-justify-center koast-rounded-lg koast-border-solid koast-transition-colors koast-duration-200 focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring';
+  = 'koast-flex koast-items-center koast-justify-center koast-rounded-lg koast-border-solid koast-transition-colors koast-duration-200 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 export const getStepButtonStyles = (disabled: boolean) =>
   twMerge(
@@ -73,7 +73,7 @@ export const getDayDateStyles = (
   disabled: boolean,
 ) =>
   twMerge(
-    'koast-truncate koast-leading-4',
+    'koast-truncate koast-leading-6',
     layout === 'mobile' ? 'koast-text-xs' : 'koast-text-sm',
     active ? 'koast-font-semibold' : 'koast-font-medium',
     disabled
@@ -139,7 +139,7 @@ export const TOOLTIP_TIME = 'koast-text-base koast-font-semibold koast-leading-5
 
 export const getSpeedButtonStyles = (disabled: boolean) =>
   twMerge(
-    'koast-flex koast-shrink-0 koast-items-center koast-gap-0.5 koast-rounded koast-border koast-border-solid koast-border-secondary koast-px-2 koast-py-1 koast-text-xs koast-font-medium koast-leading-4 focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring',
+    'koast-flex koast-shrink-0 koast-items-center koast-gap-0.5 koast-rounded koast-border koast-border-solid koast-border-secondary koast-px-2 koast-py-1 koast-text-xs koast-font-medium koast-leading-4 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring',
     disabled
       ? 'koast-cursor-not-allowed koast-bg-disabled koast-text-disabled'
       : 'koast-cursor-pointer koast-bg-primary koast-text-secondary hover:koast-bg-interactive-secondary-hovered',

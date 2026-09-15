@@ -25,12 +25,18 @@ export interface AlertProps {
 
   /**
    * 제목 앞 아이콘입니다.
-   * 지정하지 않으면 status 별 기본 아이콘이 붙고(brand · neutral 은 기본 아이콘 없음),
+   * 지정하지 않으면 status 별 기본 아이콘이 붙고,
    * `false` 를 주면 아이콘 없이 본문만 표시합니다.
    */
   icon?: React.ReactNode | false;
 
-  /** 닫기 버튼의 클릭 핸들러입니다. 넘기지 않으면 닫기 버튼이 렌더링되지 않습니다. */
+  /** 닫기 버튼을 보여줍니다. @default true */
+  closable?: boolean;
+
+  /**
+   * 닫기 버튼을 눌렀을 때 호출됩니다.
+   * 알림은 핸들러 유무와 무관하게 스스로 사라지므로, 이 값은 알림용입니다.
+   */
   onClose?: () => void;
 
   /** 닫기 버튼의 `aria-label` 입니다. @default '알림 닫기' */

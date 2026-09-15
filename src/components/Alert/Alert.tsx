@@ -1,5 +1,5 @@
-import React from 'react';
-import { Check, CircleX, Info, TriangleAlert, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Astroid, Check, CircleX, Info, TriangleAlert, X } from 'lucide-react';
 import { AlertProps, AlertStatus } from './Alert.types';
 import {
   getAlertCloseStyles,
@@ -10,10 +10,10 @@ import {
   getAlertTitleStyles,
 } from './Alert.styles';
 
-/** Figma 는 brand / neutral 자리에 `Icon placeholder` 만 두어 기본 아이콘을 정하지 않았습니다. */
+/** Figma 가 brand / neutral 자리에 `Icon placeholder` 만 둬서, 중립적인 Astroid 로 채웠습니다. */
 const DEFAULT_ICONS: Record<AlertStatus, React.ReactNode> = {
-  brand: null,
-  neutral: null,
+  brand: <Astroid aria-hidden />,
+  neutral: <Astroid aria-hidden />,
   info: <Info aria-hidden />,
   success: <Check aria-hidden />,
   warning: <TriangleAlert aria-hidden />,
@@ -32,7 +32,8 @@ const ASSERTIVE_STATUSES: readonly AlertStatus[] = ['warning', 'error'];
  * @param {React.ReactNode} props.title - 굵은 제목 줄 : React.ReactNode
  * @param {React.ReactNode} [props.children] - 제목 아래 본문 : React.ReactNode
  * @param {React.ReactNode | false} [props.icon] - 제목 앞 아이콘. 생략하면 status 별 기본 아이콘, `false` 면 아이콘 없음 : React.ReactNode | false
- * @param {() => void} [props.onClose] - 닫기 버튼 클릭 핸들러. 없으면 닫기 버튼이 렌더링되지 않음 : () => void
+ * @param {boolean} [props.closable=true] - 닫기 버튼 표시 여부 : boolean
+ * @param {() => void} [props.onClose] - 닫기 버튼 클릭 시 호출. 알림은 이 값 없이도 스스로 사라집니다 : () => void
  * @param {string} [props.closeLabel='알림 닫기'] - 닫기 버튼의 aria-label : string
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  *
@@ -44,7 +45,8 @@ const ASSERTIVE_STATUSES: readonly AlertStatus[] = ['warning', 'error'];
  *   5회 이상 실패하면 계정이 잠깁니다.
  * </Alert>
  *
- * <Alert status="info" variant="transparent" title="점검 예정" icon={false}>
+ * // 닫기 버튼 없이
+ * <Alert status="info" variant="transparent" title="점검 예정" icon={false} closable={false}>
  *   3월 1일 02:00 ~ 04:00 사이 서비스가 중단됩니다.
  * </Alert>
  * ```
@@ -55,17 +57,22 @@ export const Alert = ({
   title,
   children,
   icon,
+  closable = true,
   onClose,
   closeLabel = '알림 닫기',
   className = '',
 }: AlertProps) => {
+  const [dismissed, setDismissed] = useState(false);
   const resolvedIcon = icon === undefined ? DEFAULT_ICONS[status] : icon;
   const hasIcon
     = resolvedIcon !== false && resolvedIcon !== null && resolvedIcon !== undefined;
+  const hasDescription = children !== undefined && children !== null;
+
+  if (dismissed) return null;
 
   return (
     <div
-      className={getAlertStyles(variant, status, className)}
+      className={getAlertStyles(variant, status, hasDescription, className)}
       role={ASSERTIVE_STATUSES.includes(status) ? 'alert' : 'status'}
     >
       {hasIcon && (
@@ -73,15 +80,18 @@ export const Alert = ({
       )}
       <div className={getAlertContentStyles()}>
         <div className={getAlertTitleStyles(variant)}>{title}</div>
-        {children !== undefined && children !== null && (
+        {hasDescription && (
           <p className={getAlertDescriptionStyles(variant)}>{children}</p>
         )}
       </div>
-      {onClose && (
+      {closable && (
         <button
           type={'button'}
           className={getAlertCloseStyles(variant)}
-          onClick={onClose}
+          onClick={() => {
+            setDismissed(true);
+            onClose?.();
+          }}
           aria-label={closeLabel}
         >
           <X aria-hidden />

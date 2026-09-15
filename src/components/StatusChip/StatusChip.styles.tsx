@@ -7,11 +7,11 @@ import type {
 } from './StatusChip.types';
 
 const BASE
-  = 'koast-inline-flex koast-box-border koast-items-center koast-gap-1 koast-font-medium koast-align-middle [&_svg]:koast-size-6 [&_svg]:koast-shrink-0';
+  = 'koast-inline-flex koast-box-border koast-items-center koast-gap-1 koast-font-medium koast-align-middle [&_svg]:koast-size-5 [&_svg]:koast-shrink-0';
 
 /**
  * 최소 높이는 디자인 시스템이 고정값으로 정의합니다(32 / 28).
- * 아이콘(24px)이 있을 때의 높이가 그대로 최소 높이가 되므로, 아이콘이 없어도 같은 높이를 유지합니다.
+ * 아이콘(20px)이 있어도 이 최소 높이 안에 들어가므로, 아이콘 유무와 무관하게 높이가 같습니다.
  */
 const SIZES: Record<StatusChipSize, string> = {
   md: 'koast-min-h-8 koast-py-1 koast-text-base koast-leading-5',
@@ -48,11 +48,11 @@ const SUBTLE: Record<StatusChipStatus, string> = {
 };
 
 const OUTLINE_BORDERS: Record<StatusChipStatus, string> = {
-  neutral: 'koast-border koast-border-solid koast-border-secondary',
-  info: 'koast-border koast-border-solid koast-border-info',
-  error: 'koast-border koast-border-solid koast-border-danger',
-  success: 'koast-border koast-border-solid koast-border-success',
-  warning: 'koast-border koast-border-solid koast-border-warning',
+  neutral: 'koast-ring-1 koast-ring-inset koast-ring-secondary',
+  info: 'koast-ring-1 koast-ring-inset koast-ring-info',
+  error: 'koast-ring-1 koast-ring-inset koast-ring-danger',
+  success: 'koast-ring-1 koast-ring-inset koast-ring-success',
+  warning: 'koast-ring-1 koast-ring-inset koast-ring-warning',
 };
 
 /**

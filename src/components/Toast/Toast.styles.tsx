@@ -12,7 +12,7 @@ const ALIGN = { withBody: 'koast-items-start', titleOnly: 'koast-items-center' }
  */
 const SURFACES: Record<ToastStatus, string> = {
   brand:
-    'koast-ring-1 koast-ring-inset koast-bg-info-subtle koast-ring-info',
+    'koast-ring-1 koast-ring-inset koast-bg-interactive-selected koast-ring-interactive-primary',
   neutral:
     'koast-ring-1 koast-ring-inset koast-bg-primary koast-ring-primary',
   info: 'koast-ring-1 koast-ring-inset koast-bg-info-subtle koast-ring-info',

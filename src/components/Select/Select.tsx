@@ -69,7 +69,7 @@ export const SelectItem = ({
       <span className={'koast-flex koast-size-4 koast-shrink-0 koast-items-center koast-justify-center'}>
         {selected && <Check className={'koast-size-4'} aria-hidden />}
       </span>
-      <span className={'koast-truncate'}>{children}</span>
+      <span className={'koast-truncate koast-leading-6'}>{children}</span>
     </li>
   );
 };
@@ -202,8 +202,14 @@ export const Select = <T extends string | number = string>(
     triggerRef.current?.focus();
   };
 
-  const openMenu = () => {
-    setActiveValue(selectedValue ?? items.find((item) => !item.disabled)?.value);
+  /**
+   * 키보드로 열 때만 커서를 첫 항목에 둡니다. 마우스로 열었는데 커서가 잡히면
+   * 첫 옵션이 선택된 것처럼 보입니다.
+   */
+  const openMenu = (withCursor = false) => {
+    setActiveValue(
+      selectedValue ?? (withCursor ? items.find((item) => !item.disabled)?.value : undefined),
+    );
     setOpen(true);
   };
 
@@ -224,7 +230,7 @@ export const Select = <T extends string | number = string>(
       case 'ArrowDown':
       case 'ArrowUp':
         event.preventDefault();
-        if (!open) openMenu();
+        if (!open) openMenu(true);
         else step(event.key === 'ArrowDown' ? 1 : -1);
         break;
       case 'Home':
@@ -240,7 +246,7 @@ export const Select = <T extends string | number = string>(
       case 'Enter':
       case ' ':
         event.preventDefault();
-        if (!open) openMenu();
+        if (!open) openMenu(true);
         else if (activeValue !== undefined) commit(activeValue);
         break;
       case 'Escape':

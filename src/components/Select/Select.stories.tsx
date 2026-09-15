@@ -33,8 +33,9 @@ const meta: Meta<typeof Select> = {
     helpText: { control: 'text' },
   },
   decorators: [
+    // 드롭다운이 absolute 라 캔버스가 낮으면 아래가 잘립니다. 옵션 8개가 다 보일 높이를 확보합니다.
     (Story) => (
-      <div style={{ width: 320 }}>
+      <div style={{ width: 320, minHeight: 460 }}>
         <Story />
       </div>
     ),

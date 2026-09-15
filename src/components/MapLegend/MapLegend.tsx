@@ -102,6 +102,39 @@ const LegendItems = ({ legendItems }: { legendItems: CircleLegendData[] }) => {
  * />
  * ```
  */
+/**
+ * @koast/ui MapLegend(지도 범례) 컴포넌트입니다.
+ * 지도 위에 띄우는 레이어 선택 툴바와 범례 패널입니다. 연속값은 bar, 분류값은 circle 로 표시합니다.
+ *
+ * @param {ToolbarButton[]} props.toolbarButtons - 레이어 선택 버튼 목록 : ToolbarButton[]
+ * @param {string} props.selectedLayerId - 현재 선택된 레이어 id : string
+ * @param {Record<string, BarLegendData | CircleLegendData[]>} props.legendData - 레이어 id 를 키로 하는 범례 데이터 : Record
+ * @param {(id: string) => void} [props.onLayerSelect] - 레이어를 고를 때 : (id) => void
+ * @param {'bar' | 'circle'} [props.legendType='bar'] - 범례 표시 방식 : 'bar' | 'circle'
+ * @param {boolean} [props.visible=true] - 범례 표시 여부 : boolean
+ * @param {() => void} [props.onClose] - 닫기 버튼 클릭 핸들러 : () => void
+ * @param {string} [props.title] - 범례 제목 : string
+ * @param {string[]} [props.excludeButtonIds] - 범례를 띄우지 않을 버튼 id 목록 : string[]
+ * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 : string
+ *
+ * @example
+ * ```tsx
+ * <MapLegend
+ *   selectedLayerId={layerId}
+ *   onLayerSelect={setLayerId}
+ *   toolbarButtons={[{ id: 'sst', label: '수온', icon: <Thermometer /> }]}
+ *   legendData={{ sst: { colors: ['#2563eb', '#ef4444'], values: ['0', '30'] } }}
+ * />
+ *
+ * // 분류값 범례
+ * <MapLegend
+ *   legendType="circle"
+ *   selectedLayerId="grade"
+ *   toolbarButtons={[{ id: 'grade', label: '등급' }]}
+ *   legendData={{ grade: [{ color: '#16a34a', value: '양호' }] }}
+ * />
+ * ```
+ */
 export const MapLegend = (props: MapLegendProps) => {
   const {
     title = '범례',

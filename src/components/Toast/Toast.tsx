@@ -100,10 +100,11 @@ export const Toast = ({
   const hasAction = type !== 'text' && actionLabel !== undefined && actionLabel !== null;
   const showButtonGroup = hasAction || Boolean(onClose);
   const assertive = ASSERTIVE_STATUSES.includes(status);
+  const hasDescription = children !== undefined && children !== null;
 
   return (
     <div
-      className={getToastStyles(type, status, className)}
+      className={getToastStyles(type, status, hasDescription, className)}
       role={assertive ? 'alert' : 'status'}
       aria-live={assertive ? 'assertive' : 'polite'}
       aria-atomic={'true'}
@@ -114,7 +115,7 @@ export const Toast = ({
     >
       <div className={getToastContentStyles()}>
         <div className={getToastTitleStyles(status)}>{title}</div>
-        {children !== undefined && children !== null && (
+        {hasDescription && (
           <p className={getToastDescriptionStyles(status)}>{children}</p>
         )}
       </div>

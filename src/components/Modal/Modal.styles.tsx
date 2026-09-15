@@ -1,4 +1,5 @@
 import { twMerge } from '../../utils/twMerge';
+import { SCROLLBAR } from '../../utils/scrollbar';
 import type { ModalFooterAlign } from './Modal.types';
 
 /**
@@ -31,14 +32,14 @@ export const TITLE
 
 /** 40x40 안에 24px 아이콘 + 상하좌우 8px padding. Figma `Icon button/Medium` 과 같은 치수입니다. */
 export const CLOSE_BUTTON
-  = '[&_svg]:koast-size-6 koast-inline-flex koast-size-10 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-lg koast-p-2 koast-text-interactive-secondary koast-transition-colors koast-duration-200 hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed focus-visible:koast-outline-none focus-visible:koast-ring-2 focus-visible:koast-ring-focus-ring';
+  = '[&_svg]:koast-size-6 koast-inline-flex koast-size-10 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-lg koast-p-2 koast-text-interactive-secondary koast-transition-colors koast-duration-200 hover:koast-bg-interactive-secondary-hovered hover:koast-text-interactive-secondary-hovered active:koast-bg-interactive-secondary-pressed active:koast-text-interactive-secondary-pressed focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';
 
 /**
- * 내용이 길면 본문만 스크롤되고 헤더·푸터는 남습니다.
- * 스크롤바 모양은 Select 드롭다운과 같은 규칙을 씁니다.
+ * 내용이 길면 본문만 스크롤되고 헤더·푸터는 남습니다. 트랙 없이 6px 썸만 둬서 얇게 보입니다.
+ * `py-1` 은 줄상자를 넘치는 글리프(leading 이 폰트 콘텐츠 높이보다 작을 때)를 흡수해 헛스크롤을 막습니다.
  */
 export const BODY
-  = 'koast-flex koast-min-h-0 koast-flex-col koast-gap-[26px] koast-overflow-y-auto [&::-webkit-scrollbar]:koast-w-2 [&::-webkit-scrollbar-button]:koast-hidden [&::-webkit-scrollbar-track]:koast-rounded-full [&::-webkit-scrollbar-track]:koast-bg-tertiary [&::-webkit-scrollbar-thumb]:koast-rounded-full [&::-webkit-scrollbar-thumb]:koast-bg-[rgb(var(--koast-content-secondary))]';
+  = `koast-flex koast-min-h-0 koast-flex-col koast-gap-[26px] koast-overflow-y-auto koast-py-1 ${ SCROLLBAR }`;
 
 /** preflight 가 꺼져 있어 p 의 브라우저 기본 여백을 직접 지웁니다. */
 export const DESCRIPTION

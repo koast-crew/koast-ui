@@ -1,6 +1,6 @@
 # Select
 
-Select(Dropdown) 컴포넌트입니다. 여러 옵션 중 하나를 선택하는 입력 요소로, 라벨·보조 문구·오류 상태를 함께 표시합니다.
+Select(Dropdown) 컴포넌트입니다. 여러 옵션 중 하나를 선택하는 입력 요소로, 라벨·보조 문구·오류 상태를 함께 표시합니다. `ref` 는 트리거 `<button>` 으로 전달됩니다. 검증 실패 시 `focus()` 나 `Modal` 의 `initialFocusRef` 에 그대로 쓸 수 있습니다.
 
 ```tsx
 import { Select } from '@koast/ui';

@@ -41,7 +41,7 @@ export type { FolderTreeProps } from './components/FolderTree/types';
 export type { IconButtonProps, IconButtonColor, IconButtonColorProp, IconButtonSize, IconButtonSizeProp, IconButtonVariant } from './components/IconButton';
 export type { LabelProps, LabelType, LabelAs } from './components/Label';
 export type { LinkProps, LinkColor, LinkVariant } from './components/Link';
-export type { MapLegendProps } from './components/MapLegend/MapLegend.types';
+export type { MapLegendProps, ToolbarButton, BarLegendData, CircleLegendData } from './components/MapLegend/MapLegend.types';
 export type { ModalProps, ModalConfirmColor, ModalFooterAlign } from './components/Modal';
 export type { PaginationProps, PaginationItem } from './components/Pagination';
 export type { ProgressbarProps, ProgressbarTone } from './components/Progressbar';

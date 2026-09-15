@@ -6,10 +6,12 @@ import {
   BREADCRUMBS_ITEM,
   BREADCRUMBS_ITEM_ICON,
   BREADCRUMBS_LIST,
+  BREADCRUMBS_MUTED,
   BREADCRUMBS_SEPARATOR,
   getBreadcrumbsStyles,
   getBreadcrumbsTextStyles,
 } from './Breadcrumbs.styles';
+import { TEXT_BOX_TRIM } from '../../utils/opticalText';
 
 /**
  * @koast/ui 탐색 경로(Breadcrumbs) 컴포넌트입니다.
@@ -79,6 +81,7 @@ export const Breadcrumbs = ({
                       color={'secondary'}
                       startIcon={item.icon}
                       onClick={item.onClick}
+                      className={`koast-text-sm ${ BREADCRUMBS_MUTED }`}
                     >
                       {item.label}
                     </Link>
@@ -91,7 +94,7 @@ export const Breadcrumbs = ({
                       {item.icon && (
                         <span className={BREADCRUMBS_ITEM_ICON}>{item.icon}</span>
                       )}
-                      <span>{item.label}</span>
+                      <span className={TEXT_BOX_TRIM}>{item.label}</span>
                     </span>
                   )}
             </li>

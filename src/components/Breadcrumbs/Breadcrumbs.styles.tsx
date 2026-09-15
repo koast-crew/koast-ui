@@ -3,27 +3,32 @@ import { twMerge } from '../../utils/twMerge';
 /**
  * preflight 가 꺼져 있어 `<ol>` 에 `padding-left: 40px` / `list-style: decimal` / `margin: 1em 0` 이
  * 그대로 살아 있습니다. 셋을 컴포넌트 안에서 직접 지웁니다.
- * 항목 간격 16px 은 디자인 시스템 고정값이고, 경로가 길어지면 줄바꿈됩니다.
+ * 항목 간격은 4px 이고, 경로가 길어지면 줄바꿈됩니다.
  */
 export const BREADCRUMBS_LIST
-  = 'koast-m-0 koast-flex koast-list-none koast-flex-wrap koast-items-center koast-gap-4 koast-p-0';
+  = 'koast-m-0 koast-flex koast-list-none koast-flex-wrap koast-items-center koast-gap-1 koast-p-0';
 
-/** 구분자와 항목을 같은 16px 간격으로 묶습니다. */
-export const BREADCRUMBS_ITEM = 'koast-flex koast-items-center koast-gap-4';
+/** 구분자와 항목을 같은 4px 간격으로 묶습니다. */
+export const BREADCRUMBS_ITEM = 'koast-flex koast-items-center koast-gap-1';
 
-/** 구분자는 24px 아이콘이며 보조 기술에 노출되지 않습니다. */
+/** 현재 위치를 뺀 나머지(조상 항목과 구분자)를 같은 비율로 흐립니다. */
+export const BREADCRUMBS_MUTED = 'koast-opacity-70';
+
+/** 구분자는 항목 아이콘과 같은 16px 입니다. 보조 기술에는 노출되지 않습니다. */
 export const BREADCRUMBS_SEPARATOR
-  = 'koast-inline-flex koast-shrink-0 koast-text-disabled [&_svg]:koast-size-6';
+  = `koast-inline-flex koast-shrink-0 koast-text-disabled ${ BREADCRUMBS_MUTED } [&_svg]:koast-size-4`;
 
-/** 링크가 아닌 항목(현재 위치 또는 `href` 없는 항목)의 치수는 Link 와 같습니다. */
+/** 링크가 아닌 항목(현재 위치 또는 `href` 없는 항목)입니다. 라벨은 14px 로 Link 보다 한 단계 작습니다. */
 const BREADCRUMBS_TEXT_BASE
-  = 'koast-inline-flex koast-h-[26px] koast-items-center koast-gap-2 koast-rounded koast-px-1 koast-py-0.5 koast-text-base koast-font-medium koast-leading-5';
+  = 'koast-inline-flex koast-h-[26px] koast-items-center koast-gap-2 koast-rounded koast-px-1 koast-py-0.5 koast-text-sm koast-font-medium koast-leading-5';
 
-/** 현재 위치는 조상 항목보다 한 단계 진해 경로의 끝이라는 것이 색으로 드러납니다. */
+/** 현재 위치는 조상 항목보다 한 단계 진하고, 흐려지지 않아 경로의 끝이라는 것이 드러납니다. */
 export const getBreadcrumbsTextStyles = (isCurrent: boolean) =>
   twMerge(
     BREADCRUMBS_TEXT_BASE,
-    isCurrent ? 'koast-text-secondary' : 'koast-text-interactive-secondary',
+    isCurrent
+      ? 'koast-text-secondary'
+      : `koast-text-interactive-secondary ${ BREADCRUMBS_MUTED }`,
   );
 
 /** 항목 아이콘은 16px 로 Link 의 leading icon 과 같습니다. */

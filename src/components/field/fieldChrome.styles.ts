@@ -15,13 +15,14 @@ export const FIELD_CONTROL_RESET
 export const FIELD_SCROLLBAR = SCROLLBAR;
 
 /**
- * 포커스 링입니다. Button·Accordion 과 같은 ring-2 + offset-2 이며 링 색만 intent 를 따릅니다.
+ * 포커스 링입니다. Button 과 같은 outline-2 + offset-2 이며 링 색만 intent 를 따릅니다.
+ * ring(box-shadow)은 offset 자리를 ring-offset-color(기본 흰색)로 칠해 다크 모드에서 흰 띠가 보입니다.
  * 상자가 div 라 focus-visible 변형을 못 쓰고 input 의 포커스 상태를 받아 정적으로 붙입니다.
  */
 export const getFieldFocusRing = (error: boolean) =>
   twMerge(
-    'koast-ring-2 koast-ring-offset-2',
-    error ? 'koast-ring-interactive-danger' : 'koast-ring-focus-ring',
+    'koast-outline koast-outline-2 koast-outline-offset-2',
+    error ? 'koast-outline-interactive-danger' : 'koast-outline-focus-ring',
   );
 
 /** 상자의 배경·테두리 색입니다. error > focused > 기본(hover/active) 순으로 우선합니다. */

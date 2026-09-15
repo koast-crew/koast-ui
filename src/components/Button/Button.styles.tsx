@@ -116,7 +116,7 @@ const DISABLED: Record<ButtonVariant, string> = {
 
 /**
  * 포커스 링입니다. 디자인 시스템의 Focused 변형은 버튼 밖 2px 지점에 2px 링을 그리므로
- * ring-2 + ring-offset-2 로 대응합니다. 링 색은 intent 를 따라 danger 만 빨간색입니다.
+ * outline-2 + outline-offset-2 로 대응합니다. 링 색은 intent 를 따라 danger 만 빨간색입니다.
  */
 const FOCUS_RING
   = 'focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring';

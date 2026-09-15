@@ -112,7 +112,8 @@ const collectComponentDoc = (file, name) => {
   const text = read(file);
   // 주석 경계(*/)를 넘지 않아야 앞쪽 주석까지 삼키지 않습니다.
   const re = /\/\*\*(?:(?!\*\/)[\s\S])*?@koast\/ui(?:(?!\*\/)[\s\S])*?\*\//g;
-  const decls = ['export const ' + name, 'export function ' + name];
+  // forwardRef 를 쓰는 컴포넌트는 `const <Name>Impl` 로 선언한 뒤 캐스팅해 export 합니다.
+  const decls = ['export const ' + name, 'export function ' + name, 'const ' + name + 'Impl'];
   let block = null;
   for (const hit of text.matchAll(re)) {
     // 한 파일에 하위 컴포넌트 주석이 함께 있으면 메인 컴포넌트 바로 앞 블록을 고릅니다.

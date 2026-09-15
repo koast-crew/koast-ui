@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  forwardRef,
   useCallback,
   useContext,
   useEffect,
@@ -92,6 +93,9 @@ export const SelectItem = ({
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  * @param {React.ReactNode} props.children - SelectItem 컴포넌트들 : React.ReactNode
  *
+ * `ref` 는 트리거 `<button>` 으로 전달됩니다. 검증 실패 시 `focus()` 나
+ * `Modal` 의 `initialFocusRef` 에 그대로 쓸 수 있습니다.
+ *
  * @example
  * ```tsx
  * <Select label="국가" placeholder="선택하세요" value={country} onChange={setCountry}>
@@ -104,9 +108,7 @@ export const SelectItem = ({
  * </Select>
  * ```
  */
-export const Select = <T extends string | number = string>(
-  props: SelectProps<T>,
-) => {
+const SelectImpl = forwardRef<HTMLButtonElement, SelectProps<string | number>>((props, ref) => {
   const {
     value,
     defaultValue,
@@ -133,7 +135,7 @@ export const Select = <T extends string | number = string>(
   const [activeValue, setActiveValue] = useState<ItemValue | undefined>();
 
   const rootRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const optionRefs = useRef(new Map<ItemValue, HTMLLIElement>());
   const nativeRef = useRef<HTMLSelectElement>(null);
 
@@ -197,7 +199,7 @@ export const Select = <T extends string | number = string>(
     if (!target || target.disabled) return;
 
     if (!isControlled) setInnerValue(next);
-    onChange?.(next as T);
+    onChange?.(next);
     setOpen(false);
     triggerRef.current?.focus();
   };
@@ -285,7 +287,11 @@ export const Select = <T extends string | number = string>(
 
       <div className={'koast-relative'}>
         <button
-          ref={triggerRef}
+          ref={(node) => {
+            triggerRef.current = node;
+            if (typeof ref === 'function') ref(node);
+            else if (ref) ref.current = node;
+          }}
           type={'button'}
           id={baseId}
           disabled={disabled}
@@ -354,6 +360,13 @@ export const Select = <T extends string | number = string>(
       )}
     </div>
   );
-};
+});
+
+SelectImpl.displayName = 'Select';
+
+/** forwardRef 가 제네릭을 잃어버려 호출 시그니처를 직접 붙입니다. Button 과 같은 방식입니다. */
+export const Select = SelectImpl as (<T extends string | number = string>(
+  props: SelectProps<T> & React.RefAttributes<HTMLButtonElement>,
+) => React.ReactElement | null) & { displayName?: string };
 
 export default Select;

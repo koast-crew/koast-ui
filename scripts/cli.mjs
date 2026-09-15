@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { cpSync, existsSync, lstatSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
+import { cpSync, existsSync, lstatSync, mkdirSync, readFileSync, rmSync, symlinkSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -27,25 +27,40 @@ const link = () => {
   return '심링크';
 };
 
-const initSkills = () => {
+/**
+ * 이 명령이 만든 설치인지 봅니다. 심링크는 우리가 만든 것이고,
+ * 복사본은 SKILL.md 의 frontmatter 로 알아봅니다(심링크를 못 만드는 환경의 결과물입니다).
+ */
+const isOurs = () => {
+  const stat = lstatSync(DEST, { throwIfNoEntry: false });
+  if (!stat) return false;
+  if (stat.isSymbolicLink()) return true;
+  if (!stat.isDirectory()) return false;
+  try {
+    return /^name:\s*koast-ui\s*$/m.test(readFileSync(join(DEST, 'SKILL.md'), 'utf8'));
+  } catch {
+    return false;
+  }
+};
+
+const initSkills = (force) => {
   if (!existsSync(SOURCE)) {
     console.error(`✗ 스킬 원본을 찾지 못했습니다: ${SOURCE}`);
     process.exit(1);
   }
 
-  if (existsSync(DEST) || lstatSync(DEST, { throwIfNoEntry: false })) {
-    const stat = lstatSync(DEST);
-    // 우리가 만든 링크만 조용히 갱신하고, 사람이 만든 폴더는 건드리지 않습니다.
-    if (!stat.isSymbolicLink() && !stat.isDirectory()) {
-      console.error(`✗ ${DEST} 가 이미 있습니다. 지우고 다시 실행하세요.`);
-      process.exit(1);
-    }
-    if (stat.isDirectory() && !stat.isSymbolicLink()) {
-      console.error(`✗ ${DEST} 폴더가 이미 있습니다. 내용을 확인하고 지운 뒤 다시 실행하세요.`);
-      process.exit(1);
-    }
-    rmSync(DEST, { recursive: true, force: true });
+  const existing = lstatSync(DEST, { throwIfNoEntry: false });
+  if (existing && !force && !isOurs()) {
+    console.error(`
+✗ ${relative(process.cwd(), DEST)} 가 이미 있고 @koast/ui 가 만든 것이 아닙니다.
+
+  내용을 확인한 뒤 덮어쓰려면:  npx @koast/ui init-skills --force
+`);
+    process.exit(1);
   }
+
+  // 우리 설치이거나 --force 면 지우고 다시 만듭니다. 갱신 경로가 여기 하나뿐이어야 합니다.
+  if (existing) rmSync(DEST, { recursive: true, force: true });
 
   mkdirSync(DEST_DIR, { recursive: true });
 
@@ -59,18 +74,20 @@ const initSkills = () => {
   }
 
   console.log(`
-✓ Claude Code 스킬을 설치했습니다 (${how})
+✓ Claude Code 스킬을 ${existing ? '갱신' : '설치'}했습니다 (${how})
 
   ${relative(process.cwd(), DEST)}
 
   Claude Code 를 이 디렉터리에서 열면 koast-ui 스킬이 자동으로 잡힙니다.
   ${how === '심링크'
     ? 'npm update @koast/ui 하면 스킬 내용도 함께 갱신됩니다.'
-    : '심링크를 못 만들어 복사했습니다. 라이브러리를 업데이트하면 이 명령을 다시 실행하세요.'}
+    : '심링크를 못 만들어 복사했습니다. 라이브러리를 업데이트한 뒤 이 명령을 다시 실행하면 갱신됩니다.'}
 `);
 };
 
-const [command] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const command = args[0];
+const force = args.includes('--force') || args.includes('-f');
 
-if (command === 'init-skills') initSkills();
+if (command === 'init-skills') initSkills(force);
 else console.log(LEGACY);

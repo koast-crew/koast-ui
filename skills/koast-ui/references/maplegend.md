@@ -35,7 +35,7 @@ import { MapLegend } from '@koast/ui';
 | `onClose` | `() => void` | — | 범례 닫기 버튼 클릭 시 호출될 함수입니다. |
 | `selectedLayerId` *(필수)* | `string` | — | 현재 선택된 레이어 ID입니다. |
 | `onLayerSelect` | `(id: string) => void` | — | 레이어 선택 시 호출될 함수입니다. |
-| `toolbarButtons` *(필수)* | `ToolbarButton[]` | — | 툴바 버튼 배열의 배열입니다. 중첩 배열을 사용하여 버튼 그룹을 구성할 수 있습니다. |
+| `toolbarButtons` *(필수)* | `ToolbarButton[]` | — | 툴바에 놓일 버튼 배열입니다. 배열 순서가 그대로 표시 순서입니다. |
 | `legendData` *(필수)* | `Record<string, BarLegendData \| CircleLegendData[]>` | — | 범례 데이터를 포함하는 객체입니다. 키는 레이어 ID와 일치해야 합니다. |
 | `className` | `string` | — | 범례 컨테이너에 추가할 CSS 클래스명입니다. |
 | `title` | `string` | `'범례'` | 범례 제목입니다. |

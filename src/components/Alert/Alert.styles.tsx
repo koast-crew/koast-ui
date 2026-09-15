@@ -10,7 +10,7 @@ const ALIGN = { withBody: 'koast-items-start', titleOnly: 'koast-items-center' }
 /** 진한 면입니다. 선은 면보다 한 단계 밝은 같은 계열 1px 이며, 안쪽 ring 이라 바깥 치수를 바꾸지 않습니다. */
 const FILLED: Record<AlertStatus, string> = {
   brand:
-    'koast-ring-1 koast-ring-inset koast-bg-brand koast-ring-info koast-text-interactive-inverse',
+    'koast-ring-1 koast-ring-inset koast-bg-brand koast-ring-interactive-primary koast-text-interactive-inverse',
   neutral:
     'koast-ring-1 koast-ring-inset koast-bg-inverse-bold koast-ring-primary koast-text-interactive-inverse',
   info: 'koast-ring-1 koast-ring-inset koast-bg-info-bold koast-ring-info koast-text-interactive-inverse',
@@ -22,9 +22,9 @@ const FILLED: Record<AlertStatus, string> = {
     'koast-ring-1 koast-ring-inset koast-bg-danger-bold koast-ring-danger koast-text-interactive-inverse',
 };
 
-/** 옅은 면입니다. outlined / transparent 가 공유합니다. */
+/** 옅은 면입니다. outlined / transparent 가 공유합니다. brand 만 interactive 계열이라 주입한 램프를 따라갑니다. */
 const SUBTLE: Record<AlertStatus, string> = {
-  brand: 'koast-bg-info-subtle',
+  brand: 'koast-bg-interactive-selected',
   neutral: 'koast-bg-secondary',
   info: 'koast-bg-info-subtle',
   success: 'koast-bg-success-subtle',
@@ -34,7 +34,7 @@ const SUBTLE: Record<AlertStatus, string> = {
 
 /** outlined 만 2px 선입니다. filled 의 1px 과 달리 면보다 진한 색입니다. */
 const OUTLINE_BORDERS: Record<AlertStatus, string> = {
-  brand: 'koast-ring-2 koast-ring-inset koast-ring-info',
+  brand: 'koast-ring-2 koast-ring-inset koast-ring-interactive-primary',
   neutral: 'koast-ring-2 koast-ring-inset koast-ring-primary',
   info: 'koast-ring-2 koast-ring-inset koast-ring-info',
   success: 'koast-ring-2 koast-ring-inset koast-ring-success',
@@ -44,7 +44,7 @@ const OUTLINE_BORDERS: Record<AlertStatus, string> = {
 
 /** 옅은 면에서만 아이콘이 status 색을 가집니다. 진한 면에서는 면 색을 반전한 라벨 색을 상속합니다. */
 const SUBTLE_ICONS: Record<AlertStatus, string> = {
-  brand: 'koast-text-info',
+  brand: 'koast-text-interactive-primary',
   neutral: 'koast-text-primary',
   info: 'koast-text-info',
   success: 'koast-text-success',

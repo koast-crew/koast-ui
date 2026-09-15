@@ -1,6 +1,6 @@
 # TextField
 
-TextField 컴포넌트입니다. 한 줄 텍스트를 입력받는 요소로, 라벨·보조 문구·오류 상태를 함께 표시합니다.
+TextField 컴포넌트입니다. 한 줄 텍스트를 입력받는 요소로, 라벨·보조 문구·오류 상태를 함께 표시합니다. `ref` 는 내부 `<input>` 으로 전달됩니다. 검증 실패 시 `focus()`, `Modal` 의 `initialFocusRef`, react-hook-form 의 `register()` 에 그대로 쓸 수 있습니다.
 
 ```tsx
 import { TextField } from '@koast/ui';

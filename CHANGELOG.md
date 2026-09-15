@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.26] - 2026-09-15
+
+### Added
+
+- `Label` 을 공개 API 로 내보냄. 문서에는 있었지만 배럴에서 빠져 있었음. 컴포넌트 28종이 됨
+- `MapLegend` 의 `ToolbarButton` · `BarLegendData` · `CircleLegendData` 타입을 내보냄
+- `TextField` · `TextArea` · `Select` 가 `ref` 를 받음.
+  `Modal` 의 `initialFocusRef`, 검증 실패 시 `focus()`, react-hook-form 의 `register()` 에 쓸 수 있음
+- `lucide-react` 를 optional peerDependency 로 선언함. 내부 아이콘은 번들돼 있어 설치는 선택임
+
+### Changed
+
+- `npx @koast/ui init-skills` 가 기존 설치를 덮어씀. 손으로 만든 폴더는 `--force` 가 필요함
+- 문서에 `html { font-size: 16px }` 기준을 명시함. 적혀 있던 px 치수는 실제로 `rem` 임
+- README 에 Node ESM 환경(Vitest · Jest)에서 `.css` 를 처리하는 방법을 적음
+
+### Fixed
+
+- `TextField` · `TextArea` 의 포커스 링이 다크 모드에서 흰 띠를 먼저 그리던 문제.
+  `ring-offset` 을 `outline-offset` 으로 바꿈
+- `Alert` · `Toast` 의 `status="brand"` 가 주입한 brand 램프를 따라가지 않던 문제.
+  라이트 테마는 픽셀이 그대로이고, 다크에서는 대비가 2.37 에서 4.07 로 오름
+- 심링크를 못 만드는 환경(개발자 모드가 꺼진 Windows)에서 복사로 설치된 스킬을
+  다시 설치할 수 없던 문제
+- `MapLegend` 의 `toolbarButtons` JSDoc 이 실제 타입과 달랐던 문제
+
 ## [1.0.25] - 2026-09-15
 
 ### Added

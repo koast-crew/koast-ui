@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { TextAreaProps } from './TextArea.types';
 import {
   TEXTAREA_HEADER,
@@ -30,6 +30,9 @@ import { twMerge } from '../../utils/twMerge';
  * @param {boolean} [props.resizable=true] - 사용자가 세로 크기를 조절할 수 있는지 : boolean
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  *
+ * `ref` 는 내부 `<textarea>` 로 전달됩니다. autoResize 가 쓰는 내부 ref 와 함께 걸리므로
+ * 소비자가 `ref` 를 잡아도 높이 자동 조절이 그대로 동작합니다.
+ *
  * @example
  * ```tsx
  * <TextArea label="의견" placeholder="의견을 입력하세요" value={memo} onChange={setMemo} />
@@ -39,7 +42,7 @@ import { twMerge } from '../../utils/twMerge';
  * <TextArea label="메모" autoResize error helpText="필수 항목입니다" required />
  * ```
  */
-export const TextArea = (props: TextAreaProps) => {
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
   const {
     value,
     defaultValue,
@@ -64,7 +67,7 @@ export const TextArea = (props: TextAreaProps) => {
 
   const [focused, setFocused] = useState(false);
   const [count, setCount] = useState(String(value ?? defaultValue ?? '').length);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const reactId = useId();
   const baseId = id ?? `koast-textarea-${ reactId }`;
@@ -109,7 +112,11 @@ export const TextArea = (props: TextAreaProps) => {
       )}
 
       <textarea
-        ref={textareaRef}
+        ref={(node) => {
+          textareaRef.current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) ref.current = node;
+        }}
         id={baseId}
         name={name}
         value={value}
@@ -144,6 +151,8 @@ export const TextArea = (props: TextAreaProps) => {
       )}
     </div>
   );
-};
+});
+
+TextArea.displayName = 'TextArea';
 
 export default TextArea;

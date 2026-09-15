@@ -1,6 +1,6 @@
 # TextArea
 
-TextArea 컴포넌트입니다. 여러 줄 텍스트를 입력받는 요소로, 라벨·글자 수 카운터·보조 문구·오류 상태를 함께 표시합니다.
+TextArea 컴포넌트입니다. 여러 줄 텍스트를 입력받는 요소로, 라벨·글자 수 카운터·보조 문구·오류 상태를 함께 표시합니다. `ref` 는 내부 `<textarea>` 로 전달됩니다. autoResize 가 쓰는 내부 ref 와 함께 걸리므로 소비자가 `ref` 를 잡아도 높이 자동 조절이 그대로 동작합니다.
 
 ```tsx
 import { TextArea } from '@koast/ui';

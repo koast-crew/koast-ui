@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react';
+import React, { forwardRef, useId, useState } from 'react';
 import { TextFieldProps } from './TextField.types';
 import {
   getTextFieldBoxStyles,
@@ -30,6 +30,9 @@ import { twMerge } from '../../utils/twMerge';
  * @param {number} [props.maxLength] - 입력 가능한 최대 글자 수 : number
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  *
+ * `ref` 는 내부 `<input>` 으로 전달됩니다. 검증 실패 시 `focus()`, `Modal` 의 `initialFocusRef`,
+ * react-hook-form 의 `register()` 에 그대로 쓸 수 있습니다.
+ *
  * @example
  * ```tsx
  * <TextField label="이름" placeholder="이름을 입력하세요" value={name} onChange={setName} />
@@ -39,7 +42,7 @@ import { twMerge } from '../../utils/twMerge';
  * <TextField label="검색" trailingIcon={<Search />} />
  * ```
  */
-export const TextField = (props: TextFieldProps) => {
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const {
     value,
     defaultValue,
@@ -79,6 +82,7 @@ export const TextField = (props: TextFieldProps) => {
 
       <div className={getTextFieldBoxStyles(size, disabled, error, focused)}>
         <input
+          ref={ref}
           id={baseId}
           name={name}
           type={type}
@@ -118,6 +122,8 @@ export const TextField = (props: TextFieldProps) => {
       )}
     </div>
   );
-};
+});
+
+TextField.displayName = 'TextField';
 
 export default TextField;

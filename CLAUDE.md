@@ -71,11 +71,13 @@ Docs 크롬은 CSS 변수가 아니라 theming 객체로 칠해져서 globals �
 
 ## 함정
 
-**테두리 두께만으로는 선이 안 그려집니다.** preflight 가 꺼져 있어 Tailwind 의 전역 `border-style: solid` 리셋이 없고, `base.css` 는 `:where(button, …) { border: 0 }` 으로 오히려 style 을 `none` 으로 만듭니다. `koast-border-2` 같은 클래스는 **반드시 `koast-border-solid` 와 함께** 써야 합니다. (`TimeSlider`, `Button` 은 대응돼 있고 `Select` / `ButtonGroup` / `FolderTree` 는 아직입니다.)
+**테두리 두께만으로는 선이 안 그려집니다.** preflight 가 꺼져 있어 Tailwind 의 전역 `border-style: solid` 리셋이 없고, `base.css` 는 `:where(button, …) { border: 0 }` 으로 오히려 style 을 `none` 으로 만듭니다. `koast-border-2` 같은 클래스는 **반드시 `koast-border-solid` 와 함께** 써야 합니다. 다만 `Alert` · `Badge` · `StatusChip` · `Toast` 는 테두리를 **inset ring**(`koast-ring-1 koast-ring-inset`)으로, `Button` outlined 는 **inset box-shadow** 로 그려 이 함정을 아예 피합니다 — 둘 다 레이아웃 폭·높이를 늘리지 않는다는 이점도 있습니다.
 
 **`[&_svg]:koast-size-*` 를 덮으려면 명시도를 올려야 합니다.** 컴포넌트가 size 별 아이콘 크기를 이 후손 선택자(명시도 0,1,1)로 지정하므로, 안쪽 특정 svg 만 다른 크기로 만들려면 `[&_[data-…]]:koast-size-4` 처럼 속성 선택자로 이겨야 합니다. 평범한 `koast-size-4`(0,1,0)는 집니다.
 
-**README 의 color intent 표는 낡았습니다.** `neutral` / `info` / `warning` / `success` 를 지원 intent 처럼 적어놨지만, 실제로는 `src/components/Button/Button.types.ts` 가 authoritative 하며 이들은 deprecated 입니다(`neutral`→`secondary`, 나머지→`primary` 로 떨어짐). 실제 intent 는 `primary` / `secondary` / `danger` 셋뿐입니다.
+**Button 의 `danger` 는 filled 전용입니다.** `variant` 로 outlined / text 를 줘도 `normalizeVariant()` 가 contained 로 떨어뜨립니다. 디자인 시스템에 danger 의 다른 면이 없습니다. 실제 intent 는 `primary` / `secondary` / `danger` 셋뿐이고 `src/components/Button/Button.types.ts` 가 authoritative 입니다.
+
+**포커스 링은 전부 `outline` 입니다.** `focus-visible:koast-outline koast-outline-2 koast-outline-offset-2 koast-outline-focus-ring` 한 벌을 20곳이 공유합니다. `ring`(box-shadow)은 요소와 링 사이에 진짜 빈 간격을 만들지 못해 — offset 을 투명하게 줘도 링이 4px 통짜로 붙습니다 — `outline-offset` 으로 바꿨습니다. 예외는 `TimeLine` 세그먼트 하나로, 칸이 맞붙어 있어 `ring-inset` 을 씁니다.
 
 ## 코드 스타일
 

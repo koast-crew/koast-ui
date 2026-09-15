@@ -1,5 +1,43 @@
 # Changelog
 
+## [1.0.24] - 2026-09-15
+
+> ⚠️ 화면이 달라지는 patch 릴리스임. `Alert` 에 닫기 버튼이 기본으로 생기고
+> `Button` 의 `color="danger"` 가 `variant` 를 무시함. API 는 그대로임.
+
+### Added
+
+- `Alert` 에 `closable` 추가 (기본 `true`). `onClose` 없이도 스스로 닫힘
+- `Link` 에 `paddingLeft` / `paddingRight` 추가 (px 지정)
+- `FolderTree` · `MapLegend` 에 컴포넌트 JSDoc 추가
+
+### Changed
+
+- `Alert` 닫기 버튼이 기본 표시됨. 숨기려면 `closable={false}`
+- `Button` 의 `danger` 는 항상 filled. 디자인 시스템에 다른 면이 없음
+- 포커스 링을 `outline` 으로 통일. 요소에서 2px 떨어짐
+- 테두리를 안쪽으로 넣음. `Alert` · `Badge` · `StatusChip` · `Toast` 는 inset ring,
+  `Button` outlined 는 inset shadow. 바깥 치수가 안 늘어남
+- `Breadcrumbs` — 라벨 14px, 항목 간격 4px, 구분자 16px, 조상 항목 70% 불투명도
+- `Pagination` — 번호 칸 26×26 (세 자리부터 32px)
+- `StatusChip` — 아이콘 20px
+- `Badge` — `type="number"` 좌우 여백 8px
+- `Tabs` — 선택 탭을 아래 2px 선으로. 선이 탭 폭만큼만 그려짐
+- `Select` — 선택 옵션을 연한 면 · 브랜드 색 · 굵은 글자로 표시
+- 스크롤바를 공용 규칙으로 통일. 트랙 없이 얇은 썸만 보임
+- 내부 아이콘을 `lucide-react` v1 로 올림
+
+### Fixed
+
+- `Radio` 가 형제에게 선택을 뺏길 때 `onChange` 를 호출하지 않던 문제. `name` 이 없으면 경고함
+- `Select` 를 마우스로 열면 첫 옵션이 선택된 것처럼 보이던 문제
+- `Modal` 본문에 내용이 짧아도 스크롤바가 생기던 문제
+- `Toast` 의 `longAction` 버튼 행 정렬과, 제목만 있을 때 닫기 버튼의 세로 중심
+- `Alert` · `Toast` 의 제목 · 본문이 공백 없는 긴 문자열에서 넘치던 문제
+- `Pagination` 의 화살표와 숫자 중심이 어긋나던 문제
+- `Select` 트리거에 포커스 표시가 없던 문제
+- Storybook 액션 스파이 때문에 `Modal` 취소 버튼이 닫히지 않던 문제
+
 ## [1.0.23] - 2026-09-11
 
 > ⚠️ **Breaking change 가 포함된 patch 릴리스입니다.**

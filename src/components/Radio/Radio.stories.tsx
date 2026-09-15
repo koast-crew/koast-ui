@@ -47,11 +47,11 @@ export const CheckedStates: Story = {
     <div className={'story-stack'}>
       <div className={'story-row'}>
         <span className={'story-label'}>{'Checked=False'}</span>
-        <Radio {...args} label={'False'} />
+        <Radio {...args} name={'story-checked-false'} label={'False'} />
       </div>
       <div className={'story-row'}>
         <span className={'story-label'}>{'Checked=True'}</span>
-        <Radio {...args} checked label={'True'} />
+        <Radio {...args} name={'story-checked-true'} label={'True'} defaultChecked />
       </div>
     </div>
   ),
@@ -63,16 +63,19 @@ export const States: Story = {
     <div className={'story-stack'}>
       <div className={'story-row'}>
         <span className={'story-label'}>{'Default'}</span>
-        <Radio {...args} label={'False'} />
-        <Radio {...args} checked label={'True'} />
+        <Radio {...args} name={'story-state-default'} value={'off'} label={'False'} />
+        <Radio {...args} name={'story-state-default'} value={'on'} label={'True'} defaultChecked />
       </div>
       <div className={'story-row'}>
         <span className={'story-label'}>{'Disabled'}</span>
-        <Radio {...args} disabled label={'False'} />
-        <Radio {...args} disabled checked label={'True'} />
+        <Radio {...args} name={'story-state-disabled'} value={'off'} disabled label={'False'} />
+        <Radio {...args} name={'story-state-disabled'} value={'on'} disabled defaultChecked label={'True'} />
       </div>
       <p className={'story-note'}>
         {'선택되지 않은 라디오는 체크박스와 달리 hover / pressed 에서 면 색까지 진해집니다.'}
+      </p>
+      <p className={'story-note'}>
+        {'같은 name 을 주지 않으면 브라우저가 묶어주지 않아 여러 개가 동시에 선택됩니다.'}
       </p>
     </div>
   ),

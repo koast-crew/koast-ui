@@ -47,7 +47,10 @@ const preview: Preview = {
     },
     docs: {
       toc: true,
-      theme: themes.dark,
+      theme: {
+        ...themes.dark,
+        fontBase: '"Pretendard Variable", Pretendard, system-ui, -apple-system, "Segoe UI", sans-serif',
+      },
     },
   },
 };

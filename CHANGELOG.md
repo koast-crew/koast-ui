@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.27] - 2026-09-16
+
+### Fixed
+
+- `Badge` 의 `variant="primary"` 라벨이 다크 모드에서 면과 겹쳐 보이지 않던 문제.
+  채운 면의 라벨은 면 색을 따라 반전되는 토큰을 써야 하는데 Badge 만 흰색 고정 토큰을
+  쓰고 있었음. 라이트 모드는 값이 같아 변화 없고, 다크 모드만 바뀜
+  (neutral 대비 1.04 → 16.97, success 1.40 → 12.62)
+
+### Changed
+
+- 배포된 Storybook 이 Pretendard Variable 로 렌더됨. 라이브러리 배포물은 그대로이며
+  `dist/style.css` 에는 여전히 `@font-face` 가 없음
+
 ## [1.0.26] - 2026-09-15
 
 ### Added

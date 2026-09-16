@@ -13,13 +13,13 @@ const TYPES: Record<BadgeType, string> = {
   text: 'koast-inline-flex koast-h-6 koast-shrink-0 koast-items-center koast-justify-center koast-rounded koast-px-2 koast-py-1 koast-text-sm koast-font-medium koast-leading-4',
 };
 
-/** 채운 면입니다. 라벨은 항상 채색 표면 위의 밝은 색(media 토큰)입니다. */
+/** 채운 면입니다. 라벨은 면 색을 따라 반전되는 inverse 토큰입니다(Button contained 와 같은 규칙). */
 const PRIMARY: Record<BadgeStatus, string> = {
-  neutral: 'koast-bg-inverse-bolder koast-text-on-dark',
-  information: 'koast-bg-info-bold koast-text-on-dark',
-  success: 'koast-bg-success-bold koast-text-on-dark',
-  warning: 'koast-bg-warning-bold koast-text-on-dark',
-  error: 'koast-bg-danger-bold koast-text-on-dark',
+  neutral: 'koast-bg-inverse-bolder koast-text-interactive-inverse',
+  information: 'koast-bg-info-bold koast-text-interactive-inverse',
+  success: 'koast-bg-success-bold koast-text-interactive-inverse',
+  warning: 'koast-bg-warning-bold koast-text-interactive-inverse',
+  error: 'koast-bg-danger-bold koast-text-interactive-inverse',
 };
 
 /** 연한 면 + 1px 선입니다. inset ring 이라 primary 와 바깥 너비가 같습니다. */

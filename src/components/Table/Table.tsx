@@ -35,8 +35,8 @@ const stopPropagation = (event: React.SyntheticEvent) => event.stopPropagation()
  * @param {Function} props.getRowId - 행 id 를 뽑는 함수. 선택 상태도 이 값으로 관리합니다 : (item) => string | number
  * @param {string} [props.gridTemplateColumns] - 열 템플릿. `selectable` 이면 앞에 40px 체크 열이 자동으로 붙습니다 : string
  * @param {'sm' | 'md'} [props.size='md'] - 헤더 64/48px, 셀 48/40px : 'sm' | 'md'
- * @param {boolean} [props.isLoading=false] - 로딩 상태 : boolean
- * @param {boolean} [props.isError=false] - 에러 상태 : boolean
+ * @param {boolean} [props.loading=false] - 로딩 상태 : boolean
+ * @param {boolean} [props.error=false] - 에러 상태 : boolean
  * @param {React.ReactNode} [props.loadingContent] - 로딩 중 본문 내용. 기본은 Spinner : React.ReactNode
  * @param {React.ReactNode} [props.errorContent] - 에러일 때 본문 내용 : React.ReactNode
  * @param {React.ReactNode} [props.emptyContent] - 데이터가 없을 때 본문 내용 : React.ReactNode
@@ -74,8 +74,8 @@ export function Table<T>({
   getRowId,
   gridTemplateColumns,
   size = 'md',
-  isLoading = false,
-  isError = false,
+  loading = false,
+  error = false,
   loadingContent,
   errorContent = '데이터를 불러오는 중 오류가 발생했습니다.',
   emptyContent = '데이터가 없습니다.',
@@ -122,19 +122,19 @@ export function Table<T>({
   };
 
   const renderState = () => {
-    if (isLoading) return loadingContent ?? <Spinner />;
-    if (isError) return errorContent;
+    if (loading) return loadingContent ?? <Spinner />;
+    if (error) return errorContent;
     return emptyContent;
   };
 
-  const showState = isLoading || isError || data.length === 0;
+  const showState = loading || error || data.length === 0;
 
   return (
     <div className={getTableRootStyles(className)}>
       <div
         role={'table'}
         aria-label={ariaLabel}
-        aria-busy={isLoading || undefined}
+        aria-busy={loading || undefined}
         className={TABLE_GRID}
         style={{ gridTemplateColumns: template }}
       >
@@ -144,7 +144,7 @@ export function Table<T>({
               <Checkbox
                 aria-label={'전체 선택'}
                 checked={allChecked}
-                disabled={data.length === 0 || isLoading}
+                disabled={data.length === 0 || loading}
                 onChange={handleSelectAll}
               />
             </div>
@@ -181,7 +181,7 @@ export function Table<T>({
 
         {showState ? (
           <div role={'row'} className={TABLE_HEADER_ROW}>
-            <div role={'cell'} className={getTableStateStyles(!isLoading && isError)}>
+            <div role={'cell'} className={getTableStateStyles(!loading && error)}>
               {renderState()}
             </div>
           </div>

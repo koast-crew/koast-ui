@@ -62,10 +62,10 @@ export interface TableProps<T> {
   'size'?: TableSize;
 
   /** 로딩 상태입니다. 헤더는 남기고 본문 자리에 `loadingContent` 를 그립니다. @default false */
-  'isLoading'?: boolean;
+  'loading'?: boolean;
 
   /** 에러 상태입니다. @default false */
-  'isError'?: boolean;
+  'error'?: boolean;
 
   /** 로딩 중 본문 자리에 그릴 내용입니다. @default <Spinner /> */
   'loadingContent'?: React.ReactNode;

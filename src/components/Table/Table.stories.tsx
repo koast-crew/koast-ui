@@ -89,13 +89,13 @@ const meta: Meta<typeof Table<Member>> = {
     columns: COLUMNS,
     getRowId: (member: Member) => member.id,
     size: 'md',
-    isLoading: false,
-    isError: false,
+    loading: false,
+    error: false,
   },
   argTypes: {
     size: { control: 'inline-radio', options: ['md', 'sm'], description: '헤더 64/48px, 셀 48/40px 입니다.' },
-    isLoading: { control: 'boolean', description: '헤더는 남기고 본문 자리에 로딩 내용을 그립니다.' },
-    isError: { control: 'boolean', description: '헤더는 남기고 본문 자리에 에러 메시지를 그립니다.' },
+    loading: { control: 'boolean', description: '헤더는 남기고 본문 자리에 로딩 내용을 그립니다.' },
+    error: { control: 'boolean', description: '헤더는 남기고 본문 자리에 에러 메시지를 그립니다.' },
     data: { control: false },
     columns: { control: false },
     getRowId: { control: false },
@@ -165,8 +165,8 @@ export const RowClick: Story = {
 export const States: Story = {
   render: (args) => (
     <div className={'story-stack'}>
-      <Table {...args} isLoading />
-      <Table {...args} isError errorContent={'회원 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.'} />
+      <Table {...args} loading />
+      <Table {...args} error errorContent={'회원 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.'} />
       <Table {...args} data={[]} emptyContent={'등록된 회원이 없습니다.'} />
     </div>
   ),

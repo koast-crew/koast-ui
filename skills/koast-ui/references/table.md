@@ -38,8 +38,8 @@ const columns: TableColumn<User>[] = [
 | `getRowId` *(필수)* | `(item: T) => TableRowId` | — | 행을 구분하는 id 를 뽑습니다. 선택 상태도 이 값으로 관리합니다. |
 | `gridTemplateColumns` | `string` | — | CSS grid 의 열 템플릿입니다. `selectable` 이면 앞에 체크 열(40px)이 자동으로 붙습니다. |
 | `size` | `TableSize` | `'md'` | 디자인 시스템의 Size 축입니다. |
-| `isLoading` | `boolean` | `false` | 로딩 상태입니다. 헤더는 남기고 본문 자리에 `loadingContent` 를 그립니다. |
-| `isError` | `boolean` | `false` | 에러 상태입니다. |
+| `loading` | `boolean` | `false` | 로딩 상태입니다. 헤더는 남기고 본문 자리에 `loadingContent` 를 그립니다. |
+| `error` | `boolean` | `false` | 에러 상태입니다. |
 | `loadingContent` | `React.ReactNode` | `<Spinner />` | 로딩 중 본문 자리에 그릴 내용입니다. |
 | `errorContent` | `React.ReactNode` | — | 에러일 때 본문 자리에 그릴 내용입니다. |
 | `emptyContent` | `React.ReactNode` | — | 데이터가 없을 때 본문 자리에 그릴 내용입니다. |

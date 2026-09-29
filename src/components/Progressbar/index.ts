@@ -1,2 +1,2 @@
 export { Progressbar as default } from './Progressbar';
-export type { ProgressbarProps, ProgressbarTone } from './Progressbar.types';
+export type { ProgressbarProps } from './Progressbar.types';

@@ -16,18 +16,18 @@ const meta: Meta<typeof Progressbar> = {
     showValue: true,
   },
   argTypes: {
-    value: { control: { type: 'range', min: 0, max: 100, step: 1 } },
-    min: { control: 'number' },
-    max: { control: 'number' },
-    error: { control: 'boolean', description: 'Figma 의 **Errpr** 축입니다.' },
-    indeterminate: {
+    'value': { control: { type: 'range', min: 0, max: 100, step: 1 } },
+    'min': { control: 'number' },
+    'max': { control: 'number' },
+    'error': { control: 'boolean', description: 'Figma 의 **Errpr** 축입니다.' },
+    'indeterminate': {
       control: 'boolean',
       description: 'Figma 에 없는 축입니다. 진행률을 모를 때 `aria-valuenow` 를 빼고 대기 상태만 알립니다.',
     },
-    showValue: { control: 'boolean' },
-    label: { control: 'text' },
-    helperText: { control: 'text' },
-    ariaLabel: { control: 'text' },
+    'showValue': { control: 'boolean' },
+    'label': { control: 'text' },
+    'helperText': { control: 'text' },
+    'aria-label': { control: 'text' },
   },
   decorators: [
     (Story) => (
@@ -79,12 +79,12 @@ export const Completed: Story = {
   args: { value: 100, helperText: '업로드를 마쳤습니다' },
 };
 
-/** 보조 문구 없이 막대만 씁니다. 라벨도 빼면 `ariaLabel` 로 이름을 줍니다. */
+/** 보조 문구 없이 막대만 씁니다. 라벨도 빼면 `aria-label` 로 이름을 줍니다. */
 export const BarOnly: Story = {
   render: (args) => (
     <div className={'story-stack'}>
       <Progressbar {...args} value={40} showValue={false} />
-      <Progressbar {...args} label={undefined} value={40} ariaLabel={'설치 진행률'} />
+      <Progressbar {...args} label={undefined} value={40} aria-label={'설치 진행률'} />
     </div>
   ),
 };

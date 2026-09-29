@@ -44,7 +44,7 @@ export type { LinkProps, LinkColor, LinkVariant } from './components/Link';
 export type { MapLegendProps, ToolbarButton, BarLegendData, CircleLegendData } from './components/MapLegend/MapLegend.types';
 export type { ModalProps, ModalConfirmColor, ModalFooterAlign } from './components/Modal';
 export type { PaginationProps, PaginationItem } from './components/Pagination';
-export type { ProgressbarProps, ProgressbarTone } from './components/Progressbar';
+export type { ProgressbarProps } from './components/Progressbar';
 export type { RadioProps } from './components/Radio';
 export type { SelectProps, SelectItemProps, SelectSize, SelectVisibleOptions } from './components/Select/Select.types';
 export type { SkeletonProps, SkeletonVariant } from './components/Skeleton';

@@ -85,6 +85,7 @@ const moveThumb = (
  * @param {boolean} [props.showTooltip=true] - hover / focus / 드래그 중 값 툴팁 : boolean
  * @param {string} [props.unit] - 값 뒤에 붙는 단위 : string
  * @param {Function} [props.formatValue] - 값 표시 형식 : (value: number) => string
+ * @param {string} [props.aria-label] - `label` 이 없을 때의 접근성 이름 : string
  * @param {Function} [props.onChange] - 값이 바뀔 때마다 호출 : (value: number | [number, number]) => void
  * @param {Function} [props.onChangeEnd] - 조작이 끝났을 때 한 번 호출 : (value: number | [number, number]) => void
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
@@ -130,7 +131,7 @@ export const Slider = (props: SliderProps) => {
     showTooltip = true,
     unit,
     formatValue,
-    ariaLabel,
+    'aria-label': ariaLabel,
     onChange,
     onChangeEnd,
   } = props;

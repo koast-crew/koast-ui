@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react';
+import type { AriaAttributes, ReactNode } from 'react';
 
 /** 보조 문구의 의미 색상입니다. 값이 모두 찼으면 success, `error` 면 danger 입니다. */
 export type ProgressbarTone = 'neutral' | 'success' | 'error';
 
-export interface ProgressbarProps {
+/** `aria-label` 은 `label` 이 없을 때의 접근성 이름입니다. */
+export interface ProgressbarProps extends Pick<AriaAttributes, 'aria-label'> {
   /** 현재 진행 값입니다. `indeterminate` 면 무시됩니다. @default 0 */
   value?: number;
 
@@ -39,9 +40,6 @@ export interface ProgressbarProps {
    * @default (percent) => `${ Math.round(percent) }%`
    */
   formatValue?: (percent: number) => string;
-
-  /** 접근성 이름입니다. `label` 이 없을 때 사용하세요. */
-  ariaLabel?: string;
 
   /** 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. */
   className?: string;

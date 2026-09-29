@@ -2,14 +2,14 @@ import React from 'react';
 import MapLegend from '../../../src/components/MapLegend';
 import { Fish, Thermometer, Droplets, Waves } from 'lucide-react';
 export default function MapLegendExam() {
-  const [visible, setVisible] = React.useState(true);
+  const [open, setOpen] = React.useState(true);
   const [selectedId, setSelectedId] = React.useState('fish');
 
   return (
     <div className={'koast-flex koast-flex-col koast-gap-4'}>
       <MapLegend
-        visible={visible}
-        onClose={() => setVisible(false)}
+        open={open}
+        onClose={() => setOpen(false)}
         selectedLayerId={selectedId}
         onLayerSelect={setSelectedId}
         toolbarButtons={[

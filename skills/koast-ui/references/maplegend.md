@@ -31,7 +31,7 @@ import { MapLegend } from '@koast/ui';
 
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
-| `visible` | `boolean` | `true` | 범례의 표시 여부를 결정합니다. |
+| `open` | `boolean` | `true` | 범례의 표시 여부를 결정합니다. |
 | `onClose` | `() => void` | — | 범례 닫기 버튼 클릭 시 호출될 함수입니다. |
 | `selectedLayerId` *(필수)* | `string` | — | 현재 선택된 레이어 ID입니다. |
 | `onLayerSelect` | `(id: string) => void` | — | 레이어 선택 시 호출될 함수입니다. |

@@ -75,7 +75,7 @@ export interface MapLegendProps {
    * 범례의 표시 여부를 결정합니다.
    * @default true
    */
-  visible?: boolean;
+  open?: boolean;
 
   /**
    * 범례 닫기 버튼 클릭 시 호출될 함수입니다.

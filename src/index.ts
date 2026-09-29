@@ -49,7 +49,7 @@ export type { RadioProps } from './components/Radio';
 export type { SelectProps, SelectItemProps, SelectSize, SelectVisibleOptions } from './components/Select/Select.types';
 export type { SkeletonProps, SkeletonVariant } from './components/Skeleton';
 export type { SliderProps, SliderSize, SliderVariant, SliderValue, SliderRangeValue } from './components/Slider';
-export type { SpinnerProps, SpinnerSize, SpinnerVariant } from './components/Spinner';
+export type { SpinnerProps, SpinnerSize, SpinnerColor } from './components/Spinner';
 export type { StatusChipProps, StatusChipShape, StatusChipSize, StatusChipStatus, StatusChipVariant } from './components/StatusChip';
 export type { SwitchProps, SwitchLabelPlacement } from './components/Switch';
 export type { TableProps, TableColumn, TableSize, TableAlign, TableSort, TableSortDirection, TableRowId } from './components/Table';

@@ -16,8 +16,8 @@ import {
  * `prefers-reduced-motion` 에서는 회전을 끄고 제자리 밝기 펄스로 바꿉니다.
  *
  * @param {'sm' | 'md' | 'lg' | 'xl'} [props.size='md'] - 지름 16 / 24 / 32 / 48px : 'sm' | 'md' | 'lg' | 'xl'
- * @param {'primary' | 'secondary' | 'inherit'} [props.variant='primary'] - Figma 의 Type 축. inherit 는 currentColor : string
- * @param {string} [props.label='로딩 중'] - 스크린 리더가 읽을 이름 : string
+ * @param {'primary' | 'secondary' | 'inherit'} [props.color='primary'] - Figma 의 Type 축(색). inherit 는 currentColor : string
+ * @param {string} [props['aria-label']='로딩 중'] - 스크린 리더가 읽을 이름 : string
  * @param {boolean} [props.decorative=false] - 장식으로만 쓸 때. aria-hidden 이 붙습니다 : boolean
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  *
@@ -27,26 +27,26 @@ import {
  * <Spinner />
  *
  * // 큰 스피너 + 직접 지정한 이름
- * <Spinner size="xl" label="지도를 불러오는 중" />
+ * <Spinner size="xl" aria-label="지도를 불러오는 중" />
  *
  * // 이미 문구가 있는 면 안에서 색을 물려받아 장식으로만 쓰기
  * <button>
- *   <Spinner size="sm" variant="inherit" decorative />
+ *   <Spinner size="sm" color="inherit" decorative />
  *   {'저장 중'}
  * </button>
  * ```
  */
 export const Spinner = ({
   size = 'md',
-  variant = 'primary',
-  label = '로딩 중',
+  color = 'primary',
+  'aria-label': ariaLabel = '로딩 중',
   decorative = false,
   className = '',
 }: SpinnerProps) => (
   <span
-    className={getSpinnerStyles(size, variant, className)}
+    className={getSpinnerStyles(size, color, className)}
     role={decorative ? undefined : 'status'}
-    aria-label={decorative ? undefined : label}
+    aria-label={decorative ? undefined : ariaLabel}
     aria-hidden={decorative ? true : undefined}
   >
     <svg

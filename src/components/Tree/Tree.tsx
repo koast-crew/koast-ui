@@ -9,6 +9,7 @@ import {
   findParentById,
   findPathById,
   getIndexRange,
+  treeReducer,
   useTreeState,
 } from './useTreeState';
 import TreeItem from './TreeItem';
@@ -18,14 +19,14 @@ import TreeItem from './TreeItem';
  * 파일·폴더 계층을 펼침/접힘으로 보여주고, 추가·삭제·이름변경·이동을 처리합니다.
  * 형제 사이에서는 항상 group 이 앞, item 이 뒤이며, 끌어서 노드 사이에 놓으면 그 자리로 옮겨집니다.
  *
- * @param {TreeNode} props.defaultData - 처음 그릴 루트 노드입니다. 하위는 `children` 으로 중첩하며, 마운트 뒤 바꿔도 반영되지 않습니다 : TreeNode
+ * @param {TreeNode} props.defaultData - 처음 그릴 루트 노드입니다. 하위는 `children` 으로 중첩하며, 마운트 뒤 바꿔도 반영되지 않아 새 트리는 `key` 를 바꿔 다시 마운트합니다 : TreeNode
  * @param {(data: TreeNode) => void} [props.onChange] - 추가·이름변경·삭제·이동 뒤 전체 트리. 펼침/접힘과 마운트 때는 부르지 않습니다 : (data) => void
  * @param {Function} [props.onNodeAdd] - 추가 콜백. 문자열로 resolve 하면 새 id 로 교체, reject 하면 되돌립니다 : (node, parentId, index) => void | Promise<string | void>
  * @param {Function} [props.onNodeRename] - 이름변경 콜백. reject 하면 되돌립니다 : (node, name) => void | Promise<void>
  * @param {Function} [props.onNodeDelete] - 삭제 콜백. reject 하면 되돌립니다 : (node) => void | Promise<void>
  * @param {Function} [props.onNodeMove] - 이동 · 순서 변경 콜백. `index` 는 옮긴 뒤 위치이며 reject 하면 되돌립니다 : (node, targetParentId, index) => void | Promise<void>
  * @param {(node: TreeNode, path: number[]) => void} [props.onNodeClick] - 노드를 눌렀을 때 : (node, path) => void
- * @param {(node: TreeNode | null, path: number[] | null) => void} [props.onSelectedChange] - 선택된 노드가 바뀔 때. 선택이 없으면 null : (node, path) => void
+ * @param {(node: TreeNode | null, path: number[] | null) => void} [props.onSelect] - 선택된 노드가 바뀔 때. 선택이 없으면 null : (node, path) => void
  * @param {boolean} [props.readOnly=false] - 편집 메뉴를 숨깁니다 : boolean
  * @param {TreeIcons} [props.icons] - 종류별 아이콘. 없는 것은 기본 아이콘 : { group?, groupOpen?, item? }
  * @param {string} [props['aria-label']='트리'] - 트리 전체의 접근 가능한 이름 : string
@@ -45,7 +46,7 @@ import TreeItem from './TreeItem';
  *   onNodeDelete={(node) => api.remove(node.id)}
  *   onNodeMove={(node, parentId, index) => api.move(node.id, parentId, index)}
  *   icons={{ group: <Building2 />, item: <UserRound /> }}
- *   onSelectedChange={(node) => setCurrent(node)}
+ *   onSelect={(node) => setCurrent(node)}
  * />
  *
  * // 읽기 전용
@@ -61,7 +62,7 @@ export function Tree(props: TreeProps) {
     onNodeDelete,
     onNodeMove,
     onNodeClick,
-    onSelectedChange,
+    onSelect,
     readOnly = false,
     icons,
     'aria-label': ariaLabel,
@@ -73,16 +74,33 @@ export function Tree(props: TreeProps) {
   const treeRef = React.useRef(treeData);
   treeRef.current = treeData;
   const changedRef = React.useRef(false);
+  // 인라인 콜백이 렌더마다 바뀌어도 effect 가 다시 돌지 않도록 최신 값만 ref 로 들고 있습니다.
+  const onChangeRef = React.useRef(onChange);
+  onChangeRef.current = onChange;
+  const onSelectRef = React.useRef(onSelect);
+  onSelectRef.current = onSelect;
 
   React.useEffect(() => {
     if (!changedRef.current) return;
     changedRef.current = false;
-    onChange?.(treeData);
-  }, [treeData, onChange]);
+    onChangeRef.current?.(treeData);
+  }, [treeData]);
+
+  // 서버 응답으로 바뀐 id 를 따라가, 교체 전에 잡힌 되돌리기도 현재 노드를 가리키게 합니다.
+  const idMapRef = React.useRef(new Map<string, string>());
+  const resolveId = (id: string) => {
+    let current = id;
+    while (idMapRef.current.has(current)) current = idMapRef.current.get(current)!;
+    return current;
+  };
 
   const commit = (action: TreeAction) => {
+    if (treeReducer(treeRef.current, action) === treeRef.current) return;
     changedRef.current = true;
-    if (action.type === 'replaceId') setSelectedId((id) => id === action.id ? action.newId : id);
+    if (action.type === 'replaceId') {
+      idMapRef.current.set(action.id, action.newId);
+      setSelectedId((id) => id === action.id ? action.newId : id);
+    }
     dispatch(action);
   };
 
@@ -116,7 +134,7 @@ export function Tree(props: TreeProps) {
       commit({ type: 'insert', parentId: parent.id, node, index });
       run(
         onNodeAdd && (() => onNodeAdd(node, parent.id, index)),
-        () => commit({ type: 'remove', id: node.id }),
+        () => commit({ type: 'remove', id: resolveId(node.id) }),
         (newId) => {
           if (typeof newId === 'string' && newId !== node.id) commit({ type: 'replaceId', id: node.id, newId });
         },
@@ -132,7 +150,7 @@ export function Tree(props: TreeProps) {
       commit({ type: 'remove', id: node.id });
       run(
         onNodeDelete && (() => onNodeDelete(node)),
-        () => commit({ type: 'insert', parentId: parent.id, node, index }),
+        () => commit({ type: 'insert', parentId: resolveId(parent.id), node, index }),
       );
     },
 
@@ -143,7 +161,7 @@ export function Tree(props: TreeProps) {
       commit({ type: 'rename', id: node.id, name: nextName });
       run(
         onNodeRename && (() => onNodeRename(node, nextName)),
-        () => commit({ type: 'rename', id: node.id, name: node.name }),
+        () => commit({ type: 'rename', id: resolveId(node.id), name: node.name }),
       );
     },
 
@@ -187,14 +205,16 @@ export function Tree(props: TreeProps) {
     commit({ type: 'move', id: source.id, parentId, index });
     run(
       onNodeMove && (() => onNodeMove(source, parentId, index)),
-      () => commit({ type: 'move', id: source.id, parentId: sourceParent.id, index: originalIndex }),
+      () => commit({ type: 'move', id: resolveId(source.id), parentId: resolveId(sourceParent.id), index: originalIndex }),
     );
   };
 
   const drag = {
     target: dropTarget,
     start: setDraggingId,
-    over: (id: string, position: TreeDropPosition) => {
+    over: (id: string, overPosition: TreeDropPosition) => {
+      // 그룹 행의 위 · 아래 끝이 놓을 수 없는 자리면 그 그룹 안으로 받아 빈 구간을 없앱니다.
+      const position = !resolveDrop(id, overPosition) && resolveDrop(id, 'inside') ? 'inside' : overPosition;
       const valid = Boolean(resolveDrop(id, position));
       setDropTarget((prev) => {
         if (!valid) return null;
@@ -206,11 +226,15 @@ export function Tree(props: TreeProps) {
 
   const selectedNode = selectedId ? findNodeById(treeData, selectedId) : null;
   const selectedPathKey = selectedId ? findPathById(treeData, selectedId)?.join('-') ?? null : null;
+  const selectedNodeRef = React.useRef(selectedNode);
+  selectedNodeRef.current = selectedNode;
+  // 펼침처럼 선택과 무관한 변경에는 부르지 않도록 id · 경로 · 이름이 바뀔 때만 알립니다.
+  const selectionKey = selectedId === undefined ? undefined : `${ selectedId }|${ selectedPathKey }|${ selectedNode?.name }`;
 
   React.useEffect(() => {
-    if (selectedId === undefined) return;
-    onSelectedChange?.(selectedNode, selectedPathKey === null ? null : selectedPathKey.split('-').filter(Boolean).map(Number));
-  }, [selectedId, selectedNode, selectedPathKey, onSelectedChange]);
+    if (selectionKey === undefined) return;
+    onSelectRef.current?.(selectedNodeRef.current, selectedPathKey === null ? null : selectedPathKey.split('-').filter(Boolean).map(Number));
+  }, [selectionKey, selectedPathKey]);
 
   return (
     <div
@@ -236,7 +260,7 @@ export function Tree(props: TreeProps) {
         onNodeClick={onNodeClick}
         readOnly={readOnly}
         selectedId={selectedId}
-        onSelect={setSelectedId}
+        onSelectId={setSelectedId}
         icons={icons}
         drag={drag}
       />

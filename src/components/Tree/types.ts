@@ -7,7 +7,6 @@ export interface TreeNode {
   type: 'group' | 'item';
   children?: TreeNode[];
   isOpen?: boolean;
-  isEditing?: boolean;
 }
 
 /** 끌어서 놓을 자리입니다. 대상 노드의 앞 · 뒤, 또는 그룹 안입니다. */
@@ -20,7 +19,11 @@ export interface TreeIcons {
 }
 
 export interface TreeProps {
-  /** 처음 그릴 트리입니다. 마운트 뒤에는 컴포넌트가 상태를 들고 있어, 바꿔도 반영되지 않습니다. */
+  /**
+   * 처음 그릴 트리입니다. 마운트 뒤에는 컴포넌트가 상태를 들고 있어 바꿔도 반영되지 않으므로,
+   * 서버에서 다시 받은 트리로 새로 그리려면 `key` 를 바꿔 다시 마운트하세요.
+   * 형제 사이에 group 과 item 이 섞여 있으면 group 을 앞으로 모아 그립니다.
+   */
   'defaultData': TreeNode;
   /** 추가·이름변경·삭제·이동과 그 되돌리기 뒤에 전체 트리를 돌려줍니다. 펼침/접힘과 마운트 때는 부르지 않습니다. */
   'onChange'?: (data: TreeNode) => void;
@@ -34,7 +37,7 @@ export interface TreeProps {
   /** 노드를 지우면 호출됩니다. reject 하면 원래 자리로 되살립니다. */
   'onNodeDelete'?: (node: TreeNode) => void | Promise<void>;
   /**
-   * 노드를 옮기면 호출됩니다. `index` 는 옮긴 뒤 `targetParentId` 의 자식 중 위치입니다.
+   * 노드를 옮기면 호출됩니다. `index` 는 옮긴 뒤 `targetParentId` 의 자식 중 위치이며, group 이 앞에 모인 순서 기준입니다.
    * 같은 그룹 안 순서 변경도 포함하며, reject 하면 원래 자리로 되돌립니다.
    */
   'onNodeMove'?: (node: TreeNode, targetParentId: string, index: number) => void | Promise<void>;
@@ -44,7 +47,7 @@ export interface TreeProps {
    * `onNodeClick` 이 "무엇을 눌렀나"라면 이건 "지금 무엇이 선택되어 있나"입니다.
    * 선택이 없으면 `null` 이 들어옵니다.
    */
-  'onSelectedChange'?: (node: TreeNode | null, path: number[] | null) => void;
+  'onSelect'?: (node: TreeNode | null, path: number[] | null) => void;
   'readOnly'?: boolean;
   /** 종류별 아이콘입니다. 넣지 않은 것은 기본 아이콘을, `groupOpen` 이 없으면 `group` 을 씁니다. */
   'icons'?: TreeIcons;

@@ -49,7 +49,7 @@ const meta: Meta<typeof Tree> = {
     onNodeDelete: fn(),
     onNodeMove: fn(),
     onNodeClick: fn(),
-    onSelectedChange: fn(),
+    onSelect: fn(),
   },
   argTypes: {
     readOnly: {
@@ -96,7 +96,7 @@ export const Keyboard: Story = {
 
 /**
  * 현재 활성(선택)된 노드를 바깥으로 내보냅니다.
- * `onSelectedChange` 는 "지금 무엇이 선택되어 있나"를, `onNodeClick` 은 "무엇을 눌렀나"를 알려줍니다.
+ * `onSelect` 는 "지금 무엇이 선택되어 있나"를, `onNodeClick` 은 "무엇을 눌렀나"를 알려줍니다.
  * 두 값 모두 Storybook 의 **Actions** 패널에도 기록됩니다.
  */
 export const SelectedOutput: Story = {
@@ -108,8 +108,8 @@ export const SelectedOutput: Story = {
       <div className={'story-stack'}>
         <Tree
           {...args}
-          onSelectedChange={(node, path) => {
-            args.onSelectedChange?.(node, path);
+          onSelect={(node, path) => {
+            args.onSelect?.(node, path);
             setSelected(node ? { name: node.name, type: node.type, path: (path ?? []).join('-') || 'root' } : null);
           }}
           onNodeClick={(node, path) => {

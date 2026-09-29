@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TreeDropPosition, TreeIcons, TreeNode } from './types';
 import { ChevronDown, ChevronRight, File, Folder, FolderOpen, FilePlus2, FolderPlus, PencilLine, Trash2 } from 'lucide-react';
 
@@ -15,7 +15,7 @@ interface TreeItemProps {
   readOnly: boolean;
   selectedId?: string;
   onNodeClick?: (node: TreeNode, path: number[]) => void;
-  onSelect?: (id: string) => void;
+  onSelectId?: (id: string) => void;
   icons?: TreeIcons;
   drag: {
     target: { id: string; position: TreeDropPosition } | null;
@@ -53,7 +53,7 @@ const TreeItem = (props: TreeItemProps) => {
     readOnly,
     selectedId,
     onNodeClick,
-    onSelect,
+    onSelectId,
     icons,
     drag,
   } = props;
@@ -62,15 +62,28 @@ const TreeItem = (props: TreeItemProps) => {
   const selected = selectedId === node.id;
   const dropPosition = drag.target?.id === node.id ? drag.target.position : null;
 
+  const rowRef = useRef<HTMLDivElement>(null);
+  // Enter · Escape 뒤 input 이 사라지며 blur 가 한 번 더 와도 두 번 처리하지 않습니다.
+  const editingRef = useRef(false);
+
+  /** 되돌리기나 id 교체로 이름이 바뀌었을 수 있어, 편집을 열 때마다 현재 이름에서 시작합니다. */
+  const startEditing = () => {
+    editingRef.current = true;
+    setEditName(node.name);
+    setIsEditing(true);
+  };
+
+  const finishEditing = (save: boolean, refocus: boolean) => {
+    if (!editingRef.current) return;
+    editingRef.current = false;
+    if (save) actions.renameNode(path, editName);
+    setIsEditing(false);
+    if (refocus) rowRef.current?.focus();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      actions.renameNode(path, editName);
-      setIsEditing(false);
-    }
-    if (e.key === 'Escape') {
-      setIsEditing(false);
-      setEditName(node.name);
-    }
+    if (e.key === 'Enter') finishEditing(true, true);
+    if (e.key === 'Escape') finishEditing(false, true);
   };
 
   const handleNodeClick = (e: React.MouseEvent) => {
@@ -79,7 +92,7 @@ const TreeItem = (props: TreeItemProps) => {
   };
 
   const selectNode = () => {
-    onSelect?.(node.id);
+    onSelectId?.(node.id);
 
     if (node.type === 'group') {
       actions.toggleOpen(path);
@@ -118,7 +131,7 @@ const TreeItem = (props: TreeItemProps) => {
         if (!readOnly) {
           e.preventDefault();
           e.stopPropagation();
-          setIsEditing(true);
+          startEditing();
         }
         break;
       case 'Delete':
@@ -168,6 +181,7 @@ const TreeItem = (props: TreeItemProps) => {
     <div>
       <div className={'koast-py-1'} style={{ marginLeft: level === 0 ? 0 : INDENT }}>
         <div
+          ref={rowRef}
           role={'treeitem'}
           tabIndex={0}
           aria-label={node.name}
@@ -181,7 +195,7 @@ const TreeItem = (props: TreeItemProps) => {
               : selected ? 'koast-ring-1 koast-ring-inset koast-ring-interactive-primary' : ''
           } ${ selected ? 'koast-bg-interactive-selected' : '' }`}
           onClick={handleNodeClick}
-          draggable={!readOnly}
+          draggable={!readOnly && !isEditing}
           onDragStart={handleDragStart}
           onDragEnd={drag.end}
           onDragOver={handleDragOver}
@@ -215,10 +229,7 @@ const TreeItem = (props: TreeItemProps) => {
                 e.stopPropagation();
                 handleKeyDown(e);
               }}
-              onBlur={() => {
-                actions.renameNode(path, editName);
-                setIsEditing(false);
-              }}
+              onBlur={() => finishEditing(true, false)}
               autoFocus
               aria-label={`${ node.name } 이름`}
               className={'koast-rounded koast-border koast-border-solid koast-border-interactive-secondary koast-bg-primary koast-px-2 koast-py-1 koast-text-sm koast-text-primary focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring'}
@@ -229,7 +240,7 @@ const TreeItem = (props: TreeItemProps) => {
               onDoubleClick={(e) => {
                 e.stopPropagation();
                 if (!readOnly) {
-                  setIsEditing(true);
+                  startEditing();
                 }
               }}
               className={'koast-flex koast-cursor-pointer koast-items-center koast-gap-1 koast-text-primary'}
@@ -273,7 +284,7 @@ const TreeItem = (props: TreeItemProps) => {
                 aria-label={`${ node.name } 이름 바꾸기`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setIsEditing(true);
+                  startEditing();
                 }}
               >
                 <PencilLine
@@ -308,7 +319,7 @@ const TreeItem = (props: TreeItemProps) => {
                 onNodeClick={onNodeClick}
                 readOnly={readOnly}
                 selectedId={selectedId}
-                onSelect={onSelect}
+                onSelectId={onSelectId}
                 icons={icons}
                 drag={drag}
               />

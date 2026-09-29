@@ -9,7 +9,7 @@
 [![Storybook](https://img.shields.io/badge/storybook-docs-ff4785?logo=storybook&logoColor=fff)](https://koast-crew.github.io/koast-ui/)
 
 한국해양기상기술(KOAST) 디자인 시스템을 그대로 옮긴 **React 컴포넌트 라이브러리**입니다.
-Figma 에 정의된 28종을 **설정 없이** 씁니다. Tailwind 설정도, CSS import 도 필요 없습니다.
+Figma 에 정의된 29종을 **설정 없이** 씁니다. Tailwind 설정도, CSS import 도 필요 없습니다.
 
 - **컴포넌트 문서** — [Storybook](https://koast-crew.github.io/koast-ui/)
 - **패키지** — [npmjs.com/package/@koast/ui](https://www.npmjs.com/package/@koast/ui)
@@ -74,7 +74,7 @@ npx @koast/ui init-skills
 ```
 
 이 패키지에는 [Claude Code](https://claude.com/claude-code) 용 스킬이 동봉돼 있습니다.
-컴포넌트 28종의 props 표 · 예제 · 색 토큰 규칙이 들어 있어, **Claude 가 없는 prop 을 지어내지 않습니다.**
+컴포넌트 29종의 props 표 · 예제 · 색 토큰 규칙이 들어 있어, **Claude 가 없는 prop 을 지어내지 않습니다.**
 
 **왜 명령을 따로 실행해야 하나요?** Claude Code 는 `.claude/skills/` 만 탐색하고
 `node_modules` 는 들여다보지 않습니다. `npm install` 만으로는 스킬이 패키지 안에 있어도 잡히지 않습니다.

@@ -136,7 +136,7 @@ const css = createBrandThemeCss({
 | **액션** | `Button` · `IconButton` |
 | **피드백** | `Alert` · `Toast` · `Modal` · `Tooltip` · `Progressbar` · `Spinner` · `Skeleton` |
 | **표시** | `Badge` · `StatusChip` · `Accordion` |
-| **내비게이션** | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `FolderTree` |
+| **내비게이션** | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `Tree` |
 | **도메인** | `TimeLine` · `MapLegend` |
 
 각 컴포넌트의 props 와 예제는 [Storybook](https://koast-crew.github.io/koast-ui/) 에 있습니다.

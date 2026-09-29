@@ -111,7 +111,7 @@ const style = createBrandThemeStyle({
 | 액션 | `Button` · `IconButton` |
 | 피드백 | `Alert` · `Toast` · `Modal` · `Tooltip` · `Progressbar` · `Spinner` · `Skeleton` |
 | 표시 | `Table` · `Badge` · `StatusChip` · `Accordion` |
-| 이동 | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `FolderTree` |
+| 이동 | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `Tree` |
 | 도메인 | `TimeLine` · `MapLegend` |
 
 ## 참조 파일

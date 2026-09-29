@@ -8,7 +8,6 @@ export { default as Button } from './components/Button';
 export { default as Checkbox } from './components/Checkbox';
 export { default as ControlGroup } from './components/ControlGroup';
 // export { default as CesiumMap, type CesiumMapProps } from './components/CesiumMap';
-export { default as FolderTree, type TreeNode } from './components/FolderTree';
 export { default as IconButton } from './components/IconButton';
 export { default as Label } from './components/Label';
 export { default as Link } from './components/Link';
@@ -30,6 +29,7 @@ export { default as TextField } from './components/TextField';
 export { default as TimeLine } from './components/TimeLine';
 export { default as Toast } from './components/Toast';
 export { default as Tooltip } from './components/Tooltip';
+export { default as Tree } from './components/Tree';
 
 export type { AccordionProps, AccordionItemProps, AccordionSize, AccordionHeadingLevel } from './components/Accordion';
 export type { AlertProps, AlertStatus, AlertVariant } from './components/Alert';
@@ -38,7 +38,6 @@ export type { BreadcrumbsProps, BreadcrumbItem } from './components/Breadcrumbs'
 export type { ButtonProps, ButtonColor, ButtonColorProp, ButtonSize, ButtonSizeProp, ButtonVariant } from './components/Button/Button.types';
 export type { CheckboxProps, CheckboxChecked } from './components/Checkbox';
 export type { ControlGroupProps, CheckboxControlGroupProps, RadioControlGroupProps, ControlGroupType, ControlGroupOrientation, ControlValue } from './components/ControlGroup';
-export type { FolderTreeProps } from './components/FolderTree/types';
 export type { IconButtonProps, IconButtonColor, IconButtonColorProp, IconButtonSize, IconButtonSizeProp, IconButtonVariant } from './components/IconButton';
 export type { LabelProps, LabelType, LabelAs } from './components/Label';
 export type { LinkProps, LinkColor, LinkVariant } from './components/Link';
@@ -60,6 +59,7 @@ export type { TextFieldProps, TextFieldSize, TextFieldType } from './components/
 export type { DateToStringFunc, TimeLineProps, TimeLineType, TimeLineLayout, TimeLineInterval, TimeLineOnChangeProps, TimeUnit } from './components/TimeLine';
 export type { ToastProps, ToastStatus, ToastType } from './components/Toast';
 export type { TooltipProps, TooltipAlign, TooltipPlacement, TooltipVariant } from './components/Tooltip';
+export type { TreeProps, TreeNode, TreeIcons } from './components/Tree';
 
 // 디자인 토큰 / 테마
 export { createBrandThemeCss, createBrandThemeStyle } from './theme/createBrandTheme';

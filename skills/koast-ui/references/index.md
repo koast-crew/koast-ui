@@ -9,7 +9,6 @@
 - [Button](./button.md)
 - [Checkbox](./checkbox.md)
 - [ControlGroup](./controlgroup.md)
-- [FolderTree](./foldertree.md)
 - [IconButton](./iconbutton.md)
 - [Label](./label.md)
 - [Link](./link.md)
@@ -31,3 +30,4 @@
 - [TimeLine](./timeline.md)
 - [Toast](./toast.md)
 - [Tooltip](./tooltip.md)
+- [Tree](./tree.md)

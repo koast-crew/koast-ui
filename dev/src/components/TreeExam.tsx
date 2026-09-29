@@ -1,50 +1,47 @@
-import React, { useState } from 'react';
-import { FolderTree, TreeNode } from '../../../src';
+import React from 'react';
+import { Tree, TreeNode } from '../../../src';
 
 const initialData: TreeNode = {
   id: 'root',
   name: '전체폴더',
-  type: 'folder',
+  type: 'group',
   isOpen: true,
   children: [
     {
       id: 'folder1',
       name: '폴더1',
-      type: 'folder',
+      type: 'group',
       isOpen: true,
       children: [
         {
           id: 'file1',
           name: '파일1',
-          type: 'file',
+          type: 'item',
         },
         {
           id: 'file2',
           name: '파일2',
-          type: 'file',
+          type: 'item',
         },
       ],
     },
     {
       id: 'folder2',
       name: '폴더2',
-      type: 'folder',
+      type: 'group',
       children: [
         {
           id: 'file3',
           name: '파일3',
-          type: 'file',
+          type: 'item',
         },
       ],
     },
   ],
 };
 
-export default function FolderTreeExam() {
-  const [treeData, setTreeData] = useState<TreeNode>(initialData);
-
+export default function TreeExam() {
   const handleChange = (newData: TreeNode) => {
-    setTreeData(newData);
     console.log('Tree data changed:', newData);
   };
 
@@ -55,12 +52,11 @@ export default function FolderTreeExam() {
 
   return (
     <div className={'koast-w-[400px]'}>
-      <h2 className={'koast-mb-4 koast-text-xl koast-font-bold'}>{'Folder Tree Example'}</h2>
-      <FolderTree
-        data={treeData}
+      <h2 className={'koast-mb-4 koast-text-xl koast-font-bold'}>{'Tree Example'}</h2>
+      <Tree
+        defaultData={initialData}
         onChange={handleChange}
         onNodeClick={handleNodeClick}
-        indentPixels={12}
       />
     </div>
   );

@@ -122,7 +122,7 @@ export const Checkbox = (props: CheckboxProps) => {
         <Label
           as={'span'}
           disabled={isDisabled}
-          type={required ? 'required' : 'none'}
+          indicator={required ? 'required' : 'none'}
         >
           {label}
         </Label>

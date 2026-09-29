@@ -10,11 +10,11 @@ import { Label } from '@koast/ui';
 
 ```tsx
 // 입력 필드와 연결
-<Label htmlFor="email" type="required">이메일</Label>
+<Label htmlFor="email" indicator="required">이메일</Label>
 <input id="email" />
 
 // 선택 입력 표기
-<Label htmlFor="nickname" type="optional">닉네임</Label>
+<Label htmlFor="nickname" indicator="optional">닉네임</Label>
 
 // 컨트롤을 감싸는 label 안에서 문구만 그릴 때
 <Label as="span" disabled>약관 동의</Label>
@@ -27,7 +27,7 @@ import { Label } from '@koast/ui';
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
 | `children` *(필수)* | `React.ReactNode` | — | 라벨 문구입니다. |
-| `type` | `LabelType` | `'none'` | 보조 표기입니다. |
+| `indicator` | `LabelIndicator` | `'none'` | 보조 표기입니다. |
 | `htmlFor` | `string` | — | 연결할 입력 요소의 id 입니다. 지정하면 기본 태그가 `label` 이 됩니다. |
 | `disabled` | `boolean` | `false` | 비활성화 상태입니다. 연결된 컨트롤의 disabled 를 그대로 받습니다. |
 | `optionalText` | `string` | `'(Optional)'` | `(Optional)` 자리에 들어갈 문구입니다. |
@@ -39,7 +39,7 @@ import { Label } from '@koast/ui';
 
 | 이름 | 값 | 설명 |
 | :-- | :-- | :-- |
-| `LabelType` | `'none' \| 'optional' \| 'required'` | Figma `Part/Label` 의 Type 축입니다. 보조 표기 없음 / (Optional) / * 세 가지입니다. |
+| `LabelIndicator` | `'none' \| 'optional' \| 'required'` | Figma `Part/Label` 의 Type 축입니다. 보조 표기 없음 / (Optional) / * 세 가지입니다. |
 | `LabelAs` | `'label' \| 'span'` | 렌더링할 태그입니다. 컨트롤을 감싸는 `<label>` 안에서 쓸 때는 `span` 이어야 중첩이 생기지 않습니다. |
 
 ## 규칙

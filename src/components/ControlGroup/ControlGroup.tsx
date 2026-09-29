@@ -101,7 +101,7 @@ export const ControlGroup = (props: ControlGroupProps) => {
           id={labelId}
           as={'span'}
           disabled={disabled}
-          type={required ? 'required' : 'none'}
+          indicator={required ? 'required' : 'none'}
           className={GROUP_LABEL}
         >
           {label}

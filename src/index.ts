@@ -39,7 +39,7 @@ export type { ButtonProps, ButtonColor, ButtonColorProp, ButtonSize, ButtonSizeP
 export type { CheckboxProps, CheckboxChecked } from './components/Checkbox';
 export type { ControlGroupProps, CheckboxControlGroupProps, RadioControlGroupProps, ControlGroupType, ControlGroupOrientation, ControlValue } from './components/ControlGroup';
 export type { IconButtonProps, IconButtonColor, IconButtonColorProp, IconButtonSize, IconButtonSizeProp, IconButtonVariant } from './components/IconButton';
-export type { LabelProps, LabelType, LabelAs } from './components/Label';
+export type { LabelProps, LabelIndicator, LabelAs } from './components/Label';
 export type { LinkProps, LinkColor, LinkVariant } from './components/Link';
 export type { MapLegendProps, ToolbarButton, BarLegendData, CircleLegendData } from './components/MapLegend/MapLegend.types';
 export type { ModalProps, ModalConfirmColor, ModalFooterAlign } from './components/Modal';

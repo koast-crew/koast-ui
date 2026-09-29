@@ -13,7 +13,7 @@ import { Switch } from '@koast/ui';
 <Switch label="다크 모드" defaultChecked />
 
 // 제어 + 상태 아이콘
-<Switch label="알림 설정" icon checked={on} onChange={setOn} />
+<Switch label="알림 설정" showIcon checked={on} onChange={setOn} />
 
 // 라벨을 왼쪽에
 <Switch label="자동 저장" labelPlacement="start" />
@@ -30,7 +30,7 @@ import { Switch } from '@koast/ui';
 | `onChange` | `(checked: boolean) => void` | — | 상태가 바뀔 때 호출됩니다. |
 | `label` | `React.ReactNode` | — | 스위치 옆에 표시되는 라벨입니다. |
 | `labelPlacement` | `SwitchLabelPlacement` | `'end'` | 라벨 위치입니다. |
-| `icon` | `boolean` | `false` | 손잡이 안에 상태 아이콘(체크 / X)을 표시합니다. Figma 의 Icon 축입니다. |
+| `showIcon` | `boolean` | `false` | 손잡이 안에 상태 아이콘(체크 / X)을 표시합니다. Figma 의 Icon 축입니다. |
 | `value` | `ControlValue` | — | 폼 전송에 쓰이는 값입니다. |
 | `required` | `boolean` | `false` | 필수 입력 여부입니다. 라벨 뒤에 `*` 가 붙습니다. |
 | `disabled` | `boolean` | `false` | 비활성화 상태입니다. 상위 ControlGroup 의 disabled 도 그대로 받습니다. |

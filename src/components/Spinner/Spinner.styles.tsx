@@ -1,5 +1,5 @@
 import { twMerge } from '../../utils/twMerge';
-import type { SpinnerSize, SpinnerVariant } from './Spinner.types';
+import type { SpinnerSize, SpinnerColor } from './Spinner.types';
 
 /** Figma 실측 지름입니다. lg / xl 의 뒤집힌 값을 바로잡아 단조 증가하게 맞췄습니다. */
 const SIZES: Record<SpinnerSize, string> = {
@@ -9,7 +9,7 @@ const SIZES: Record<SpinnerSize, string> = {
   xl: 'koast-size-12',
 };
 
-const VARIANTS: Record<SpinnerVariant, string> = {
+const COLORS: Record<SpinnerColor, string> = {
   primary: 'koast-text-interactive-primary',
   secondary: 'koast-text-tertiary',
   inherit: '',
@@ -24,13 +24,13 @@ const SPIN = 'koast-animate-spin motion-reduce:koast-animate-pulse';
 
 export const getSpinnerStyles = (
   size: SpinnerSize,
-  variant: SpinnerVariant,
+  color: SpinnerColor,
   className: string,
 ) =>
   twMerge(
     'koast-inline-flex koast-shrink-0 koast-items-center koast-justify-center',
     SIZES[size],
-    VARIANTS[variant],
+    COLORS[color],
     className,
   );
 

@@ -28,7 +28,7 @@ const ASSERTIVE_STATUSES: readonly AlertStatus[] = ['warning', 'error'];
  * 주의가 필요한 정보나 작업 결과를 화면 흐름 안에 그대로 붙여 보여주는 인라인 알림입니다.
  *
  * @param {'brand' | 'neutral' | 'info' | 'success' | 'warning' | 'error'} [props.status='neutral'] - 상태 색 : 'brand' | 'neutral' | 'info' | 'success' | 'warning' | 'error'
- * @param {'filled' | 'outlined' | 'transparent'} [props.variant='filled'] - 면 처리 방식 : 'filled' | 'outlined' | 'transparent'
+ * @param {'contained' | 'outlined' | 'transparent'} [props.variant='contained'] - 면 처리 방식 : 'contained' | 'outlined' | 'transparent'
  * @param {React.ReactNode} props.title - 굵은 제목 줄 : React.ReactNode
  * @param {React.ReactNode} [props.children] - 제목 아래 본문 : React.ReactNode
  * @param {React.ReactNode | false} [props.icon] - 제목 앞 아이콘. 생략하면 status 별 기본 아이콘, `false` 면 아이콘 없음 : React.ReactNode | false
@@ -53,7 +53,7 @@ const ASSERTIVE_STATUSES: readonly AlertStatus[] = ['warning', 'error'];
  */
 export const Alert = ({
   status = 'neutral',
-  variant = 'filled',
+  variant = 'contained',
   title,
   children,
   icon,

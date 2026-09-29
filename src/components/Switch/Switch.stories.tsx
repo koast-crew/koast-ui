@@ -10,7 +10,7 @@ const meta: Meta<typeof Switch> = {
   args: {
     label: 'Label',
     labelPlacement: 'end',
-    icon: false,
+    showIcon: false,
     disabled: false,
     required: false,
   },
@@ -19,7 +19,7 @@ const meta: Meta<typeof Switch> = {
       control: 'boolean',
       description: 'Figma 의 **Checked** 축입니다. True / False.',
     },
-    icon: {
+    showIcon: {
       control: 'boolean',
       description: 'Figma 의 **Icon** 축입니다. 손잡이 안에 체크 / X 를 표시합니다.',
     },
@@ -67,13 +67,13 @@ export const WithIcon: Story = {
     <div className={'story-stack'}>
       <div className={'story-row'}>
         <span className={'story-label'}>{'Icon=True'}</span>
-        <Switch {...args} icon label={'False'} />
-        <Switch {...args} icon checked label={'True'} />
+        <Switch {...args} showIcon label={'False'} />
+        <Switch {...args} showIcon checked label={'True'} />
       </div>
       <div className={'story-row'}>
         <span className={'story-label'}>{'Disabled'}</span>
-        <Switch {...args} icon disabled label={'False'} />
-        <Switch {...args} icon disabled checked label={'True'} />
+        <Switch {...args} showIcon disabled label={'False'} />
+        <Switch {...args} showIcon disabled checked label={'True'} />
       </div>
     </div>
   ),

@@ -56,7 +56,7 @@ export interface ModalProps {
   footerAlign?: ModalFooterAlign;
 
   /** 헤더 오른쪽 닫기 버튼 표시 여부입니다. @default true */
-  showCloseButton?: boolean;
+  closable?: boolean;
 
   /** 닫기 버튼의 `aria-label` 입니다. @default '닫기' */
   closeLabel?: string;

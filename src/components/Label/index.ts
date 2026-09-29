@@ -1,2 +1,2 @@
 export { Label as default } from './Label';
-export type { LabelProps, LabelType, LabelAs } from './Label.types';
+export type { LabelProps, LabelIndicator, LabelAs } from './Label.types';

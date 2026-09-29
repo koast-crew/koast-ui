@@ -112,7 +112,7 @@ export const RichContent: Story = {
   render: (args) => (
     <Accordion {...args} defaultValue={['01']}>
       <AccordionItem value={'01'} title={'배송 안내'}>
-        <div className={'story-stack'}>
+        <div className={'koast-flex koast-flex-col koast-gap-2'}>
           <span>{'영업일 기준 2~3일 소요됩니다.'}</span>
           <span>{'도서·산간 지역은 하루 더 걸릴 수 있습니다.'}</span>
         </div>

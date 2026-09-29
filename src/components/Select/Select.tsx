@@ -13,7 +13,7 @@ import { Check, ChevronDown, ChevronUp, CircleX } from 'lucide-react';
 import { SelectProps, SelectItemProps } from './Select.types';
 import {
   NATIVE_SELECT,
-  getHelpTextStyles,
+  getHelperTextStyles,
   getMenuStyles,
   getOptionStyles,
   getTriggerStyles,
@@ -84,7 +84,7 @@ export const SelectItem = ({
  * @param {Function} [props.onChange] - 값 변경 시 호출되는 콜백 : Function
  * @param {React.ReactNode} [props.label] - 트리거 위에 표시되는 라벨 : React.ReactNode
  * @param {string} [props.placeholder] - 값이 없을 때 표시되는 문구 : string
- * @param {React.ReactNode} [props.helpText] - 트리거 아래 보조 문구. error 면 빨간색 : React.ReactNode
+ * @param {React.ReactNode} [props.helperText] - 트리거 아래 보조 문구. error 면 빨간색 : React.ReactNode
  * @param {boolean} [props.error=false] - 오류 상태 : boolean
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {boolean} [props.required=false] - 필수 입력 여부 : boolean
@@ -103,7 +103,7 @@ export const SelectItem = ({
  *   <SelectItem value="jp">일본</SelectItem>
  * </Select>
  *
- * <Select error helpText="필수 항목입니다" size="sm" visibleOptions={4}>
+ * <Select error helperText="필수 항목입니다" size="sm" visibleOptions={4}>
  *   <SelectItem value={10}>10</SelectItem>
  * </Select>
  * ```
@@ -115,7 +115,7 @@ const SelectImpl = forwardRef<HTMLButtonElement, SelectProps<string | number>>((
     onChange,
     label,
     placeholder,
-    helpText,
+    helperText,
     error = false,
     disabled = false,
     required = false,
@@ -142,7 +142,7 @@ const SelectImpl = forwardRef<HTMLButtonElement, SelectProps<string | number>>((
   const reactId = useId();
   const baseId = id ?? `koast-select-${ reactId }`;
   const listboxId = `${ baseId }-listbox`;
-  const helpId = `${ baseId }-help`;
+  const helperId = `${ baseId }-helper`;
   const optionId = useCallback(
     (v: ItemValue) => `${ baseId }-option-${ String(v) }`,
     [baseId],
@@ -302,7 +302,7 @@ const SelectImpl = forwardRef<HTMLButtonElement, SelectProps<string | number>>((
           aria-activedescendant={open && activeValue !== undefined ? optionId(activeValue) : undefined}
           aria-required={required || undefined}
           aria-invalid={error || undefined}
-          aria-describedby={helpText ? helpId : undefined}
+          aria-describedby={helperText ? helperId : undefined}
           onClick={() => (open ? setOpen(false) : openMenu())}
           onKeyDown={handleKeyDown}
           className={getTriggerStyles(size, disabled, error, open, '')}
@@ -352,10 +352,10 @@ const SelectImpl = forwardRef<HTMLButtonElement, SelectProps<string | number>>((
         )}
       </div>
 
-      {helpText && (
-        <p id={helpId} className={getHelpTextStyles(error)}>
+      {helperText && (
+        <p id={helperId} className={getHelperTextStyles(error)}>
           {error && <CircleX className={'koast-size-6 koast-shrink-0'} aria-hidden />}
-          {helpText}
+          {helperText}
         </p>
       )}
     </div>

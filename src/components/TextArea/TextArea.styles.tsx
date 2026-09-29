@@ -34,6 +34,9 @@ export const getTextAreaStyles = (
 /** 라벨과 글자 수 카운터를 한 줄에 놓습니다. 이 줄이 상자와의 12px 간격을 담당합니다. */
 export const TEXTAREA_HEADER = 'koast-mb-3 koast-flex koast-items-center koast-gap-2';
 
+/** 보조 문구는 TextField 와 달리 14px 입니다. */
+export const TEXTAREA_HELPER_TEXT = 'koast-text-sm';
+
 /** Figma 의 Counter 프레임은 높이 16px 이고 줄의 오른쪽 끝에 붙습니다. */
 export const getTextAreaCounterStyles = (disabled: boolean) =>
   twMerge(

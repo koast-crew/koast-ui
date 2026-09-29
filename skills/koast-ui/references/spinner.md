@@ -13,11 +13,11 @@ import { Spinner } from '@koast/ui';
 <Spinner />
 
 // 큰 스피너 + 직접 지정한 이름
-<Spinner size="xl" label="지도를 불러오는 중" />
+<Spinner size="xl" aria-label="지도를 불러오는 중" />
 
 // 이미 문구가 있는 면 안에서 색을 물려받아 장식으로만 쓰기
 <button>
-  <Spinner size="sm" variant="inherit" decorative />
+  <Spinner size="sm" color="inherit" decorative />
   {'저장 중'}
 </button>
 ```
@@ -29,8 +29,8 @@ import { Spinner } from '@koast/ui';
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
 | `size` | `SpinnerSize` | `'md'` | Figma 의 Size 축입니다. 16 / 24 / 32 / 48px. |
-| `variant` | `SpinnerVariant` | `'primary'` | Figma 의 Type 축입니다. |
-| `label` | `string` | `'로딩 중'` | 스크린 리더가 읽을 이름입니다. |
+| `color` | `SpinnerColor` | `'primary'` | Figma 의 Type 축(색)입니다. |
+| `aria-label` | `string` | `'로딩 중'` | 스크린 리더가 읽을 이름입니다. |
 | `decorative` | `boolean` | `false` | 장식으로만 쓸 때 켭니다. `role="status"` 와 이름이 빠지고 `aria-hidden` 이 붙습니다. 이미 "저장 중" 같은 문구를 가진 버튼 안에 넣을 때 씁니다. |
 | `className` | `string` | — | 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. |
 
@@ -39,7 +39,7 @@ import { Spinner } from '@koast/ui';
 | 이름 | 값 | 설명 |
 | :-- | :-- | :-- |
 | `SpinnerSize` | `'sm' \| 'md' \| 'lg' \| 'xl'` | Figma 의 Size 축입니다. 실측은 sm 16 · md 24 · xl 32 · lg 48 이지만 lg 와 xl 이 뒤집힌 실수로 보고 lg 32 · xl 48 로 바로잡았습니다. |
-| `SpinnerVariant` | `'primary' \| 'secondary' \| 'inherit'` | Figma 의 Type 축입니다. `inherit` 은 Figma 에 없으며 버튼처럼 이미 색이 정해진 면 안에 넣을 때 쓰는 `currentColor` 모드입니다. |
+| `SpinnerColor` | `'primary' \| 'secondary' \| 'inherit'` | Figma 의 Type 축(색)입니다. `inherit` 은 Figma 에 없으며 버튼처럼 이미 색이 정해진 면 안에 넣을 때 쓰는 `currentColor` 모드입니다. |
 
 ## 규칙
 

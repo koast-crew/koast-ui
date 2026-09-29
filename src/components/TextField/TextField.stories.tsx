@@ -11,7 +11,7 @@ const meta: Meta<typeof TextField> = {
   args: {
     label: 'Label',
     placeholder: 'Placeholder',
-    helpText: 'Help message',
+    helperText: 'Help message',
     size: 'md',
   },
   argTypes: {
@@ -30,8 +30,8 @@ const meta: Meta<typeof TextField> = {
     required: { control: 'boolean', description: '라벨 뒤에 * 가 붙습니다.' },
     label: { control: 'text' },
     placeholder: { control: 'text' },
-    helpText: { control: 'text' },
-    trailingIcon: { control: false },
+    helperText: { control: 'text' },
+    endIcon: { control: false },
   },
   decorators: [
     (Story) => (
@@ -68,7 +68,7 @@ export const States: Story = {
     <div className={'story-stack'}>
       <TextField {...args} label={'Default'} />
       <TextField {...args} label={'Filled'} defaultValue={'입력된 값'} />
-      <TextField {...args} label={'Error'} error helpText={'필수 항목입니다'} />
+      <TextField {...args} label={'Error'} error helperText={'필수 항목입니다'} />
       <TextField {...args} label={'Disabled'} disabled defaultValue={'입력된 값'} />
     </div>
   ),
@@ -76,12 +76,12 @@ export const States: Story = {
 
 /** Figma 의 `Trailing icon` 슬롯입니다. 아이콘은 24x24 로 그려집니다. */
 export const WithTrailingIcon: Story = {
-  args: { trailingIcon: <Search /> },
+  args: { endIcon: <Search /> },
 };
 
 /** 라벨과 보조 문구는 생략할 수 있습니다. */
 export const WithoutLabel: Story = {
-  args: { label: undefined, helpText: undefined },
+  args: { label: undefined, helperText: undefined },
 };
 
 /** `required` 는 라벨 뒤에 `*` 를 붙이고 `aria-required` 를 겁니다. */

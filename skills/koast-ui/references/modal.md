@@ -52,7 +52,7 @@ import { Modal } from '@koast/ui';
 | `confirmLoading` | `boolean` | `false` | 주 버튼의 로딩 상태입니다. |
 | `confirmDisabled` | `boolean` | `false` | 주 버튼의 비활성화 상태입니다. |
 | `footerAlign` | `ModalFooterAlign` | `'end'` | Button Stack 의 가로 정렬입니다. |
-| `showCloseButton` | `boolean` | `true` | 헤더 오른쪽 닫기 버튼 표시 여부입니다. |
+| `closable` | `boolean` | `true` | 헤더 오른쪽 닫기 버튼 표시 여부입니다. |
 | `closeLabel` | `string` | `'닫기'` | 닫기 버튼의 `aria-label` 입니다. |
 | `closeOnEscape` | `boolean` | `true` | Escape 키로 닫을지 여부입니다. |
 | `closeOnOverlayClick` | `boolean` | `true` | 배경(overlay) 클릭으로 닫을지 여부입니다. |

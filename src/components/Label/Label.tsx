@@ -13,7 +13,7 @@ import {
  * 컨트롤을 감싸는 `<label>` 안에서 쓰일 때는 `as="span"` 으로 렌더링해 태그 중첩을 피합니다.
  *
  * @param {React.ReactNode} props.children - 라벨 문구 : React.ReactNode
- * @param {'none' | 'optional' | 'required'} [props.type='none'] - 보조 표기. required 면 `*`, optional 이면 `(Optional)` : 'none' | 'optional' | 'required'
+ * @param {'none' | 'optional' | 'required'} [props.indicator='none'] - 보조 표기. required 면 `*`, optional 이면 `(Optional)` : 'none' | 'optional' | 'required'
  * @param {string} [props.htmlFor] - 연결할 입력 요소의 id : string
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {string} [props.optionalText='(Optional)'] - `(Optional)` 자리에 들어갈 문구 : string
@@ -23,11 +23,11 @@ import {
  * @example
  * ```tsx
  * // 입력 필드와 연결
- * <Label htmlFor="email" type="required">이메일</Label>
+ * <Label htmlFor="email" indicator="required">이메일</Label>
  * <input id="email" />
  *
  * // 선택 입력 표기
- * <Label htmlFor="nickname" type="optional">닉네임</Label>
+ * <Label htmlFor="nickname" indicator="optional">닉네임</Label>
  *
  * // 컨트롤을 감싸는 label 안에서 문구만 그릴 때
  * <Label as="span" disabled>약관 동의</Label>
@@ -36,7 +36,7 @@ import {
 export const Label = (props: LabelProps) => {
   const {
     children,
-    type = 'none',
+    indicator = 'none',
     htmlFor,
     disabled = false,
     optionalText = '(Optional)',
@@ -48,10 +48,10 @@ export const Label = (props: LabelProps) => {
   const content = (
     <>
       <span>{children}</span>
-      {type === 'optional' && (
+      {indicator === 'optional' && (
         <span className={getOptionalStyles(disabled)}>{optionalText}</span>
       )}
-      {type === 'required' && (
+      {indicator === 'required' && (
         <span aria-hidden={'true'} className={getRequiredStyles(disabled)}>
           {'*'}
         </span>

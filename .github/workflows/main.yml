@@ -80,10 +80,18 @@ jobs:
         run: |
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
           CLEAN_VERSION=$(echo $LATEST_TAG | sed 's/^v//')
-          NEW_VERSION=$(echo $CLEAN_VERSION | awk -F. -v OFS=. '{$NF += 1 ; print}')
-          npm version "$NEW_VERSION" --no-git-tag-version
+          CHANGELOG_VERSION=$(grep -m1 -oE '^## \[[0-9]+\.[0-9]+\.[0-9]+\]' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "$CLEAN_VERSION")
+          # CHANGELOG 맨 위 버전이 태그보다 높으면(1.1.0, 2.0.0 등) 그 버전으로, 아니면 patch 를 올립니다.
+          HIGHER=$(printf '%s\n%s\n' "$CLEAN_VERSION" "$CHANGELOG_VERSION" | sort -V | tail -n1)
+          if [ "$CHANGELOG_VERSION" != "$CLEAN_VERSION" ] && [ "$HIGHER" = "$CHANGELOG_VERSION" ]; then
+            NEW_VERSION="$CHANGELOG_VERSION"
+          else
+            NEW_VERSION=$(echo $CLEAN_VERSION | awk -F. -v OFS=. '{$NF += 1 ; print}')
+          fi
+          echo "latest tag: $CLEAN_VERSION, CHANGELOG: $CHANGELOG_VERSION → release: $NEW_VERSION"
+          npm version "$NEW_VERSION" --no-git-tag-version --allow-same-version
           git add package.json package-lock.json
-          git commit -m "🔖 Release $NEW_VERSION"
+          git commit --allow-empty -m "🔖 Release $NEW_VERSION"
           git tag "v$NEW_VERSION"
           git push origin HEAD --tags
         env:

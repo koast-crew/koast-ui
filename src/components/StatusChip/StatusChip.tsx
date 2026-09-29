@@ -17,7 +17,7 @@ const DEFAULT_ICONS: Record<StatusChipStatus, React.ReactNode> = {
  * 항목의 상태나 진행 상황을 나타내는 작은 레이블이며, 클릭할 수 없는 표시 전용 요소입니다.
  *
  * @param {'neutral' | 'info' | 'error' | 'success' | 'warning'} [props.status='neutral'] - 상태 색 : 'neutral' | 'info' | 'error' | 'success' | 'warning'
- * @param {'filled' | 'outlined' | 'transparent'} [props.variant='filled'] - 면 처리 방식 : 'filled' | 'outlined' | 'transparent'
+ * @param {'contained' | 'outlined' | 'transparent'} [props.variant='contained'] - 면 처리 방식 : 'contained' | 'outlined' | 'transparent'
  * @param {'round' | 'square'} [props.shape='round'] - 모서리 모양 (pill / 4px) : 'round' | 'square'
  * @param {'sm' | 'md'} [props.size='md'] - 칩 최소 높이 (28 / 32px) : 'sm' | 'md'
  * @param {React.ReactNode | false} [props.icon] - 라벨 앞 아이콘. 생략하면 status 별 기본 아이콘, `false` 면 아이콘 없음 : React.ReactNode | false
@@ -37,7 +37,7 @@ const DEFAULT_ICONS: Record<StatusChipStatus, React.ReactNode> = {
  */
 export const StatusChip = ({
   status = 'neutral',
-  variant = 'filled',
+  variant = 'contained',
   shape = 'round',
   size = 'md',
   icon,

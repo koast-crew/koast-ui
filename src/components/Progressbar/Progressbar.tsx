@@ -32,7 +32,7 @@ const clamp = (value: number, min: number, max: number) =>
  * @param {boolean} [props.showValue=true] - 헤더 값 텍스트 표시 여부 : boolean
  * @param {React.ReactNode} [props.helperText] - 트랙 아래 보조 문구 : React.ReactNode
  * @param {(percent: number) => string} [props.formatValue] - 백분율 표기 형식 : function
- * @param {string} [props.ariaLabel] - `label` 이 없을 때의 접근성 이름 : string
+ * @param {string} [props.aria-label] - `label` 이 없을 때의 접근성 이름 : string
  * @param {string} [props.className] - 레이아웃 조정용 CSS 클래스 (색상 지정 불가) : string
  *
  * @example
@@ -47,7 +47,7 @@ const clamp = (value: number, min: number, max: number) =>
  * <Progressbar label="업로드" value={40} error helperText="업로드에 실패했습니다" />
  *
  * // 진행률을 알 수 없을 때
- * <Progressbar indeterminate ariaLabel="데이터를 불러오는 중" />
+ * <Progressbar indeterminate aria-label="데이터를 불러오는 중" />
  * ```
  */
 export const Progressbar = ({
@@ -61,7 +61,7 @@ export const Progressbar = ({
   showValue = true,
   helperText,
   formatValue = (percent: number) => `${ Math.round(percent) }%`,
-  ariaLabel,
+  'aria-label': ariaLabel,
   className = '',
 }: ProgressbarProps) => {
   const reactId = useId();

@@ -22,7 +22,7 @@ export interface SwitchProps
   labelPlacement?: SwitchLabelPlacement;
 
   /** 손잡이 안에 상태 아이콘(체크 / X)을 표시합니다. Figma 의 Icon 축입니다. @default false */
-  icon?: boolean;
+  showIcon?: boolean;
 
   /** 폼 전송에 쓰이는 값입니다. */
   value?: ControlValue;

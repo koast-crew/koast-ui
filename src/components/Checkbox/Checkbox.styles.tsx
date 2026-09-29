@@ -6,7 +6,7 @@ import type { CheckboxChecked } from './Checkbox.types';
  * preflight 가 꺼져 있어 border-width 만으로는 선이 안 그려지므로 border-solid 를 함께 붙입니다.
  */
 const BOX_BASE
-  = 'koast-flex koast-size-4 koast-shrink-0 koast-items-center koast-justify-center koast-rounded koast-border koast-border-solid koast-transition-colors koast-duration-200';
+  = 'koast-flex koast-size-4 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-sm koast-border koast-border-solid koast-transition-colors koast-duration-200';
 
 /** Figma 는 상자에 붙은 20x20 이지만, Button 과 맞춰 2px 띄웁니다(24x24). */
 const FOCUS_RING

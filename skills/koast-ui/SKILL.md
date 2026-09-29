@@ -45,7 +45,7 @@ test: { server: { deps: { inline: ['@koast/ui'] } } }
 
 `Button` 의 intent 는 `primary` · `secondary` · `danger` 셋뿐입니다.
 `error` · `gray` · `neutral` · `info` · `warning` · `success` 는 deprecated 이며 가장 가까운 값으로 떨어집니다.
-`danger` 는 `variant` 와 무관하게 항상 filled 로 그려집니다 — 디자인 시스템에 다른 면이 없습니다.
+`danger` 는 `variant` 와 무관하게 항상 `contained` 로 그려집니다 — 디자인 시스템에 다른 면이 없습니다.
 
 **2. brand 램프 주입** — 프로젝트 고유색이 필요할 때 쓰는 유일한 통로입니다.
 
@@ -111,7 +111,7 @@ const style = createBrandThemeStyle({
 | 액션 | `Button` · `IconButton` |
 | 피드백 | `Alert` · `Toast` · `Modal` · `Tooltip` · `Progressbar` · `Spinner` · `Skeleton` |
 | 표시 | `Table` · `Badge` · `StatusChip` · `Accordion` |
-| 이동 | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `FolderTree` |
+| 이동 | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `Tree` |
 | 도메인 | `TimeLine` · `MapLegend` |
 
 ## 참조 파일

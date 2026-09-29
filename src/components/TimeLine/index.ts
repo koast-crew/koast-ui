@@ -1,8 +1,7 @@
 export { TimeLine as default, TimeLine } from './TimeLine';
 export type {
   TimeLineProps,
-  TimeLineType,
-  TimeLineLayout,
+  TimeLineMode,
   TimeLineInterval,
   TimeLineOnChangeProps,
   TimeUnit,

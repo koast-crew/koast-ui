@@ -1,12 +1,12 @@
 import { twMerge } from '../../utils/twMerge';
-import type { BadgeStatus, BadgeType, BadgeVariant } from './Badge.types';
+import type { BadgeShape, BadgeStatus, BadgeVariant } from './Badge.types';
 
 /**
  * 형태별 치수입니다. 디자인 시스템이 높이를 고정값으로 정의합니다(dot 4, number 20, text 24).
  * number 는 pill(radius 무한), text 는 radius 4px 입니다.
  * number 의 min-w-5 는 내용이 좁을 때 높이보다 납작해지지 않게 잡아 주는 하한입니다.
  */
-const TYPES: Record<BadgeType, string> = {
+const SHAPES: Record<BadgeShape, string> = {
   dot: 'koast-inline-block koast-size-1 koast-shrink-0 koast-rounded-full',
   number:
     'koast-inline-flex koast-h-5 koast-min-w-5 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-full koast-px-2 koast-py-0.5 koast-text-xs koast-font-medium koast-leading-4',
@@ -16,7 +16,7 @@ const TYPES: Record<BadgeType, string> = {
 /** 채운 면입니다. 라벨은 면 색을 따라 반전되는 inverse 토큰입니다(Button contained 와 같은 규칙). */
 const PRIMARY: Record<BadgeStatus, string> = {
   neutral: 'koast-bg-inverse-bolder koast-text-interactive-inverse',
-  information: 'koast-bg-info-bold koast-text-interactive-inverse',
+  info: 'koast-bg-info-bold koast-text-interactive-inverse',
   success: 'koast-bg-success-bold koast-text-interactive-inverse',
   warning: 'koast-bg-warning-bold koast-text-interactive-inverse',
   error: 'koast-bg-danger-bold koast-text-interactive-inverse',
@@ -26,7 +26,7 @@ const PRIMARY: Record<BadgeStatus, string> = {
 const SECONDARY: Record<BadgeStatus, string> = {
   neutral:
     'koast-bg-tertiary koast-text-secondary koast-ring-1 koast-ring-inset koast-ring-primary',
-  information:
+  info:
     'koast-bg-info-subtle koast-text-info-bold koast-ring-1 koast-ring-inset koast-ring-info',
   success:
     'koast-bg-success-subtle koast-text-success-bold koast-ring-1 koast-ring-inset koast-ring-success',
@@ -38,14 +38,14 @@ const SECONDARY: Record<BadgeStatus, string> = {
 
 /** dot 은 Figma 에 Secondary 변형이 없어 variant 와 무관하게 채운 면 색만 씁니다. */
 export const getBadgeStyles = (
-  type: BadgeType,
+  shape: BadgeShape,
   variant: BadgeVariant,
   status: BadgeStatus,
   className: string,
 ) =>
   twMerge(
-    TYPES[type],
-    type !== 'dot' && variant === 'secondary'
+    SHAPES[shape],
+    shape !== 'dot' && variant === 'secondary'
       ? SECONDARY[status]
       : PRIMARY[status],
     className,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Spinner } from './Spinner';
-import type { SpinnerSize, SpinnerVariant } from './Spinner.types';
+import type { SpinnerSize, SpinnerColor } from './Spinner.types';
 
 const meta: Meta<typeof Spinner> = {
   title: 'Components/Spinner',
@@ -8,24 +8,24 @@ const meta: Meta<typeof Spinner> = {
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
   args: {
-    size: 'md',
-    variant: 'primary',
-    label: '로딩 중',
-    decorative: false,
+    'size': 'md',
+    'color': 'primary',
+    'aria-label': '로딩 중',
+    'decorative': false,
   },
   argTypes: {
-    size: {
+    'size': {
       control: 'radio',
       options: ['sm', 'md', 'lg', 'xl'],
       description: 'Figma 의 **Size** 축입니다. 16 / 24 / 32 / 48px.',
     },
-    variant: {
+    'color': {
       control: 'radio',
       options: ['primary', 'secondary', 'inherit'],
-      description: 'Figma 의 **Type** 축입니다. `inherit` 은 Figma 에 없는 currentColor 모드입니다.',
+      description: 'Figma 의 **Type** 축(색)입니다. `inherit` 은 Figma 에 없는 currentColor 모드입니다.',
     },
-    label: { control: 'text' },
-    decorative: { control: 'boolean' },
+    'aria-label': { control: 'text' },
+    'decorative': { control: 'boolean' },
   },
 };
 
@@ -33,7 +33,7 @@ export default meta;
 type Story = StoryObj<typeof Spinner>;
 
 const SIZES: SpinnerSize[] = ['sm', 'md', 'lg', 'xl'];
-const VARIANTS: SpinnerVariant[] = ['primary', 'secondary'];
+const COLORS: SpinnerColor[] = ['primary', 'secondary'];
 
 /** 기본값입니다. Figma `Spinner Loader · Size=md, Type=Primary` 에 해당합니다. */
 export const Default: Story = {};
@@ -42,11 +42,11 @@ export const Default: Story = {};
 export const Sizes: Story = {
   render: (args) => (
     <div className={'story-stack'}>
-      {VARIANTS.map((variant) => (
-        <div key={variant} className={'story-row'}>
-          <span className={'story-label'}>{variant}</span>
+      {COLORS.map((color) => (
+        <div key={color} className={'story-row'}>
+          <span className={'story-label'}>{color}</span>
           {SIZES.map((size) => (
-            <Spinner key={size} {...args} size={size} variant={variant} />
+            <Spinner key={size} {...args} size={size} color={color} />
           ))}
         </div>
       ))}
@@ -55,14 +55,14 @@ export const Sizes: Story = {
 };
 
 /**
- * `variant='inherit'` 는 부모의 글자색을 그대로 씁니다.
+ * `color='inherit'` 는 부모의 글자색을 그대로 씁니다.
  * 이미 색이 정해진 버튼·배너 안에 넣을 때 쓰세요.
  */
 export const Inherit: Story = {
   render: (args) => (
     <div className={'story-row koast-text-danger'}>
-      <Spinner {...args} variant={'inherit'} size={'sm'} />
-      <Spinner {...args} variant={'inherit'} size={'md'} />
+      <Spinner {...args} color={'inherit'} size={'sm'} />
+      <Spinner {...args} color={'inherit'} size={'md'} />
       <span className={'story-note'}>{'부모의 koast-text-danger 를 물려받습니다'}</span>
     </div>
   ),
@@ -75,7 +75,7 @@ export const Inherit: Story = {
 export const Decorative: Story = {
   render: (args) => (
     <div className={'story-row'}>
-      <Spinner {...args} size={'sm'} variant={'inherit'} decorative />
+      <Spinner {...args} size={'sm'} color={'inherit'} decorative />
       <span>{'저장 중…'}</span>
     </div>
   ),

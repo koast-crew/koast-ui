@@ -21,14 +21,14 @@ const meta: Meta<typeof MapLegend> = {
       defaultValue: '범례',
       type: { name: 'string', required: false },
     },
-    visible: {
+    open: {
       control: 'boolean',
       description: '범례의 표시 여부를 결정합니다.',
       defaultValue: true,
     },
     onClose: {
       control: { disable: true },
-      description: '범례 닫기 버튼 클릭 시 호출될 함수입니다. 보통 `onClose={() => setVisible(false)}` 형태로 사용합니다.',
+      description: '범례 닫기 버튼 클릭 시 호출될 함수입니다. 보통 `onClose={() => setOpen(false)}` 형태로 사용합니다.',
       type: { name: 'function' },
     },
     selectedLayerId: {
@@ -136,7 +136,7 @@ const sampleCircleLegendData = {
 
 export const BarLegend: Story = {
   args: {
-    visible: true,
+    open: true,
     selectedLayerId: 'fish',
     toolbarButtons: sampleToolbarButtons,
     legendData: sampleLegendData,
@@ -183,13 +183,13 @@ export const CircleLegend: Story = {
 
     const [selectedId, setSelectedId] = useState('fish');
 
-    const [visible, setVisible] = useState(true);
+    const [open, setOpen] = useState(true);
     return (
       <div className={'koast-flex koast-flex-col koast-gap-4'}>
         <MapLegend
           legendType={'circle'}
-          visible={visible}
-          onClose={() => setVisible(false)}
+          open={open}
+          onClose={() => setOpen(false)}
           selectedLayerId={selectedId}
           onLayerSelect={setSelectedId}
           toolbarButtons={sampleToolbarButtons}
@@ -207,21 +207,21 @@ export const Interactive: Story = {
   render: () => {
     const [selectedId, setSelectedId] = useState('fish');
 
-    const [visible, setVisible] = useState(true);
+    const [open, setOpen] = useState(true);
 
     return (
       <div className={'koast-flex koast-w-[400px] koast-flex-col koast-gap-4'}>
         <div className={'koast-flex koast-justify-center koast-gap-2'}>
           <button
-            onClick={() => setVisible(!visible)}
+            onClick={() => setOpen(!open)}
             className={'koast-rounded koast-bg-blue-500 koast-px-4 koast-py-2 koast-text-white'}
           >
-            {visible ? '범례 숨김' : '범례 표시'}
+            {open ? '범례 숨김' : '범례 표시'}
           </button>
         </div>
         <MapLegend
-          visible={visible}
-          onClose={() => setVisible(false)}
+          open={open}
+          onClose={() => setOpen(false)}
           selectedLayerId={selectedId}
           onLayerSelect={setSelectedId}
           toolbarButtons={sampleToolbarButtons}
@@ -240,12 +240,12 @@ export const CustomStyled: Story = {
   render: () => {
     const [selectedId, setSelectedId] = useState('fish');
 
-    const [visible, setVisible] = useState(true);
+    const [open, setOpen] = useState(true);
     return (
       <div className={'koast-flex koast-flex-col koast-gap-4'}>
         <MapLegend
-          visible={visible}
-          onClose={() => setVisible(false)}
+          open={open}
+          onClose={() => setOpen(false)}
           selectedLayerId={selectedId}
           onLayerSelect={setSelectedId}
           toolbarButtons={sampleToolbarButtons}

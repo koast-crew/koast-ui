@@ -19,7 +19,7 @@ import { Progressbar } from '@koast/ui';
 <Progressbar label="업로드" value={40} error helperText="업로드에 실패했습니다" />
 
 // 진행률을 알 수 없을 때
-<Progressbar indeterminate ariaLabel="데이터를 불러오는 중" />
+<Progressbar indeterminate aria-label="데이터를 불러오는 중" />
 ```
 
 ## Props
@@ -38,7 +38,6 @@ import { Progressbar } from '@koast/ui';
 | `showValue` | `boolean` | `true` | 헤더 값 텍스트 표시 여부입니다. |
 | `helperText` | `ReactNode` | — | 트랙 아래 보조 문구입니다. Figma 의 `Part/Help message` 입니다. |
 | `formatValue` | `(percent: number) => string` | `(percent) => `${ Math.round(percent) }%`` | 백분율을 문자열로 바꿉니다. 헤더 값 텍스트와 `aria-valuetext` 에 함께 쓰입니다. |
-| `ariaLabel` | `string` | — | 접근성 이름입니다. `label` 이 없을 때 사용하세요. |
 | `className` | `string` | — | 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. |
 
 ## 타입

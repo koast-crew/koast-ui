@@ -76,33 +76,6 @@ const LegendItems = ({ legendItems }: { legendItems: CircleLegendData[] }) => {
 };
 
 /**
- * 지도 범례 컴포넌트입니다.
- *
- * @param {string} [props.title='범례'] - 범례 제목입니다. 타입 : string, 기본값 : '범례'
- * @param {ToolbarButton[]} props.toolbarButtons - 툴바 버튼 배열의 배열입니다. 타입 : ToolbarButton[]
- * @param {Record<string, BarLegendData | CircleLegendData[]>} props.legendData - 범례 데이터를 포함하는 객체입니다. 타입 : Record<string, BarLegendData | CircleLegendData[]>
- * @param {string} props.selectedLayerId - 현재 선택된 레이어 ID입니다. 타입 : string
- * @param {LegendType} [props.legendType='bar'] - 범례 표시 타입입니다. 타입 : 'bar' | 'circle', 기본값 : 'bar'
- * @param {Function} [props.onLayerSelect] - 레이어 선택 시 호출될 함수입니다. 타입 : Function
- * @param {Function} [props.onClose] - 범례 닫기 버튼 클릭 시 호출될 함수입니다. 타입 : Function
- * @param {boolean} [props.visible=true] - 범례의 표시 여부를 결정합니다. 타입 : boolean, 기본값 : true
- * @param {string} [props.className] - 범례 컨테이너에 추가할 CSS 클래스명입니다. 타입 : string, 기본값 : ''
- * @param {string[]} [props.excludeButtonIds=[]] - 필터링할 버튼 ID 배열입니다. 타입 : string[], 기본값 : []
- *
- * @example
- * ```tsx
- * <MapLegend
- *   visible={true}
- *   onClose={() => setLegendVisible(false)}
- *   selectedLayerId="초기값id"
- *   onLayerSelect={(id) => setSelectedLayer(id)}
- *   toolbarButtons={toolbarButtons}
- *   legendData={legendData}
- *   legendType="bar"
- * />
- * ```
- */
-/**
  * @koast/ui MapLegend(지도 범례) 컴포넌트입니다.
  * 지도 위에 띄우는 레이어 선택 툴바와 범례 패널입니다. 연속값은 bar, 분류값은 circle 로 표시합니다.
  *
@@ -111,7 +84,7 @@ const LegendItems = ({ legendItems }: { legendItems: CircleLegendData[] }) => {
  * @param {Record<string, BarLegendData | CircleLegendData[]>} props.legendData - 레이어 id 를 키로 하는 범례 데이터 : Record
  * @param {(id: string) => void} [props.onLayerSelect] - 레이어를 고를 때 : (id) => void
  * @param {'bar' | 'circle'} [props.legendType='bar'] - 범례 표시 방식 : 'bar' | 'circle'
- * @param {boolean} [props.visible=true] - 범례 표시 여부 : boolean
+ * @param {boolean} [props.open=true] - 범례 표시 여부 : boolean
  * @param {() => void} [props.onClose] - 닫기 버튼 클릭 핸들러 : () => void
  * @param {string} [props.title] - 범례 제목 : string
  * @param {string[]} [props.excludeButtonIds] - 범례를 띄우지 않을 버튼 id 목록 : string[]
@@ -144,12 +117,12 @@ export const MapLegend = (props: MapLegendProps) => {
     legendType = 'bar',
     onLayerSelect,
     onClose,
-    visible = true,
+    open = true,
     className = '',
     excludeButtonIds = [],
   } = props;
   // 범례가 보이지 않으면 null 반환
-  if (!visible) return null;
+  if (!open) return null;
 
   // 제외할 버튼 ID 집합 생성
   const excludeSet = new Set(excludeButtonIds);

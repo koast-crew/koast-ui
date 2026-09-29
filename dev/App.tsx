@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import { Button } from '../src';
 import ButtonExam from './src/components/ButtonExam';
-import FolderTreeExam from './src/components/FolderTreeExam';
+import TreeExam from './src/components/TreeExam';
 import SelectExam from './src/components/SelectExam';
 import TimeLineExam from './src/components/TimeLineExam';
 import MapLegendExam from './src/components/MapLegendExam';
 
 const components = {
   button: ButtonExam,
-  folderTree: FolderTreeExam,
+  tree: TreeExam,
   select: SelectExam,
   timeLine: TimeLineExam,
   mapLegend: MapLegendExam,

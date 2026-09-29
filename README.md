@@ -101,7 +101,7 @@ npx @koast/ui init-skills
 ```
 
 **1. intent** — `Button` 이 받는 값은 `primary` · `secondary` · `danger` 셋뿐입니다.
-`danger` 는 `variant` 와 무관하게 항상 filled 로 그려집니다(디자인 시스템에 다른 면이 없습니다).
+`danger` 는 `variant` 와 무관하게 항상 `contained` 로 그려집니다(디자인 시스템에 다른 면이 없습니다).
 `className` 은 너비 · 여백 · 정렬 같은 **레이아웃 조정에만** 씁니다.
 
 **2. brand 램프 주입** — 시맨틱 토큰은 라이브러리가 고정하지만, brand 램프만은 프로젝트별로 바꿀 수 있습니다.
@@ -136,7 +136,7 @@ const css = createBrandThemeCss({
 | **액션** | `Button` · `IconButton` |
 | **피드백** | `Alert` · `Toast` · `Modal` · `Tooltip` · `Progressbar` · `Spinner` · `Skeleton` |
 | **표시** | `Badge` · `StatusChip` · `Accordion` |
-| **내비게이션** | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `FolderTree` |
+| **내비게이션** | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `Tree` |
 | **도메인** | `TimeLine` · `MapLegend` |
 
 각 컴포넌트의 props 와 예제는 [Storybook](https://koast-crew.github.io/koast-ui/) 에 있습니다.

@@ -80,7 +80,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {loading
           ? (
               <Spinner
-                variant={'inherit'}
+                color={'inherit'}
                 size={normalizedSize === 'md' ? 'md' : 'sm'}
                 decorative
               />

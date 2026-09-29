@@ -52,7 +52,6 @@ import { Slider } from '@koast/ui';
 | `showTooltip` | `boolean` | `true` | hover / focus / 드래그 중 썸 위에 값 툴팁을 띄웁니다. |
 | `unit` | `string` | — | 툴팁 값 뒤에 얇게 붙는 단위입니다. 예: `'%'`. |
 | `formatValue` | `(value: number) => string` | — | 값을 문자열로 바꿉니다. 헤더 · 툴팁 · 범위 라벨 · `aria-valuetext` 에 함께 쓰입니다. |
-| `ariaLabel` | `string` | — | 접근성 이름입니다. `label` 이 없을 때 사용하세요. |
 | `onChange` | `(value: SliderValue) => void` | — | 값이 바뀔 때마다 호출됩니다. 범위면 `[min, max]` 배열이 넘어옵니다. |
 | `onChangeEnd` | `(value: SliderValue) => void` | — | 드래그가 끝나거나 키 조작이 끝났을 때 한 번 호출됩니다. |
 

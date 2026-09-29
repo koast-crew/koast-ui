@@ -5,7 +5,7 @@ import {
   getTextFieldIconStyles,
   getTextFieldInputStyles,
 } from './TextField.styles';
-import { FieldHelpText, FieldLabel } from '../field/fieldChrome';
+import { FieldHelperText, FieldLabel } from '../field/fieldChrome';
 import { twMerge } from '../../utils/twMerge';
 
 /**
@@ -19,8 +19,8 @@ import { twMerge } from '../../utils/twMerge';
  * @param {Function} [props.onBlur] - 포커스를 잃을 때 호출되는 콜백 : Function
  * @param {React.ReactNode} [props.label] - 입력 상자 위에 표시되는 라벨 : React.ReactNode
  * @param {string} [props.placeholder] - 값이 없을 때 표시되는 문구 : string
- * @param {React.ReactNode} [props.helpText] - 입력 상자 아래 보조 문구. error 면 빨간색 : React.ReactNode
- * @param {React.ReactNode} [props.trailingIcon] - 상자 오른쪽 끝에 놓이는 24x24 아이콘 : React.ReactNode
+ * @param {React.ReactNode} [props.helperText] - 입력 상자 아래 보조 문구. error 면 빨간색 : React.ReactNode
+ * @param {React.ReactNode} [props.endIcon] - 상자 오른쪽 끝에 놓이는 24x24 아이콘 : React.ReactNode
  * @param {boolean} [props.error=false] - 오류 상태 : boolean
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {boolean} [props.readOnly=false] - 읽기 전용 상태 : boolean
@@ -37,9 +37,9 @@ import { twMerge } from '../../utils/twMerge';
  * ```tsx
  * <TextField label="이름" placeholder="이름을 입력하세요" value={name} onChange={setName} />
  *
- * <TextField label="이메일" size="sm" error helpText="이메일 형식이 아닙니다" required />
+ * <TextField label="이메일" size="sm" error helperText="이메일 형식이 아닙니다" required />
  *
- * <TextField label="검색" trailingIcon={<Search />} />
+ * <TextField label="검색" endIcon={<Search />} />
  * ```
  */
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
@@ -51,8 +51,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
     onBlur,
     label,
     placeholder,
-    helpText,
-    trailingIcon,
+    helperText,
+    endIcon,
     error = false,
     disabled = false,
     readOnly = false,
@@ -70,7 +70,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
 
   const reactId = useId();
   const baseId = id ?? `koast-textfield-${ reactId }`;
-  const helpId = `${ baseId }-help`;
+  const helperId = `${ baseId }-helper`;
 
   return (
     <div className={twMerge('koast-w-full', className)}>
@@ -96,7 +96,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
           autoComplete={autoComplete}
           aria-required={required || undefined}
           aria-invalid={error || undefined}
-          aria-describedby={helpText ? helpId : undefined}
+          aria-describedby={helperText ? helperId : undefined}
           onChange={(event) => onChange?.(event.target.value, event)}
           onFocus={(event) => {
             setFocused(true);
@@ -108,17 +108,17 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
           }}
           className={getTextFieldInputStyles(disabled)}
         />
-        {trailingIcon && (
+        {endIcon && (
           <span aria-hidden className={getTextFieldIconStyles(disabled)}>
-            {trailingIcon}
+            {endIcon}
           </span>
         )}
       </div>
 
-      {helpText && (
-        <FieldHelpText id={helpId} error={error}>
-          {helpText}
-        </FieldHelpText>
+      {helperText && (
+        <FieldHelperText id={helperId} error={error}>
+          {helperText}
+        </FieldHelperText>
       )}
     </div>
   );

@@ -25,7 +25,7 @@ import { StatusChip } from '@koast/ui';
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
 | `status` | `StatusChipStatus` | `'neutral'` | 상태 색을 정합니다. |
-| `variant` | `StatusChipVariant` | `'filled'` | 면 처리 방식입니다. |
+| `variant` | `StatusChipVariant` | `'contained'` | 면 처리 방식입니다. |
 | `shape` | `StatusChipShape` | `'round'` | 모서리 모양입니다. |
 | `size` | `StatusChipSize` | `'md'` | 칩 크기입니다. |
 | `icon` | `React.ReactNode \| false` | — | 라벨 앞 아이콘입니다. 지정하지 않으면 status 별 기본 아이콘이 붙고(neutral 은 기본 아이콘 없음), `false` 를 주면 아이콘 없이 라벨만 표시합니다. |
@@ -36,7 +36,7 @@ import { StatusChip } from '@koast/ui';
 
 | 이름 | 값 | 설명 |
 | :-- | :-- | :-- |
-| `StatusChipVariant` | `'filled' \| 'outlined' \| 'transparent'` | Figma 의 **Style** 축입니다. filled 는 진한 면, outlined 는 옅은 면 + 1px 테두리, transparent 는 테두리 없는 옅은 면입니다. |
+| `StatusChipVariant` | `'contained' \| 'outlined' \| 'transparent'` | Figma 의 **Style** 축입니다. contained(Figma Filled) 는 진한 면, outlined 는 옅은 면 + 1px 테두리, transparent 는 테두리 없는 옅은 면입니다. |
 | `StatusChipStatus` | `'neutral' \| 'info' \| 'error' \| 'success' \| 'warning'` | Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 은 각각 neutral / info 로 정리했습니다. |
 | `StatusChipShape` | `'round' \| 'square'` | Figma 의 **Type** 축입니다. round 는 pill, square 는 4px 라운드입니다. |
 | `StatusChipSize` | `'sm' \| 'md'` | Figma 의 컴포넌트 셋 구분입니다. md=32px, sm=28px 최소 높이에 대응합니다. |

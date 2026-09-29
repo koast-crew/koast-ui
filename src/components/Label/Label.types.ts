@@ -1,7 +1,7 @@
 import React from 'react';
 
 /** Figma `Part/Label` 의 Type 축입니다. 보조 표기 없음 / (Optional) / * 세 가지입니다. */
-export type LabelType = 'none' | 'optional' | 'required';
+export type LabelIndicator = 'none' | 'optional' | 'required';
 
 /** 렌더링할 태그입니다. 컨트롤을 감싸는 `<label>` 안에서 쓸 때는 `span` 이어야 중첩이 생기지 않습니다. */
 export type LabelAs = 'label' | 'span';
@@ -11,7 +11,7 @@ export interface LabelProps {
   children: React.ReactNode;
 
   /** 보조 표기입니다. @default 'none' */
-  type?: LabelType;
+  indicator?: LabelIndicator;
 
   /** 연결할 입력 요소의 id 입니다. 지정하면 기본 태그가 `label` 이 됩니다. */
   htmlFor?: string;

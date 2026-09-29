@@ -23,7 +23,7 @@ export interface SelectProps<T extends string | number = string> {
   placeholder?: string;
 
   /** 트리거 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. */
-  helpText?: React.ReactNode;
+  helperText?: React.ReactNode;
 
   /** 오류 상태입니다. @default false */
   error?: boolean;

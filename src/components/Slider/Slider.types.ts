@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { AriaAttributes, ReactNode } from 'react';
 
 /** Figma 의 Size 축입니다. Small / Medium / Large 에 대응합니다. */
 export type SliderSize = 'sm' | 'md' | 'lg';
@@ -11,7 +11,8 @@ export type SliderRangeValue = [number, number];
 
 export type SliderValue = number | SliderRangeValue;
 
-export interface SliderProps {
+/** `aria-label` 은 `label` 이 없을 때의 접근성 이름입니다. */
+export interface SliderProps extends Pick<AriaAttributes, 'aria-label'> {
   /** 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. */
   className?: string;
 
@@ -80,9 +81,6 @@ export interface SliderProps {
 
   /** 값을 문자열로 바꿉니다. 헤더 · 툴팁 · 범위 라벨 · `aria-valuetext` 에 함께 쓰입니다. */
   formatValue?: (value: number) => string;
-
-  /** 접근성 이름입니다. `label` 이 없을 때 사용하세요. */
-  ariaLabel?: string;
 
   /** 값이 바뀔 때마다 호출됩니다. 범위면 `[min, max]` 배열이 넘어옵니다. */
   onChange?: (value: SliderValue) => void;

@@ -96,9 +96,9 @@ export const TABLE_CELL_LABEL = 'koast-text-sm koast-font-medium koast-leading-5
 
 export const TABLE_CELL_DESCRIPTION = 'koast-text-xs koast-leading-[17px] koast-text-tertiary';
 
-export const getTableStateStyles = (isError: boolean) =>
+export const getTableStateStyles = (error: boolean) =>
   twMerge(
     'koast-col-span-full koast-flex koast-min-h-60 koast-items-center koast-justify-center koast-px-3 koast-py-10',
     'koast-border-0 koast-border-b koast-border-solid koast-border-secondary koast-text-sm koast-leading-5',
-    isError ? 'koast-text-danger' : 'koast-text-tertiary',
+    error ? 'koast-text-danger' : 'koast-text-tertiary',
   );

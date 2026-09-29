@@ -35,7 +35,7 @@ const COLUMNS: TableColumn<Member>[] = [
     label: '상태',
     align: 'center',
     render: (member) => (
-      <Badge type={'text'} variant={'primary'} status={member.active ? 'neutral' : 'error'}>
+      <Badge shape={'text'} variant={'primary'} status={member.active ? 'neutral' : 'error'}>
         {member.active ? '활성' : '비활성'}
       </Badge>
     ),

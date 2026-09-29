@@ -33,7 +33,7 @@ export { default as Tree } from './components/Tree';
 
 export type { AccordionProps, AccordionItemProps, AccordionSize, AccordionHeadingLevel } from './components/Accordion';
 export type { AlertProps, AlertStatus, AlertVariant } from './components/Alert';
-export type { BadgeProps, BadgeType, BadgeVariant, BadgeStatus } from './components/Badge';
+export type { BadgeProps, BadgeShape, BadgeVariant, BadgeStatus } from './components/Badge';
 export type { BreadcrumbsProps, BreadcrumbItem } from './components/Breadcrumbs';
 export type { ButtonProps, ButtonColor, ButtonColorProp, ButtonSize, ButtonSizeProp, ButtonVariant } from './components/Button/Button.types';
 export type { CheckboxProps, CheckboxChecked } from './components/Checkbox';

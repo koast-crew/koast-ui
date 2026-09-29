@@ -18,7 +18,7 @@ const meta: Meta<typeof Modal> = {
     confirmLabel: '확인',
     confirmColor: 'primary',
     footerAlign: 'end',
-    showCloseButton: true,
+    closable: true,
     closeOnEscape: true,
     closeOnOverlayClick: true,
     width: 464,
@@ -194,7 +194,7 @@ export const NoDismiss: Story = {
     description: '작업이 끝날 때까지 닫을 수 없습니다. Escape 와 배경 클릭이 모두 꺼져 있습니다.',
     closeOnEscape: false,
     closeOnOverlayClick: false,
-    showCloseButton: false,
+    closable: false,
     confirmLabel: '확인',
   },
   render: (args) => {

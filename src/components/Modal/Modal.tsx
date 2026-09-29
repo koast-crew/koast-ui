@@ -89,7 +89,7 @@ const unlockBodyScroll = () => {
  * @param {boolean} [props.confirmLoading=false] - 주 버튼 로딩 상태 : boolean
  * @param {boolean} [props.confirmDisabled=false] - 주 버튼 비활성화 상태 : boolean
  * @param {'start' | 'center' | 'end'} [props.footerAlign='end'] - 버튼 스택 가로 정렬 : 'start' | 'center' | 'end'
- * @param {boolean} [props.showCloseButton=true] - 헤더 닫기 버튼 표시 여부 : boolean
+ * @param {boolean} [props.closable=true] - 헤더 닫기 버튼 표시 여부 : boolean
  * @param {string} [props.closeLabel='닫기'] - 닫기 버튼의 aria-label : string
  * @param {boolean} [props.closeOnEscape=true] - Escape 로 닫기 : boolean
  * @param {boolean} [props.closeOnOverlayClick=true] - 배경 클릭으로 닫기 : boolean
@@ -138,7 +138,7 @@ export const Modal = ({
   confirmLoading = false,
   confirmDisabled = false,
   footerAlign = 'end',
-  showCloseButton = true,
+  closable = true,
   closeLabel = '닫기',
   closeOnEscape = true,
   closeOnOverlayClick = true,
@@ -279,7 +279,7 @@ export const Modal = ({
       >
         <div className={HEADER}>
           <h2 id={titleId} className={TITLE}>{title}</h2>
-          {showCloseButton && (
+          {closable && (
             <button
               type={'button'}
               aria-label={closeLabel}

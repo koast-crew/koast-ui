@@ -4,18 +4,7 @@
 
 ### Added
 
-- `Table` 컴포넌트. 컴포넌트 29종이 됨
-  - 컬럼 정의(`columns`)의 `render` 가 셀 내용을 그리고, 테이블은 레이아웃 · 구분선 · 정렬 · 선택 ·
-    로딩/에러/빈 상태만 맡음. `description` 을 주면 라벨 아래 두 번째 줄이 붙음
-  - CSS grid 로 그려 `gridTemplateColumns` 에 `fr` 단위를 쓸 수 있음. 행은 subgrid 로 열을 물려받음
-  - `size` 는 `md`(헤더 64 · 셀 48px) / `sm`(헤더 48 · 셀 40px)
-  - 컬럼별 `align` 은 `left` · `center` · `right` 이며 헤더와 셀에 함께 적용됨. 기본 `left`
-  - 정렬은 제어형: `sort` + `onSortChange`. 같은 컬럼을 다시 누르면 방향이 뒤집힘
-  - 선택은 `selectable` + `selectedIds` + `onSelectionChange(ids)`. 헤더 체크박스는 현재 `data` 의 행만
-    넣고 빼며 부분 선택을 표시함
-  - `onRowClick` 을 주면 행이 포커스를 받고 Enter 로도 호출됨
-  - 헤더 위 1px(`border-primary`) · 아래 2px, 셀 아래 1px, 열 사이 1px 구분선. 양 가장자리에는 세로선이 없음
-- `TableProps` · `TableColumn` · `TableSize` · `TableAlign` · `TableSort` · `TableSortDirection` · `TableRowId` 타입을 내보냄
+- `Table` 컴포넌트 추가
 
 ## [1.0.27] - 2026-09-16
 

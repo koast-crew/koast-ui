@@ -28,7 +28,7 @@ import { Alert } from '@koast/ui';
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
 | `status` | `AlertStatus` | `'neutral'` | 상태 색을 정합니다. |
-| `variant` | `AlertVariant` | `'filled'` | 면 처리 방식입니다. |
+| `variant` | `AlertVariant` | `'contained'` | 면 처리 방식입니다. |
 | `title` *(필수)* | `React.ReactNode` | — | 굵은 제목 줄입니다. |
 | `children` | `React.ReactNode` | — | 제목 아래 본문입니다. 없으면 제목만 한 줄로 표시됩니다. |
 | `icon` | `React.ReactNode \| false` | — | 제목 앞 아이콘입니다. 지정하지 않으면 status 별 기본 아이콘이 붙고, `false` 를 주면 아이콘 없이 본문만 표시합니다. |
@@ -41,7 +41,7 @@ import { Alert } from '@koast/ui';
 
 | 이름 | 값 | 설명 |
 | :-- | :-- | :-- |
-| `AlertVariant` | `'filled' \| 'outlined' \| 'transparent'` | Figma 의 **Style** 축입니다. filled 는 진한 면 + 1px 테두리, outlined 는 옅은 면 + 2px 테두리, transparent 는 테두리 없는 옅은 면입니다. |
+| `AlertVariant` | `'contained' \| 'outlined' \| 'transparent'` | Figma 의 **Style** 축입니다. contained(Figma Filled) 는 진한 면 + 1px 테두리, outlined 는 옅은 면 + 2px 테두리, transparent 는 테두리 없는 옅은 면입니다. |
 | `AlertStatus` | `'brand' \| 'neutral' \| 'info' \| 'success' \| 'warning' \| 'error'` | Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 은 각각 neutral / info 로 정리했습니다. |
 
 ## 규칙

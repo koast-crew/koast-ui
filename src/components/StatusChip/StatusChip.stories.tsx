@@ -14,7 +14,7 @@ const meta: Meta<typeof StatusChip> = {
   args: {
     children: 'Label',
     status: 'neutral',
-    variant: 'filled',
+    variant: 'contained',
     shape: 'round',
     size: 'md',
   },
@@ -26,7 +26,7 @@ const meta: Meta<typeof StatusChip> = {
     },
     variant: {
       control: 'radio',
-      options: ['filled', 'outlined', 'transparent'],
+      options: ['contained', 'outlined', 'transparent'],
       description: 'Figma 의 **Style** 축입니다.',
     },
     shape: {
@@ -48,7 +48,7 @@ export default meta;
 type Story = StoryObj<typeof StatusChip>;
 
 const STATUSES: StatusChipStatus[] = ['neutral', 'info', 'error', 'success', 'warning'];
-const VARIANTS: StatusChipVariant[] = ['filled', 'outlined', 'transparent'];
+const VARIANTS: StatusChipVariant[] = ['contained', 'outlined', 'transparent'];
 const SHAPES: StatusChipShape[] = ['round', 'square'];
 
 /** 기본값입니다. Figma 의 `Style=Filled, Status=Netural, Type=Round` 에 해당합니다. */

@@ -30,7 +30,7 @@ const SHAPES: Record<StatusChipShape, string> = {
 };
 
 /** 진한 면입니다. 라벨·아이콘은 면 색을 따라 반전되는 inverse 토큰을 씁니다. */
-const FILLED: Record<StatusChipStatus, string> = {
+const CONTAINED: Record<StatusChipStatus, string> = {
   neutral: 'koast-bg-inverse-bolder koast-text-interactive-inverse',
   info: 'koast-bg-info-bold koast-text-interactive-inverse',
   error: 'koast-bg-danger-bold koast-text-interactive-inverse',
@@ -81,8 +81,8 @@ export const getStatusChipStyles = (
     SIZES[size],
     hasIcon ? PADDINGS[size].withIcon : PADDINGS[size].textOnly,
     SHAPES[shape],
-    variant === 'filled' ? FILLED[status] : SUBTLE[status],
+    variant === 'contained' ? CONTAINED[status] : SUBTLE[status],
     variant === 'outlined' ? OUTLINE_BORDERS[status] : '',
-    variant === 'filled' ? '' : SUBTLE_ICONS[status],
+    variant === 'contained' ? '' : SUBTLE_ICONS[status],
     className,
   );

@@ -11,7 +11,7 @@ const meta: Meta<typeof Alert> = {
     title: 'Title',
     children: 'Description',
     status: 'neutral',
-    variant: 'filled',
+    variant: 'contained',
   },
   argTypes: {
     closable: { control: 'boolean', description: '닫기 버튼 표시 여부입니다. 기본 true.' },
@@ -22,8 +22,8 @@ const meta: Meta<typeof Alert> = {
     },
     variant: {
       control: 'radio',
-      options: ['filled', 'outlined', 'transparent'],
-      description: 'Figma 의 **Style** 축입니다. filled 1px · outlined 2px · transparent 테두리 없음.',
+      options: ['contained', 'outlined', 'transparent'],
+      description: 'Figma 의 **Style** 축입니다. contained 1px · outlined 2px · transparent 테두리 없음.',
     },
     title: { control: 'text' },
     children: { control: 'text' },
@@ -43,7 +43,7 @@ const STATUSES: AlertStatus[] = [
   'warning',
   'error',
 ];
-const VARIANTS: AlertVariant[] = ['filled', 'outlined', 'transparent'];
+const VARIANTS: AlertVariant[] = ['contained', 'outlined', 'transparent'];
 
 /** 기본값입니다. Figma 의 `Status=Netural, Style=Filled` 에 해당합니다. */
 export const Default: Story = {

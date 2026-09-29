@@ -8,7 +8,7 @@ const ROOT_BASE
 const ALIGN = { withBody: 'koast-items-start', titleOnly: 'koast-items-center' };
 
 /** 진한 면입니다. 선은 면보다 한 단계 밝은 같은 계열 1px 이며, 안쪽 ring 이라 바깥 치수를 바꾸지 않습니다. */
-const FILLED: Record<AlertStatus, string> = {
+const CONTAINED: Record<AlertStatus, string> = {
   brand:
     'koast-ring-1 koast-ring-inset koast-bg-brand koast-ring-interactive-primary koast-text-interactive-inverse',
   neutral:
@@ -32,7 +32,7 @@ const SUBTLE: Record<AlertStatus, string> = {
   error: 'koast-bg-danger-subtle',
 };
 
-/** outlined 만 2px 선입니다. filled 의 1px 과 달리 면보다 진한 색입니다. */
+/** outlined 만 2px 선입니다. contained 의 1px 과 달리 면보다 진한 색입니다. */
 const OUTLINE_BORDERS: Record<AlertStatus, string> = {
   brand: 'koast-ring-2 koast-ring-inset koast-ring-interactive-primary',
   neutral: 'koast-ring-2 koast-ring-inset koast-ring-primary',
@@ -61,7 +61,7 @@ export const getAlertStyles = (
   twMerge(
     ROOT_BASE,
     hasDescription ? ALIGN.withBody : ALIGN.titleOnly,
-    variant === 'filled' ? FILLED[status] : SUBTLE[status],
+    variant === 'contained' ? CONTAINED[status] : SUBTLE[status],
     variant === 'outlined' ? OUTLINE_BORDERS[status] : '',
     className,
   );
@@ -69,7 +69,7 @@ export const getAlertStyles = (
 export const getAlertIconStyles = (variant: AlertVariant, status: AlertStatus) =>
   twMerge(
     'koast-flex koast-shrink-0 koast-items-center [&_svg]:koast-size-6 [&_svg]:koast-shrink-0',
-    variant === 'filled' ? '' : SUBTLE_ICONS[status],
+    variant === 'contained' ? '' : SUBTLE_ICONS[status],
   );
 
 export const getAlertContentStyles = () =>
@@ -78,14 +78,14 @@ export const getAlertContentStyles = () =>
 export const getAlertTitleStyles = (variant: AlertVariant) =>
   twMerge(
     'koast-break-words koast-text-base koast-font-medium koast-leading-5',
-    variant === 'filled' ? '' : 'koast-text-primary',
+    variant === 'contained' ? '' : 'koast-text-primary',
   );
 
 /** preflight 가 꺼져 있어 `<p>` 의 브라우저 기본 여백(1em)을 직접 지웁니다. */
 export const getAlertDescriptionStyles = (variant: AlertVariant) =>
   twMerge(
     'koast-m-0 koast-break-words koast-text-sm koast-font-normal koast-leading-4',
-    variant === 'filled' ? '' : 'koast-text-tertiary',
+    variant === 'contained' ? '' : 'koast-text-tertiary',
   );
 
 /**
@@ -95,7 +95,7 @@ export const getAlertDescriptionStyles = (variant: AlertVariant) =>
 export const getAlertCloseStyles = (variant: AlertVariant) =>
   twMerge(
     'koast-inline-flex koast-size-10 koast-shrink-0 koast-items-center koast-justify-center koast-rounded-lg koast-transition-colors koast-duration-200 [&_svg]:koast-size-6 [&_svg]:koast-shrink-0 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring',
-    variant === 'filled'
+    variant === 'contained'
       ? ''
       : 'koast-text-tertiary hover:koast-text-primary',
   );

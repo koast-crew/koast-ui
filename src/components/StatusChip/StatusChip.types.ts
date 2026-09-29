@@ -1,7 +1,7 @@
 import React from 'react';
 
-/** Figma 의 **Style** 축입니다. filled 는 진한 면, outlined 는 옅은 면 + 1px 테두리, transparent 는 테두리 없는 옅은 면입니다. */
-export type StatusChipVariant = 'filled' | 'outlined' | 'transparent';
+/** Figma 의 **Style** 축입니다. contained(Figma Filled) 는 진한 면, outlined 는 옅은 면 + 1px 테두리, transparent 는 테두리 없는 옅은 면입니다. */
+export type StatusChipVariant = 'contained' | 'outlined' | 'transparent';
 
 /** Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 은 각각 neutral / info 로 정리했습니다. */
 export type StatusChipStatus = 'neutral' | 'info' | 'error' | 'success' | 'warning';
@@ -16,7 +16,7 @@ export interface StatusChipProps {
   /** 상태 색을 정합니다. @default 'neutral' */
   status?: StatusChipStatus;
 
-  /** 면 처리 방식입니다. @default 'filled' */
+  /** 면 처리 방식입니다. @default 'contained' */
   variant?: StatusChipVariant;
 
   /** 모서리 모양입니다. @default 'round' */

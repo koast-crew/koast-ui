@@ -2,9 +2,9 @@ import React from 'react';
 
 /**
  * Figma 의 **Style** 축입니다.
- * filled 는 진한 면 + 1px 테두리, outlined 는 옅은 면 + 2px 테두리, transparent 는 테두리 없는 옅은 면입니다.
+ * contained(Figma Filled) 는 진한 면 + 1px 테두리, outlined 는 옅은 면 + 2px 테두리, transparent 는 테두리 없는 옅은 면입니다.
  */
-export type AlertVariant = 'filled' | 'outlined' | 'transparent';
+export type AlertVariant = 'contained' | 'outlined' | 'transparent';
 
 /** Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 은 각각 neutral / info 로 정리했습니다. */
 export type AlertStatus
@@ -14,7 +14,7 @@ export interface AlertProps {
   /** 상태 색을 정합니다. @default 'neutral' */
   status?: AlertStatus;
 
-  /** 면 처리 방식입니다. @default 'filled' */
+  /** 면 처리 방식입니다. @default 'contained' */
   variant?: AlertVariant;
 
   /** 굵은 제목 줄입니다. */

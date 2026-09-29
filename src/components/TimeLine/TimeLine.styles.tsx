@@ -137,23 +137,4 @@ export const tooltipTransform = (ratio: number) =>
 export const TOOLTIP_DATE = 'koast-text-xs koast-font-normal koast-leading-4 koast-text-tertiary';
 export const TOOLTIP_TIME = 'koast-text-base koast-font-semibold koast-leading-5 koast-text-primary';
 
-export const getSpeedButtonStyles = (disabled: boolean) =>
-  twMerge(
-    'koast-flex koast-shrink-0 koast-items-center koast-gap-0.5 koast-rounded koast-border koast-border-solid koast-border-secondary koast-px-2 koast-py-1 koast-text-xs koast-font-medium koast-leading-4 focus-visible:koast-outline focus-visible:koast-outline-2 focus-visible:koast-outline-offset-2 focus-visible:koast-outline-focus-ring',
-    disabled
-      ? 'koast-cursor-not-allowed koast-bg-disabled koast-text-disabled'
-      : 'koast-cursor-pointer koast-bg-primary koast-text-secondary hover:koast-bg-interactive-secondary-hovered',
-  );
-
-export const SPEED_MENU
-  = 'koast-absolute koast-bottom-full koast-right-0 koast-z-10 koast-mb-1 koast-m-0 koast-list-none koast-rounded koast-border koast-border-solid koast-border-secondary koast-bg-primary koast-px-0 koast-py-1 koast-shadow-[0_0_4px_var(--koast-shadow-core),0_4px_8px_var(--koast-shadow-cast)]';
-
-export const getSpeedItemStyles = (selected: boolean) =>
-  twMerge(
-    'koast-cursor-pointer koast-px-3 koast-py-1 koast-text-xs koast-font-medium koast-leading-4',
-    selected
-      ? 'koast-bg-interactive-selected koast-text-interactive-primary'
-      : 'koast-text-primary hover:koast-bg-interactive-secondary-hovered',
-  );
-
 export const TODAY_BADGE = 'koast-text-xs koast-font-normal koast-leading-4 koast-text-interactive-primary';

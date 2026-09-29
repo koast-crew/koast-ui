@@ -10,7 +10,7 @@ const TimeLineExam = () => {
   return (
     <div className={'flex flex-col gap-2'}>
       <TimeLine
-        type={'daily'}
+        mode={'daily'}
         start={START}
         end={END}
         stepValue={3}
@@ -18,7 +18,7 @@ const TimeLineExam = () => {
         onChange={({ date }) => setDate(date)}
       />
       <TimeLine
-        type={'hourly'}
+        mode={'hourly'}
         start={START}
         end={new Date('2026-09-01T23:00:00')}
         stepValue={1}

@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, Loader2, Pause, Play, RotateCcw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2, Pause, Play, RotateCcw } from 'lucide-react';
 import type { TimeLineLayout, TimeLineProps } from './TimeLine.types';
 import {
   buildDaySegments,
@@ -20,7 +20,6 @@ import {
   PLAYHEAD_DOT,
   PLAYHEAD_LINE,
   RULER_LABEL,
-  SPEED_MENU,
   TICK,
   TODAY_BADGE,
   TOOLTIP,
@@ -35,13 +34,10 @@ import {
   getProgressStyles,
   getRootStyles,
   getSegmentStyles,
-  getSpeedButtonStyles,
-  getSpeedItemStyles,
   getStepButtonStyles,
   tooltipTransform,
 } from './TimeLine.styles';
 
-const DEFAULT_SPEEDS = [0.5, 1, 2, 4];
 const HOUR_MS = 3600000;
 
 const LABEL_SLOTS: Record<TimeLineLayout, number> = {
@@ -59,17 +55,14 @@ const LABEL_SLOTS: Record<TimeLineLayout, number> = {
  * @param {Date} props.end - 타임라인 종료 시각 : Date
  * @param {number} props.stepValue - 스텝 간격 : number
  * @param {TimeUnit} [props.stepUnit='minute'] - 스텝 간격 단위 : 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second'
- * @param {Date} [props.initialDate] - 초기 위치. 미입력 시 첫 스텝 : Date
+ * @param {Date} [props.defaultDate] - 초기 위치. 마운트 시에만 반영되며 미입력 시 첫 스텝 : Date
  * @param {Date[] | Function} [props.steps] - 불규칙한 시각 목록. 스텝이 없는 날은 데이터 없음으로 표시됩니다 : Date[] | Function
- * @param {'daily' | 'hourly'} [props.type='hourly'] - 표시 방식 : 'daily' | 'hourly'
+ * @param {'daily' | 'hourly'} [props.mode='hourly'] - 표시 방식 : 'daily' | 'hourly'
  * @param {1 | 3 | 6} [props.interval=3] - hourly 눈금 간격(시간) : 1 | 3 | 6
- * @param {number} [props.animationSpeed=1000] - 한 스텝당 재생 간격(ms) : number
- * @param {number[]} [props.speeds=[0.5, 1, 2, 4]] - 배속 선택지 : number[]
- * @param {number} [props.speed] - 현재 배속. 지정하면 제어 컴포넌트로 동작합니다 : number
- * @param {Function} [props.onSpeedChange] - 배속 변경 콜백 : Function
+ * @param {number} [props.stepInterval=1000] - 재생 시 한 스텝당 간격(ms). 최소 16ms : number
  * @param {boolean} [props.loading=false] - 로딩 상태 : boolean
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
- * @param {Function} [props.onChange] - 스텝 변경 콜백. { step, date } 를 받습니다 : Function
+ * @param {Function} [props.onChange] - 스텝 변경 콜백. { index, date } 를 받습니다 : Function
  * @param {Function} [props.renderGuideMessage] - hourly 트랙 hover 텍스트 : (date: Date) => string
  * @param {Function} [props.renderSelectedGuideMessage] - 현재 시각 툴팁 텍스트 : (date: Date) => string
  * @param {Function} [props.renderRulerLabel] - hourly 눈금 라벨 텍스트 : (date: Date) => string
@@ -78,7 +71,7 @@ const LABEL_SLOTS: Record<TimeLineLayout, number> = {
  * @example
  * ```tsx
  * <TimeLine
- *   type="daily"
+ *   mode="daily"
  *   start={new Date('2026-09-01')}
  *   end={new Date('2026-09-04')}
  *   stepValue={3}
@@ -92,16 +85,13 @@ export const TimeLine = (props: TimeLineProps) => {
     className = '',
     start,
     end,
-    initialDate,
+    defaultDate,
     stepValue,
     stepUnit = 'minute',
     steps,
-    type = 'hourly',
+    mode = 'hourly',
     interval = 3,
-    animationSpeed = 1000,
-    speeds = DEFAULT_SPEEDS,
-    speed,
-    onSpeedChange,
+    stepInterval = 1000,
     loading = false,
     disabled = false,
     onChange,
@@ -128,8 +118,8 @@ export const TimeLine = (props: TimeLineProps) => {
   const lastIndex = Math.max(0, stepCount - 1);
 
   const initialStepIndex = useMemo(() => {
-    if (!initialDate || !stepCount) return 0;
-    const target = returnDate(initialDate).getTime();
+    if (!defaultDate || !stepCount) return 0;
+    const target = returnDate(defaultDate).getTime();
     return calculatedSteps.reduce(
       (best, step, index) =>
         Math.abs(step.getTime() - target)
@@ -138,23 +128,18 @@ export const TimeLine = (props: TimeLineProps) => {
           : best,
       0,
     );
-  }, [calculatedSteps, initialDate, stepCount]);
+  }, [calculatedSteps, defaultDate, stepCount]);
 
   const [currentIndex, setCurrentIndex] = useState(initialStepIndex);
   const [playing, setPlaying] = useState(false);
-  const [innerSpeed, setInnerSpeed] = useState(() =>
-    speeds.includes(1) ? 1 : (speeds[0] ?? 1));
-  const [speedOpen, setSpeedOpen] = useState(false);
   const [layout, setLayout] = useState<TimeLineLayout>('desktop');
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
-  const currentSpeed = speed ?? innerSpeed;
   const inactive = disabled || loading || stepCount === 0;
   const ended = !playing && stepCount > 0 && currentIndex >= lastIndex;
 
   const rootRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const speedRef = useRef<HTMLDivElement>(null);
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
 
@@ -182,9 +167,9 @@ export const TimeLine = (props: TimeLineProps) => {
         }
         return prev + 1;
       });
-    }, Math.max(16, animationSpeed / currentSpeed));
+    }, Math.max(16, stepInterval));
     return () => window.clearInterval(timer);
-  }, [playing, inactive, lastIndex, animationSpeed, currentSpeed]);
+  }, [playing, inactive, lastIndex, stepInterval]);
 
   // steps 가 줄면 currentIndex 가 범위를 벗어나 onChange 로 undefined 날짜가 나갑니다.
   // 렌더 중에 보정해 잘못된 값이 한 번도 밖으로 나가지 않게 합니다.
@@ -195,17 +180,8 @@ export const TimeLine = (props: TimeLineProps) => {
   useEffect(() => {
     const date = calculatedSteps[currentIndex];
     if (!date) return;
-    onChangeRef.current?.({ step: currentIndex, date });
+    onChangeRef.current?.({ index: currentIndex, date });
   }, [currentIndex, calculatedSteps]);
-
-  useEffect(() => {
-    if (!speedOpen) return;
-    const close = (event: MouseEvent) => {
-      if (!speedRef.current?.contains(event.target as Node)) setSpeedOpen(false);
-    };
-    document.addEventListener('mousedown', close);
-    return () => document.removeEventListener('mousedown', close);
-  }, [speedOpen]);
 
   const seek = (index: number) => {
     if (inactive) return;
@@ -228,12 +204,6 @@ export const TimeLine = (props: TimeLineProps) => {
     setPlaying((prev) => !prev);
   };
 
-  const pickSpeed = (next: number) => {
-    if (speed === undefined) setInnerSpeed(next);
-    onSpeedChange?.(next);
-    setSpeedOpen(false);
-  };
-
   const currentDate = calculatedSteps[currentIndex];
   const ratioOf = (index: number) => (stepCount > 1 ? index / lastIndex : 0);
   const progressRatio = ratioOf(currentIndex);
@@ -244,7 +214,7 @@ export const TimeLine = (props: TimeLineProps) => {
   );
 
   const ticks = useMemo(() => {
-    if (type !== 'hourly' || stepCount === 0) return [];
+    if (mode !== 'hourly' || stepCount === 0) return [];
     const first = calculatedSteps[0].getTime();
     const span = calculatedSteps[lastIndex].getTime() - first;
     if (span <= 0) return [];
@@ -258,7 +228,7 @@ export const TimeLine = (props: TimeLineProps) => {
       cursor.setTime(cursor.getTime() + interval * HOUR_MS);
     }
     return out;
-  }, [type, calculatedSteps, interval, lastIndex, stepCount]);
+  }, [mode, calculatedSteps, interval, lastIndex, stepCount]);
 
   const labelStride = Math.max(1, Math.ceil(ticks.length / LABEL_SLOTS[layout]));
 
@@ -303,7 +273,7 @@ export const TimeLine = (props: TimeLineProps) => {
         </button>
       </div>
 
-      {type === 'daily'
+      {mode === 'daily'
         ? (
             <div className={AREA} role={'group'} aria-label={'날짜 선택'}>
               {daySegments.map((segment, index) => {
@@ -421,36 +391,6 @@ export const TimeLine = (props: TimeLineProps) => {
               </div>
             </div>
           )}
-
-      <div ref={speedRef} className={'koast-relative koast-shrink-0'}>
-        <button
-          type={'button'}
-          disabled={inactive}
-          aria-haspopup={'listbox'}
-          aria-expanded={speedOpen}
-          aria-label={'재생 속도'}
-          onClick={() => setSpeedOpen((prev) => !prev)}
-          className={getSpeedButtonStyles(inactive)}
-        >
-          {`${ currentSpeed }x`}
-          <ChevronDown className={'koast-size-3'} aria-hidden />
-        </button>
-        {speedOpen && (
-          <ul role={'listbox'} aria-label={'재생 속도'} className={SPEED_MENU}>
-            {speeds.map((option) => (
-              <li
-                key={option}
-                role={'option'}
-                aria-selected={option === currentSpeed}
-                onClick={() => pickSpeed(option)}
-                className={getSpeedItemStyles(option === currentSpeed)}
-              >
-                {`${ option }x`}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
     </div>
   );
 };

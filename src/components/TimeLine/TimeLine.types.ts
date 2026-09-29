@@ -1,7 +1,7 @@
 export type TimeUnit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
 
 /** Figma 의 Type 축입니다. daily=날짜 세그먼트, hourly=연속 트랙. */
-export type TimeLineType = 'daily' | 'hourly';
+export type TimeLineMode = 'daily' | 'hourly';
 
 /** Figma 의 Layout 축입니다. 컨테이너 폭으로 자동 결정됩니다. */
 export type TimeLineLayout = 'desktop' | 'compact' | 'mobile';
@@ -12,7 +12,9 @@ export type TimeLineInterval = 1 | 3 | 6;
 export type DateToStringFunc = (date: Date) => string;
 
 export interface TimeLineOnChangeProps {
-  step: number;
+  /** 현재 스텝의 순번입니다(0부터). */
+  index: number;
+  /** 현재 스텝의 날짜입니다. */
   date: Date;
 }
 
@@ -26,8 +28,8 @@ export interface TimeLineProps {
   /** 타임라인 종료 시각입니다. */
   end: Date;
 
-  /** 초기 위치입니다. 미입력 시 첫 스텝에 놓입니다. */
-  initialDate?: Date;
+  /** 초기 위치입니다. 마운트 시에만 반영되며, 미입력 시 첫 스텝에 놓입니다. */
+  defaultDate?: Date;
 
   /** 스텝 간격입니다. `stepUnit` 과 함께 계산됩니다. */
   stepValue: number;
@@ -42,22 +44,13 @@ export interface TimeLineProps {
   steps?: Date[] | ((start: Date, end: Date, stepValue: number, stepUnit?: TimeUnit) => Date[]);
 
   /** 표시 방식입니다. @default 'hourly' */
-  type?: TimeLineType;
+  mode?: TimeLineMode;
 
   /** hourly 눈금 간격(시간)입니다. @default 3 */
   interval?: TimeLineInterval;
 
-  /** 한 스텝당 재생 간격(ms)입니다. 배속으로 나눠집니다. @default 1000 */
-  animationSpeed?: number;
-
-  /** 배속 선택지입니다. @default [0.5, 1, 2, 4] */
-  speeds?: number[];
-
-  /** 현재 배속입니다. 지정하면 제어 컴포넌트로 동작합니다. */
-  speed?: number;
-
-  /** 배속이 바뀔 때 호출됩니다. */
-  onSpeedChange?: (speed: number) => void;
+  /** 재생 시 한 스텝당 간격(ms)입니다. 최소 16ms 입니다. @default 1000 */
+  stepInterval?: number;
 
   /** 데이터를 불러오는 중임을 표시합니다. @default false */
   loading?: boolean;

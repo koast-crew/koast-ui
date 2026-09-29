@@ -10,7 +10,7 @@ import { TimeLine } from '@koast/ui';
 
 ```tsx
 <TimeLine
-  type="daily"
+  mode="daily"
   start={new Date('2026-09-01')}
   end={new Date('2026-09-04')}
   stepValue={3}
@@ -25,8 +25,8 @@ import { TimeLine } from '@koast/ui';
 
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
-| `step` *(필수)* | `number` | — |  |
-| `date` *(필수)* | `Date` | — |  |
+| `index` *(필수)* | `number` | — | 현재 스텝의 순번입니다(0부터). |
+| `date` *(필수)* | `Date` | — | 현재 스텝의 날짜입니다. |
 
 ### `TimeLineProps`
 
@@ -35,16 +35,13 @@ import { TimeLine } from '@koast/ui';
 | `className` | `string` | — | 레이아웃 조정용입니다. 색상은 지정할 수 없습니다. |
 | `start` *(필수)* | `Date` | — | 타임라인 시작 시각입니다. |
 | `end` *(필수)* | `Date` | — | 타임라인 종료 시각입니다. |
-| `initialDate` | `Date` | — | 초기 위치입니다. 미입력 시 첫 스텝에 놓입니다. |
+| `defaultDate` | `Date` | — | 초기 위치입니다. 마운트 시에만 반영되며, 미입력 시 첫 스텝에 놓입니다. |
 | `stepValue` *(필수)* | `number` | — | 스텝 간격입니다. `stepUnit` 과 함께 계산됩니다. |
 | `stepUnit` | `TimeUnit` | `'minute'` | 스텝 간격 단위입니다. |
 | `steps` | `Date[] \| ((start: Date, end: Date, stepValue: number, stepUnit?: TimeUnit) => Date[])` | — | 시각 목록입니다. 불규칙한 경우 직접 넘깁니다. 넘기면 `stepValue` 계산보다 우선합니다. 어떤 날에 스텝이 하나도 없으면 그 날은 데이터 없음으로 표시됩니다. |
-| `type` | `TimeLineType` | `'hourly'` | 표시 방식입니다. |
+| `mode` | `TimeLineMode` | `'hourly'` | 표시 방식입니다. |
 | `interval` | `TimeLineInterval` | `3` | hourly 눈금 간격(시간)입니다. |
-| `animationSpeed` | `number` | `1000` | 한 스텝당 재생 간격(ms)입니다. 배속으로 나눠집니다. |
-| `speeds` | `number[]` | `[0.5, 1, 2, 4]` | 배속 선택지입니다. |
-| `speed` | `number` | — | 현재 배속입니다. 지정하면 제어 컴포넌트로 동작합니다. |
-| `onSpeedChange` | `(speed: number) => void` | — | 배속이 바뀔 때 호출됩니다. |
+| `stepInterval` | `number` | `1000` | 재생 시 한 스텝당 간격(ms)입니다. 최소 16ms 입니다. |
 | `loading` | `boolean` | `false` | 데이터를 불러오는 중임을 표시합니다. |
 | `disabled` | `boolean` | `false` | 비활성화 상태입니다. |
 | `onChange` | `(props: TimeLineOnChangeProps) => void` | — | 스텝이 바뀔 때 호출됩니다. |
@@ -57,7 +54,7 @@ import { TimeLine } from '@koast/ui';
 | 이름 | 값 | 설명 |
 | :-- | :-- | :-- |
 | `TimeUnit` | `'year' \| 'month' \| 'day' \| 'hour' \| 'minute' \| 'second'` |  |
-| `TimeLineType` | `'daily' \| 'hourly'` | Figma 의 Type 축입니다. daily=날짜 세그먼트, hourly=연속 트랙. |
+| `TimeLineMode` | `'daily' \| 'hourly'` | Figma 의 Type 축입니다. daily=날짜 세그먼트, hourly=연속 트랙. |
 | `TimeLineLayout` | `'desktop' \| 'compact' \| 'mobile'` | Figma 의 Layout 축입니다. 컨테이너 폭으로 자동 결정됩니다. |
 | `TimeLineInterval` | `1 \| 3 \| 6` | hourly 눈금 간격(시간)입니다. |
 | `DateToStringFunc` | `(date: Date) => string` |  |

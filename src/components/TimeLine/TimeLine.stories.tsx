@@ -13,17 +13,16 @@ const meta: Meta<typeof TimeLine> = {
   parameters: { layout: 'padded' },
   tags: ['autodocs'],
   args: {
-    type: 'daily',
+    mode: 'daily',
     start: START,
     end: END,
     stepValue: 3,
     stepUnit: 'hour',
     // TimeLine 도 마운트 직후 effect 에서 onChange 를 부릅니다.
     onChange: fn(),
-    onSpeedChange: fn(),
   },
   argTypes: {
-    type: {
+    mode: {
       control: 'radio',
       options: ['daily', 'hourly'],
       description: 'Figma 의 **Type** 축입니다. daily=날짜 세그먼트, hourly=연속 트랙.',
@@ -35,7 +34,7 @@ const meta: Meta<typeof TimeLine> = {
     },
     loading: { control: 'boolean', description: 'Figma State=Loading.' },
     disabled: { control: 'boolean', description: 'Figma State=Disabled.' },
-    animationSpeed: { control: 'number' },
+    stepInterval: { control: 'number', description: '재생 시 한 스텝당 간격(ms)입니다.' },
   },
 };
 
@@ -47,7 +46,7 @@ export const Daily: Story = {};
 
 /** **Type=Hourly** 입니다. 연속 트랙 위에 플레이헤드와 툴팁이 놓입니다. */
 export const Hourly: Story = {
-  args: { type: 'hourly', start: DAY_START, end: DAY_END, stepValue: 1, stepUnit: 'hour' },
+  args: { mode: 'hourly', start: DAY_START, end: DAY_END, stepValue: 1, stepUnit: 'hour' },
 };
 
 /** **Interval** 축입니다. 눈금과 라벨 간격만 달라집니다. */
@@ -57,7 +56,7 @@ export const HourlyIntervals: Story = {
       {([1, 3, 6] as const).map((interval) => (
         <div key={interval}>
           <span className={'story-label'}>{`Interval = ${ interval }h`}</span>
-          <TimeLine {...args} type={'hourly'} interval={interval} />
+          <TimeLine {...args} mode={'hourly'} interval={interval} />
         </div>
       ))}
     </div>
@@ -160,7 +159,7 @@ export const States: Story = {
   ),
 };
 
-/** 배속 선택지는 `speeds` 로 주입합니다. */
-export const Speeds: Story = {
-  args: { speeds: [1, 2, 4, 8], animationSpeed: 400 },
+/** 재생 속도는 `stepInterval`(ms)로 조절합니다. */
+export const FastPlayback: Story = {
+  args: { stepInterval: 250 },
 };

@@ -60,12 +60,13 @@ export const getFieldLabelStyles = (disabled: boolean, className: string) =>
   );
 
 /** 보조 문구입니다. Figma 는 상자와의 간격 8px, 오류 아이콘과의 간격 4px 입니다. */
-export const getFieldHelpTextStyles = (error: boolean) =>
+export const getFieldHelpTextStyles = (error: boolean, className = '') =>
   twMerge(
     // preflight 가 꺼져 있어 p 의 브라우저 기본 여백을 직접 지웁니다.
     'koast-mb-0 koast-mt-2 koast-flex koast-items-center koast-gap-1',
     FIELD_TEXT,
     error ? 'koast-text-danger' : 'koast-text-tertiary',
+    className,
   );
 
 /** 상자 안쪽 아이콘 자리입니다. Figma 의 아이콘은 24x24 입니다. */

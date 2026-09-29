@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { TextAreaProps } from './TextArea.types';
 import {
   TEXTAREA_HEADER,
+  TEXTAREA_HELP_TEXT,
   getTextAreaCounterStyles,
   getTextAreaStyles,
 } from './TextArea.styles';
@@ -145,7 +146,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
       />
 
       {helpText && (
-        <FieldHelpText id={helpId} error={error}>
+        <FieldHelpText id={helpId} error={error} className={TEXTAREA_HELP_TEXT}>
           {helpText}
         </FieldHelpText>
       )}

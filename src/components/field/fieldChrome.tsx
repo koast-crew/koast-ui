@@ -28,11 +28,12 @@ interface FieldHelpTextProps {
   id: string;
   children: React.ReactNode;
   error?: boolean;
+  className?: string;
 }
 
 /** TextField / TextArea 가 공유하는 보조 문구입니다. 오류면 빨간색과 아이콘이 함께 나옵니다. */
-export const FieldHelpText = ({ id, children, error = false }: FieldHelpTextProps) => (
-  <p id={id} className={getFieldHelpTextStyles(error)}>
+export const FieldHelpText = ({ id, children, error = false, className = '' }: FieldHelpTextProps) => (
+  <p id={id} className={getFieldHelpTextStyles(error, className)}>
     {error && <CircleX className={'koast-size-6 koast-shrink-0'} aria-hidden />}
     {children}
   </p>

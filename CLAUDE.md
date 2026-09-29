@@ -91,7 +91,7 @@ Docs 크롬은 CSS 변수가 아니라 theming 객체로 칠해져서 globals �
 
 ## 배포
 
-`main` 에 push 되면 CI(`.github/workflows/main.yml`)가 자동으로 움직입니다. Storybook 은 GitHub Pages 로, 커밋 메시지에 `Merge pull request` 가 포함되면 patch 버전 bump + 태그 + GitHub Release + `npm publish` 까지 진행됩니다. **main 에 직접 push 하면 배포가 일어납니다.**
+`main` 에 push 되면 CI(`.github/workflows/main.yml`)가 자동으로 움직입니다. Storybook 은 GitHub Pages 로, 커밋 메시지에 `Merge pull request` 가 포함되면 버전 bump + 태그 + GitHub Release + `npm publish` 까지 진행됩니다. 버전은 마지막 태그의 patch +1 이고, `CHANGELOG.md` 맨 위 `## [x.y.z]` 가 태그보다 높으면(1.1.0, 2.0.0 등) 그 버전으로 배포되고, 릴리스 뒤 CI 가 `package.json` · `package-lock.json` 을 맞춥니다. 릴리스 노트도 같은 제목에서 뽑습니다. **main 에 직접 push 하면 배포가 일어납니다.**
 
 ## 참고 문서
 

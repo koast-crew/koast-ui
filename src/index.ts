@@ -23,6 +23,7 @@ export { default as Slider } from './components/Slider';
 export { default as Spinner } from './components/Spinner';
 export { default as StatusChip } from './components/StatusChip';
 export { default as Switch } from './components/Switch';
+export { default as Table } from './components/Table';
 export { default as Tabs, TabItem } from './components/Tabs';
 export { default as TextArea } from './components/TextArea';
 export { default as TextField } from './components/TextField';
@@ -52,6 +53,7 @@ export type { SliderProps, SliderSize, SliderVariant, SliderValue, SliderRangeVa
 export type { SpinnerProps, SpinnerSize, SpinnerVariant } from './components/Spinner';
 export type { StatusChipProps, StatusChipShape, StatusChipSize, StatusChipStatus, StatusChipVariant } from './components/StatusChip';
 export type { SwitchProps, SwitchLabelPlacement } from './components/Switch';
+export type { TableProps, TableColumn, TableSize, TableAlign, TableSort, TableSortDirection, TableRowId } from './components/Table';
 export type { TabsProps, TabItemProps } from './components/Tabs';
 export type { TextAreaProps } from './components/TextArea';
 export type { TextFieldProps, TextFieldSize, TextFieldType } from './components/TextField';

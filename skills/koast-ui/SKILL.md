@@ -1,6 +1,6 @@
 ---
 name: koast-ui
-description: "@koast/ui React 컴포넌트 라이브러리로 UI 를 만든다. 컴포넌트 28종의 props·예제와 색 토큰 규칙을 제공한다. 트리거: @koast/ui, koast-ui, koast 컴포넌트, koast 버튼/셀렉트/모달, 디자인 시스템 컴포넌트로 화면 만들기, koast 브랜드 색 주입, koast 다크 모드. 사용 금지: @koast/ui 를 쓰지 않는 프로젝트, 라이브러리 자체를 수정하는 작업."
+description: "@koast/ui React 컴포넌트 라이브러리로 UI 를 만든다. 컴포넌트 29종의 props·예제와 색 토큰 규칙을 제공한다. 트리거: @koast/ui, koast-ui, koast 컴포넌트, koast 버튼/셀렉트/모달, 디자인 시스템 컴포넌트로 화면 만들기, koast 브랜드 색 주입, koast 다크 모드. 사용 금지: @koast/ui 를 쓰지 않는 프로젝트, 라이브러리 자체를 수정하는 작업."
 ---
 
 # @koast/ui
@@ -103,14 +103,14 @@ const style = createBrandThemeStyle({
 
 ## 컴포넌트 목록
 
-`references/index.md` 에 28종 전체가 있습니다. 자주 쓰는 것:
+`references/index.md` 에 29종 전체가 있습니다. 자주 쓰는 것:
 
 | 용도 | 컴포넌트 |
 | :-- | :-- |
 | 입력 | `TextField` · `TextArea` · `Select` · `Checkbox` · `Radio` · `Switch` · `Slider` · `ControlGroup` · `Label` |
 | 액션 | `Button` · `IconButton` |
 | 피드백 | `Alert` · `Toast` · `Modal` · `Tooltip` · `Progressbar` · `Spinner` · `Skeleton` |
-| 표시 | `Badge` · `StatusChip` · `Accordion` |
+| 표시 | `Table` · `Badge` · `StatusChip` · `Accordion` |
 | 이동 | `Tabs` · `Breadcrumbs` · `Pagination` · `Link` · `FolderTree` |
 | 도메인 | `TimeLine` · `MapLegend` |
 

@@ -24,6 +24,7 @@
 - [Spinner](./spinner.md)
 - [StatusChip](./statuschip.md)
 - [Switch](./switch.md)
+- [Table](./table.md)
 - [Tabs](./tabs.md)
 - [TextArea](./textarea.md)
 - [TextField](./textfield.md)

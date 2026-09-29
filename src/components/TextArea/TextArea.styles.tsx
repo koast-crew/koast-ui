@@ -35,7 +35,7 @@ export const getTextAreaStyles = (
 export const TEXTAREA_HEADER = 'koast-mb-3 koast-flex koast-items-center koast-gap-2';
 
 /** 보조 문구는 TextField 와 달리 14px 입니다. */
-export const TEXTAREA_HELP_TEXT = 'koast-text-sm';
+export const TEXTAREA_HELPER_TEXT = 'koast-text-sm';
 
 /** Figma 의 Counter 프레임은 높이 16px 이고 줄의 오른쪽 끝에 붙습니다. */
 export const getTextAreaCounterStyles = (disabled: boolean) =>

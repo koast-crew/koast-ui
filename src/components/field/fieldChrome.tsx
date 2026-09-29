@@ -1,6 +1,6 @@
 import React from 'react';
 import { CircleX } from 'lucide-react';
-import { getFieldHelpTextStyles, getFieldLabelStyles } from './fieldChrome.styles';
+import { getFieldHelperTextStyles, getFieldLabelStyles } from './fieldChrome.styles';
 
 interface FieldLabelProps {
   htmlFor: string;
@@ -24,7 +24,7 @@ export const FieldLabel = ({
   </label>
 );
 
-interface FieldHelpTextProps {
+interface FieldHelperTextProps {
   id: string;
   children: React.ReactNode;
   error?: boolean;
@@ -32,8 +32,8 @@ interface FieldHelpTextProps {
 }
 
 /** TextField / TextArea 가 공유하는 보조 문구입니다. 오류면 빨간색과 아이콘이 함께 나옵니다. */
-export const FieldHelpText = ({ id, children, error = false, className = '' }: FieldHelpTextProps) => (
-  <p id={id} className={getFieldHelpTextStyles(error, className)}>
+export const FieldHelperText = ({ id, children, error = false, className = '' }: FieldHelperTextProps) => (
+  <p id={id} className={getFieldHelperTextStyles(error, className)}>
     {error && <CircleX className={'koast-size-6 koast-shrink-0'} aria-hidden />}
     {children}
   </p>

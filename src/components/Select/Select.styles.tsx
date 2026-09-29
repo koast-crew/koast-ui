@@ -86,7 +86,7 @@ export const getOptionStyles = (
   );
 };
 
-export const getHelpTextStyles = (error: boolean) =>
+export const getHelperTextStyles = (error: boolean) =>
   twMerge(
     'koast-mb-0 koast-mt-2 koast-flex koast-items-center koast-gap-1 koast-text-base koast-font-medium koast-leading-5',
     error ? 'koast-text-danger' : 'koast-text-tertiary',

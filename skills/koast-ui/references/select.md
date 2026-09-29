@@ -14,7 +14,7 @@ import { Select } from '@koast/ui';
   <SelectItem value="jp">일본</SelectItem>
 </Select>
 
-<Select error helpText="필수 항목입니다" size="sm" visibleOptions={4}>
+<Select error helperText="필수 항목입니다" size="sm" visibleOptions={4}>
   <SelectItem value={10}>10</SelectItem>
 </Select>
 ```
@@ -30,7 +30,7 @@ import { Select } from '@koast/ui';
 | `onChange` | `(value: T) => void` | — | 값이 바뀔 때 호출됩니다. |
 | `label` | `React.ReactNode` | — | 트리거 위에 표시되는 라벨입니다. |
 | `placeholder` | `string` | — | 값이 없을 때 트리거에 표시되는 문구입니다. |
-| `helpText` | `React.ReactNode` | — | 트리거 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. |
+| `helperText` | `React.ReactNode` | — | 트리거 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. |
 | `error` | `boolean` | `false` | 오류 상태입니다. |
 | `disabled` | `boolean` | `false` | 비활성화 상태입니다. |
 | `required` | `boolean` | `false` | 필수 입력 여부입니다. 라벨 뒤에 `*` 가 붙습니다. |

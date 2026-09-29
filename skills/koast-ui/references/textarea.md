@@ -11,9 +11,9 @@ import { TextArea } from '@koast/ui';
 ```tsx
 <TextArea label="의견" placeholder="의견을 입력하세요" value={memo} onChange={setMemo} />
 
-<TextArea label="자기소개" maxLength={500} helpText="500자 이내로 작성하세요" />
+<TextArea label="자기소개" maxLength={500} helperText="500자 이내로 작성하세요" />
 
-<TextArea label="메모" autoResize error helpText="필수 항목입니다" required />
+<TextArea label="메모" autoResize error helperText="필수 항목입니다" required />
 ```
 
 ## Props
@@ -29,7 +29,7 @@ import { TextArea } from '@koast/ui';
 | `onBlur` | `(event: React.FocusEvent<HTMLTextAreaElement>) => void` | — | 포커스를 잃을 때 호출됩니다. |
 | `label` | `React.ReactNode` | — | 입력 상자 위에 표시되는 라벨입니다. |
 | `placeholder` | `string` | — | 값이 없을 때 표시되는 문구입니다. |
-| `helpText` | `React.ReactNode` | — | 입력 상자 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. |
+| `helperText` | `React.ReactNode` | — | 입력 상자 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. |
 | `error` | `boolean` | `false` | 오류 상태입니다. |
 | `disabled` | `boolean` | `false` | 비활성화 상태입니다. |
 | `readOnly` | `boolean` | `false` | 읽기 전용 상태입니다. |

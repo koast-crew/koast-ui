@@ -10,7 +10,7 @@ const meta: Meta<typeof TextArea> = {
   args: {
     label: 'Label',
     placeholder: 'Placeholder',
-    helpText: 'Help message',
+    helperText: 'Help message',
   },
   argTypes: {
     error: { control: 'boolean', description: 'Figma State=Error.' },
@@ -23,7 +23,7 @@ const meta: Meta<typeof TextArea> = {
     showCount: { control: 'boolean', description: 'Figma 의 Character Counter 입니다.' },
     label: { control: 'text' },
     placeholder: { control: 'text' },
-    helpText: { control: 'text' },
+    helperText: { control: 'text' },
   },
   decorators: [
     (Story) => (
@@ -46,7 +46,7 @@ export const States: Story = {
     <div className={'story-stack'}>
       <TextArea {...args} label={'Default'} />
       <TextArea {...args} label={'Filled'} defaultValue={'입력된 값'} />
-      <TextArea {...args} label={'Error'} error helpText={'필수 항목입니다'} />
+      <TextArea {...args} label={'Error'} error helperText={'필수 항목입니다'} />
       <TextArea {...args} label={'Disabled'} disabled defaultValue={'입력된 값'} />
     </div>
   ),
@@ -72,7 +72,7 @@ export const NotResizable: Story = {
 
 /** 라벨과 보조 문구는 생략할 수 있습니다. */
 export const WithoutLabel: Story = {
-  args: { label: undefined, helpText: undefined },
+  args: { label: undefined, helperText: undefined },
 };
 
 /** `value` 를 넘기면 제어 컴포넌트로 동작합니다. */

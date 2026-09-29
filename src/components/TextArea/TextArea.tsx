@@ -2,11 +2,11 @@ import React, { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { TextAreaProps } from './TextArea.types';
 import {
   TEXTAREA_HEADER,
-  TEXTAREA_HELP_TEXT,
+  TEXTAREA_HELPER_TEXT,
   getTextAreaCounterStyles,
   getTextAreaStyles,
 } from './TextArea.styles';
-import { FieldHelpText, FieldLabel } from '../field/fieldChrome';
+import { FieldHelperText, FieldLabel } from '../field/fieldChrome';
 import { twMerge } from '../../utils/twMerge';
 
 /**
@@ -20,7 +20,7 @@ import { twMerge } from '../../utils/twMerge';
  * @param {Function} [props.onBlur] - 포커스를 잃을 때 호출되는 콜백 : Function
  * @param {React.ReactNode} [props.label] - 입력 상자 위에 표시되는 라벨 : React.ReactNode
  * @param {string} [props.placeholder] - 값이 없을 때 표시되는 문구 : string
- * @param {React.ReactNode} [props.helpText] - 입력 상자 아래 보조 문구. error 면 빨간색 : React.ReactNode
+ * @param {React.ReactNode} [props.helperText] - 입력 상자 아래 보조 문구. error 면 빨간색 : React.ReactNode
  * @param {boolean} [props.error=false] - 오류 상태 : boolean
  * @param {boolean} [props.disabled=false] - 비활성화 상태 : boolean
  * @param {boolean} [props.readOnly=false] - 읽기 전용 상태 : boolean
@@ -38,9 +38,9 @@ import { twMerge } from '../../utils/twMerge';
  * ```tsx
  * <TextArea label="의견" placeholder="의견을 입력하세요" value={memo} onChange={setMemo} />
  *
- * <TextArea label="자기소개" maxLength={500} helpText="500자 이내로 작성하세요" />
+ * <TextArea label="자기소개" maxLength={500} helperText="500자 이내로 작성하세요" />
  *
- * <TextArea label="메모" autoResize error helpText="필수 항목입니다" required />
+ * <TextArea label="메모" autoResize error helperText="필수 항목입니다" required />
  * ```
  */
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, ref) => {
@@ -52,7 +52,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
     onBlur,
     label,
     placeholder,
-    helpText,
+    helperText,
     error = false,
     disabled = false,
     readOnly = false,
@@ -72,7 +72,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
 
   const reactId = useId();
   const baseId = id ?? `koast-textarea-${ reactId }`;
-  const helpId = `${ baseId }-help`;
+  const helperId = `${ baseId }-helper`;
   const countId = `${ baseId }-count`;
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
     node.style.height = `${ node.scrollHeight }px`;
   }, [autoResize, count, value]);
 
-  const describedBy = [helpText ? helpId : null, showCount ? countId : null]
+  const describedBy = [helperText ? helperId : null, showCount ? countId : null]
     .filter(Boolean)
     .join(' ');
 
@@ -145,10 +145,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((props, r
         className={getTextAreaStyles(disabled, error, focused, autoResize, resizable)}
       />
 
-      {helpText && (
-        <FieldHelpText id={helpId} error={error} className={TEXTAREA_HELP_TEXT}>
-          {helpText}
-        </FieldHelpText>
+      {helperText && (
+        <FieldHelperText id={helperId} error={error} className={TEXTAREA_HELPER_TEXT}>
+          {helperText}
+        </FieldHelperText>
       )}
     </div>
   );

@@ -1,8 +1,8 @@
-export { FieldHelpText, FieldLabel } from './fieldChrome';
+export { FieldHelperText, FieldLabel } from './fieldChrome';
 export {
   getFieldControlColors,
   getFieldFocusRing,
-  getFieldHelpTextStyles,
+  getFieldHelperTextStyles,
   getFieldIconStyles,
   getFieldLabelStyles,
 } from './fieldChrome.styles';

@@ -11,9 +11,9 @@ import { TextField } from '@koast/ui';
 ```tsx
 <TextField label="이름" placeholder="이름을 입력하세요" value={name} onChange={setName} />
 
-<TextField label="이메일" size="sm" error helpText="이메일 형식이 아닙니다" required />
+<TextField label="이메일" size="sm" error helperText="이메일 형식이 아닙니다" required />
 
-<TextField label="검색" trailingIcon={<Search />} />
+<TextField label="검색" endIcon={<Search />} />
 ```
 
 ## Props
@@ -29,8 +29,8 @@ import { TextField } from '@koast/ui';
 | `onBlur` | `(event: React.FocusEvent<HTMLInputElement>) => void` | — | 포커스를 잃을 때 호출됩니다. |
 | `label` | `React.ReactNode` | — | 입력 상자 위에 표시되는 라벨입니다. |
 | `placeholder` | `string` | — | 값이 없을 때 표시되는 문구입니다. |
-| `helpText` | `React.ReactNode` | — | 입력 상자 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. |
-| `trailingIcon` | `React.ReactNode` | — | 상자 오른쪽 끝에 놓이는 24x24 아이콘입니다. |
+| `helperText` | `React.ReactNode` | — | 입력 상자 아래에 표시되는 보조 문구입니다. `error` 면 빨간색과 경고 아이콘이 함께 표시됩니다. |
+| `endIcon` | `React.ReactNode` | — | 상자 오른쪽 끝에 놓이는 24x24 아이콘입니다. |
 | `error` | `boolean` | `false` | 오류 상태입니다. |
 | `disabled` | `boolean` | `false` | 비활성화 상태입니다. |
 | `readOnly` | `boolean` | `false` | 읽기 전용 상태입니다. |

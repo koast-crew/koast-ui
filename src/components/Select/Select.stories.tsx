@@ -10,7 +10,7 @@ const meta: Meta<typeof Select> = {
   args: {
     label: 'Label',
     placeholder: '선택',
-    helpText: 'Help message',
+    helperText: 'Help message',
     size: 'md',
     visibleOptions: 8,
   },
@@ -30,7 +30,7 @@ const meta: Meta<typeof Select> = {
     required: { control: 'boolean', description: '라벨 뒤에 * 가 붙습니다.' },
     label: { control: 'text' },
     placeholder: { control: 'text' },
-    helpText: { control: 'text' },
+    helperText: { control: 'text' },
   },
   decorators: [
     // 드롭다운이 absolute 라 캔버스가 낮으면 아래가 잘립니다. 옵션 8개가 다 보일 높이를 확보합니다.
@@ -80,7 +80,7 @@ export const States: Story = {
     <div className={'story-stack'}>
       <Select {...args} label={'Default'}>{renderOptions()}</Select>
       <Select {...args} label={'Filled'} defaultValue={'Option 02'}>{renderOptions()}</Select>
-      <Select {...args} label={'Error'} error helpText={'필수 항목입니다'}>{renderOptions()}</Select>
+      <Select {...args} label={'Error'} error helperText={'필수 항목입니다'}>{renderOptions()}</Select>
       <Select {...args} label={'Disabled'} disabled>{renderOptions()}</Select>
     </div>
   ),
@@ -101,7 +101,7 @@ export const VisibleOptions: Story = {
 
 /** 라벨과 보조 문구는 생략할 수 있습니다. */
 export const WithoutLabel: Story = {
-  args: { label: undefined, helpText: undefined },
+  args: { label: undefined, helperText: undefined },
   render: (args) => <Select {...args}>{renderOptions()}</Select>,
 };
 

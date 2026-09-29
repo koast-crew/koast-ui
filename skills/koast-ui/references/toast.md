@@ -16,7 +16,6 @@ import { Toast } from '@koast/ui';
 // 본문 오른쪽에 액션을 두는 형태
 <Toast
   status="error"
-  type="action"
   title="전송 실패"
   actionLabel="다시 시도"
   onAction={retry}
@@ -26,7 +25,7 @@ import { Toast } from '@koast/ui';
 </Toast>
 
 // 액션 라벨이 길어 본문 아래로 내리는 형태
-<Toast type="longAction" status="inverse" title="설정이 저장되었습니다" actionLabel="변경 내용 되돌리기" onAction={undo} onClose={dismiss} />
+<Toast actionPlacement="stacked" status="inverse" title="설정이 저장되었습니다" actionLabel="변경 내용 되돌리기" onAction={undo} onClose={dismiss} />
 ```
 
 ## Props
@@ -36,10 +35,10 @@ import { Toast } from '@koast/ui';
 | prop | 타입 | 기본값 | 설명 |
 | :-- | :-- | :-- | :-- |
 | `status` | `ToastStatus` | `'neutral'` | 상태 색을 정합니다. |
-| `type` | `ToastType` | `'text'` | 액션 행의 배치를 정합니다. |
+| `actionPlacement` | `ToastActionPlacement` | `'inline'` | 액션 행의 배치입니다. `actionLabel` 이 있을 때만 쓰입니다. |
 | `title` *(필수)* | `React.ReactNode` | — | 굵은 제목 줄입니다. |
 | `children` | `React.ReactNode` | — | 제목 아래 본문입니다. 없으면 제목만 한 줄로 표시됩니다. |
-| `actionLabel` | `React.ReactNode` | — | 액션 버튼의 라벨입니다. `type` 이 `'action'` · `'longAction'` 일 때만 쓰입니다. |
+| `actionLabel` | `React.ReactNode` | — | 액션 버튼의 라벨입니다. 주면 액션 버튼이 렌더링됩니다. |
 | `onAction` | `() => void` | — | 액션 버튼의 클릭 핸들러입니다. |
 | `onClose` | `() => void` | — | 닫기 버튼의 클릭 핸들러이자 `duration` 이 끝났을 때 호출되는 함수입니다. 없으면 닫기 버튼이 렌더링되지 않습니다. |
 | `closeLabel` | `string` | `'알림 닫기'` | 닫기 버튼의 `aria-label` 입니다. |
@@ -50,7 +49,7 @@ import { Toast } from '@koast/ui';
 
 | 이름 | 값 | 설명 |
 | :-- | :-- | :-- |
-| `ToastType` | `'text' \| 'action' \| 'longAction'` | Figma 의 **Type** 축입니다. text 는 본문만, action 은 본문 오른쪽에 액션 행, longAction 은 본문 아래에 액션 행을 둡니다. (Figma 표기 `Text only` / `Text & Action` / `Text & Long Action`) |
+| `ToastActionPlacement` | `'inline' \| 'stacked'` | 액션 행의 배치입니다. inline 은 본문 오른쪽, stacked 는 본문 아래입니다. (Figma 표기 `Text & Action` / `Text & Long Action`. `Text only` 는 `actionLabel` 을 생략한 경우입니다) |
 | `ToastStatus` | `'brand' \| 'neutral' \| 'info' \| 'success' \| 'warning' \| 'error' \| 'inverse'` | Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 은 각각 neutral / info 로 정리했습니다. |
 
 ## 규칙

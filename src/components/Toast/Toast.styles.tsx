@@ -1,5 +1,5 @@
 import { twMerge } from '../../utils/twMerge';
-import type { ToastStatus, ToastType } from './Toast.types';
+import type { ToastStatus } from './Toast.types';
 
 const ROOT_BASE = 'koast-flex koast-w-full koast-gap-1 koast-rounded-lg koast-p-4';
 
@@ -26,19 +26,18 @@ const SURFACES: Record<ToastStatus, string> = {
 };
 
 /**
- * longAction 만 액션 행이 본문 아래로 내려갑니다.
- * text 는 Figma 상 세로지만 자식이 하나뿐이라 가로여도 결과가 같고, 닫기 버튼만 붙는 경우를 함께 처리합니다.
+ * stacked 만 액션 행이 본문 아래로 내려갑니다.
+ * 액션이 없으면 Figma 상 세로지만 자식이 하나뿐이라 가로여도 결과가 같고, 닫기 버튼만 붙는 경우를 함께 처리합니다.
  */
 export const getToastStyles = (
-  type: ToastType,
+  stacked: boolean,
   status: ToastStatus,
   hasDescription: boolean,
   className: string,
 ) =>
   twMerge(
     ROOT_BASE,
-    // longAction 은 세로 스택이라 가로 정렬 규칙이 필요 없습니다.
-    type === 'longAction'
+    stacked
       ? 'koast-flex-col'
       : `koast-flex-row ${ hasDescription ? ALIGN.withBody : ALIGN.titleOnly }`,
     SURFACES[status],
@@ -62,13 +61,13 @@ export const getToastDescriptionStyles = (status: ToastStatus) =>
   );
 
 /**
- * 액션 버튼과 닫기 버튼을 담는 행입니다. longAction 은 본문 아래 전체 폭에서 오른쪽으로 붙습니다.
+ * 액션 버튼과 닫기 버튼을 담는 행입니다. stacked 는 본문 아래 전체 폭에서 오른쪽으로 붙습니다.
  * 가로 배치에서는 본문 길이와 무관하게 항상 세로 가운데에 옵니다.
  */
-export const getToastButtonGroupStyles = (type: ToastType) =>
+export const getToastButtonGroupStyles = (stacked: boolean) =>
   twMerge(
     'koast-flex koast-items-center koast-gap-2',
-    type === 'longAction' ? 'koast-justify-end' : 'koast-shrink-0 koast-self-center',
+    stacked ? 'koast-justify-end' : 'koast-shrink-0 koast-self-center',
   );
 
 /**

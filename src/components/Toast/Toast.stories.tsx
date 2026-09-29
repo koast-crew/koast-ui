@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toast } from './Toast';
-import type { ToastStatus, ToastType } from './Toast.types';
+import type { ToastActionPlacement, ToastStatus } from './Toast.types';
 
 const meta: Meta<typeof Toast> = {
   title: 'Components/Toast',
@@ -12,7 +12,7 @@ const meta: Meta<typeof Toast> = {
     title: 'Title',
     children: 'Description',
     status: 'neutral',
-    type: 'text',
+    actionPlacement: 'inline',
   },
   argTypes: {
     status: {
@@ -28,10 +28,10 @@ const meta: Meta<typeof Toast> = {
       ],
       description: 'Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 에 대응합니다.',
     },
-    type: {
+    actionPlacement: {
       control: 'radio',
-      options: ['text', 'action', 'longAction'],
-      description: 'Figma 의 **Type** 축입니다. `Text only` / `Text & Action` / `Text & Long Action`.',
+      options: ['inline', 'stacked'],
+      description: '액션 행의 배치입니다. Figma **Type** 축의 `Text & Action` / `Text & Long Action` 에 대응합니다. `actionLabel` 이 있을 때만 쓰입니다.',
     },
     title: { control: 'text' },
     children: { control: 'text' },
@@ -54,7 +54,12 @@ const STATUSES: ToastStatus[] = [
   'error',
   'inverse',
 ];
-const TYPES: ToastType[] = ['text', 'action', 'longAction'];
+/** Figma **Type** 축 세 값입니다. `Text only` 는 `actionLabel` 을 생략한 경우입니다. */
+const TYPES: { name: string; placement?: ToastActionPlacement; actionLabel?: string }[] = [
+  { name: 'Text only' },
+  { name: 'inline', placement: 'inline', actionLabel: 'Action' },
+  { name: 'stacked', placement: 'stacked', actionLabel: '변경 내용 되돌리기' },
+];
 
 /** 기본값입니다. Figma 의 `Type=Text only, Status=Netural` 에 해당합니다. */
 export const Default: Story = {
@@ -78,19 +83,19 @@ export const Statuses: Story = {
   ),
 };
 
-/** **Type** 축입니다. action 은 본문 오른쪽, longAction 은 본문 아래에 액션 행이 붙습니다. */
+/** Figma **Type** 축입니다. `actionLabel` 이 있으면 액션이 붙고, `actionPlacement` 가 inline 이면 본문 오른쪽, stacked 면 본문 아래입니다. */
 export const Types: Story = {
   render: (args) => (
     <div className={'story-stack'}>
       {TYPES.map((type) => (
-        <div key={type} className={'story-stack'}>
-          <span className={'story-label'}>{type}</span>
+        <div key={type.name} className={'story-stack'}>
+          <span className={'story-label'}>{type.name}</span>
           <div className={'koast-w-[360px]'}>
             <Toast
               {...args}
-              type={type}
+              actionPlacement={type.placement}
               status={'info'}
-              actionLabel={type === 'longAction' ? '변경 내용 되돌리기' : 'Action'}
+              actionLabel={type.actionLabel}
               onAction={() => {}}
               onClose={() => {}}
             />
@@ -98,7 +103,7 @@ export const Types: Story = {
         </div>
       ))}
       <span className={'story-note'}>
-        {'Figma 의 Text only 에는 닫기 버튼이 없지만, 구현에서는 Type 과 무관하게 onClose 로 켭니다.'}
+        {'Figma 의 Text only 에는 닫기 버튼이 없지만, 구현에서는 액션 유무와 무관하게 onClose 로 켭니다.'}
       </span>
     </div>
   ),
@@ -109,13 +114,13 @@ export const Inverse: Story = {
   render: (args) => (
     <div className={'story-stack'}>
       {TYPES.map((type) => (
-        <div key={type} className={'koast-w-[360px]'}>
+        <div key={type.name} className={'koast-w-[360px]'}>
           <Toast
             {...args}
-            type={type}
+            actionPlacement={type.placement}
             status={'inverse'}
-            title={type}
-            actionLabel={'Action'}
+            title={type.name}
+            actionLabel={type.actionLabel}
             onAction={() => {}}
             onClose={() => {}}
           />
@@ -141,7 +146,6 @@ export const AutoDismiss: Story = {
                 <Toast
                   {...args}
                   status={'success'}
-                  type={'action'}
                   title={'업로드 완료'}
                   actionLabel={'보기'}
                   onAction={() => {}}

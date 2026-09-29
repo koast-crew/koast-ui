@@ -57,7 +57,7 @@ export type { TabsProps, TabItemProps } from './components/Tabs';
 export type { TextAreaProps } from './components/TextArea';
 export type { TextFieldProps, TextFieldSize, TextFieldType } from './components/TextField';
 export type { DateToStringFunc, TimeLineProps, TimeLineMode, TimeLineInterval, TimeLineOnChangeProps, TimeUnit } from './components/TimeLine';
-export type { ToastProps, ToastStatus, ToastType } from './components/Toast';
+export type { ToastProps, ToastStatus, ToastActionPlacement } from './components/Toast';
 export type { TooltipProps, TooltipAlign, TooltipPlacement, TooltipVariant } from './components/Tooltip';
 export type { TreeProps, TreeNode, TreeIcons } from './components/Tree';
 

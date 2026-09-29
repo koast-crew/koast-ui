@@ -1,11 +1,10 @@
 import React from 'react';
 
 /**
- * Figma 의 **Type** 축입니다.
- * text 는 본문만, action 은 본문 오른쪽에 액션 행, longAction 은 본문 아래에 액션 행을 둡니다.
- * (Figma 표기 `Text only` / `Text & Action` / `Text & Long Action`)
+ * 액션 행의 배치입니다. inline 은 본문 오른쪽, stacked 는 본문 아래입니다.
+ * (Figma 표기 `Text & Action` / `Text & Long Action`. `Text only` 는 `actionLabel` 을 생략한 경우입니다)
  */
-export type ToastType = 'text' | 'action' | 'longAction';
+export type ToastActionPlacement = 'inline' | 'stacked';
 
 /** Figma 의 **Status** 축입니다. Figma 표기 `Netural` / `Information` 은 각각 neutral / info 로 정리했습니다. */
 export type ToastStatus
@@ -21,8 +20,8 @@ export interface ToastProps {
   /** 상태 색을 정합니다. @default 'neutral' */
   status?: ToastStatus;
 
-  /** 액션 행의 배치를 정합니다. @default 'text' */
-  type?: ToastType;
+  /** 액션 행의 배치입니다. `actionLabel` 이 있을 때만 쓰입니다. @default 'inline' */
+  actionPlacement?: ToastActionPlacement;
 
   /** 굵은 제목 줄입니다. */
   title: React.ReactNode;
@@ -30,7 +29,7 @@ export interface ToastProps {
   /** 제목 아래 본문입니다. 없으면 제목만 한 줄로 표시됩니다. */
   children?: React.ReactNode;
 
-  /** 액션 버튼의 라벨입니다. `type` 이 `'action'` · `'longAction'` 일 때만 쓰입니다. */
+  /** 액션 버튼의 라벨입니다. 주면 액션 버튼이 렌더링됩니다. */
   actionLabel?: React.ReactNode;
 
   /** 액션 버튼의 클릭 핸들러입니다. */

@@ -20,10 +20,10 @@ const ASSERTIVE_STATUSES: readonly ToastStatus[] = ['warning', 'error'];
  * 화면 배치(하단 고정·스택·애니메이션)는 이 컴포넌트가 하지 않고 감싸는 쪽이 정합니다.
  *
  * @param {'brand' | 'neutral' | 'info' | 'success' | 'warning' | 'error' | 'inverse'} [props.status='neutral'] - 상태 색 : 'brand' | 'neutral' | 'info' | 'success' | 'warning' | 'error' | 'inverse'
- * @param {'text' | 'action' | 'longAction'} [props.type='text'] - 액션 행 배치. action 은 본문 오른쪽, longAction 은 본문 아래 : 'text' | 'action' | 'longAction'
+ * @param {'inline' | 'stacked'} [props.actionPlacement='inline'] - 액션 행 배치. inline 은 본문 오른쪽, stacked 는 본문 아래. actionLabel 이 있을 때만 쓰임 : 'inline' | 'stacked'
  * @param {React.ReactNode} props.title - 굵은 제목 줄 : React.ReactNode
  * @param {React.ReactNode} [props.children] - 제목 아래 본문 : React.ReactNode
- * @param {React.ReactNode} [props.actionLabel] - 액션 버튼 라벨 : React.ReactNode
+ * @param {React.ReactNode} [props.actionLabel] - 액션 버튼 라벨. 주면 액션 버튼이 렌더링됨 : React.ReactNode
  * @param {() => void} [props.onAction] - 액션 버튼 클릭 핸들러 : () => void
  * @param {() => void} [props.onClose] - 닫기 버튼 클릭 · 자동 닫힘 핸들러. 없으면 닫기 버튼이 렌더링되지 않음 : () => void
  * @param {string} [props.closeLabel='알림 닫기'] - 닫기 버튼의 aria-label : string
@@ -39,7 +39,6 @@ const ASSERTIVE_STATUSES: readonly ToastStatus[] = ['warning', 'error'];
  * // 본문 오른쪽에 액션을 두는 형태
  * <Toast
  *   status="error"
- *   type="action"
  *   title="전송 실패"
  *   actionLabel="다시 시도"
  *   onAction={retry}
@@ -49,12 +48,12 @@ const ASSERTIVE_STATUSES: readonly ToastStatus[] = ['warning', 'error'];
  * </Toast>
  *
  * // 액션 라벨이 길어 본문 아래로 내리는 형태
- * <Toast type="longAction" status="inverse" title="설정이 저장되었습니다" actionLabel="변경 내용 되돌리기" onAction={undo} onClose={dismiss} />
+ * <Toast actionPlacement="stacked" status="inverse" title="설정이 저장되었습니다" actionLabel="변경 내용 되돌리기" onAction={undo} onClose={dismiss} />
  * ```
  */
 export const Toast = ({
   status = 'neutral',
-  type = 'text',
+  actionPlacement = 'inline',
   title,
   children,
   actionLabel,
@@ -97,14 +96,15 @@ export const Toast = ({
     };
   }, [duration, paused]);
 
-  const hasAction = type !== 'text' && actionLabel !== undefined && actionLabel !== null;
+  const hasAction = actionLabel !== undefined && actionLabel !== null;
+  const stacked = hasAction && actionPlacement === 'stacked';
   const showButtonGroup = hasAction || Boolean(onClose);
   const assertive = ASSERTIVE_STATUSES.includes(status);
   const hasDescription = children !== undefined && children !== null;
 
   return (
     <div
-      className={getToastStyles(type, status, hasDescription, className)}
+      className={getToastStyles(stacked, status, hasDescription, className)}
       role={assertive ? 'alert' : 'status'}
       aria-live={assertive ? 'assertive' : 'polite'}
       aria-atomic={'true'}
@@ -120,7 +120,7 @@ export const Toast = ({
         )}
       </div>
       {showButtonGroup && (
-        <div className={getToastButtonGroupStyles(type)}>
+        <div className={getToastButtonGroupStyles(stacked)}>
           {hasAction && (
             <button
               type={'button'}

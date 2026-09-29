@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.1.0] - 2026-09-29
+
+### Changed
+
+- `Checkbox` 모서리 2px, `TextArea` 보조 문구 14px
+- **(breaking)** `FolderTree` → `Tree`. `data` → `defaultData`, `type` 은 `group` · `item`, `onSelectedChange` → `onSelect`, `indentPixels` · `initOpenStatus` 제거
+- `Tree` 드래그 이동 위치 표시, group 이 항상 item 앞에 오도록 고정
+- **(breaking)** `TimeLine` 배속 기능(`speeds` · `speed` · `onSpeedChange`) 제거. `animationSpeed` → `stepInterval`, `type` → `mode`, `initialDate` → `defaultDate`, `onChange` 의 `step` → `index`
+- **(breaking)** `Table` 의 `isLoading` · `isError` → `loading` · `error`
+- **(breaking)** `Toast` 의 `type` → `actionPlacement`. 액션 버튼은 `actionLabel` 이 있을 때 표시
+- **(breaking)** `Badge` 의 `type` → `shape`, `status="information"` → `"info"`
+- **(breaking)** `Label` 의 `type` → `indicator`, `Switch` 의 `icon` → `showIcon`
+- **(breaking)** `Spinner` 의 `label` → `aria-label`, `variant` → `color`
+- **(breaking)** `Select` · `TextField` · `TextArea` 의 `helpText` → `helperText`, `TextField` 의 `trailingIcon` → `endIcon`
+- **(breaking)** `Progressbar` · `Slider` 의 `ariaLabel` → `aria-label`
+- **(breaking)** `Modal` 의 `showCloseButton` → `closable`, `MapLegend` 의 `visible` → `open`
+- **(breaking)** `Alert` · `StatusChip` 의 `variant="filled"` → `"contained"`
+- **(breaking)** 타입 이름 변경: `SpinnerVariant` → `SpinnerColor`, `BadgeType` → `BadgeShape`, `LabelType` → `LabelIndicator`, `ToastType` → `ToastActionPlacement`, `TimeLineType` → `TimeLineMode`. `ProgressbarTone` · `TimeLineLayout` 은 내보내지 않음
+
+### Fixed
+
+- `Tree` 의 `onSelect` 에 인라인 콜백을 넘기면 무한 렌더되던 문제
+- `Tree` 이름 편집을 Escape 로 취소해도 저장되던 문제, 삭제·이동 뒤 선택이 다른 노드로 옮겨 가던 문제
+
+### Added
+
+- `Tree` 에 `onNodeAdd` · `onNodeRename` · `onNodeDelete` · `onNodeMove` · `icons` 추가
+
 ## [1.0.28] - 2026-09-29
 
 ### Added
